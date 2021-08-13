@@ -26,6 +26,11 @@ class Phone extends Model
         return $this->belongsTo(Catalogue::class);
     }
 
+    public function type()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class);

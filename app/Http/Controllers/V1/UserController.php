@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Exceptions\ExampleException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Files\DestroysFileRequest;
-use App\Http\Requests\V1\Files\DownloadFileRequest;
 use App\Http\Requests\V1\Files\IndexFileRequest;
 use App\Http\Requests\V1\Files\UpdateFileRequest;
 use App\Http\Requests\V1\Files\UploadFileRequest;
@@ -19,9 +17,9 @@ use App\Http\Resources\V1\Users\UserCollection;
 use App\Http\Resources\V1\Users\UserResource;
 use App\Models\Catalogue;
 use App\Models\File;
-use App\Models\Image;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -89,7 +87,7 @@ class UserController extends Controller
         return (new UserResource($user))
             ->additional([
                 'msg' => [
-                    'summary' => 'Usuario Modificado',
+                    'summary' => 'Usuario Creado',
                     'detail' => '',
                     'code' => '200'
                 ]
@@ -143,7 +141,7 @@ class UserController extends Controller
         return (new UserResource($user))
             ->additional([
                 'msg' => [
-                    'summary' => 'Usuario Modificado',
+                    'summary' => 'Usuario Actualizado',
                     'detail' => '',
                     'code' => '200'
                 ]
@@ -154,10 +152,19 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\User $user
-     * @return UserResource
+     * @return UserResource|\Illuminate\Http\JsonResponse
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
+        if ($request->user()->id === $user->id) {
+            return response()->json([
+                'msg' => [
+                    'summary' => 'No se puede eliminar',
+                    'detail' => 'No puede eliminar el usuario logueado',
+                    'code' => '400'
+                ],
+            ], 400);
+        }
         $user->delete();
         return (new UserResource($user))
             ->additional([
@@ -171,6 +178,16 @@ class UserController extends Controller
 
     public function destroys(DestroysUserRequest $request)
     {
+        if (in_array($request->user()->id, $request->ids)) {
+            return response()->json([
+                'msg' => [
+                    'summary' => 'No se pudeo eliminar',
+                    'detail' => 'El usuario se encuentra logueado',
+                    'code' => '400'
+                ],
+            ], 400);
+        }
+
         $users = User::whereIn('id', $request->input('ids'))->get();
         User::destroy($request->input('ids'));
 

@@ -25,11 +25,11 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'identificationType' => ['required'],
-            'username' => ['required', 'max:100'],
-            'name' => ['required', 'min:2', 'max:100'],
-            'lastname' => ['required', 'min:2', 'max:50'],
-            'email' => ['required', 'max:50', 'email'],
-            'password' => ['required', 'min:6', 'max:16', 'confirmed'],
+            'username' => ['required', 'max:20'],
+            'name' => ['required', 'max:100'],
+            'lastname' => ['required', 'max:100'],
+            'email' => ['required', 'max:100', 'email'],
+            'password' => ['required', 'min:8', 'max:16'],
         ];
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\LocationController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,8 @@ Route::prefix('auth')->group(function () {
     Route::post('user-unlock', [AuthController::class, 'userUnlock']);
     Route::post('email-verified', [AuthController::class, 'emailVerified']);
 });
+
+Route::apiResource('locations', LocationController::class);
 
 Route::get('init', function () {
     if (env('APP_ENV') != 'local') {

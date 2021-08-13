@@ -3,8 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\FileController;
+use App\Http\Controllers\V1\CatalogueController;
 
 Route::apiResource('users', UserController::class);
+
+Route::apiResource('catalogues', CatalogueController::class);
 
 Route::apiResource('files', FileController::class)->except(['index', 'store']);
 
