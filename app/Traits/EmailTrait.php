@@ -10,7 +10,8 @@ trait EmailTrait
     {
         if ($emails) {
             foreach ($emails as $email) {
-                $newEmail = $email['id'] ? $this->emails()->find($email['id']) : new Email();
+//                $newEmail = $email['id'] ? $this->emails()->find($email['id']) : new Email();
+                $newEmail = new Email();
                 $newEmail->emailable()->associate($this);
                 $newEmail->email = $email['email'];
                 $newEmail->save();

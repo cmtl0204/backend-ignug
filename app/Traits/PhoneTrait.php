@@ -12,7 +12,8 @@ trait PhoneTrait
     {
         if ($phones) {
             foreach ($phones as $phone) {
-                $newPhone = $phone['id'] ? $this->phones()->find($phone['id']) : new Phone();
+//                $newPhone = $phone['id'] ? $this->phones()->find($phone['id']) : new Phone();
+                $newPhone = new Phone();
                 $newPhone->phoneable()->associate($this);
                 $newPhone->operator()->associate(Catalogue::find($phone['operator']['id']));
                 $newPhone->type()->associate(Catalogue::find($phone['type']['id']));
