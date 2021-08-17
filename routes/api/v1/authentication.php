@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\PermissionController;
+use App\Http\Controllers\V1\MenuController;
+Route::apiResource('menus', MenuController::class);
 
 Route::prefix('auth')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);

@@ -25,6 +25,5 @@ class PermissionController extends Controller
             $role = Role::find($role['id']);
             $permission->removeRole($role);
         }
-
     }
 }

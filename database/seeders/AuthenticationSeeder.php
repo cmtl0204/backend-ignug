@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Catalogue;
 use App\Models\Email;
 use App\Models\Location;
+use App\Models\Menu;
 use App\Models\Phone;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -21,6 +22,8 @@ class AuthenticationSeeder extends Seeder
      */
     public function run()
     {
+        $this->createMenus();
+
         $this->createLocationCatalogues();
         $this->createIdentificationTypeCatalogues();
         $this->createSexCatalogues();
@@ -40,6 +43,14 @@ class AuthenticationSeeder extends Seeder
         $this->assignRolePermissions();
         $this->assignUserRoles();
 
+    }
+
+    private function createMenus()
+    {
+        $menus = Menu::factory(4)->create(['router_link' => null]);
+        foreach ($menus as $menu) {
+            $menuTests = Menu::factory(5)->create(['parent_id' => $menu->id]);
+        }
     }
 
     private function createUsers()
@@ -95,15 +106,14 @@ class AuthenticationSeeder extends Seeder
 
     private function createPermissions()
     {
-        Permission::create(['name' => 'view-users']);
-        Permission::create(['name' => 'store-users']);
-        Permission::create(['name' => 'update-users']);
+        Permission::create(['name' => 'read-users']);
+        Permission::create(['name' => 'write-users']);
         Permission::create(['name' => 'delete-users']);
 
         Permission::create(['name' => 'download-files']);
         Permission::create(['name' => 'upload-files']);
-        Permission::create(['name' => 'view-files']);
-        Permission::create(['name' => 'update-files']);
+        Permission::create(['name' => 'read-files']);
+        Permission::create(['name' => 'write-files']);
         Permission::create(['name' => 'delete-files']);
     }
 

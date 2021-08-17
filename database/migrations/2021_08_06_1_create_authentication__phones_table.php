@@ -16,11 +16,28 @@ class CreateAuthenticationPhonesTable extends Migration
         Schema::connection(env('DB_CONNECTION'))->create('phones', function (Blueprint $table) {
             $table->id();
             $table->morphs('phoneable');
-            $table->foreignId('operator_id')->nullable()->constrained('authentication.catalogues');
-            $table->foreignId('type_id')->nullable()->constrained('authentication.catalogues');
-            $table->foreignId('location_id')->nullable()->constrained('authentication.locations');
+
+            $table->foreignId('operator_id')
+                ->nullable()
+                ->constrained('authentication.catalogues')
+                ->comment('CNT, MOVISTAR, CLARO');
+
+            $table->foreignId('location_id')
+                ->nullable()
+                ->constrained('authentication.locations')
+                ->comment('Para obtener el codido de pais');
+
+            $table->foreignId('type_id')
+                ->nullable()
+                ->constrained('authentication.catalogues')
+                ->comment('Celular, convencional, fax');
+
+            $table->boolean('main')
+                ->default(false)
+                ->comment('Para saber si es el telefono principal');
+
             $table->string('number');
-            $table->boolean('main');
+
             $table->softDeletes();
             $table->timestamps();
         });
