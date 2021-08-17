@@ -7,7 +7,7 @@ use Throwable;
 
 class ModelNotFound extends Exception
 {
-    public static function render($request)
+    public static function render()
     {
         return response()->json([
             'data' => null,

@@ -113,6 +113,15 @@ class Handler extends ExceptionHandler
                 ]], 400);
         }
 
+        if ($e instanceof ModelNotFound) {
+            return response()->json([
+                'data' => '',
+                'msg' => [
+                    'summary' => 'Error en la consulta',
+                    'detail' => 'Comunicate con el administrador',
+                    'code' => $e->getCode()
+                ]], 404);
+        }
         if ($e instanceof ModelNotFoundException) {
             return response()->json([
                 'data' => $e->getModel(),
@@ -149,6 +158,6 @@ class Handler extends ExceptionHandler
                 'summary' => $e->getMessage(),
                 'detail' => 'Comunicate con el administrador',
                 'code' => $e->getCode()
-            ]], 500);
+            ]], 501);
     }
 }

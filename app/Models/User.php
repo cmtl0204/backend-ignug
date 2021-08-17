@@ -126,7 +126,6 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         $this->attributes['password'] = Hash::make($value);
     }
 
-
     // Scopes
     public function scopeUsername($query, $username)
     {
@@ -161,6 +160,15 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
                 }
             }
             return $query;
+        }
+    }
+
+    public function scopeCustomSelect($query, $fields)
+    {
+        if (!empty($fields)) {
+            $fields = explode(',', $fields);
+            array_unshift($fields, 'id');
+            return $query->select($fields);
         }
     }
 }

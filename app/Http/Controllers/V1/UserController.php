@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $users = User::customOrderBy($sorts)
+        $users = User::customSelect($request->fields)->customOrderBy($sorts)
             ->name($request->input('name'))
             ->lastname($request->input('lastname'))
             ->paginate();
@@ -78,6 +78,7 @@ class UserController extends Controller
         $user->lastname = $request->input('lastname');
         $user->birthdate = $request->input('birthdate');
         $user->email = $request->input('email');
+
         DB::transaction(function () use ($request, $user) {
             $user->save();
             $user->addPhones($request->input('phones'));
