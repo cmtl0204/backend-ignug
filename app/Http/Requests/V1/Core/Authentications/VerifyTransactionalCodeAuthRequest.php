@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Locations;
+namespace App\Http\Requests\V1\Core\Authentications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexLocationRequest extends FormRequest
+class VerifyTransactionalCodeAuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,7 @@ class IndexLocationRequest extends FormRequest
     public function rules()
     {
         return [
-
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-
+            //
         ];
     }
 }

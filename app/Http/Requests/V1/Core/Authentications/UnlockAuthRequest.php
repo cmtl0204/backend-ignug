@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Authentications;
+namespace App\Http\Requests\V1\Core\Authentications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResetPasswordAuthRequest extends FormRequest
+class UnlockAuthRequest extends FormRequest
 {
-
     public function authorize()
     {
         return true;
@@ -20,8 +19,8 @@ class ResetPasswordAuthRequest extends FormRequest
             ],
             'password' => [
                 'required',
-                'min:8',
-                'max:30'
+                'min:6',
+                'max:50'
             ],
             'password_confirmation' => [
                 'required',

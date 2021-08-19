@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Files;
+namespace App\Http\Requests\V1\Core\Authentications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysFileRequest extends FormRequest
+class UserUnlockAuthRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,16 +14,15 @@ class DestroysFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'ids' => [
-                'required'
-            ]
+            'username' => ['required']
         ];
     }
 
     public function attributes()
     {
-        return [
-            'ids' => 'IDs'
+       return  [
+            'username' => 'usuario'
         ];
+
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Authentications;
+namespace App\Http\Requests\V1\Core\Images;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GenerateTransactionalCodeAuthRequest extends FormRequest
+class DownloadImageRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,14 +14,16 @@ class GenerateTransactionalCodeAuthRequest extends FormRequest
     public function rules()
     {
         return [
-
+            'full_path' => [
+                'required',
+            ],
         ];
     }
 
     public function attributes()
     {
-       return  [
-
+       return [
+            'full_path' => 'ruta completa',
         ];
     }
 }
