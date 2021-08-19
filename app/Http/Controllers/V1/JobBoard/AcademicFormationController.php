@@ -6,6 +6,7 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 
 // Models
+use App\Http\Resources\V1\JobBoard\AcademicFormationCollection;
 use App\Models\JobBoard\AcademicFormation;
 use App\Models\JobBoard\Category;
 use App\Models\JobBoard\Professional;
@@ -18,6 +19,24 @@ use Illuminate\Support\Facades\Request;
 
 class AcademicFormationController extends Controller
 {
+    public function index(IndexAcademicFormationRequest $request)
+    {
+        $sorts = explode(',', $request->sort);
+
+        $academicFormations = AcademicFormation::customSelect($request->fields)->customOrderBy($sorts)
+            ->name($request->input('name'))
+            ->lastname($request->input('lastname'))
+            ->paginate();
+
+        return (new AcademicFormationCollection($academicFormations))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
 
     function show(AcademicFormation $academicFormation)
     {
