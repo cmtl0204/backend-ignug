@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\Catalogues;
+namespace App\Http\Resources\V1\Core\Catalogues;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
