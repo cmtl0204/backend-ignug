@@ -30,7 +30,8 @@ class AcademicFormationController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $academicFormations = $professional->academicFormation()->customOrderBy($sorts)
+        $academicFormations = $professional->academicFormation()
+            ->customOrderBy($sorts)
             ->senescytCode($request->input('name'))
             ->paginate($request->perPage);
 

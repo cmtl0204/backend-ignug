@@ -54,7 +54,7 @@ Route::prefix('file/{file}')->group(function () {
 /***********************************************************************************************************************
  * ACADEMIC FORMATIONS
  **********************************************************************************************************************/
-Route::apiResource('academic-formations', AcademicFormationController::class);
+Route::apiResource('professionals.academic-formations', AcademicFormationController::class);
 
 Route::prefix('academic-formations')->group(function () {
     Route::patch('destroys', [AcademicFormationController::class, 'destroys']);

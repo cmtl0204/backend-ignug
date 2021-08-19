@@ -6,7 +6,13 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 
 // Models
+use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
+use App\Http\Requests\V1\JobBoard\Course\DestroysCourseRequest;
+use App\Http\Resources\V1\JobBoard\CourseCollection;
+use App\Http\Resources\V1\JobBoard\CourseResource;
 use App\Models\Core\Catalogue;
+use App\Models\Core\File;
+use App\Models\JobBoard\AcademicFormation;
 use App\Models\JobBoard\Professional;
 use App\Models\JobBoard\Course;
 
@@ -26,187 +32,163 @@ use Illuminate\Support\Facades\Request;
 
 class CourseController extends Controller
 {
-
-    // Devuelve un array de objetos y paginados
-    function index(IndexCourseRequest $request)
+    function index(IndexCourseRequest $request, Professional $professional)
     {
-        // Crea una instanacia del modelo Professional para poder consultar en el modelo course.
-        $professional = $request->user()->professional()->first();
-        if (!$professional) {
-            return response()->json([
-                'data' => null,
+        $sorts = explode(',', $request->sort);
+
+        $courses = $professional->courses()
+            ->customOrderBy($sorts)
+            ->description($request->input('description'))
+            ->name($request->input('name'))
+            ->paginate($request->perPage);
+
+        return (new CourseCollection($courses))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraró al profesional',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-
-        if ($request->has('search')) {
-            $courses = $professional->courses()
-                ->description($request->input('search'))
-                ->name($request->input('search'))
-                ->paginate($request->input('per_page'));
-        } else {
-            $courses = $professional->courses()->paginate($request->input('per_page'));
-        }
-
-        if ($courses->count() === 0) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'No se encontraron Cursos',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-
-        return response()->json($courses, 200);
+            ]);
     }
 
-    // Devuelve un solo objeto//
-    function show(Course $course)
+    function store(StoreCourseRequest $request, Professional $professional)
     {
-        return response()->json([
-            'data' => $course,
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ], 200);
-    }
-
-    //Almacena los  Datos creado del curso envia//
-    function store(StoreCourseRequest $request)
-    {
-        $professional = $request->user()->professional()->first();
-        if (!$professional) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'No se encontraró al profesional',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-
-        // Crea una instanacia del modelo Catalogue para poder insertar en el modelo course.
-        $type = Catalogue::find($request->input('course.type.id'));
-        $institution = Catalogue::find($request->input('course.institution.id'));
-        $certification_type = Catalogue::find($request->input('course.certification_type.id'));
-        $area = Catalogue::find($request->input('course.area.id'));
+        $type = Catalogue::find($request->input('type.id'));
+        $institution = Catalogue::find($request->input('institution.id'));
+        $certification_type = Catalogue::find($request->input('certification_type.id'));
+        $area = Catalogue::find($request->input('area.id'));
 
         $course = new Course();
-        $course->name = $request->input('course.name');
-        $course->description = $request->input('course.description');
-        $course->start_date = $request->input('course.start_date');
-        //  $course->end_date = $this->calculateEndCourse($request->input('course.end_date'));
-
-        //   $course->start_date = $request->input('course.start_date');
-        $course->end_date = $request->input('course.end_date');
-
-        $course->hours = $request->input('course.hours');
         $course->professional()->associate($professional);
         $course->institution()->associate($institution);
         $course->type()->associate($type);
         $course->certification_type()->associate($certification_type);
         $course->area()->associate($area);
+
+        $course->name = $request->input('name');
+        $course->description = $request->input('description');
+        $course->start_date = $request->input('start_date');
+        $course->end_date = $request->input('end_date');
+        $course->hours = $request->input('hours');
+
         $course->save();
 
-        return response()->json([
-            'data' => $course,
-            'msg' => [
-                'summary' => 'Curso creado',
-                'detail' => 'El registro fue creado',
-                'code' => '201'
-            ]
-        ], 201);
+        rreturn (new CourseResource($course))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    //Actualiza los datos del curso creado//
+    function show(Course $course)
+    {
+        return (new CourseResource($course))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
     function update(UpdateCourseRequest $request, Course $course)
     {
-        $type = Catalogue::find($request->input('course.type.id'));
-        $institution = Catalogue::find($request->input('course.institution.id'));
-        $certification_type = Catalogue::find($request->input('course.certification_type.id'));
-        $area = Catalogue::find($request->input('course.area.id'));
+        $type = Catalogue::find($request->input('type.id'));
+        $institution = Catalogue::find($request->input('institution.id'));
+        $certification_type = Catalogue::find($request->input('certification_type.id'));
+        $area = Catalogue::find($request->input('area.id'));
 
-        //$course = Course::find($courseId);
-
-        // Valida que exista el registro, si no encuentra el registro en la base devuelve un mensaje de error
-        if (!$course) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Curso no encontrado',
-                    'detail' => 'Vuelva a intentar',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-
-        $course->name = $request->input('course.name');
-        $course->description = $request->input('course.description');
-        $course->start_date = $request->input('course.start_date');
-        $course->end_date = $request->input('course.end_date');
-        $course->hours = $request->input('course.hours');
         $course->institution()->associate($institution);
         $course->type()->associate($type);
         $course->certification_type()->associate($certification_type);
         $course->area()->associate($area);
+
+        $course->name = $request->input('name');
+        $course->description = $request->input('description');
+        $course->start_date = $request->input('startDate');
+        $course->end_date = $request->input('endDate');
+        $course->hours = $request->input('hours');
         $course->save();
 
-        return response()->json([
-            'data' => $course,
-            'msg' => [
-                'summary' => 'Curso actualizado',
-                'detail' => 'El registro fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new CourseResource($course))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    //Elimina los datos del curso//
-    function delete(DeleteCourseRequest $request)
+    public function destroy(Course $course)
     {
+        $course->delete();
+        return (new AcademicFormationResource($course))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
+    }
 
-        // Es una eliminación lógica
+    public function destroys(DestroysCourseRequest $request)
+    {
+        $courses = Course::whereIn('id', $request->input('ids'))->get();
         Course::destroy($request->input('ids'));
 
-
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Curso eliminado',
-                'detail' => 'El registro fue eliminado',
-                'code' => '201'
-            ]], 201);
+        return (new CourseResource($courses))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
-
-    function deleteFile($fileId)
+    /***********************************************************************************************************************
+     * FILES
+     **********************************************************************************************************************/
+    public function indexFiles(IndexFileRequest $request, Course $course)
     {
-        return (new FileController())->delete($fileId);
+        return $course->indexFiles($request);
     }
 
-    function uploadFiles(UploadFileRequest $request)
+    public function uploadFile(UploadFileRequest $request, Course $course)
     {
-        return (new FileController())->upload($request, Course::getInstance($request->input('id')));
+        return $course->uploadFile($request);
     }
 
-    function indexFile(IndexFileRequest $request)
+    public function downloadFile(Course $course, File $file)
     {
-        return (new FileController())->index($request, Course::getInstance($request->input('id')));
+        return $course->downloadFile($file);
     }
 
-    function ShowFile($fileId)
+    public function showFile(Course $course, File $file)
     {
-        return (new FileController())->show($fileId);
+        return $course->showFile($file);
     }
 
+    public function updateFile(UpdateFileRequest $request, Course $course, File $file)
+    {
+        return $course->updateFile($request, $file);
+    }
+
+    public function destroyFile(Course $course, File $file)
+    {
+        return $course->destroyFile($file);
+    }
+
+    public function destroyFiles(Course $course, DestroysFileRequest $request)
+    {
+        return $course->destroyFiles($request);
+    }
 }
 
 
