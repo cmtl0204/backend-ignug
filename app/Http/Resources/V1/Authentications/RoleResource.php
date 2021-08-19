@@ -3,7 +3,6 @@
 namespace App\Http\Resources\V1\Authentications;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Spatie\Permission\Models\Permission;
 
 class RoleResource extends JsonResource
 {

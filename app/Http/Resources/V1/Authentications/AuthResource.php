@@ -2,9 +2,6 @@
 
 namespace App\Http\Resources\V1\Authentications;
 
-use App\Http\Resources\V1\Catalogues\CatalogueResource;
-use App\Http\Resources\V1\Users\EmailResource;
-use App\Http\Resources\V1\Users\PhoneResource;
 use App\Http\Resources\V1\Users\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 

@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\V1;
+namespace App\Http\Controllers\V1\Core;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Files\DestroysFileRequest;
 use App\Http\Resources\V1\Authentications\FileCollection;
 use App\Http\Resources\V1\Authentications\FileResource;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\V1\Files\DownloadFileRequest;
 use App\Http\Requests\V1\Files\UpdateFileRequest;
-use App\Http\Requests\V1\Files\UploadFileRequest;
-use App\Http\Requests\V1\Files\IndexFileRequest;
-use App\Models\File;
+use App\Models\Core\File;
 
 class FileController extends Controller
 {

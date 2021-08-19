@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\V1\UserController;
-use App\Http\Controllers\V1\FileController;
-use App\Http\Controllers\V1\CatalogueController;
+use App\Http\Controllers\V1\Core\UserController;
+use App\Http\Controllers\V1\Core\FileController;
+use App\Http\Controllers\V1\Core\CatalogueController;
 
 Route::apiResource('users', UserController::class);
 

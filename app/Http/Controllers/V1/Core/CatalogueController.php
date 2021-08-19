@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\V1;
+namespace App\Http\Controllers\V1\Core;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Catalogues\IndexCatalogueRequest;
 use App\Http\Resources\V1\Catalogues\CatalogueCollection;
-use App\Models\Catalogue;
+use App\Models\Core\Catalogue;
 
 class CatalogueController extends Controller
 {
