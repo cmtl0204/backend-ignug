@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\V1\Core;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Images\DownloadImageRequest;
-use App\Http\Requests\V1\Images\IndexImageRequest;
+use App\Http\Requests\V1\Core\Images\DownloadImageRequest;
+use App\Http\Requests\V1\Core\Images\IndexImageRequest;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as InterventionImage;
-use App\Http\Requests\V1\Images\UpdateImageRequest;
-use App\Http\Requests\V1\Images\UploadImageRequest;
+use App\Http\Requests\V1\Core\Images\UpdateImageRequest;
+use App\Http\Requests\V1\Core\Images\UploadImageRequest;
 use App\Models\Core\Image;
 
 class ImageController extends Controller
