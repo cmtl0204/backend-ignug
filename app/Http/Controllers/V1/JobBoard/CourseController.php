@@ -6,31 +6,27 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 
 // Models
-use App\Models\App\Catalogue;
+use App\Models\Core\Catalogue;
 use App\Models\JobBoard\Professional;
 use App\Models\JobBoard\Course;
 
 // FormRequest
-use App\Http\Requests\JobBoard\Course\IndexCourseRequest;
-use App\Http\Requests\JobBoard\Course\CreateCourseRequest;
-use App\Http\Requests\JobBoard\Course\UpdateCourseRequest;
-use App\Http\Requests\JobBoard\Course\StoreCourseRequest;
-use App\Http\Requests\JobBoard\Course\DeleteCourseRequest;
+use App\Http\Requests\V1\JobBoard\Course\IndexCourseRequest;
+use App\Http\Requests\V1\JobBoard\Course\CreateCourseRequest;
+use App\Http\Requests\V1\JobBoard\Course\UpdateCourseRequest;
+use App\Http\Requests\V1\JobBoard\Course\StoreCourseRequest;
+use App\Http\Requests\V1\JobBoard\Course\DeleteCourseRequest;
 
-use App\Http\Controllers\App\FileController;
-use App\Http\Requests\App\File\UpdateFileRequest;
-use App\Http\Requests\App\File\UploadFileRequest;
-use App\Http\Requests\App\File\IndexFileRequest;
+use App\Http\Controllers\V1\Core\FileController;
+use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
+use App\Http\Requests\V1\Core\Files\UploadFileRequest;
+use App\Http\Requests\V1\Core\Files\IndexFileRequest;
 
 use Illuminate\Support\Facades\Request;
 
 class CourseController extends Controller
 {
 
-    function  test(Request $request)
-    {
-        return Professional::select('about_me', 'has_travel')->with('academicFormations')->get();
-    }
     // Devuelve un array de objetos y paginados
     function index(IndexCourseRequest $request)
     {
@@ -108,9 +104,9 @@ class CourseController extends Controller
         $course->name = $request->input('course.name');
         $course->description = $request->input('course.description');
         $course->start_date = $request->input('course.start_date');
-      //  $course->end_date = $this->calculateEndCourse($request->input('course.end_date'));
+        //  $course->end_date = $this->calculateEndCourse($request->input('course.end_date'));
 
-     //   $course->start_date = $request->input('course.start_date');
+        //   $course->start_date = $request->input('course.start_date');
         $course->end_date = $request->input('course.end_date');
 
         $course->hours = $request->input('course.hours');
@@ -178,8 +174,8 @@ class CourseController extends Controller
     function delete(DeleteCourseRequest $request)
     {
 
-           // Es una eliminación lógica
-           Course::destroy($request->input('ids'));
+        // Es una eliminación lógica
+        Course::destroy($request->input('ids'));
 
 
         return response()->json([
@@ -190,6 +186,7 @@ class CourseController extends Controller
                 'code' => '201'
             ]], 201);
     }
+
     function deleteFile($fileId)
     {
         return (new FileController())->delete($fileId);
@@ -197,7 +194,7 @@ class CourseController extends Controller
 
     function uploadFiles(UploadFileRequest $request)
     {
-        return (new FileController())->upload($request,Course::getInstance($request->input('id')));
+        return (new FileController())->upload($request, Course::getInstance($request->input('id')));
     }
 
     function indexFile(IndexFileRequest $request)

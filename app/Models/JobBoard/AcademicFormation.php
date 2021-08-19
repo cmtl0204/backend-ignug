@@ -2,6 +2,7 @@
 
 namespace App\Models\JobBoard;
 
+use App\Traits\FileTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +14,7 @@ class AcademicFormation extends Model implements Auditable
     use HasFactory;
     use SoftDeletes;
     use Auditing;
+    use FileTrait;
 
     protected $table = 'job_board.academic_formations';
 
@@ -58,6 +60,13 @@ class AcademicFormation extends Model implements Auditable
             $fields = explode(',', $fields);
             array_unshift($fields, 'id');
             return $query->select($fields);
+        }
+    }
+
+    public function scopeSenescytCode($query, $senescytCode)
+    {
+        if ($senescytCode) {
+            return $query->where('senescyt_code', 'ILIKE', $senescytCode);
         }
     }
 }

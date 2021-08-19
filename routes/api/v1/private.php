@@ -4,12 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Core\UserController;
 use App\Http\Controllers\V1\Core\FileController;
 use App\Http\Controllers\V1\Core\CatalogueController;
-
-Route::apiResource('users', UserController::class);
+use App\Http\Controllers\V1\JobBoard\AcademicFormationController;
 
 Route::apiResource('catalogues', CatalogueController::class);
 
-Route::apiResource('files', FileController::class)->except(['index', 'store']);
+/***********************************************************************************************************************
+ * USERS
+ **********************************************************************************************************************/
+Route::apiResource('users', UserController::class);
 
 Route::prefix('user')->group(function () {
     Route::patch('destroys', [UserController::class, 'destroys']);
@@ -36,10 +38,36 @@ Route::prefix('user/{user}')->group(function () {
     });
 });
 
+/***********************************************************************************************************************
+ * FILES
+ **********************************************************************************************************************/
+Route::apiResource('files', FileController::class)->except(['index', 'store']);
+
 Route::prefix('file')->group(function () {
     Route::patch('destroys', [FileController::class, 'destroys']);
 });
 
 Route::prefix('file/{file}')->group(function () {
     Route::get('download', [FileController::class, 'download']);
+});
+
+/***********************************************************************************************************************
+ * ACADEMIC FORMATIONS
+ **********************************************************************************************************************/
+Route::apiResource('academic-formations', AcademicFormationController::class);
+
+Route::prefix('academic-formations')->group(function () {
+    Route::patch('destroys', [AcademicFormationController::class, 'destroys']);
+});
+
+Route::prefix('academic-formations/{academicFormation}')->group(function () {
+    Route::prefix('file')->group(function () {
+        Route::get('{file}/download', [AcademicFormationController::class, 'downloadFile']);
+        Route::get('', [AcademicFormationController::class, 'indexFiles']);
+        Route::get('{file}', [AcademicFormationController::class, 'showFile']);
+        Route::post('', [AcademicFormationController::class, 'uploadFile']);
+        Route::put('{file}', [AcademicFormationController::class, 'updateFile']);
+        Route::delete('{file}', [AcademicFormationController::class, 'destroyFile']);
+        Route::patch('', [AcademicFormationController::class, 'destroyFiles']);
+    });
 });

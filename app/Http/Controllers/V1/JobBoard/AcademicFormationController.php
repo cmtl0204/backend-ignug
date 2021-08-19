@@ -2,31 +2,37 @@
 
 namespace App\Http\Controllers\V1\JobBoard;
 
-// Controllers
 use App\Http\Controllers\Controller;
 
 // Models
-use App\Http\Resources\V1\JobBoard\AcademicFormationCollection;
+use App\Models\Core\File;
 use App\Models\JobBoard\AcademicFormation;
 use App\Models\JobBoard\Category;
 use App\Models\JobBoard\Professional;
 
-// FormRequest
+// Resources
+use App\Http\Resources\V1\JobBoard\AcademicFormationCollection;
+use App\Http\Resources\V1\JobBoard\AcademicFormationResource;
+
+// Requests
+use App\Http\Requests\V1\JobBoard\AcademicFormation\DestroysAcademicFormationRequest;
 use App\Http\Requests\V1\JobBoard\AcademicFormation\IndexAcademicFormationRequest;
 use App\Http\Requests\V1\JobBoard\AcademicFormation\StoreAcademicFormationRequest;
 use App\Http\Requests\V1\JobBoard\AcademicFormation\UpdateAcademicFormationRequest;
-use Illuminate\Support\Facades\Request;
+use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
+use App\Http\Requests\V1\Core\Files\IndexFileRequest;
+use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
+use App\Http\Requests\V1\Core\Files\UploadFileRequest;
 
 class AcademicFormationController extends Controller
 {
-    public function index(IndexAcademicFormationRequest $request)
+    public function index(IndexAcademicFormationRequest $request,Professional $professional)
     {
         $sorts = explode(',', $request->sort);
 
-        $academicFormations = AcademicFormation::customSelect($request->fields)->customOrderBy($sorts)
-            ->name($request->input('name'))
-            ->lastname($request->input('lastname'))
-            ->paginate();
+        $academicFormations = $professional->academicFormation()->customOrderBy($sorts)
+            ->senescytCode($request->input('name'))
+            ->paginate($request->perPage);
 
         return (new AcademicFormationCollection($academicFormations))
             ->additional([
@@ -38,64 +44,121 @@ class AcademicFormationController extends Controller
             ]);
     }
 
-    function show(AcademicFormation $academicFormation)
+    public function store(StoreAcademicFormationRequest $request, Professional $professional)
     {
-        return response()->json([
-            'data' => $academicFormation,
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ], 200);
-    }
-
-    function store(StoreAcademicFormationRequest $request)
-    {
-        $data = $request->json()->all();
-        $dataAcademicFormation = $data['academic_formation'];
-        $dataCategory = $data['category'];
-
         $academicFormation = new AcademicFormation();
-        $academicFormation->professional_degree_id = $dataAcademicFormation['professional_degree_id'];
-        $academicFormation->registration_date = $dataAcademicFormation['registration_date'];
-        $academicFormation->senescyt_code = $dataAcademicFormation['senescyt_code'];
-        $academicFormation->has_titling = $dataAcademicFormation['has_titling'];
+        $academicFormation->professional()->associate($professional);
+        $academicFormation->professionalDegree()->associate(Category::find($request->input('professionalDegree.id')));
 
-        $academicFormation->professional()->associate(Professional::firstWhere('user_id', $request->user()->id));
-        $academicFormation->category()->associate(Category::findOrFail($dataCategory['id']));
-
+        $academicFormation->registration_date = $request->input('registrationDate');
+        $academicFormation->senescyt_code = $request->input('senescytCode');
+        $academicFormation->certificated = $request->input('certificated');
         $academicFormation->save();
+
+        return (new AcademicFormationResource($academicFormation))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function update(UpdateAcademicFormationRequest $request, $id)
+    public function show(AcademicFormation $academicFormation)
     {
-        $data = $request->json()->all();
-        $dataAcademicFormation = $data['academic_formation'];
-        $dataCategory = $data['category'];
-
-        $academicFormation = AcademicFormation::findOrFail($id);
-        $academicFormation->registration_date = $dataAcademicFormation['registration_date'];
-        $academicFormation->senescyt_code = $dataAcademicFormation['senescyt_code'];
-        $academicFormation->has_titling = $dataAcademicFormation['has_titling'];
-
-        $academicFormation->professional()->associate(Professional::firstWhere('user_id', $request->user()->id));
-        $academicFormation->category()->associate(Category::findOrFail($dataCategory['id']));
-
-        $academicFormation->save();
+        return (new AcademicFormationResource($academicFormation))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function destroy(AcademicFormation $academicFormation)
+    public function update(UpdateAcademicFormationRequest $request, AcademicFormation $academicFormation)
+    {
+        $academicFormation->professionalDegree()->associate(Category::find($request->input('professionalDegree.id')));
+
+        $academicFormation->registration_date = $request->input('registrationDate');
+        $academicFormation->senescyt_code = $request->input('senescytCode');
+        $academicFormation->certificated = $request->input('certificated');
+        $academicFormation->save();
+
+        return (new AcademicFormationResource($academicFormation))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function destroy(AcademicFormation $academicFormation)
     {
         $academicFormation->delete();
+        return (new AcademicFormationResource($academicFormation))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
+    }
 
-        return response()->json([
-            'data' => $academicFormation,
-            'msg' => [
-                'summary' => 'Información Académica eliminada',
-                'detail' => 'El registro fue eliminado',
-                'code' => '201'
-            ]
-        ], 201);
+    public function destroys(DestroysAcademicFormationRequest $request)
+    {
+        $academicFormations = AcademicFormation::whereIn('id', $request->input('ids'))->get();
+        AcademicFormation::destroy($request->input('ids'));
+
+        return (new AcademicFormationResource($academicFormations))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
+    }
+
+/***********************************************************************************************************************
+ * FILES
+ **********************************************************************************************************************/
+    public function indexFiles(IndexFileRequest $request, AcademicFormation $academicFormation)
+    {
+        return $academicFormation->indexFiles($request);
+    }
+
+    public function uploadFile(UploadFileRequest $request, AcademicFormation $academicFormation)
+    {
+        return $academicFormation->uploadFile($request);
+    }
+
+    public function downloadFile(AcademicFormation $academicFormation, File $file)
+    {
+        return $academicFormation->downloadFile($file);
+    }
+
+    public function showFile(AcademicFormation $academicFormation, File $file)
+    {
+        return $academicFormation->showFile($file);
+    }
+
+    public function updateFile(UpdateFileRequest $request, AcademicFormation $academicFormation, File $file)
+    {
+        return $academicFormation->updateFile($request, $file);
+    }
+
+    public function destroyFile(AcademicFormation $academicFormation, File $file)
+    {
+        return $academicFormation->destroyFile($file);
+    }
+
+    public function destroyFiles(AcademicFormation $academicFormation, DestroysFileRequest $request)
+    {
+        return $academicFormation->destroyFiles($request);
     }
 }
