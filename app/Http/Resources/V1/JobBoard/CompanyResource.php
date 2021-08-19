@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources\V1\Core\Catalogues;
+namespace App\Http\Resources\V1\JobBoard;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class CatalogueCollection extends ResourceCollection
+class CompanyResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array

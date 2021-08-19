@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Resources\V1\Core\Catalogues;
+namespace App\Http\Resources\V1\JobBoard;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CatalogueCollection extends ResourceCollection
+class AcademicFormationCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
     {
-         return [
+        return [
             'data' => $this->collection
         ];
     }
