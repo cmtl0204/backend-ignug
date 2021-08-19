@@ -26,7 +26,7 @@ class CreateJobboardAcademicFormationsTable extends Migration
                 ->nullable();
 
             $table->boolean('certificated')
-                ->default(true);
+                ->default(false);
         });
     }
 
