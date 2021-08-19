@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Files;
+namespace App\Http\Requests\V1\Core\Authentications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexFileRequest extends FormRequest
+class GenerateTransactionalCodeAuthRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,12 +13,15 @@ class IndexFileRequest extends FormRequest
 
     public function rules()
     {
-        return [];
+        return [
+
+        ];
     }
 
     public function attributes()
     {
-        return [
+       return  [
+
         ];
     }
 }

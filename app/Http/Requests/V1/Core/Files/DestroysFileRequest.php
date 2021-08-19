@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Images;
+namespace App\Http\Requests\V1\Core\Files;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DownloadImageRequest extends FormRequest
+class DestroysFileRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,16 +14,16 @@ class DownloadImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'full_path' => [
-                'required',
-            ],
+            'ids' => [
+                'required'
+            ]
         ];
     }
 
     public function attributes()
     {
-       return [
-            'full_path' => 'ruta completa',
+        return [
+            'ids' => 'IDs'
         ];
     }
 }

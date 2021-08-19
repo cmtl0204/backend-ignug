@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\V1\Authentications;
+namespace App\Http\Requests\V1\Core\Authentications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUnlockAuthRequest extends FormRequest
+class PasswordForgotAuthRequest extends FormRequest
 {
+
     public function authorize()
     {
         return true;
@@ -14,14 +15,14 @@ class UserUnlockAuthRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => ['required']
+            'username' => ['required'],
         ];
     }
 
     public function attributes()
     {
        return  [
-            'username' => 'usuario'
+            'username' => 'nombre de usuario',
         ];
 
     }

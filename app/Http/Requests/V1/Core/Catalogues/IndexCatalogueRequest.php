@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Users;
+namespace App\Http\Requests\V1\Core\Catalogues;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysUserRequest extends FormRequest
+class IndexCatalogueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,14 @@ class DestroysUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'ids' => ['required'],
+
         ];
     }
 
     public function attributes()
     {
         return [
-            'ids' => 'ID`s de usuario',
+
         ];
     }
 }

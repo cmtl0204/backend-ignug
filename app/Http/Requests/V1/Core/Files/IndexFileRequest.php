@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Authentications;
+namespace App\Http\Requests\V1\Core\Core\Files;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LogoutAuthRequest extends FormRequest
+class IndexFileRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,14 +13,12 @@ class LogoutAuthRequest extends FormRequest
 
     public function rules()
     {
-        return [
-        ];
+        return [];
     }
 
     public function attributes()
     {
-       return  [
+        return [
         ];
-
     }
 }

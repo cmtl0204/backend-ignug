@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Users;
+namespace App\Http\Requests\V1\Core\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class DestroysUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,20 +24,14 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => ['required', 'max:50'],
-            'name' => ['required', 'max:100'],
-            'lastname' => ['required', 'max:100'],
-            'email' => ['required', 'max:100'],
+            'ids' => ['required'],
         ];
     }
 
     public function attributes()
     {
         return [
-            'username' => 'nombre de usuario',
-            'name' => 'nombre',
-            'lastname' => 'apellido',
-            'email' => 'correo electrónico'
+            'ids' => 'ID`s de usuario',
         ];
     }
 }
