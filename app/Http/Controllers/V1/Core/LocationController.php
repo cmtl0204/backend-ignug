@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\V1;
+namespace App\Http\Controllers\V1\Core;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Locations\IndexLocationRequest;
 use App\Http\Resources\V1\Catalogues\CatalogueCollection;
 use App\Http\Resources\V1\Users\LocationCollection;
-use App\Models\Location;
+use App\Models\Core\Location;
 
 class LocationController extends Controller
 {

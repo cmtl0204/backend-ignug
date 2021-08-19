@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\V1\AuthController;
-use App\Http\Controllers\V1\LocationController;
+use App\Http\Controllers\V1\Core\AuthController;
+use App\Http\Controllers\V1\Core\LocationController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;

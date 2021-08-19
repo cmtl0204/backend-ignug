@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\V1\Users;
 
-use App\Http\Resources\V1\Catalogues\CatalogueResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EmailResource extends JsonResource
