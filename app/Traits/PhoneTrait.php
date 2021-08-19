@@ -2,9 +2,9 @@
 
 namespace App\Traits;
 
-use App\Models\Catalogue;
-use App\Models\Location;
-use App\Models\Phone;
+use App\Models\Core\Catalogue;
+use App\Models\Core\Location;
+use App\Models\Core\Phone;
 
 trait PhoneTrait
 {
