@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Catalogue;
-use App\Models\PrimeIcons;
+use App\Models\Core\Catalogue;
+use App\Models\Core\PrimeIcons;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CatalogueFactory extends Factory

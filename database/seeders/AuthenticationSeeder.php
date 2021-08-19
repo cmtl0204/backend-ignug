@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Catalogue;
-use App\Models\Email;
-use App\Models\Location;
-use App\Models\Menu;
-use App\Models\Phone;
-use App\Models\User;
+use App\Models\Core\Catalogue;
+use App\Models\Core\Email;
+use App\Models\Core\Location;
+use App\Models\Core\Menu;
+use App\Models\Core\Phone;
+use App\Models\Core\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
@@ -56,7 +56,7 @@ class AuthenticationSeeder extends Seeder
     private function createUsers()
     {
         $identificationTypes = Catalogue::where('type', 'IDENTIFICATION_TYPE')->get();
-        $sexs = Catalogue::where('type', 'SEX_TYPE')->get();
+        $sexes = Catalogue::where('type', 'SEX_TYPE')->get();
         $genders = Catalogue::where('type', 'GENDER_TYPE')->get();
         $ethnicOrigin = Catalogue::where('type', 'ETHNIC_ORIGIN_TYPE')->get();
         $bloodType = Catalogue::where('type', 'BLOOD_TYPE')->get();
@@ -67,7 +67,7 @@ class AuthenticationSeeder extends Seeder
             [
                 'username' => '1234567890',
                 'identification_type_id' => $identificationTypes[rand(0, $identificationTypes->count() - 1)],
-                'sex_id' => $sexs[rand(0, $sexs->count() - 1)],
+                'sex_id' => $sexes[rand(0, $sexes->count() - 1)],
                 'gender_id' => $genders[rand(0, $genders->count() - 1)],
                 'ethnic_origin_id' => $ethnicOrigin[rand(0, $ethnicOrigin->count() - 1)],
                 'blood_type_id' => $bloodType[rand(0, $bloodType->count() - 1)],
@@ -86,7 +86,7 @@ class AuthenticationSeeder extends Seeder
             $userFactory = User::factory()
                 ->create([
                     'identification_type_id' => $identificationTypes[rand(0, $identificationTypes->count() - 1)],
-                    'sex_id' => $sexs[rand(0, $sexs->count() - 1)],
+                    'sex_id' => $sexes[rand(0, $sexes->count() - 1)],
                     'gender_id' => $genders[rand(0, $genders->count() - 1)],
                     'ethnic_origin_id' => $ethnicOrigin[rand(0, $ethnicOrigin->count() - 1)],
                     'blood_type_id' => $bloodType[rand(0, $bloodType->count() - 1)],

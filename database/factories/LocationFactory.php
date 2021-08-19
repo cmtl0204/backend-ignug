@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Location;
+use App\Models\Core\Location;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LocationFactory extends Factory

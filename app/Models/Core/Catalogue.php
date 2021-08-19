@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Core;
 
-use App\Models\JobBoard\Offer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Authentication\Role;
+use Spatie\Permission\Models\Role;
 
 class Catalogue extends Model implements Auditable
 {
@@ -41,10 +40,10 @@ class Catalogue extends Model implements Auditable
         return $this->morphedByMany(Role::class, 'catalogueable');
     }
 
-    public function offer()
-    {
-        return $this->hasOne(Offer::class);
-    }
+//    public function offer()
+//    {
+//        return $this->hasOne(Offer::class);
+//    }
 
     // Mutators
     public function setCodeAttribute($value)

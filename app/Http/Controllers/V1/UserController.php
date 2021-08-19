@@ -15,9 +15,9 @@ use App\Http\Requests\V1\Users\StoreUserRequest;
 use App\Http\Requests\V1\Users\UpdateUserRequest;
 use App\Http\Resources\V1\Users\UserCollection;
 use App\Http\Resources\V1\Users\UserResource;
-use App\Models\Catalogue;
-use App\Models\File;
-use App\Models\User;
+use App\Models\Core\Catalogue;
+use App\Models\Core\File;
+use App\Models\Core\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 

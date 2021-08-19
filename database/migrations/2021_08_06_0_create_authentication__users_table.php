@@ -30,7 +30,7 @@ class CreateAuthenticationUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('password_changed')->default(false);
-            $table->integer('max_attempts')->default(\App\Models\User::MAX_ATTEMPTS);
+            $table->integer('max_attempts')->default(\App\Models\Core\User::MAX_ATTEMPTS);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

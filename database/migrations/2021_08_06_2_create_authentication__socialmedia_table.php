@@ -10,11 +10,11 @@ class CreateAuthenticationSocialmediaTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION'))->create('socialmedia', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes();
+            $table->timestamps();
             $table->string('name')->unique();
             $table->string('icon')->nullable();
             $table->string('logo')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 
