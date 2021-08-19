@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Http\Requests\JobBoard\Company;
+namespace App\Http\Requests\V1\JobBoard\Company;
 
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCompanyRequest extends FormRequest

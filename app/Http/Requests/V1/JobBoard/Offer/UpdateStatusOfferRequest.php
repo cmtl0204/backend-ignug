@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\JobBoard\Offer;
+namespace App\Http\Requests\V1\JobBoard\Offer;
 
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateStatusOfferRequest extends FormRequest

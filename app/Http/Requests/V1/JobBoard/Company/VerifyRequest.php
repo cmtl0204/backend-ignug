@@ -1,8 +1,8 @@
 <?php
 
 
-namespace App\Http\Requests\JobBoard\Company;
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+namespace App\Http\Requests\V1\JobBoard\Company;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VerifyRequest extends FormRequest

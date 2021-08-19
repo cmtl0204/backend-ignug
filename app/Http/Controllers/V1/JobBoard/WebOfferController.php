@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\JobBoard;
+namespace App\Http\Controllers\V1\JobBoard;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobBoard\Category;

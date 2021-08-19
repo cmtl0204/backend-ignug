@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Requests\JobBoard\Skill;
+namespace App\Http\Requests\V1\JobBoard\Skill;
 
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class DeleteSkillRequest extends FormRequest
 {

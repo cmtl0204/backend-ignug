@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\JobBoard\Language;
+namespace App\Http\Requests\V1\JobBoard\Language;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 
 class IndexLanguageRequest extends FormRequest
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\JobBoard\Reference;
+namespace App\Http\Requests\V1\JobBoard\Reference;
 
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

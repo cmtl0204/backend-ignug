@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\JobBoard\Reference;
+namespace App\Http\Requests\V1\JobBoard\Reference;
 
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateReferenceRequest extends FormRequest
@@ -29,19 +29,19 @@ class UpdateReferenceRequest extends FormRequest
         $rules = [
             'reference.institution' => [
                 'required',
-         
+
             ],
             'reference.position' => [
                 'required',
-        
+
             ],
             'reference.contact_name' => [
                 'required',
-           
+
             ],
             'reference.contact_phone' => [
                 'required',
-         
+
             ],
             'reference.contact_email' => [
                 'required',

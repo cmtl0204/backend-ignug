@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\JobBoard\Reference;
+namespace App\Http\Requests\V1\JobBoard\Reference;
 
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateReferenceRequest extends FormRequest
@@ -24,24 +24,24 @@ class CreateReferenceRequest extends FormRequest
         $rules = [
            'reference.institution.id' => [
                 'required',
-               
-               
+
+
             ],
             'reference.position' => [
                 'required',
-               
+
             ],
             'reference.contact_name' => [
                 'required',
-               
+
             ],
             'reference.contact_phone' => [
                 'required',
-             
+
             ],
             'reference.contact_email' => [
                 'required',
-             
+
                 'regex:'.$this->regularExpresionEmail,
             ]
         ];
@@ -49,12 +49,12 @@ class CreateReferenceRequest extends FormRequest
         return JobBoardFormRequest::rules($rules);
     }
 
-   
+
 
     public function attributes()
     {
         $attributes = [
-      
+
             'reference.institution.id' => 'institución',
             'reference.position' => 'posición',
             'reference.contact_name' => 'nombre de contacto',

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\V1;
+namespace App\Http\Requests\V1\Core;
 
-class AppFormRequest
+class CoreFormRequest
 {
     public static function rules($rules = [])
     {

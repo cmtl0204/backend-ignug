@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\JobBoard;
+namespace App\Http\Controllers\V1\JobBoard;
 // Controllers
 use App\Http\Controllers\Controller;
 // FormRequests

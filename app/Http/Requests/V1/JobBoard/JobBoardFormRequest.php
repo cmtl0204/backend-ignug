@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\JobBoard;
+namespace App\Http\Requests\V1\JobBoard;
 
 class JobBoardFormRequest
 {

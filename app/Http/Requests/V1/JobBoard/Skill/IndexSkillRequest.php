@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\JobBoard\Skill;
+namespace App\Http\Requests\V1\JobBoard\Skill;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 
 class IndexSkillRequest extends FormRequest
 {

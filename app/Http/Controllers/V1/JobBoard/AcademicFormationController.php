@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\JobBoard;
+namespace App\Http\Controllers\V1\JobBoard;
 
 // Controllers
 use App\Http\Controllers\Controller;
@@ -11,13 +11,14 @@ use App\Models\JobBoard\Category;
 use App\Models\JobBoard\Professional;
 
 // FormRequest
-use App\Http\Requests\JobBoard\AcademicFormation\IndexAcademicFormationRequest;
-use App\Http\Requests\JobBoard\AcademicFormation\CreateAcademicFormationRequest;
-use App\Http\Requests\JobBoard\AcademicFormation\UpdateAcademicFormationRequest;
+use App\Http\Requests\V1\JobBoard\AcademicFormation\IndexAcademicFormationRequest;
+use App\Http\Requests\V1\JobBoard\AcademicFormation\StoreAcademicFormationRequest;
+use App\Http\Requests\V1\JobBoard\AcademicFormation\UpdateAcademicFormationRequest;
 use Illuminate\Support\Facades\Request;
 
 class AcademicFormationController extends Controller
 {
+
     function show(AcademicFormation $academicFormation)
     {
         return response()->json([
@@ -30,8 +31,7 @@ class AcademicFormationController extends Controller
         ], 200);
     }
 
-
-    function store(Request $request)
+    function store(StoreAcademicFormationRequest $request)
     {
         $data = $request->json()->all();
         $dataAcademicFormation = $data['academic_formation'];
@@ -49,7 +49,7 @@ class AcademicFormationController extends Controller
         $academicFormation->save();
     }
 
-    function update(Request $request, $id)
+    function update(UpdateAcademicFormationRequest $request, $id)
     {
         $data = $request->json()->all();
         $dataAcademicFormation = $data['academic_formation'];

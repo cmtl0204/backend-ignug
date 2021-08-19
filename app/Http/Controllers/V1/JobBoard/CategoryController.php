@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\JobBoard;
+namespace App\Http\Controllers\V1\JobBoard;
 
 use App\Http\Controllers\Controller;
 use App\Models\App\Catalogue;
@@ -13,7 +13,7 @@ use App\Http\Requests\JobBoard\Category\GetParentCategoryRequest;
 
 class CategoryController extends Controller
 {
-    
+
     function index(IndexCategoryRequest $request)
     {
         if ($request->has('search')) {
@@ -22,7 +22,7 @@ class CategoryController extends Controller
                 ->name($request->input('search'))
                 ->paginate($request->input('per_page'));
         } else {
-            
+
             $categories = Category::paginate($request->input('per_page'));
         }
 
@@ -62,7 +62,7 @@ class CategoryController extends Controller
                 'detail' => '',
                 'code' => '200'
             ]], 200);
-    } 
+    }
 
     function show(Category $category)
     {
@@ -78,7 +78,7 @@ class CategoryController extends Controller
     function store(StoreCategoryRequest $request)
     {
         $parent= Category::find($request->input('category.parent.id'));
-        
+
 
         $category = new Category();
         $category->code = $request->input('category.code');

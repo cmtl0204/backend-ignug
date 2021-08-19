@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\JobBoard;
+namespace App\Http\Controllers\V1\JobBoard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +14,7 @@ use App\Models\Authentication\Route;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobBoard\Offer\IndexOfferRequest;
 use App\Http\Requests\JobBoard\Offer\StoreOfferRequest;
-use App\Http\Requests\JobBoard\Offer\UpdateOfferRequest; 
+use App\Http\Requests\JobBoard\Offer\UpdateOfferRequest;
 use App\Http\Requests\JobBoard\Offer\UpdateStatusOfferRequest;
 use App\Http\Requests\JobBoard\Offer\DeleteOfferRequest;
 use App\Http\Requests\JobBoard\Offer\GetProfessionalOfferRequest;
@@ -89,7 +89,7 @@ class OfferController extends Controller
             $offer->save();
             $offer->categories()->attach($request->input('offer.categories'));
         });
-        
+
 
         return response()->json([
             'data' => $offer->refresh(),
@@ -179,7 +179,7 @@ class OfferController extends Controller
     }
 
     function changeStatus(UpdateStatusOfferRequest $request, Offer $offer){
-        $offer->status()->associate(Status::find($request->input('offer.status.id')));        
+        $offer->status()->associate(Status::find($request->input('offer.status.id')));
         $offer->save();
         return response()->json([
             'data' => $offer,
@@ -205,5 +205,5 @@ class OfferController extends Controller
 
     private function calculateEndOffer($startDate){
         return (Carbon::createFromFormat('Y-m-d', $startDate))->addMonth();
-    }    
+    }
 }

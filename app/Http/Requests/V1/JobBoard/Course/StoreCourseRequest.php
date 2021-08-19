@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Jobboard\Course;
+namespace App\Http\Requests\V1\JobBoard\Course;
 
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCourseRequest extends FormRequest
 {
-    
+
     public function authorize()
     {
         return true;
@@ -18,7 +18,7 @@ class StoreCourseRequest extends FormRequest
         $rules = [
             'course.name' => [
                 'required',
-               
+
             ],
             'course.description' => [
                 'required',
@@ -61,7 +61,7 @@ class StoreCourseRequest extends FormRequest
             'course.name' => 'nombre',
             'course.description' => 'descripción',
             'course.start_date' => 'fecha inicial',
-            'course.end_date' => 'fecha final', 
+            'course.end_date' => 'fecha final',
             'course.hours' => 'horas',
             'course.type.id' => 'tipo-ID',
             'course.institution.id' => 'institución-ID',

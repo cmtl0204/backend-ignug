@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\JobBoard\AcademicFormation;
+namespace App\Http\Requests\V1\JobBoard\AcademicFormation;
 
-use App\Http\Requests\JobBoard\JobBoardFormRequest;
+use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateAcademicFormationRequest extends FormRequest
+class StoreAcademicFormationRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,7 +15,7 @@ class CreateAcademicFormationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-         
+
         ];
         return JobBoardFormRequest::rules($rules);
     }
@@ -24,7 +24,7 @@ class CreateAcademicFormationRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-        
+
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

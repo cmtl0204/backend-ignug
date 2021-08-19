@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\JobBoard;
+namespace App\Http\Controllers\V1\JobBoard;
 
 // Controllers
 use App\Http\Controllers\Controller;
@@ -109,10 +109,10 @@ class CourseController extends Controller
         $course->description = $request->input('course.description');
         $course->start_date = $request->input('course.start_date');
       //  $course->end_date = $this->calculateEndCourse($request->input('course.end_date'));
-       
+
      //   $course->start_date = $request->input('course.start_date');
         $course->end_date = $request->input('course.end_date');
-      
+
         $course->hours = $request->input('course.hours');
         $course->professional()->associate($professional);
         $course->institution()->associate($institution);
@@ -177,7 +177,7 @@ class CourseController extends Controller
     //Elimina los datos del curso//
     function delete(DeleteCourseRequest $request)
     {
-    
+
            // Es una eliminación lógica
            Course::destroy($request->input('ids'));
 
@@ -209,7 +209,7 @@ class CourseController extends Controller
     {
         return (new FileController())->show($fileId);
     }
-   
+
 }
 
 
