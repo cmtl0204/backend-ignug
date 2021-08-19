@@ -42,7 +42,6 @@ class AuthenticationSeeder extends Seeder
         $this->createPermissions();
         $this->assignRolePermissions();
         $this->assignUserRoles();
-
     }
 
     private function createMenus()

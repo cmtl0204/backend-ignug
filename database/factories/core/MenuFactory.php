@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Core;
 
 use App\Models\Core\PrimeIcons;
 use App\Models\Core\Menu;
@@ -24,7 +24,7 @@ class MenuFactory extends Factory
     {
         return [
             'label' => $this->faker->word(),
-            'icon' => PrimeIcons::$icons[rand(0, sizeof(PrimeIcons::$icons))],
+            'icon' => PrimeIcons::$icons[rand(0, sizeof(PrimeIcons::$icons)-1)],
             'router_link' => $this->faker->url(),
         ];
     }

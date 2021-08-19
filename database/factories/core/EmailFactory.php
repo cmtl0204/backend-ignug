@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Core;
 
 use App\Models\Core\Email;
 use Illuminate\Database\Eloquent\Factories\Factory;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Core;
 
 use App\Models\Core\Catalogue;
 use App\Models\Core\PrimeIcons;
@@ -17,7 +17,7 @@ class CatalogueFactory extends Factory
             'code' => $this->faker->ean8(),
             'name' => $this->faker->sentence(),
             'type' => $this->faker->word(),
-            'icon' => PrimeIcons::$icons[rand(0, sizeof(PrimeIcons::$icons))],
+            'icon' => PrimeIcons::$icons[rand(0, sizeof(PrimeIcons::$icons)-1)],
             'color' => $this->faker->hexColor(),
         ];
     }
