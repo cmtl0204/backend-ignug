@@ -6,6 +6,9 @@ use App\Http\Controllers\V1\Core\FileController;
 use App\Http\Controllers\V1\Core\CatalogueController;
 use App\Http\Controllers\V1\JobBoard\AcademicFormationController;
 
+/***********************************************************************************************************************
+ * CATALOGUES
+ **********************************************************************************************************************/
 Route::apiResource('catalogues', CatalogueController::class);
 
 /***********************************************************************************************************************
@@ -56,11 +59,11 @@ Route::prefix('file/{file}')->group(function () {
  **********************************************************************************************************************/
 Route::apiResource('professionals.academic-formations', AcademicFormationController::class);
 
-Route::prefix('academic-formations')->group(function () {
+Route::prefix('academic-formation')->group(function () {
     Route::patch('destroys', [AcademicFormationController::class, 'destroys']);
 });
 
-Route::prefix('academic-formations/{academicFormation}')->group(function () {
+Route::prefix('academic-formation/{academic_formation}')->group(function () {
     Route::prefix('file')->group(function () {
         Route::get('{file}/download', [AcademicFormationController::class, 'downloadFile']);
         Route::get('', [AcademicFormationController::class, 'indexFiles']);

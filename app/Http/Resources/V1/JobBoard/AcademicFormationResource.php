@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1\JobBoard;
 use App\Http\Resources\V1\Core\Catalogues\CatalogueResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AcademicFormationResource extends JsonResource
+class   AcademicFormationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,7 @@ class AcademicFormationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'professionalDegree' => CatalogueResource::make($this->professionalDegree),
+            'professionalDegree' => CategoryResource::make($this->professionalDegree),
             'registrationDate' => $this->registration_date,
             'senescytCode' => $this->senescyt_code,
             'certificated' => $this->certificated,

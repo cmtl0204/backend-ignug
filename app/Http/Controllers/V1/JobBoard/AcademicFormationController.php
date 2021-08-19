@@ -19,6 +19,7 @@ use App\Http\Requests\V1\JobBoard\AcademicFormation\DestroysAcademicFormationReq
 use App\Http\Requests\V1\JobBoard\AcademicFormation\IndexAcademicFormationRequest;
 use App\Http\Requests\V1\JobBoard\AcademicFormation\StoreAcademicFormationRequest;
 use App\Http\Requests\V1\JobBoard\AcademicFormation\UpdateAcademicFormationRequest;
+
 use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
 use App\Http\Requests\V1\Core\Files\IndexFileRequest;
 use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
@@ -26,7 +27,7 @@ use App\Http\Requests\V1\Core\Files\UploadFileRequest;
 
 class AcademicFormationController extends Controller
 {
-    public function index(IndexAcademicFormationRequest $request,Professional $professional)
+    public function index(IndexAcademicFormationRequest $request, Professional $professional)
     {
         $sorts = explode(',', $request->sort);
 
@@ -66,7 +67,7 @@ class AcademicFormationController extends Controller
             ]);
     }
 
-    public function show(AcademicFormation $academicFormation)
+    public function show(Professional $professional, AcademicFormation $academicFormation)
     {
         return (new AcademicFormationResource($academicFormation))
             ->additional([
@@ -78,7 +79,7 @@ class AcademicFormationController extends Controller
             ]);
     }
 
-    public function update(UpdateAcademicFormationRequest $request, AcademicFormation $academicFormation)
+    public function update(UpdateAcademicFormationRequest $request, Professional $professional, AcademicFormation $academicFormation)
     {
         $academicFormation->professionalDegree()->associate(Category::find($request->input('professionalDegree.id')));
 
@@ -97,7 +98,7 @@ class AcademicFormationController extends Controller
             ]);
     }
 
-    public function destroy(AcademicFormation $academicFormation)
+    public function destroy(Professional $professional, AcademicFormation $academicFormation)
     {
         $academicFormation->delete();
         return (new AcademicFormationResource($academicFormation))
@@ -115,7 +116,7 @@ class AcademicFormationController extends Controller
         $academicFormations = AcademicFormation::whereIn('id', $request->input('ids'))->get();
         AcademicFormation::destroy($request->input('ids'));
 
-        return (new AcademicFormationResource($academicFormations))
+        return (new AcademicFormationCollection($academicFormations))
             ->additional([
                 'msg' => [
                     'summary' => 'Registros Eliminados',
@@ -125,9 +126,9 @@ class AcademicFormationController extends Controller
             ]);
     }
 
-/***********************************************************************************************************************
- * FILES
- **********************************************************************************************************************/
+    /*******************************************************************************************************************
+     * FILES
+     *******************************************************************************************************************/
     public function indexFiles(IndexFileRequest $request, AcademicFormation $academicFormation)
     {
         return $academicFormation->indexFiles($request);

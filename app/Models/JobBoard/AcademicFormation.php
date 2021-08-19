@@ -25,7 +25,7 @@ class AcademicFormation extends Model implements Auditable
     ];
 
     protected $casts = [
-        'registration_date' => 'datetime'
+        'registration_date' => 'datetime:Y-m-d'
     ];
 
     public function professional()

@@ -28,6 +28,7 @@ class Category extends Model implements Auditable
         'icon'
     ];
 
+
     public function children()
     {
         return $this->hasMany(Category::class, 'parent_id');

@@ -2,33 +2,28 @@
 
 namespace App\Http\Controllers\V1\JobBoard;
 
-// Controllers
 use App\Http\Controllers\Controller;
 
 // Models
-use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
-use App\Http\Requests\V1\JobBoard\Course\DestroysCourseRequest;
-use App\Http\Resources\V1\JobBoard\CourseCollection;
-use App\Http\Resources\V1\JobBoard\CourseResource;
+use App\Models\JobBoard\Course;
 use App\Models\Core\Catalogue;
 use App\Models\Core\File;
-use App\Models\JobBoard\AcademicFormation;
 use App\Models\JobBoard\Professional;
-use App\Models\JobBoard\Course;
+
+// Resources
+use App\Http\Resources\V1\JobBoard\CourseCollection;
+use App\Http\Resources\V1\JobBoard\CourseResource;
 
 // FormRequest
+use App\Http\Requests\V1\JobBoard\Course\DestroysCourseRequest;
 use App\Http\Requests\V1\JobBoard\Course\IndexCourseRequest;
-use App\Http\Requests\V1\JobBoard\Course\CreateCourseRequest;
 use App\Http\Requests\V1\JobBoard\Course\UpdateCourseRequest;
 use App\Http\Requests\V1\JobBoard\Course\StoreCourseRequest;
-use App\Http\Requests\V1\JobBoard\Course\DeleteCourseRequest;
 
-use App\Http\Controllers\V1\Core\FileController;
+use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
+use App\Http\Requests\V1\Core\Files\IndexFileRequest;
 use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
-use App\Http\Requests\V1\Core\Files\IndexFileRequest;
-
-use Illuminate\Support\Facades\Request;
 
 class CourseController extends Controller
 {
@@ -74,7 +69,7 @@ class CourseController extends Controller
 
         $course->save();
 
-        rreturn (new CourseResource($course))
+        rreturn(new CourseResource($course))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Creado',
@@ -84,7 +79,7 @@ class CourseController extends Controller
             ]);
     }
 
-    function show(Course $course)
+    function show(Professional $professional, Course $course)
     {
         return (new CourseResource($course))
             ->additional([
@@ -96,7 +91,7 @@ class CourseController extends Controller
             ]);
     }
 
-    function update(UpdateCourseRequest $request, Course $course)
+    function update(UpdateCourseRequest $request, Professional $professional, Course $course)
     {
         $type = Catalogue::find($request->input('type.id'));
         $institution = Catalogue::find($request->input('institution.id'));
@@ -125,7 +120,7 @@ class CourseController extends Controller
             ]);
     }
 
-    public function destroy(Course $course)
+    public function destroy(Professional $professional, Course $course)
     {
         $course->delete();
         return (new AcademicFormationResource($course))
@@ -143,7 +138,7 @@ class CourseController extends Controller
         $courses = Course::whereIn('id', $request->input('ids'))->get();
         Course::destroy($request->input('ids'));
 
-        return (new CourseResource($courses))
+        return (new CourseCollection($courses))
             ->additional([
                 'msg' => [
                     'summary' => 'Registros Eliminados',
@@ -152,9 +147,10 @@ class CourseController extends Controller
                 ]
             ]);
     }
-    /***********************************************************************************************************************
+
+    /*******************************************************************************************************************
      * FILES
-     **********************************************************************************************************************/
+     ******************************************************************************************************************/
     public function indexFiles(IndexFileRequest $request, Course $course)
     {
         return $course->indexFiles($request);
