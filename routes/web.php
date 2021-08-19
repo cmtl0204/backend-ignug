@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\Core\AuthController;
 
 Route::prefix('login')->group(function () {
     Route::get('{driver}', [AuthController::class, 'redirectToProvider']);
