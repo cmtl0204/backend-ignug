@@ -19,6 +19,7 @@ use App\Models\Core\File;
  * @property date start_date
  * @property date end_date
  * @property integer hours
+ * @property string institution
  */
 class Course extends Model implements Auditable
 {
@@ -28,8 +29,6 @@ class Course extends Model implements Auditable
     use FileTrait;
 
     protected $table = 'job_board.courses';
-
-    protected $with = ['type','institution','certification_type','area'];
 
     protected $fillable = [
         'description',
@@ -58,11 +57,6 @@ class Course extends Model implements Auditable
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');
-    }
-
-    public function institution()
-    {
-        return $this->belongsTo(Catalogue::class);
     }
 
     public function professional()

@@ -66,7 +66,7 @@ class AcademicFormation extends Model implements Auditable
     public function scopeSenescytCode($query, $senescytCode)
     {
         if ($senescytCode) {
-            return $query->where('senescyt_code', 'ILIKE', $senescytCode);
+            return $query->orWhere('senescyt_code', 'ILIKE', $senescytCode);
         }
     }
 }

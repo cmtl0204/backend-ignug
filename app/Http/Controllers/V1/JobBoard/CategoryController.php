@@ -37,8 +37,6 @@ class CategoryController extends Controller
         }
 
         return response()->json($categories, 200);
-
-
     }
 
     function getParentCategories(GetParentCategoryRequest $request)

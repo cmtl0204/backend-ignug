@@ -35,7 +35,7 @@ class CourseController extends Controller
             ->customOrderBy($sorts)
             ->description($request->input('description'))
             ->name($request->input('name'))
-            ->paginate($request->perPage);
+            ->paginate($request->per_page);
 
         return (new CourseCollection($courses))
             ->additional([
@@ -50,26 +50,25 @@ class CourseController extends Controller
     function store(StoreCourseRequest $request, Professional $professional)
     {
         $type = Catalogue::find($request->input('type.id'));
-        $institution = Catalogue::find($request->input('institution.id'));
-        $certification_type = Catalogue::find($request->input('certification_type.id'));
+        $certificationType = Catalogue::find($request->input('certificationType.id'));
         $area = Catalogue::find($request->input('area.id'));
 
         $course = new Course();
         $course->professional()->associate($professional);
-        $course->institution()->associate($institution);
         $course->type()->associate($type);
-        $course->certification_type()->associate($certification_type);
+        $course->certificationType()->associate($certificationType);
         $course->area()->associate($area);
 
         $course->name = $request->input('name');
         $course->description = $request->input('description');
-        $course->start_date = $request->input('start_date');
-        $course->end_date = $request->input('end_date');
+        $course->start_date = $request->input('startDate');
+        $course->end_date = $request->input('endDate');
         $course->hours = $request->input('hours');
+        $course->institution = $request->input('institution');
 
         $course->save();
 
-        rreturn(new CourseResource($course))
+        return(new CourseResource($course))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Creado',
@@ -94,13 +93,11 @@ class CourseController extends Controller
     function update(UpdateCourseRequest $request, Professional $professional, Course $course)
     {
         $type = Catalogue::find($request->input('type.id'));
-        $institution = Catalogue::find($request->input('institution.id'));
-        $certification_type = Catalogue::find($request->input('certification_type.id'));
+        $certificationType = Catalogue::find($request->input('certificationType.id'));
         $area = Catalogue::find($request->input('area.id'));
 
-        $course->institution()->associate($institution);
         $course->type()->associate($type);
-        $course->certification_type()->associate($certification_type);
+        $course->certificationType()->associate($certificationType);
         $course->area()->associate($area);
 
         $course->name = $request->input('name');
@@ -108,6 +105,7 @@ class CourseController extends Controller
         $course->start_date = $request->input('startDate');
         $course->end_date = $request->input('endDate');
         $course->hours = $request->input('hours');
+        $course->institution = $request->input('institution');
         $course->save();
 
         return (new CourseResource($course))
@@ -123,7 +121,7 @@ class CourseController extends Controller
     public function destroy(Professional $professional, Course $course)
     {
         $course->delete();
-        return (new AcademicFormationResource($course))
+        return (new CourseResource($course))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Eliminado',

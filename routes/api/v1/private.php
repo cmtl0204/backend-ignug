@@ -5,6 +5,7 @@ use App\Http\Controllers\V1\Core\UserController;
 use App\Http\Controllers\V1\Core\FileController;
 use App\Http\Controllers\V1\Core\CatalogueController;
 use App\Http\Controllers\V1\JobBoard\AcademicFormationController;
+use App\Http\Controllers\V1\JobBoard\CourseController;
 
 /***********************************************************************************************************************
  * CATALOGUES
@@ -72,5 +73,26 @@ Route::prefix('academic-formation/{academic_formation}')->group(function () {
         Route::put('{file}', [AcademicFormationController::class, 'updateFile']);
         Route::delete('{file}', [AcademicFormationController::class, 'destroyFile']);
         Route::patch('', [AcademicFormationController::class, 'destroyFiles']);
+    });
+});
+
+/***********************************************************************************************************************
+ * COURSES
+ **********************************************************************************************************************/
+Route::apiResource('professionals.courses', CourseController::class);
+
+Route::prefix('course')->group(function () {
+    Route::patch('destroys', [CourseController::class, 'destroys']);
+});
+
+Route::prefix('course/{course}')->group(function () {
+    Route::prefix('file')->group(function () {
+        Route::get('{file}/download', [CourseController::class, 'downloadFile']);
+        Route::get('', [CourseController::class, 'indexFiles']);
+        Route::get('{file}', [CourseController::class, 'showFile']);
+        Route::post('', [CourseController::class, 'uploadFile']);
+        Route::put('{file}', [CourseController::class, 'updateFile']);
+        Route::delete('{file}', [CourseController::class, 'destroyFile']);
+        Route::patch('', [CourseController::class, 'destroyFiles']);
     });
 });

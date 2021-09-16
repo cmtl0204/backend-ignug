@@ -7,18 +7,18 @@ use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 
 class IndexCourseRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         $rules = [];
         return JobBoardFormRequest::rules($rules);
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         $attributes = [];
         return JobBoardFormRequest::attributes($attributes);

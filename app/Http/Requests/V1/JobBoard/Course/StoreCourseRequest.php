@@ -8,65 +8,62 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreCourseRequest extends FormRequest
 {
 
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         $rules = [
-            'course.name' => [
+            'certificationType.id' => [
+                'required',
+            ],
+            'area.id' => [
+                'required',
+            ],
+            'type.id' => [
+                'required',
+            ],
+            'name' => [
                 'required',
 
             ],
-            'course.description' => [
-                'required',
+            'description' => [
                 'min:10',
             ],
-            'course.start_date' => [
+            'startDate' => [
+                'required',
+                'date',
+            ],
+            'endDate' => [
+                'required',
+                'date',
+                'after_or_equal:startDate'
+            ],
+            'hours' => [
+                'required',
+                'numeric'
+            ],
+            'institution' => [
                 'required',
             ],
-            'course.end_date' => [
-                'required'
-            ],
-            'course.hours' => [
-                'required',
-               // 'integer',
-            ],
-
-            'course.type.id' => [
-                'required',
-              //  'integer',
-            ],
-            'course.institution.id' => [
-                'required',
-              //  'integer',
-            ],
-            'course.certification_type.id' => [
-                'required',
-               // 'integer',
-            ],
-            'course.area.id' => [
-                'required',
-               // 'integer',
-            ]
         ];
         return JobBoardFormRequest::rules($rules);
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         $attributes = [
-            'course.name' => 'nombre',
-            'course.description' => 'descripción',
-            'course.start_date' => 'fecha inicial',
-            'course.end_date' => 'fecha final',
-            'course.hours' => 'horas',
-            'course.type.id' => 'tipo-ID',
-            'course.institution.id' => 'institución-ID',
-            'course.certification_type.id' => 'tipo certificación-ID',
-            'course.area.id' => 'area-ID',
+            'area.id' => 'area de estudios',
+            'certification_type.id' => 'tipo de certificación',
+            'description' => 'descripción',
+            'endDate' => 'fecha de fin',
+            'hours' => 'horas',
+            'institution' => 'institución',
+            'name' => 'nombre del evento',
+            'startDate' => 'fecha de inicio',
+            'type.id' => 'tipo de evento',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

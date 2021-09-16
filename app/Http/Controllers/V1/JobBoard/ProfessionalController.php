@@ -92,7 +92,6 @@ class ProfessionalController extends Controller
         ], 200);
     }
 
-
     function updateProfessional(UpdateProfessionalRequest $request)
     {
         // Crea una instanacia del modelo Catalogue para poder actualizar en el modelo Professional.

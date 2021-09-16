@@ -31,10 +31,10 @@ class AcademicFormationController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $academicFormations = $professional->academicFormation()
+        $academicFormations = $professional->academicFormations()
             ->customOrderBy($sorts)
             ->senescytCode($request->input('name'))
-            ->paginate($request->perPage);
+            ->paginate($request->per_page);
 
         return (new AcademicFormationCollection($academicFormations))
             ->additional([
