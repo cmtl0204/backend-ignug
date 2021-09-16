@@ -167,6 +167,13 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     {
         if (!empty($fields)) {
             $fields = explode(',', $fields);
+            foreach ($fields as $field) {
+                $fieldExist = array_search(strtolower($field), $fields);
+                if ($fieldExist == false) {
+                    unset($fields[$fieldExist]);
+                }
+            }
+
             array_unshift($fields, 'id');
             return $query->select($fields);
         }

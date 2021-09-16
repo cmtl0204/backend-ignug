@@ -21,25 +21,24 @@ class CreateJobboardCoursesTable extends Migration
                 ->comment('tipo de evento')
                 ->constrained('authentication.catalogues');
 
-            $table->foreignId('institution_id')
-                ->constrained('authentication.catalogues');
-
             $table->foreignId('certification_type_id')
                 ->constrained('authentication.catalogues');
 
             $table->foreignId('area_id')
                 ->constrained('authentication.catalogues');
 
-            $table->text('name');
-
             $table->text('description')
                 ->nullable();
-
-            $table->date('start_date');
 
             $table->date('end_date');
 
             $table->integer('hours');
+
+            $table->string('institution');
+
+            $table->text('name');
+
+            $table->date('start_date');
         });
     }
 

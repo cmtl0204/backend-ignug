@@ -32,13 +32,13 @@ class Professional extends Model implements Auditable
     protected $table = 'job_board.professionals';
 
     protected $fillable = [
+        'about_me',
         'traveled',
         'disabled',
         'familiar_disabled',
         'identification_familiar_disabled',
         'catastrophic_diseased',
         'familiar_catastrophic_diseased',
-        'about_me',
     ];
 
     protected $casts = [

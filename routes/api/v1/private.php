@@ -1,15 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\V1\UserController;
-use App\Http\Controllers\V1\FileController;
-use App\Http\Controllers\V1\CatalogueController;
+use App\Http\Controllers\V1\Core\UserController;
+use App\Http\Controllers\V1\Core\FileController;
+use App\Http\Controllers\V1\Core\CatalogueController;
+use App\Http\Controllers\V1\JobBoard\AcademicFormationController;
+use App\Http\Controllers\V1\JobBoard\CourseController;
 
-Route::apiResource('users', UserController::class);
-
+/***********************************************************************************************************************
+ * CATALOGUES
+ **********************************************************************************************************************/
 Route::apiResource('catalogues', CatalogueController::class);
 
-Route::apiResource('files', FileController::class)->except(['index', 'store']);
+/***********************************************************************************************************************
+ * USERS
+ **********************************************************************************************************************/
+Route::apiResource('users', UserController::class);
 
 Route::prefix('user')->group(function () {
     Route::patch('destroys', [UserController::class, 'destroys']);
@@ -36,10 +42,57 @@ Route::prefix('user/{user}')->group(function () {
     });
 });
 
+/***********************************************************************************************************************
+ * FILES
+ **********************************************************************************************************************/
+Route::apiResource('files', FileController::class)->except(['index', 'store']);
+
 Route::prefix('file')->group(function () {
     Route::patch('destroys', [FileController::class, 'destroys']);
 });
 
 Route::prefix('file/{file}')->group(function () {
     Route::get('download', [FileController::class, 'download']);
+});
+
+/***********************************************************************************************************************
+ * ACADEMIC FORMATIONS
+ **********************************************************************************************************************/
+Route::apiResource('professionals.academic-formations', AcademicFormationController::class);
+
+Route::prefix('academic-formation')->group(function () {
+    Route::patch('destroys', [AcademicFormationController::class, 'destroys']);
+});
+
+Route::prefix('academic-formation/{academic_formation}')->group(function () {
+    Route::prefix('file')->group(function () {
+        Route::get('{file}/download', [AcademicFormationController::class, 'downloadFile']);
+        Route::get('', [AcademicFormationController::class, 'indexFiles']);
+        Route::get('{file}', [AcademicFormationController::class, 'showFile']);
+        Route::post('', [AcademicFormationController::class, 'uploadFile']);
+        Route::put('{file}', [AcademicFormationController::class, 'updateFile']);
+        Route::delete('{file}', [AcademicFormationController::class, 'destroyFile']);
+        Route::patch('', [AcademicFormationController::class, 'destroyFiles']);
+    });
+});
+
+/***********************************************************************************************************************
+ * COURSES
+ **********************************************************************************************************************/
+Route::apiResource('professionals.courses', CourseController::class);
+
+Route::prefix('course')->group(function () {
+    Route::patch('destroys', [CourseController::class, 'destroys']);
+});
+
+Route::prefix('course/{course}')->group(function () {
+    Route::prefix('file')->group(function () {
+        Route::get('{file}/download', [CourseController::class, 'downloadFile']);
+        Route::get('', [CourseController::class, 'indexFiles']);
+        Route::get('{file}', [CourseController::class, 'showFile']);
+        Route::post('', [CourseController::class, 'uploadFile']);
+        Route::put('{file}', [CourseController::class, 'updateFile']);
+        Route::delete('{file}', [CourseController::class, 'destroyFile']);
+        Route::patch('', [CourseController::class, 'destroyFiles']);
+    });
 });
