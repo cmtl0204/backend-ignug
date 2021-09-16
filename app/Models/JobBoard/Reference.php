@@ -31,15 +31,11 @@ class Reference extends Model implements Auditable
         'contact_email',
         'contact_name',
         'contact_phone',
+        'institution',
         'position',
     ];
 
     // Relationships
-    public function institution()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');

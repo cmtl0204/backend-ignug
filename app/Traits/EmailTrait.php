@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Models\Email;
+use App\Models\Core\Email;
 
 trait EmailTrait
 {

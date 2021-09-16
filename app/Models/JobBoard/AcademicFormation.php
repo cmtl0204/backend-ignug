@@ -2,6 +2,7 @@
 
 namespace App\Models\JobBoard;
 
+use App\Traits\FileTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +14,7 @@ class AcademicFormation extends Model implements Auditable
     use HasFactory;
     use SoftDeletes;
     use Auditing;
+    use FileTrait;
 
     protected $table = 'job_board.academic_formations';
 
@@ -23,7 +25,7 @@ class AcademicFormation extends Model implements Auditable
     ];
 
     protected $casts = [
-        'registration_date' => 'datetime'
+        'registration_date' => 'datetime:Y-m-d'
     ];
 
     public function professional()
@@ -34,6 +36,38 @@ class AcademicFormation extends Model implements Auditable
     public function professionalDegree()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    // Scopes
+    public function scopeCustomOrderBy($query, $sorts)
+    {
+        if (!empty($sorts[0])) {
+            foreach ($sorts as $sort) {
+                $field = explode('-', $sort);
+                if (empty($field[0]) && in_array($field[1], $this->fillable)) {
+                    $query = $query->orderByDesc($field[1]);
+                } else if (in_array($field[0], $this->fillable)) {
+                    $query = $query->orderBy($field[0]);
+                }
+            }
+            return $query;
+        }
+    }
+
+    public function scopeCustomSelect($query, $fields)
+    {
+        if (!empty($fields)) {
+            $fields = explode(',', $fields);
+            array_unshift($fields, 'id');
+            return $query->select($fields);
+        }
+    }
+
+    public function scopeSenescytCode($query, $senescytCode)
+    {
+        if ($senescytCode) {
+            return $query->orWhere('senescyt_code', 'ILIKE', $senescytCode);
+        }
     }
 
 }

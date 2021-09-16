@@ -41,7 +41,6 @@ class CreateJobboardCoursesTable extends Migration
             $table->text('name')
             ->comment('Nombre del curso');
 
-
             $table->text('description')
                 ->nullable()
                 ->comment('Descripcion');
@@ -57,6 +56,8 @@ class CreateJobboardCoursesTable extends Migration
 
             $table->integer('hours')
             ->comment('Horas');
+
+            $table->string('institution');
 
         });
     }

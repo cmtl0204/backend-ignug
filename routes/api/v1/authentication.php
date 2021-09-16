@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\V1\AuthController;
-use App\Http\Controllers\V1\RoleController;
-use App\Http\Controllers\V1\PermissionController;
-use App\Http\Controllers\V1\MenuController;
+use App\Http\Controllers\V1\Core\AuthController;
+use App\Http\Controllers\V1\Core\RoleController;
+use App\Http\Controllers\V1\Core\PermissionController;
+use App\Http\Controllers\V1\Core\MenuController;
+
 Route::apiResource('menus', MenuController::class);
 
 Route::prefix('auth')->group(function () {

@@ -16,17 +16,17 @@ class CreateJobboardReferencesTable extends Migration
             $table->foreignId('professional_id')
                 ->constrained('job_board.professionals');
 
-            $table->foreignId('institution_id')
-                ->constrained('authentication.catalogues');
-
-            $table->string('position');
-
             $table->string('contact_name');
 
             $table->string('contact_phone');
 
             $table->string('contact_email');
+
+            $table->string('institution');
+
+            $table->string('position');
         });
+
     }
 
     public function down()
