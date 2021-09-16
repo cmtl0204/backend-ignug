@@ -69,4 +69,5 @@ class AcademicFormation extends Model implements Auditable
             return $query->orWhere('senescyt_code', 'ILIKE', $senescytCode);
         }
     }
+
 }
