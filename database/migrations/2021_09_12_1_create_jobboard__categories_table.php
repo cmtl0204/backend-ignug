@@ -16,14 +16,16 @@ class CreateJobboardCategoriesTable extends Migration
 
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('job_board.categories');
+                ->constrained('job_board.categories')
+                ->comment('FK desde categories');
 
-            $table->string('code');
+            $table->string('code')->comment('Codigo de la categoria');
 
-            $table->text('name');
+            $table->text('name')->comment('Nombre de la categoria');
 
             $table->string('icon')
-                ->nullable();
+                ->nullable()
+                ->comment('Icono de la categoria');
         });
     }
 

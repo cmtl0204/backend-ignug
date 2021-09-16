@@ -13,7 +13,15 @@ use App\Models\Core\Catalogue;
 
 /**
  * @property BigInteger id
+ * @property bool traveled
+ * @property bool disabled
+ * @property bool familiar_disabled
+ * @property bool identification_familiar_disabled
+ * @property bool catastrophic_diseased
+ * @property bool familiar_catastrophic_diseased
  * @property string about_me
+ * 
+ * 
  */
 class Professional extends Model implements Auditable
 {
@@ -45,16 +53,6 @@ class Professional extends Model implements Auditable
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function sex()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-
-    public function gender()
-    {
-        return $this->belongsTo(Catalogue::class);
     }
 
     public function offers()

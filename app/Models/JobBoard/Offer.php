@@ -48,6 +48,10 @@ class Offer extends Model implements Auditable
         'start_date',
         'end_date',
         'aditional_information',
+        'position',
+        'activities',
+        'requirements',
+        'additional_information',
     ];
 
     protected $casts = [
@@ -95,27 +99,32 @@ class Offer extends Model implements Auditable
 
     public function sector()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Catalogue::class,);
     }
 
     public function workingDay()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Catalogue::class,);
     }
 
     public function experienceTime()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Catalogue::class,);
     }
 
     public function trainingHours()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Catalogue::class,);
     }
 
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+    
+    public function state()
+    {
+        return $this->belongsTo(State::class);
     }
 
     // Scopes

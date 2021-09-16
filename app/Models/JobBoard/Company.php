@@ -14,7 +14,7 @@ use App\Models\Core\Catalogue;
 /**
  * @property BigInteger id
  * @property string trade_name
- * @property string comercial_activity
+ * @property json comercial_activity
  * @property string web
  */
 
