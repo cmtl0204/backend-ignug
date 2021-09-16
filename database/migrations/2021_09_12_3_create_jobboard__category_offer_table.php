@@ -14,9 +14,12 @@ class CreateJobboardCategoryOfferTable extends Migration
 
             $table->foreignId('category_id')
                 ->constrained('job_board.categories');
+                ->comment('FK desde categories');
+                
 
             $table->foreignId('offer_id')
                 ->constrained('job_board.offers');
+                ->comment('FK desde offers');
         });
     }
 
