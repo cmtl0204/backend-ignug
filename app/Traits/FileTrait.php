@@ -2,13 +2,13 @@
 
 namespace App\Traits;
 
-use App\Http\Requests\V1\Files\DestroysFileRequest;
-use App\Http\Requests\V1\Files\IndexFileRequest;
-use App\Http\Requests\V1\Files\UpdateFileRequest;
-use App\Http\Requests\V1\Files\UploadFileRequest;
-use App\Http\Resources\V1\Authentications\FileCollection;
-use App\Http\Resources\V1\Authentications\FileResource;
-use App\Models\File;
+use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
+use App\Http\Requests\V1\Core\Files\IndexFileRequest;
+use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
+use App\Http\Requests\V1\Core\Files\UploadFileRequest;
+use App\Http\Resources\V1\Core\Authentications\FileCollection;
+use App\Http\Resources\V1\Core\Authentications\FileResource;
+use App\Models\Core\File;
 use Illuminate\Support\Facades\Storage;
 
 trait FileTrait

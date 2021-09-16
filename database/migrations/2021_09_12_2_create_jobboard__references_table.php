@@ -32,7 +32,10 @@ class CreateJobboardReferencesTable extends Migration
 
             $table->string('contact_email')
             ->comment('email del contacto');
+
+            $table->string('institution');
         });
+
     }
 
     public function down()
