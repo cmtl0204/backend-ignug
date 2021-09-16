@@ -2,11 +2,11 @@
 
 namespace App\Traits;
 
-use App\Http\Requests\V1\Images\DownloadImageRequest;
-use App\Http\Requests\V1\Images\IndexImageRequest;
-use App\Http\Requests\V1\Images\UpdateImageRequest;
-use App\Http\Requests\V1\Images\UploadImageRequest;
-use App\Models\Image;
+use App\Http\Requests\V1\Core\Images\DownloadImageRequest;
+use App\Http\Requests\V1\Core\Images\IndexImageRequest;
+use App\Http\Requests\V1\Core\Images\UpdateImageRequest;
+use App\Http\Requests\V1\Core\Images\UploadImageRequest;
+use App\Models\Core\Image;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as InterventionImage;
 
