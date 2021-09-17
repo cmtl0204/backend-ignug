@@ -2,6 +2,7 @@
 
 namespace App\Models\JobBoard;
 
+use App\Traits\FileTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -26,6 +27,7 @@ class Experience extends Model implements Auditable
     use HasFactory;
     use Auditing;
     use SoftDeletes;
+    use FileTrait;
 
     protected $table = 'job_board.experiences';
 

@@ -154,4 +154,41 @@ class ExperienceController extends Controller
     {
         return (new FileController())->show($fileId);
     }
+    /*******************************************************************************************************************
+     * FILES
+     *******************************************************************************************************************/
+    public function indexFiles(Experience $request, Experience $experience)
+    {
+        return $experience->indexFiles($request);
+    }
+
+    public function uploadFile(UploadFileRequest $request, Experience $experience)
+    {
+        return $experience->uploadFile($request);
+    }
+
+    public function downloadFile(Experience $experience, File $file)
+    {
+        return $experience->downloadFile($file);
+    }
+
+    public function showFile(Experience $experience, File $file)
+    {
+        return $experience->showFile($file);
+    }
+
+    public function updateFile(UpdateFileRequest $request, Experience $experience, File $file)
+    {
+        return $experience->updateFile($request, $file);
+    }
+
+    public function destroyFile(Experience $experience, File $file)
+    {
+        return $experience->destroyFile($file);
+    }
+
+    public function destroyFiles(Experience $experience, DestroysFileRequest $request)
+    {
+        return $experience->destroyFiles($request);
+    }
 }
