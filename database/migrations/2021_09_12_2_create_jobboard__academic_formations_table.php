@@ -14,19 +14,24 @@ class CreateJobboardAcademicFormationsTable extends Migration
             $table->timestamps();
 
             $table->foreignId('professional_id')
-                ->constrained('job_board.professionals');
+                ->constrained('job_board.professionals')
+                ->comment('FK desde professionals');
 
             $table->foreignId('professional_degree_id')
-                ->constrained('job_board.categories');
+                ->constrained('job_board.categories')
+                ->comment('FK desde categories');
 
             $table->date('registration_date')
-                ->nullable();
+                ->nullable()
+                ->comment('Fecha del registro');
 
             $table->string('senescyt_code')
-                ->nullable();
+                ->nullable()
+                ->comment('Codigo de senescyt');
 
             $table->boolean('certificated')
-                ->default(false);
+                ->default(false)
+                ->comment('Para saber si posee certificado;True=tiene false=no tiene');
         });
     }
 
