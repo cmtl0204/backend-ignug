@@ -38,11 +38,6 @@ class Experience extends Model implements Auditable
         'start_date',
         'worked'
     ];
-    protected $casts = [
-        'start_date' => 'date:Y-m-d',
-        'end_date' => 'date:Y-m-d',
-        'activities' => 'array',
-    ];
 
     public function area()
     {
@@ -58,4 +53,26 @@ class Experience extends Model implements Auditable
     {
         return $this->belongsTo(Professional::class);
     }
+
+    // Mutators
+    public function setEmployerAttribute($value)
+    {
+        $this->attributes['employer'] = strtoupper($value);
+    }
+
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = strtolower($value);
+    }
+
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = strtolower($value);
+    }
+
+    public function setPositionAttribute($value)
+    {
+        $this->attributes['position'] = strtoupper($value);
+    }
+    
 }
