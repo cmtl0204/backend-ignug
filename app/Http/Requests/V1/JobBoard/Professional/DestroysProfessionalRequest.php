@@ -31,7 +31,7 @@ class DestroysProfessionalRequest extends FormRequest
     public function attributes()
     {
         return [
-            'ids' => 'ID`s de usuario',
+            'ids' => 'ID`s de profesinales',
         ];
     }
 }

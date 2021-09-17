@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\JobBoard\Skill;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysSkillRequest extends FormRequest
+class DestroysExperienceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,7 +31,7 @@ class DestroysSkillRequest extends FormRequest
     public function attributes()
     {
         return [
-            'ids' => 'ID`s de las habilidades',
+            'ids' => 'ID`s de las experiencias',
         ];
     }
 }
