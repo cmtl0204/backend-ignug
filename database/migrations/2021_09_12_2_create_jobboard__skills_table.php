@@ -14,13 +14,16 @@ class CreateJobboardSkillsTable extends Migration
             $table->timestamps();
 
             $table->foreignId('professional_id')
-                ->constrained('job_board.professionals');
+                ->constrained('job_board.professionals')
+                ->comment('FK desde professionals');
 
             $table->foreignId('type_id')
                 ->comment('soft or hard')
-                ->constrained('authentication.catalogues');
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
 
-            $table->text('description');
+            $table->text('description')
+            ->comment('descripcion');
         });
     }
 

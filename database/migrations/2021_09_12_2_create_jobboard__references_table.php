@@ -14,17 +14,26 @@ class CreateJobboardReferencesTable extends Migration
             $table->timestamps();
 
             $table->foreignId('professional_id')
-                ->constrained('job_board.professionals');
+                ->constrained('job_board.professionals')
+                ->comment('FK desde professionals');
 
-            $table->string('contact_name');
+            $table->foreignId('institution_id')
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
 
-            $table->string('contact_phone');
+            $table->string('position')
+            ->comment('posicion');
 
-            $table->string('contact_email');
+            $table->string('contact_name')
+            ->comment('nombre del contacto');
+
+            $table->string('contact_phone')
+            ->comment('celular del contacto');
+
+            $table->string('contact_email')
+            ->comment('email del contacto');
 
             $table->string('institution');
-
-            $table->string('position');
         });
 
     }

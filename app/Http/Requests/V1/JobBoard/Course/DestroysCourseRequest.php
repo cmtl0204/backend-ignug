@@ -21,7 +21,7 @@ class DestroysCourseRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'ids' => 'ID`s',
+            'ids' => 'ID`s de los cursos',
         ];
     }
 }
