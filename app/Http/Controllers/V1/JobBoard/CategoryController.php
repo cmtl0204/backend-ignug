@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\App\Catalogue;
 use App\Models\JobBoard\Category;
 use App\Http\Requests\JobBoard\Category\StoreCategoryRequest;
-use App\Http\Requests\JobBoard\Category\IndexCategoryRequest;
+use App\Http\Requests\V1\JobBoard\Category\IndexCategoryRequest;
 use App\Http\Requests\JobBoard\Category\UpdateCategoryRequest;
 use App\Http\Requests\JobBoard\Category\DestroysCategoryRequest;
 use App\Http\Requests\JobBoard\Category\GetParentCategoryRequest;
@@ -18,27 +18,19 @@ class CategoryController extends Controller
 
     function index(IndexCategoryRequest $request)
     {
-        if ($request->has('search')) {
-            $categories = Category::
-                code($request->input('search'))
-                ->name($request->input('search'))
-                ->paginate($request->input('per_page'));
-        } else {
+        $sorts = explode(',', $request->sort);
 
-            $categories = Category::paginate($request->input('per_page'));
-        }
+        $categories = Category::customOrderBy($sorts)
+            ->paginate($request->per_page);
 
-        if ($categories->count() === 0) {
-            return response()->json([
-                'data' => null,
+        return (new CategoryCollection($categories))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron Categorías',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]], 404);
-        }
-
-        return response()->json($categories, 200);
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     function getParentCategories(GetParentCategoryRequest $request)
@@ -52,7 +44,8 @@ class CategoryController extends Controller
                     'summary' => 'No se encontraron Categorías',
                     'detail' => 'Intente de nuevo',
                     'code' => '404'
-                ]], 404);
+                ]
+            ], 404);
         }
 
         return response()->json([
@@ -61,7 +54,8 @@ class CategoryController extends Controller
                 'summary' => 'success',
                 'detail' => '',
                 'code' => '200'
-            ]], 200);
+            ]
+        ], 200);
     }
 
     function show(Category $category)
@@ -78,16 +72,16 @@ class CategoryController extends Controller
 
     function store(StoreCategoryRequest $request)
     {
-        $parent= Category::find($request->input('category.parent.id'));
+        $parent = Category::find($request->input('category.parent.id'));
 
 
         $category = new Category();
         $category->code = $request->input('category.code');
         $category->name = $request->input('category.name');
         $category->icon = $request->input('category.icon');
-            if($parent){
-           $category->parent()->associate($parent);
-       }
+        if ($parent) {
+            $category->parent()->associate($parent);
+        }
         $category->save();
         return response()->json([
             'data' => $category,
@@ -95,17 +89,18 @@ class CategoryController extends Controller
                 'summary' => 'Categoria creada',
                 'detail' => 'El registro fue creado',
                 'code' => '201'
-            ]], 201);
+            ]
+        ], 201);
     }
 
     function update(UpdateCategoryRequest $request, Category $category)
     {
-        $parent= Category::find($request->input('category.parent.id'));
+        $parent = Category::find($request->input('category.parent.id'));
 
         $category->code = $request->input('category.code');
         $category->name = $request->input('category.name');
         $category->icon = $request->input('category.icon');
-        if($parent){
+        if ($parent) {
             $category->parent()->associate($parent);
         }
         $category->save();
@@ -116,7 +111,8 @@ class CategoryController extends Controller
                 'summary' => 'Categoria actualizada',
                 'detail' => 'El registro fue actualizado',
                 'code' => '201'
-            ]], 201);
+            ]
+        ], 201);
     }
 
     public function destroy(Category $category)
