@@ -8,8 +8,10 @@ use App\Models\JobBoard\Category;
 use App\Http\Requests\JobBoard\Category\StoreCategoryRequest;
 use App\Http\Requests\JobBoard\Category\IndexCategoryRequest;
 use App\Http\Requests\JobBoard\Category\UpdateCategoryRequest;
-use App\Http\Requests\JobBoard\Category\DeleteCategoryRequest;
+use App\Http\Requests\JobBoard\Category\DestroysCategoryRequest;
 use App\Http\Requests\JobBoard\Category\GetParentCategoryRequest;
+use App\Http\Resources\V1\JobBoard\CategoryCollection;
+use App\Http\Resources\V1\JobBoard\CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -64,13 +66,14 @@ class CategoryController extends Controller
 
     function show(Category $category)
     {
-        return response()->json([
-            'data' => $category,
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]], 200);
+        return (new CategoryResource($category))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     function store(StoreCategoryRequest $request)
@@ -116,17 +119,31 @@ class CategoryController extends Controller
             ]], 201);
     }
 
-    function delete(DeleteCategoryRequest $request)
+    public function destroy(Category $category)
     {
-        // Es una eliminación lógica
+        $category->delete();
+        return (new CategoryResource($category))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysCategoryRequest $request)
+    {
+        $categories = Category::whereIn('id', $request->input('ids'))->get();
         Category::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Categoria(s) eliminada(s)',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]], 201);
+        return (new CategoryCollection($categories))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }

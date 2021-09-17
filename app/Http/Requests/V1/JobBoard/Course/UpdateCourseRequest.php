@@ -15,13 +15,13 @@ class UpdateCourseRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'type.id' => [
+            'typeId' => [
                 'required',
             ],
-            'certificationType.id' => [
+            'certificationTypeId' => [
                 'required',
             ],
-            'area.id' => [
+            'areaId' => [
                 'required',
             ],
             'name' => [
@@ -54,15 +54,15 @@ class UpdateCourseRequest extends FormRequest
     public function attributes(): array
     {
         $attributes = [
-            'area.id' => 'area de estudios',
-            'certification_type.id' => 'tipo de certificación',
+            'areaId' => 'area de estudios',
+            'certificationTypeId' => 'tipo de certificación',
             'description' => 'descripción',
             'endDate' => 'fecha de fin',
             'hours' => 'horas',
             'institution' => 'institución',
             'name' => 'nombre del evento',
             'startDate' => 'fecha de inicio',
-            'type.id' => 'tipo de evento',
+            'typeId' => 'tipo de evento',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

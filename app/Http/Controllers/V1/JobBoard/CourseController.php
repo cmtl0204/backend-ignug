@@ -49,9 +49,9 @@ class CourseController extends Controller
 
     function store(StoreCourseRequest $request, Professional $professional)
     {
-        $type = Catalogue::find($request->input('type.id'));
-        $certificationType = Catalogue::find($request->input('certificationType.id'));
-        $area = Catalogue::find($request->input('area.id'));
+        $type = Catalogue::find($request->input('typeId'));
+        $certificationType = Catalogue::find($request->input('certificationTypeId'));
+        $area = Catalogue::find($request->input('areaId'));
 
         $course = new Course();
         $course->professional()->associate($professional);

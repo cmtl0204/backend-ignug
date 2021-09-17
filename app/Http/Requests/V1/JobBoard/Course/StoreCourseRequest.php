@@ -16,18 +16,17 @@ class StoreCourseRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'certificationType.id' => [
+            'typeId' => [
                 'required',
             ],
-            'area.id' => [
+            'certificationTypeId' => [
                 'required',
             ],
-            'type.id' => [
+            'areaId' => [
                 'required',
             ],
             'name' => [
                 'required',
-
             ],
             'description' => [
                 'min:10',
@@ -55,15 +54,15 @@ class StoreCourseRequest extends FormRequest
     public function attributes(): array
     {
         $attributes = [
-            'area.id' => 'area de estudios',
-            'certification_type.id' => 'tipo de certificación',
+            'areaId' => 'area de estudios',
+            'certificationTypeId' => 'tipo de certificación',
             'description' => 'descripción',
             'endDate' => 'fecha de fin',
             'hours' => 'horas',
             'institution' => 'institución',
             'name' => 'nombre del evento',
             'startDate' => 'fecha de inicio',
-            'type.id' => 'tipo de evento',
+            'typeId' => 'tipo de evento',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }
