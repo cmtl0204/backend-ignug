@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AuthenticationSeeder::class,
-            licenseWorkSeeder::class
+            licenseWorkSeeder::class,
         ]);
     }
 }
