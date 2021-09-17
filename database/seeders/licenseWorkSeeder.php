@@ -8,7 +8,7 @@ use App\Models\JobBoard\Category;
 use App\Models\JobBoard\Professional;
 use Illuminate\Database\Seeder;
 
-class JobBoardSeeder extends Seeder
+class licenseWorkSeeder extends Seeder
 {
     /**
      * Run the database seeds.
