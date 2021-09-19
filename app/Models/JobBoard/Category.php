@@ -28,7 +28,6 @@ class Category extends Model implements Auditable
         'icon'
     ];
 
-
     public function children()
     {
         return $this->hasMany(Category::class, 'parent_id');
@@ -66,5 +65,9 @@ class Category extends Model implements Auditable
         $this->attributes['name'] = strtoupper($value);
     }
 
+    public function setIconAttribute($value)
+    {
+        $this->attributes['icon'] = strtoupper($value);
+    }
 
 }

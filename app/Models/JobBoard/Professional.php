@@ -41,14 +41,6 @@ class Professional extends Model implements Auditable
         'familiar_catastrophic_diseased',
     ];
 
-    protected $casts = [
-        'traveled' => 'boolean',
-        'disabled' => 'boolean',
-        'familiar_disabled' => 'boolean',
-        'catastrophic_diseased' => 'boolean',
-        'familiar_catastrophic_diseased' => 'boolean',
-    ];
-
     // Relationships
     public function user()
     {
@@ -119,5 +111,10 @@ class Professional extends Model implements Auditable
     public function setAboutMeAttribute($value)
     {
         $this->attributes['about_me'] = strtoupper($value);
+    }
+
+    public function setIdentificationFamiliarDisabledAttribute($value)
+    {
+        $this->attributes['identification_familiar_disabled'] = strtoupper($value);
     }
 }
