@@ -32,7 +32,7 @@ class CreateJobboardExperiencesTable extends Migration
             ->comment('Empleador');
 
 
-            $table->date('end_date')
+            $table->date('end_at')
                 ->nullable()
                 ->comment('Fecha final');
 
@@ -46,7 +46,7 @@ class CreateJobboardExperiencesTable extends Migration
                 ->comment('');
 
 
-            $table->date('start_date')
+            $table->date('start_at')
             ->comment('Fecha de inicio');
 
 

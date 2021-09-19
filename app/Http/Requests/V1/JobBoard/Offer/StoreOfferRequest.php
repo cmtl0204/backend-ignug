@@ -15,64 +15,64 @@ class StoreOfferRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'offer.contact_name' => [
+            'contactName' => [
                 'required',
                 'min:4',
                 'max:250',
             ],
-            'offer.contact_email' => [
+            'contactEmail' => [
                 'required',
                 'min:10',
                 'max:100',
                 'email',
             ],
-            'offer.contact_phone' => [
+            'contactPhone' => [
                 'required_without:offer.contact_cellphone',
             ],
-            'offer.contact_cellphone' => [
+            'contactCellphone' => [
                 'required_without:offer.contact_phone',
             ],
-            'offer.start_date' => [
+            'startAt' => [
                 'required',
                 'date',
             ],
-            'offer.activities' => [
+            'activities' => [
                 'required',
                 'array',
             ],
-            'offer.requirements' => [
+            'requirements' => [
                 'required',
                 'array',
             ],
-            'offer.location.id' => [
+            'location.id' => [
                 'required',
                 'integer',
             ],
-            'offer.contract_type.id' => [
+            'contractType.id' => [
                 'required',
                 'integer',
             ],
-            'offer.position.id' => [
+            'position.id' => [
                 'required',
                 'integer',
             ],
-            'offer.sector.id' => [
+            'sector.id' => [
                 'required',
                 'integer',
             ],
-            'offer.working_day.id' => [
+            'workingDay.id' => [
                 'required',
                 'integer',
             ],
-            'offer.experience_time.id' => [
+            'experienceTime.id' => [
                 'required',
                 'integer',
             ],
-            'offer.training_hours.id' => [
+            'trainingHours.id' => [
                 'required',
                 'integer',
             ],
-            'offer.status.id' => [
+            'status.id' => [
                 'required',
                 'integer',
             ],
@@ -83,21 +83,21 @@ class StoreOfferRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'offer.contact_name' => 'nombre-contacto',
-            'offer.contact_email' => 'email-contacto',
-            'offer.contact_phone' => 'telefono-contacto',
-            'offer.contact_cellphone' => 'celular-contacto',
-            'offer.start_date' => 'fecha-inicio',
-            'offer.activities' => 'actividades',
-            'offer.requirements' => 'requerimientos',
-            'offer.location.id' => 'locacion-id',
-            'offer.contract_type.id' => 'tipo-contrato-id',
-            'offer.position.id' => 'posicion-id',
-            'offer.sector.id' => 'sector-id',
-            'offer.working_day.id' => 'dia-trabajo-id',
-            'offer.experience_time.id' => 'tiempo-expreriencia-id',
-            'offer.training_hours.id' => 'horas-entrenamiento-id',
-            'offer.status.id' => 'estado-id',
+            'contactName' => 'nombre-contacto',
+            'contactEmail' => 'email-contacto',
+            'contactPhone' => 'telefono-contacto',
+            'contactCellphone' => 'celular-contacto',
+            'startAt' => 'fecha-inicio',
+            'activities' => 'actividades',
+            'requirements' => 'requerimientos',
+            'location.id' => 'locacion-id',
+            'contractType.id' => 'tipo-contrato-id',
+            'position.id' => 'posicion-id',
+            'sector.id' => 'sector-id',
+            'workingDay.id' => 'dia-trabajo-id',
+            'experienceTime.id' => 'tiempo-expreriencia-id',
+            'trainingHours.id' => 'horas-entrenamiento-id',
+            'status.id' => 'estado-id',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

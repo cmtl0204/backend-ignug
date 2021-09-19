@@ -23,11 +23,6 @@ class CreateJobboardCoursesTable extends Migration
                 ->comment('tipo de evento')
                 ->constrained('authentication.catalogues');
 
-            $table->foreignId('institution_id')
-                ->constrained('authentication.catalogues')
-                ->comment('Identificador de Instituto');
-
-
             $table->foreignId('certification_type_id')
                 ->constrained('authentication.catalogues')
                 ->comment('Verificar numero de certificado');
@@ -46,11 +41,11 @@ class CreateJobboardCoursesTable extends Migration
                 ->comment('Descripcion');
 
 
-            $table->date('start_date')
+            $table->date('start_at')
             ->comment('13 de septiembre del 2021');
 
 
-            $table->date('end_date')
+            $table->date('end_at')
             ->comment('Fecha final');
 
 

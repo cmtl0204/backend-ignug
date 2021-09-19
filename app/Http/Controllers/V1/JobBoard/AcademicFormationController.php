@@ -50,7 +50,7 @@ class AcademicFormationController extends Controller
     {
         $academicFormation = new AcademicFormation();
         $academicFormation->professional()->associate($professional);
-        $academicFormation->professionalDegree()->associate(Category::find($request->input('professionalDegreeId')));
+        $academicFormation->professionalDegree()->associate(Category::find($request->input('professionalDegree.id')));
 
         $academicFormation->registration_date = $request->input('registrationDate');
         $academicFormation->senescyt_code = $request->input('senescytCode');

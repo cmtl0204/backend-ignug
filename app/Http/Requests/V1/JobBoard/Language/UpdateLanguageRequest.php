@@ -17,19 +17,19 @@ class UpdateLanguageRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'idiomId' => [
+            'idiom.id' => [
                 'required',
 
             ],
-            'writtenLevelId' => [
+            'writtenLevel.id' => [
                 'required',
 
             ],
-            'spokenLevelId' => [
+            'spokenLevel.id' => [
                 'required',
 
             ],
-            'readLevelId' => [
+            'readLevel.id' => [
                 'required',
 
             ]
@@ -42,10 +42,10 @@ class UpdateLanguageRequest extends FormRequest
     {
         $attributes = [
 
-            'idiomId' => 'idioma-ID',
-            'writtenLevelId' => 'nivel escritura-ID',
-            'spokenLevelId' => 'nivel hablado-ID',
-            'readLevelId' => 'nivel lectura-ID',
+            'idiom.id' => 'idioma-ID',
+            'writtenLevel.id' => 'nivel escritura-ID',
+            'spokenLevel.id' => 'nivel hablado-ID',
+            'readLevel.id' => 'nivel lectura-ID',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

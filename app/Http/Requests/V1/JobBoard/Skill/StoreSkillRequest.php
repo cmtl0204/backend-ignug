@@ -20,7 +20,7 @@ class StoreSkillRequest extends FormRequest
                 'min:10',
                 'max:1000',
             ],
-            'typeId' => [
+            'type.id' => [
                 'required',
                 'integer',
 //                Rule::unique('pgsql-job-board.skills', 'type_id')->ignore($this->id),
@@ -33,7 +33,7 @@ class StoreSkillRequest extends FormRequest
     {
         $attributes = [
             'description' => 'descripción',
-            'typeId' => 'tipo-id',
+            'type.id' => 'tipo-id',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

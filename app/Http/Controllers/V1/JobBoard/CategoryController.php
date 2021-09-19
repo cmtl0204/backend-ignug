@@ -5,11 +5,11 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 use App\Models\App\Catalogue;
 use App\Models\JobBoard\Category;
-use App\Http\Requests\JobBoard\Category\StoreCategoryRequest;
+use App\Http\Requests\V1\JobBoard\Category\StoreCategoryRequest;
 use App\Http\Requests\V1\JobBoard\Category\IndexCategoryRequest;
-use App\Http\Requests\JobBoard\Category\UpdateCategoryRequest;
-use App\Http\Requests\JobBoard\Category\DestroysCategoryRequest;
-use App\Http\Requests\JobBoard\Category\GetParentCategoryRequest;
+use App\Http\Requests\V1\JobBoard\Category\UpdateCategoryRequest;
+use App\Http\Requests\V1\JobBoard\Category\DestroysCategoryRequest;
+use App\Http\Requests\V1\JobBoard\Category\GetParentCategoryRequest;
 use App\Http\Resources\V1\JobBoard\CategoryCollection;
 use App\Http\Resources\V1\JobBoard\CategoryResource;
 
@@ -72,47 +72,43 @@ class CategoryController extends Controller
 
     function store(StoreCategoryRequest $request)
     {
-        $parent = Category::find($request->input('category.parent.id'));
+        $parent = Category::find($request->input('parent.id'));
 
 
         $category = new Category();
-        $category->code = $request->input('category.code');
-        $category->name = $request->input('category.name');
-        $category->icon = $request->input('category.icon');
-        if ($parent) {
-            $category->parent()->associate($parent);
-        }
+        $category->code = $request->input('code');
+        $category->name = $request->input('name');
+        $category->icon = $request->input('icon');
+        $category->parent()->associate($parent);
         $category->save();
-        return response()->json([
-            'data' => $category,
-            'msg' => [
-                'summary' => 'Categoria creada',
-                'detail' => 'El registro fue creado',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new CategoryResource($category))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     function update(UpdateCategoryRequest $request, Category $category)
     {
-        $parent = Category::find($request->input('category.parent.id'));
+        $parent = Category::find($request->input('parent.id'));
 
-        $category->code = $request->input('category.code');
-        $category->name = $request->input('category.name');
-        $category->icon = $request->input('category.icon');
-        if ($parent) {
-            $category->parent()->associate($parent);
-        }
+        $category->parent()->associate($parent);
+        $category->code = $request->input('code');
+        $category->name = $request->input('name');
+        $category->icon = $request->input('icon');
         $category->save();
 
-        return response()->json([
-            'data' => $category,
-            'msg' => [
-                'summary' => 'Categoria actualizada',
-                'detail' => 'El registro fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new CategoryResource($category))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function destroy(Category $category)

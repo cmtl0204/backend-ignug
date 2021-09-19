@@ -16,12 +16,12 @@ use App\Http\Resources\V1\JobBoard\LanguageResource;
 
 // FormRequest
 
-use App\Http\Requests\JobBoard\Language\IndexLanguageRequest;
-use App\Http\Requests\JobBoard\Language\UpdateLanguageRequest;
-use App\Http\Requests\JobBoard\Language\CreateLanguageRequest;
-use App\Http\Requests\JobBoard\Language\StoreLanguageRequest;
-use App\Http\Requests\JobBoard\Language\DeleteLanguageRequest;
-use App\Http\Requests\JobBoard\Language\DestroysLanguagesRequest;
+use App\Http\Requests\V1\JobBoard\Language\IndexLanguageRequest;
+use App\Http\Requests\V1\JobBoard\Language\UpdateLanguageRequest;
+use App\Http\Requests\V1\JobBoard\Language\CreateLanguageRequest;
+use App\Http\Requests\V1\JobBoard\Language\StoreLanguageRequest;
+use App\Http\Requests\V1\JobBoard\Language\DeleteLanguageRequest;
+use App\Http\Requests\V1\JobBoard\Language\DestroysLanguagesRequest;
 use App\Http\Controllers\App\FileController;
 use App\Http\Requests\App\File\UpdateFileRequest;
 use App\Http\Requests\App\File\UploadFileRequest;
@@ -37,7 +37,6 @@ class LanguageController extends Controller
 
         $languages = $professional->languages()
             ->customOrderBy($sorts)
-            // ->senescytCode($request->input('name'))
             ->paginate($request->per_page);
 
         return (new LanguageCollection($languages))
@@ -64,10 +63,10 @@ class LanguageController extends Controller
 
     function store(StoreLanguageRequest $request, Professional $professional)
     {
-        $idiom = Catalogue::find($request->input('idiomId'));
-        $written_level = Catalogue::find($request->input('writtenLevelId'));
-        $spoken_level = Catalogue::find($request->input('spokenLevelId'));
-        $read_level = Catalogue::find($request->input('readLevelId'));
+        $idiom = Catalogue::find($request->input('idiom.id'));
+        $written_level = Catalogue::find($request->input('writtenLevel.id'));
+        $spoken_level = Catalogue::find($request->input('spokenLevel.id'));
+        $read_level = Catalogue::find($request->input('readLevel.id'));
 
         $language = new Language();
         $language->professional()->associate($professional);
@@ -89,10 +88,10 @@ class LanguageController extends Controller
 
     function update(UpdateLanguageRequest $request, Professional $professional,Language $language)
     {
-        $idiom = Catalogue::find($request->input('idiomId'));
-        $written_level = Catalogue::find($request->input('writtenLevelId'));
-        $spoken_level = Catalogue::find($request->input('spokenLevelId'));
-        $read_level = Catalogue::find($request->input('readLevelId'));
+        $idiom = Catalogue::find($request->input('idiom.id'));
+        $written_level = Catalogue::find($request->input('writtenLevel.id'));
+        $spoken_level = Catalogue::find($request->input('spokenLevel.id'));
+        $read_level = Catalogue::find($request->input('readLevel.id'));
 
         $language->idiom()->associate($idiom);
         $language->written_level()->associate($written_level);

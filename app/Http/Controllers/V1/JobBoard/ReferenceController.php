@@ -5,12 +5,12 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 // FormRequests
 use App\Http\Requests\JobBoard\Reference\CreateReferenceRequest;
-use App\Http\Requests\JobBoard\Reference\IndexReferenceRequest;
-use App\Http\Requests\JobBoard\Reference\UpdateReferenceRequest;
-use App\Http\Requests\JobBoard\Reference\StoreReferenceRequest;
-use App\Http\Requests\JobBoard\Reference\DeleteReferenceRequest;
-use App\Http\Requests\JobBoard\Reference\GetReferenceRequest;
-use App\Http\Requests\JobBoard\Reference\DestroysReferenceRequest;
+use App\Http\Requests\V1\JobBoard\Reference\IndexReferenceRequest;
+use App\Http\Requests\V1\JobBoard\Reference\UpdateReferenceRequest;
+use App\Http\Requests\V1\JobBoard\Reference\StoreReferenceRequest;
+use App\Http\Requests\V1\JobBoard\Reference\DeleteReferenceRequest;
+use App\Http\Requests\V1\JobBoard\Reference\GetReferenceRequest;
+use App\Http\Requests\V1\JobBoard\Reference\DestroysReferenceRequest;
 
 use App\Http\Controllers\App\FileController;
 use App\Http\Requests\App\File\UpdateFileRequest;
@@ -42,7 +42,10 @@ class ReferenceController extends Controller
 
         $references = $professional->references()
             ->customOrderBy($sorts)
-            // ->senescytCode($request->input('name'))
+            ->position($request->input('position'))
+            ->contactName($request->input('contactName'))
+            ->contactPhone($request->input('contactPhone'))
+            ->contactEmail($request->input('contactEmail'))
             ->paginate($request->per_page);
 
         return (new ReferenceCollection($references))
@@ -73,7 +76,6 @@ class ReferenceController extends Controller
 
     function store(StoreReferenceRequest $request, Professional $professional)
     {
-        // $institution = Catalogue::find($request->input('institution.id'));
         $reference = new Reference();
         $reference->institution=$request->input('institution');
         $reference->position = $request->input('position');
@@ -81,7 +83,6 @@ class ReferenceController extends Controller
         $reference->contact_phone = $request->input('contactPhone');
         $reference->contact_email = $request->input('contactEmail');
         $reference->professional()->associate($professional);
-        // $reference->institution()->associate($institution);//en la migration es solo un string
         $reference->save();
 
         return (new ReferenceResource($reference))

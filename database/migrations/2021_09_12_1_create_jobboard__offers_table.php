@@ -64,9 +64,9 @@ class CreateJobboardOffersTable extends Migration
                 ->comment('total puestos disponibles')
                 ->nullable();
 
-            $table->date('start_date')->comment('Fecha de publicacion de la oferta');
+            $table->date('start_at')->comment('Fecha de publicacion de la oferta');
 
-            $table->date('end_date')->comment('Fecha en que se remueve la oferta');
+            $table->date('end_at')->comment('Fecha en que se remueve la oferta');
 
             $table->json('activities')->comment('Actividades o responsabilidades del puesto');
 

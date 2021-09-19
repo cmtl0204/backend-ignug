@@ -24,7 +24,7 @@ class StoreAcademicFormationRequest extends FormRequest
             'certificated' => [
                 'required',
             ],
-            'professionalDegreeId' => [
+            'professionalDegree.id' => [
                 'required',
             ]
         ];
@@ -38,7 +38,7 @@ class StoreAcademicFormationRequest extends FormRequest
             'registrationDate'=>'Fecha de registro',
             'senescytCode'=>'Codigo de Senescyt',
             'certificated'=>'Tiene certificado',
-            'professionalDegreeId'=>'Id de tituto de grado',
+            'professionalDegree.id'=>'Id de tituto de grado',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

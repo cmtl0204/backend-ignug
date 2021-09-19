@@ -18,9 +18,10 @@ use App\Models\App\Location;
 
 
 // FormRequest
-use App\Http\Requests\JobBoard\Company\StoreCompanyRequest;
-use App\Http\Requests\JobBoard\Company\UpdateCompanyRequest;
-use App\Http\Requests\JobBoard\Company\GetCompanyRequest;
+use App\Http\Requests\V1\JobBoard\Company\StoreCompanyRequest;
+use App\Http\Requests\V1\JobBoard\Company\UpdateCompanyRequest;
+use App\Http\Requests\V1\JobBoard\Company\GetCompanyRequest;
+use App\Http\Requests\V1\JobBoard\Company\IndexCompanyRequest;
 use App\Models\JobBoard\Professional;
 use Illuminate\Http\Request;
 

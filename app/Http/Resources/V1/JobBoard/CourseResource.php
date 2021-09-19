@@ -33,6 +33,8 @@ class CourseResource extends JsonResource
 //            'endDate' => Carbon::create(strval($this->end_date))->toDayDateTimeString(),
             'hours' => $this->hours,
             'institution' => $this->institution,
+            'createAt'=>$this->create_at,
+            'updateAt'=>$this->update_at,
         ];
     }
 }

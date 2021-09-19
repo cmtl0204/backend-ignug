@@ -49,9 +49,9 @@ class CourseController extends Controller
 
     function store(StoreCourseRequest $request, Professional $professional)
     {
-        $type = Catalogue::find($request->input('typeId'));
-        $certificationType = Catalogue::find($request->input('certificationTypeId'));
-        $area = Catalogue::find($request->input('areaId'));
+        $type = Catalogue::find($request->input('type.id'));
+        $certificationType = Catalogue::find($request->input('certificationType.id'));
+        $area = Catalogue::find($request->input('area.id'));
 
         $course = new Course();
         $course->professional()->associate($professional);
@@ -61,8 +61,8 @@ class CourseController extends Controller
 
         $course->name = $request->input('name');
         $course->description = $request->input('description');
-        $course->start_date = $request->input('startDate');
-        $course->end_date = $request->input('endDate');
+        $course->start_at = $request->input('startAt');
+        $course->end_at = $request->input('endAt');
         $course->hours = $request->input('hours');
         $course->institution = $request->input('institution');
 
@@ -102,8 +102,8 @@ class CourseController extends Controller
 
         $course->name = $request->input('name');
         $course->description = $request->input('description');
-        $course->start_date = $request->input('startDate');
-        $course->end_date = $request->input('endDate');
+        $course->start_at = $request->input('startAt');
+        $course->end_at = $request->input('endAt');
         $course->hours = $request->input('hours');
         $course->institution = $request->input('institution');
         $course->save();

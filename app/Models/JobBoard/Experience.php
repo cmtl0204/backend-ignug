@@ -33,11 +33,11 @@ class Experience extends Model implements Auditable
 
     protected $fillable = [
         'activities',
-        'end_date',
+        'end_at',
         'employer',
         'position',
         'reason_leave',
-        'start_date',
+        'start_at',
         'worked'
     ];
     protected $casts = [
@@ -101,7 +101,7 @@ class Experience extends Model implements Auditable
         }
     }
 
-    public function scopeReason_Leave($query, $reason_leave)
+    public function scopeReasonLeave($query, $reason_leave)
     {
         if ($reason_leave) {
             return $query->orWhere('name', 'ILIKE', "%$reason_leave%");

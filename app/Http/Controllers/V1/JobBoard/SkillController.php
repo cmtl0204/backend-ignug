@@ -8,10 +8,10 @@ use App\Http\Controllers\App\ImageController;
 use App\Http\Requests\JobBoard\Skill\DeleteSkillRequest;
 use App\Models\App\Catalogue;
 use App\Models\JobBoard\Skill;
-use App\Http\Requests\JobBoard\Skill\StoreSkillRequest;
-use App\Http\Requests\JobBoard\Skill\IndexSkillRequest;
-use App\Http\Requests\JobBoard\Skill\UpdateSkillRequest;
-use App\Http\Requests\JobBoard\Skill\DestroysSkillRequest;
+use App\Http\Requests\V1\JobBoard\Skill\StoreSkillRequest;
+use App\Http\Requests\V1\JobBoard\Skill\IndexSkillRequest;
+use App\Http\Requests\V1\JobBoard\Skill\UpdateSkillRequest;
+use App\Http\Requests\V1\JobBoard\Skill\DestroysSkillRequest;
 use App\Http\Requests\App\Image\UpdateImageRequest;
 use App\Http\Requests\App\Image\UploadImageRequest;
 use App\Http\Requests\App\File\UpdateFileRequest;
@@ -33,7 +33,7 @@ class SkillController extends Controller
 
         $skills = $professional->skills()
             ->customOrderBy($sorts)
-            // ->senescytCode($request->input('name'))
+            ->description($request->input('description'))
             ->paginate($request->per_page);
 
         return (new SkillCollection($skills))
@@ -61,7 +61,7 @@ class SkillController extends Controller
     function store(StoreSkillRequest $request, Professional $professional)
     {
 
-        $type = Catalogue::getInstance($request->input('typeId'));
+        $type = Catalogue::getInstance($request->input('type.id'));
 
         $skill = new Skill();
         $skill->description = $request->input('description');
@@ -82,7 +82,7 @@ class SkillController extends Controller
     function update(UpdateSkillRequest $request, Professional $professional, Skill $skill)
     {
         // Crea una instanacia del modelo Catalogue para poder insertar en el modelo skill.
-        $type = Catalogue::getInstance($request->input('typeId'));
+        $type = Catalogue::getInstance($request->input('type.id'));
         $skill->description = $request->input('description');
         $skill->type()->associate($type);
         $skill->save();

@@ -16,16 +16,19 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'category.code' => [
+            'code' => [
                 'required',
                 'min:3',
                 'max:20',
             ],
-            'category.name' => [
+            'name' => [
                 'required',
                 'min:3',
                 'max:250',
-            ]
+            ],
+            'parent.id' => [
+                'required',
+            ],
         ];
         return JobBoardFormRequest::rules($rules);
     }
@@ -33,8 +36,9 @@ class UpdateCategoryRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'category.code' => 'código',
-            'category.name' => 'nombre',
+            'code' => 'código',
+            'name' => 'nombre',
+            'parent.id' => 'CategoriaID'
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

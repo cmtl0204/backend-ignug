@@ -14,11 +14,11 @@ use App\Http\Resources\V1\JobBoard\ExperienceCollection;
 use App\Http\Resources\V1\JobBoard\ExperienceResource;
 
 // FormRequest
-use App\Http\Requests\JobBoard\Experience\DeleteExperienceRequest;
-use App\Http\Requests\JobBoard\Experience\StoreExperienceRequest;
-use App\Http\Requests\JobBoard\Experience\UpdateExperienceRequest;
-use App\Http\Requests\JobBoard\Experience\IndexExperienceRequest;
-use App\Http\Requests\JobBoard\Experience\DestroysExperienceRequest;
+use App\Http\Requests\V1\JobBoard\Experience\DeleteExperienceRequest;
+use App\Http\Requests\V1\JobBoard\Experience\StoreExperienceRequest;
+use App\Http\Requests\V1\JobBoard\Experience\UpdateExperienceRequest;
+use App\Http\Requests\V1\JobBoard\Experience\IndexExperienceRequest;
+use App\Http\Requests\V1\JobBoard\Experience\DestroysExperienceRequest;
 
 use App\Http\Controllers\App\FileController;
 use App\Http\Requests\App\File\UpdateFileRequest;
@@ -34,7 +34,9 @@ class ExperienceController extends Controller
 
         $experiences = $professional->experiences()
             ->customOrderBy($sorts)
-            // ->senescytCode($request->input('name'))
+            ->employer($request->input('employer'))
+            ->Position($request->input('Position'))
+            ->reasonLeave($request->input('reasonLeave'))
             ->paginate($request->per_page);
 
         return (new ExperienceCollection($experiences))
@@ -61,18 +63,17 @@ class ExperienceController extends Controller
 
     function store(StoreExperienceRequest $request, Professional $professional)
     {
-        $area = Catalogue::find($request->input('areaId'));
+        $area = Catalogue::find($request->input('area.id'));
         $experience = new Experience();
-        $experience->employer = $request->input('employer');
-        $experience->position = $request->input('position');
-        $experience->start_date = $request->input('startDate');
-        $experience->end_date = $request->input('endDate');
-        $experience->activities = $request->input('activities');
-        $experience->reason_leave = $request->input('reasonLeave');
-        $experience->is_working = $request->input('isWorking');
-        $experience->is_disability = $request->input('isDisability');
         $experience->professional()->associate($professional);
         $experience->area()->associate($area);
+        $experience->employer = $request->input('employer');
+        $experience->position = $request->input('position');
+        $experience->start_at = $request->input('startAt');
+        $experience->end_at = $request->input('endAt');
+        $experience->activities = $request->input('activities');
+        $experience->reason_leave = $request->input('reasonLeave');
+        $experience->worked = $request->input('worked');
         $experience->save();
 
         return (new ExperienceResource($experience))
@@ -87,15 +88,14 @@ class ExperienceController extends Controller
 
     function update(UpdateExperienceRequest $request, Professional $professional,Experience $experience)
     {
-        $area = Catalogue::find($request->input('areaId'));
+        $area = Catalogue::find($request->input('area.id'));
         $experience->employer = $request->input('employer');
         $experience->position = $request->input('position');
-        $experience->start_date = $request->input('startDate');
-        $experience->end_date = $request->input('endDate');
+        $experience->start_at = $request->input('startAt');
+        $experience->end_at = $request->input('endAt');
         $experience->activities = $request->input('activities');
         $experience->reason_leave = $request->input('reasonLeave');
-        $experience->is_working = $request->input('isWorking');
-        $experience->is_disability = $request->input('isDisability');
+        $experience->worked = $request->input('worked');
         $experience->area()->associate($area);
         $experience->save();
 

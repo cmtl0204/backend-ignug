@@ -45,13 +45,12 @@ class Offer extends Model implements Auditable
         'contact_cellphone',
         'remuneration',
         'vacancies',
-        'start_date',
-        'end_date',
+        'start_at',
+        'end_at',
         'aditional_information',
         'position',
         'activities',
         'requirements',
-        'additional_information',
     ];
 
     protected $casts = [
