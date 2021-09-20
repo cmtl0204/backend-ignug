@@ -6,14 +6,19 @@ use App\Http\Controllers\Controller;
 
 // Models
 use App\Models\JobBoard\Professional;
-use App\Models\App\Catalogue;
+use App\Models\App\Core\Catalogue;
 use App\Models\JobBoard\Experience;
 
+// Resources
+use App\Http\Resources\V1\JobBoard\ExperienceCollection;
+use App\Http\Resources\V1\JobBoard\ExperienceResource;
+
 // FormRequest
-use App\Http\Requests\JobBoard\Experience\DeleteExperienceRequest;
-use App\Http\Requests\JobBoard\Experience\StoreExperienceRequest;
-use App\Http\Requests\JobBoard\Experience\UpdateExperienceRequest;
-use App\Http\Requests\JobBoard\Experience\IndexExperienceRequest;
+use App\Http\Requests\V1\JobBoard\Experience\DeleteExperienceRequest;
+use App\Http\Requests\V1\JobBoard\Experience\StoreExperienceRequest;
+use App\Http\Requests\V1\JobBoard\Experience\UpdateExperienceRequest;
+use App\Http\Requests\V1\JobBoard\Experience\IndexExperienceRequest;
+use App\Http\Requests\V1\JobBoard\Experience\DestroysExperienceRequest;
 
 use App\Http\Controllers\App\FileController;
 use App\Http\Requests\App\File\UpdateFileRequest;
@@ -23,147 +28,112 @@ use App\Http\Requests\App\File\IndexFileRequest;
 class ExperienceController extends Controller
 {
     // Muestra los datos del profesional con experiencia
-    function index(IndexExperienceRequest $request)
+    function index(IndexExperienceRequest $request, Professional $professional)
     {
-        // Crea una instanacia del modelo Professional para poder insertar en el modelo experiences.
-        $professional = $request->user()->professional()->first();
-        if (!$professional) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'No se encontraró al profesional',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-        // $professional = Professional::getInstance($request->input('professional_id'));
-        if ($request->has('search')) {
-            $experiences = $professional->experiences()
-                ->employer($request->input('search'))
-                ->start_date($request->input('search'))
-                ->paginate($request->input('per_page'));
-        } else {
-            $experiences = $professional->experiences()->paginate($request->input('per_page'));
-        }
+        $sorts = explode(',', $request->sort);
 
-        if ($experiences->count() === 0) {
-            return response()->json([
-                'data' => $experiences,
+        $experiences = $professional->experiences()
+            ->customOrderBy($sorts)
+            ->employer($request->input('employer'))
+            ->Position($request->input('Position'))
+            ->reasonLeave($request->input('reasonLeave'))
+            ->paginate($request->per_page);
+
+        return (new ExperienceCollection($experiences))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron Experiencias',
+                    'summary' => 'success',
                     'detail' => '',
                     'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json($experiences, 200);
+            ]);
     }
 
     function show(Experience $experience)
     {
-        return response()->json([
-            'data' => $experience,
+        return (new ExperienceResource($experience))
+        ->additional([
             'msg' => [
                 'summary' => 'success',
                 'detail' => '',
                 'code' => '200'
             ]
-        ], 200);
+        ]);
     }
 
-    function store(StoreExperienceRequest $request)
+    function store(StoreExperienceRequest $request, Professional $professional)
     {
-        $professional = $request->user()->professional()->first();
-        if (!$professional) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'No se encontraró al profesional',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-        // Crea una instanacia del modelo Professional para poder insertar en el modelo experience.
-        // $professional = Professional::getInstance($request->input('professional.id'));
-        $area = Catalogue::find($request->input('experience.area.id'));
-
+        $area = Catalogue::find($request->input('area.id'));
         $experience = new Experience();
-        $experience->employer = $request->input('experience.employer');
-        $experience->position = $request->input('experience.position');
-        $experience->start_date = $request->input('experience.start_date');
-        $experience->end_date = $request->input('experience.end_date');
-        $experience->activities = $request->input('experience.activities');
-        $experience->reason_leave = $request->input('experience.reason_leave');
-        $experience->is_working = $request->input('experience.is_working');
-        $experience->is_disability = $request->input('experience.is_disability');
         $experience->professional()->associate($professional);
         $experience->area()->associate($area);
+        $experience->employer = $request->input('employer');
+        $experience->position = $request->input('position');
+        $experience->start_at = $request->input('startAt');
+        $experience->end_at = $request->input('endAt');
+        $experience->activities = $request->input('activities');
+        $experience->reason_leave = $request->input('reasonLeave');
+        $experience->worked = $request->input('worked');
         $experience->save();
 
-        return response()->json([
-            'data' => $experience,
-            'msg' => [
-                'summary' => 'experiencia creada',
-                'detail' => 'El registro fue creado',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new ExperienceResource($experience))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function update(UpdateExperienceRequest $request, Experience $experience)
+    function update(UpdateExperienceRequest $request, Professional $professional,Experience $experience)
     {
-        $area = Catalogue::find($request->input('experience.area.id'));
-        // Crea una instanacia del modelo Catalogue para poder insertar en el modelo experience.
-        //  $experience = Experience::find($experienceId);
-
-        // Valida que exista el registro, si no encuentra el registro en la base devuelve un mensaje de error
-        if (!$experience) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Experiencia no encontrada',
-                    'detail' => 'Vuelva a intentar',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-
-        $experience->employer = $request->input('experience.employer');
-        $experience->position = $request->input('experience.position');
-        $experience->start_date = $request->input('experience.start_date');
-        $experience->end_date = $request->input('experience.end_date');
-        $experience->activities = $request->input('experience.activities');
-        $experience->reason_leave = $request->input('experience.reason_leave');
-        $experience->is_working = $request->input('experience.is_working');
-        $experience->is_disability = $request->input('experience.is_disability');
+        $area = Catalogue::find($request->input('area.id'));
+        $experience->employer = $request->input('employer');
+        $experience->position = $request->input('position');
+        $experience->start_at = $request->input('startAt');
+        $experience->end_at = $request->input('endAt');
+        $experience->activities = $request->input('activities');
+        $experience->reason_leave = $request->input('reasonLeave');
+        $experience->worked = $request->input('worked');
         $experience->area()->associate($area);
         $experience->save();
 
-        return response()->json([
-            'data' => $experience,
-            'msg' => [
-                'summary' => 'Experiencia actualizada',
-                'detail' => 'El registro fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new ExperienceResource($experience))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function delete(DeleteExperienceRequest $request)
+    function delete(Professional $professional,Experience $experience)
     {
-        // Es una eliminación lógica
+        $experience->delete();
+        return (new ExperienceResource($experience))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
+    }
+    public function destroys(DestroysExperienceRequest $request)
+    {
+        $experiences = Experience::whereIn('id', $request->input('ids'))->get();
         Experience::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Experience(s) eliminada(s)',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new ExperienceCollection($experiences))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
     function uploadFiles(UploadFileRequest $request)
     {
@@ -183,5 +153,42 @@ class ExperienceController extends Controller
     function ShowFile($fileId)
     {
         return (new FileController())->show($fileId);
+    }
+    /*******************************************************************************************************************
+     * FILES
+     *******************************************************************************************************************/
+    public function indexFiles(Experience $request, Experience $experience)
+    {
+        return $experience->indexFiles($request);
+    }
+
+    public function uploadFile(UploadFileRequest $request, Experience $experience)
+    {
+        return $experience->uploadFile($request);
+    }
+
+    public function downloadFile(Experience $experience, File $file)
+    {
+        return $experience->downloadFile($file);
+    }
+
+    public function showFile(Experience $experience, File $file)
+    {
+        return $experience->showFile($file);
+    }
+
+    public function updateFile(UpdateFileRequest $request, Experience $experience, File $file)
+    {
+        return $experience->updateFile($request, $file);
+    }
+
+    public function destroyFile(Experience $experience, File $file)
+    {
+        return $experience->destroyFile($file);
+    }
+
+    public function destroyFiles(Experience $experience, DestroysFileRequest $request)
+    {
+        return $experience->destroyFiles($request);
     }
 }

@@ -15,7 +15,8 @@ class CompanyResource extends JsonResource
     public function toArray($request)
     {
          return [
-            'data' => $this->collection
+            'createAt'=>$this->create_at,
+            'updateAt'=>$this->update_at,
         ];
     }
 }

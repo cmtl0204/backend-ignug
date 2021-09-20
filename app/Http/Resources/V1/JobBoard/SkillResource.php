@@ -19,6 +19,8 @@ class SkillResource extends JsonResource
             'id' => $this->id,
             'type' => CatalogueResource::make($this->resource),
             'description' => $this->description,
+            'createAt'=>$this->create_at,
+            'updateAt'=>$this->update_at,
         ];
     }
 }

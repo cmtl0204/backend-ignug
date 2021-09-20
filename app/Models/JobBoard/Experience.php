@@ -2,6 +2,7 @@
 
 namespace App\Models\JobBoard;
 
+use App\Traits\FileTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -26,16 +27,17 @@ class Experience extends Model implements Auditable
     use HasFactory;
     use Auditing;
     use SoftDeletes;
+    use FileTrait;
 
     protected $table = 'job_board.experiences';
 
     protected $fillable = [
         'activities',
-        'end_date',
+        'end_at',
         'employer',
         'position',
         'reason_leave',
-        'start_date',
+        'start_at',
         'worked'
     ];
 
@@ -62,12 +64,12 @@ class Experience extends Model implements Auditable
 
     public function setStartDateAttribute($value)
     {
-        $this->attributes['start_date'] = strtolower($value);
+        $this->attributes['start_at'] = strtolower($value);
     }
 
     public function setEndDateAttribute($value)
     {
-        $this->attributes['end_date'] = strtolower($value);
+        $this->attributes['end_at'] = strtolower($value);
     }
 
     public function setPositionAttribute($value)
@@ -75,4 +77,51 @@ class Experience extends Model implements Auditable
         $this->attributes['position'] = strtoupper($value);
     }
     
+    // Scopes
+
+    public function scopeCustomOrderBy($query, $sorts)
+    {
+        if (!empty($sorts[0])) {
+            foreach ($sorts as $sort) {
+                $field = explode('-', $sort);
+                if (empty($field[0]) && in_array($field[1], $this->fillable)) {
+                    $query = $query->orderByDesc($field[1]);
+                } else if (in_array($field[0], $this->fillable)) {
+                    $query = $query->orderBy($field[0]);
+                }
+            }
+            return $query;
+        }
+    }
+
+    public function scopeCustomSelect($query, $fields)
+    {
+        if (!empty($fields)) {
+            $fields = explode(',', $fields);
+            array_unshift($fields, 'id');
+            return $query->select($fields);
+        }
+    }
+
+    public function scopeEmployer($query, $employer)
+    {
+        if ($employer) {
+            return $query->orWhere('name', 'ILIKE', "%$employer%");
+        }
+    }
+
+    public function scopePosition($query, $position)
+    {
+        if ($position) {
+            return $query->orWhere('name', 'ILIKE', "%$position%");
+        }
+    }
+
+    public function scopeReasonLeave($query, $reason_leave)
+    {
+        if ($reason_leave) {
+            return $query->orWhere('name', 'ILIKE', "%$reason_leave%");
+        }
+    }
+
 }

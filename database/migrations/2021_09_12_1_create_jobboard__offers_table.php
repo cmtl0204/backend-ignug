@@ -15,56 +15,66 @@ class CreateJobboardOffersTable extends Migration
             $table->timestamps();
 
             $table->foreignId('company_id')
-                ->constrained('job_board.companies');
+                ->constrained('job_board.companies')
+                ->comment('FK desde companies');
 
             $table->foreignId('location_id')
-                ->constrained('authentication.locations');
+                ->constrained('authentication.locations')
+                ->comment('FK desde locations');
 
             $table->foreignId('contract_type_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
 
             $table->foreignId('sector_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
 
             $table->foreignId('working_day_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
 
             $table->foreignId('training_hours_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
 
             $table->foreignId('state_id')
-                ->constrained('authentication.states');
+                ->constrained('authentication.states')
+                ->comment('FK desde states');
 
-            $table->string('code');
+            $table->foreignId('experience_time')
+                ->comment('FK desde states');
 
-            $table->string('position');
+            $table->string('code')->comment('Codigo de la oferta');
 
-            $table->string('contact_name');
 
-            $table->string('contact_email');
+            $table->string('position')->comment('Nombre de la puesto');
 
-            $table->string('contact_phone')->nullable();
+            $table->string('contact_name')->comment('Nombre de la persona con quien se puede contactar');
 
-            $table->string('contact_cellphone')->nullable();
+            $table->string('contact_email')->comment('Email de la persona con quien se puede contactar');
 
-            $table->string('remuneration')->nullable();
+            $table->string('contact_phone')->nullable()->comment('Telefono convencional de la persona con quien se puede contactar');
 
-            $table->foreignId('experience_time');
+            $table->string('contact_cellphone')->nullable()->comment('Celular de la persona con quien se puede contactar');
+
+            $table->string('remuneration')->nullable()->comment('Remuneracion ofrecida');
 
             $table->integer('vacancies')
                 ->comment('total puestos disponibles')
                 ->nullable();
 
-            $table->date('start_date');
+            $table->date('start_at')->comment('Fecha de publicacion de la oferta');
 
-            $table->date('end_date');
+            $table->date('end_at')->comment('Fecha en que se remueve la oferta');
 
-            $table->json('activities');
+            $table->json('activities')->comment('Actividades o responsabilidades del puesto');
 
-            $table->json('requirements');
+            $table->json('requirements')->comment('Requisitos para postular para el puesto');
 
-            $table->text('additional_information')->nullable();
-
+            $table->text('additional_information')
+                ->nullable()
+                ->comment('Informacion adicional sobre el puesto');
         });
     }
 

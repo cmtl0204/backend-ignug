@@ -16,9 +16,12 @@ class CategoryResource extends JsonResource
     {
          return [
             'id' => $this->id,
+            'parent' => CategoryResource::make($this->parent_id),
             'code' => $this->code,
             'name' => $this->name,
             'icon' => $this->icon,
+            'createAt'=>$this->create_at,
+            'updateAt'=>$this->update_at,
         ];
     }
 }

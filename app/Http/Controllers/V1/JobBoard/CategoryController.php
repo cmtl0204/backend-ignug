@@ -5,38 +5,32 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 use App\Models\App\Catalogue;
 use App\Models\JobBoard\Category;
-use App\Http\Requests\JobBoard\Category\StoreCategoryRequest;
-use App\Http\Requests\JobBoard\Category\IndexCategoryRequest;
-use App\Http\Requests\JobBoard\Category\UpdateCategoryRequest;
-use App\Http\Requests\JobBoard\Category\DeleteCategoryRequest;
-use App\Http\Requests\JobBoard\Category\GetParentCategoryRequest;
+use App\Http\Requests\V1\JobBoard\Category\StoreCategoryRequest;
+use App\Http\Requests\V1\JobBoard\Category\IndexCategoryRequest;
+use App\Http\Requests\V1\JobBoard\Category\UpdateCategoryRequest;
+use App\Http\Requests\V1\JobBoard\Category\DestroysCategoryRequest;
+use App\Http\Requests\V1\JobBoard\Category\GetParentCategoryRequest;
+use App\Http\Resources\V1\JobBoard\CategoryCollection;
+use App\Http\Resources\V1\JobBoard\CategoryResource;
 
 class CategoryController extends Controller
 {
 
     function index(IndexCategoryRequest $request)
     {
-        if ($request->has('search')) {
-            $categories = Category::
-                code($request->input('search'))
-                ->name($request->input('search'))
-                ->paginate($request->input('per_page'));
-        } else {
+        $sorts = explode(',', $request->sort);
 
-            $categories = Category::paginate($request->input('per_page'));
-        }
+        $categories = Category::customOrderBy($sorts)
+            ->paginate($request->per_page);
 
-        if ($categories->count() === 0) {
-            return response()->json([
-                'data' => null,
+        return (new CategoryCollection($categories))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron Categorías',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]], 404);
-        }
-
-        return response()->json($categories, 200);
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     function getParentCategories(GetParentCategoryRequest $request)
@@ -50,7 +44,8 @@ class CategoryController extends Controller
                     'summary' => 'No se encontraron Categorías',
                     'detail' => 'Intente de nuevo',
                     'code' => '404'
-                ]], 404);
+                ]
+            ], 404);
         }
 
         return response()->json([
@@ -59,74 +54,88 @@ class CategoryController extends Controller
                 'summary' => 'success',
                 'detail' => '',
                 'code' => '200'
-            ]], 200);
+            ]
+        ], 200);
     }
 
     function show(Category $category)
     {
-        return response()->json([
-            'data' => $category,
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]], 200);
+        return (new CategoryResource($category))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     function store(StoreCategoryRequest $request)
     {
-        $parent= Category::find($request->input('category.parent.id'));
+        $parent = Category::find($request->input('parent.id'));
 
 
         $category = new Category();
-        $category->code = $request->input('category.code');
-        $category->name = $request->input('category.name');
-        $category->icon = $request->input('category.icon');
-            if($parent){
-           $category->parent()->associate($parent);
-       }
+        $category->code = $request->input('code');
+        $category->name = $request->input('name');
+        $category->icon = $request->input('icon');
+        $category->parent()->associate($parent);
         $category->save();
-        return response()->json([
-            'data' => $category,
-            'msg' => [
-                'summary' => 'Categoria creada',
-                'detail' => 'El registro fue creado',
-                'code' => '201'
-            ]], 201);
+        return (new CategoryResource($category))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     function update(UpdateCategoryRequest $request, Category $category)
     {
-        $parent= Category::find($request->input('category.parent.id'));
+        $parent = Category::find($request->input('parent.id'));
 
-        $category->code = $request->input('category.code');
-        $category->name = $request->input('category.name');
-        $category->icon = $request->input('category.icon');
-        if($parent){
-            $category->parent()->associate($parent);
-        }
+        $category->parent()->associate($parent);
+        $category->code = $request->input('code');
+        $category->name = $request->input('name');
+        $category->icon = $request->input('icon');
         $category->save();
 
-        return response()->json([
-            'data' => $category,
-            'msg' => [
-                'summary' => 'Categoria actualizada',
-                'detail' => 'El registro fue actualizado',
-                'code' => '201'
-            ]], 201);
+        return (new CategoryResource($category))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function delete(DeleteCategoryRequest $request)
+    public function destroy(Category $category)
     {
-        // Es una eliminación lógica
+        $category->delete();
+        return (new CategoryResource($category))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysCategoryRequest $request)
+    {
+        $categories = Category::whereIn('id', $request->input('ids'))->get();
         Category::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Categoria(s) eliminada(s)',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]], 201);
+        return (new CategoryCollection($categories))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }

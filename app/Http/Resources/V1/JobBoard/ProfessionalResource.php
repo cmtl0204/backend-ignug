@@ -25,6 +25,8 @@ class ProfessionalResource extends JsonResource
              'catastrophic_diseased' => $this->catastrophic_diseased,
              'familiar_catastrophic_diseased' => $this->familiar_catastrophic_diseased,
              'aboutMe' => $this->about_me,
+             'createAt'=>$this->create_at,
+            'updateAt'=>$this->update_at,
         ];
     }
 }

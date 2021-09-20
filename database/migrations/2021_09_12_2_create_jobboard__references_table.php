@@ -17,10 +17,6 @@ class CreateJobboardReferencesTable extends Migration
                 ->constrained('job_board.professionals')
                 ->comment('FK desde professionals');
 
-            $table->foreignId('institution_id')
-                ->constrained('authentication.catalogues')
-                ->comment('FK desde catalogues');
-
             $table->string('position')
             ->comment('posicion');
 

@@ -15,24 +15,40 @@ class CreateJobboardExperiencesTable extends Migration
             $table->timestamps();
 
             $table->foreignId('area_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
+
 
             $table->foreignId('professional_id')
-                ->constrained('job_board.professionals');
+                ->constrained('job_board.professionals')
+                ->comment('FK desde professionals');
 
-            $table->json('activities');
 
-            $table->string('employer');
+            $table->json('activities')
+            ->comment('Actividades');
 
-            $table->date('end_date')
-                ->nullable();
 
-            $table->string('position');
+            $table->string('employer')
+            ->comment('Empleador');
+
+
+            $table->date('end_at')
+                ->nullable()
+                ->comment('Fecha final');
+
+
+            $table->string('position')
+            ->comment('Posicion');
+
 
             $table->text('reason_leave')
-                ->nullable();
+                ->nullable()
+                ->comment('');
 
-            $table->date('start_date');
+
+            $table->date('start_at')
+            ->comment('Fecha de inicio');
+
 
             $table->boolean('worked')
                 ->default(false);

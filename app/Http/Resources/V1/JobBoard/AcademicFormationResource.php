@@ -21,6 +21,8 @@ class   AcademicFormationResource extends JsonResource
             'registrationDate' => $this->registration_date,
             'senescytCode' => $this->senescyt_code,
             'certificated' => $this->certificated,
+            'createAt'=>$this->create_at,
+            'updateAt'=>$this->update_at,
         ];
     }
 }
