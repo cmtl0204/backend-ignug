@@ -27,12 +27,6 @@ class Skill extends Model implements Auditable
         'description',
     ];
 
-    protected $casts = [
-        'deleted_at' => 'date:Y-m-d h:m:s',
-        'created_at' => 'date:Y-m-d h:m:s',
-        'updated_at' => 'date:Y-m-d h:m:s',
-    ];
-
     protected $cascadeDeletes = ['files'];
 
     // Relationships
@@ -88,4 +82,11 @@ class Skill extends Model implements Auditable
             return $query->where('description', 'ILIKE', "%$description%");
         }
     }
+
+    // Mutators
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = strtoupper($value);
+    }
+
 }

@@ -53,16 +53,6 @@ class Offer extends Model implements Auditable
         'requirements',
     ];
 
-    protected $casts = [
-        'activities' => 'array',
-        'requirements' => 'array',
-        'start_date' => 'datetime:Y-m-d',
-        'end_date' => 'datetime:Y-m-d',
-        'created_at' => 'datetime:Y-m-d h:m:s',
-        'updated_at' => 'datetime:Y-m-d h:m:s',
-        'deleted_at' => 'datetime:Y-m-d h:m:s',
-    ];
-
     protected $cascadeDeletes = ['categories'];
 
     // Relationships
@@ -249,4 +239,56 @@ class Offer extends Model implements Auditable
             });
         }
     }
+
+    // Mutators
+    public function setCodeAttribute($value)
+    {
+        $this->attributes['code'] = strtoupper($value);
+    }
+ 
+    public function setPositionAttribute($value)
+    {
+        $this->attributes['position'] = strtoupper($value);
+    }
+ 
+    public function setContactNameAttribute($value)
+    {
+        $this->attributes['contact_name'] = strtoupper($value);
+    }
+
+    public function setContactEmailAttribute($value)
+    {
+        $this->attributes['contact_email'] = strtoupper($value);
+    }
+ 
+    public function setContactPhoneAttribute($value)
+    {
+        $this->attributes['contact_phone'] = strtoupper($value);
+    }
+ 
+    public function setContactCellphoneAttribute($value)
+    {
+        $this->attributes['contact_cellphone'] = strtoupper($value);
+    }
+
+    public function setRemunerationAttribute($value)
+    {
+        $this->attributes['remuneration'] = strtoupper($value);
+    }
+ 
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = strtolower($value);
+    }
+ 
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = strtolower($value);
+    }
+
+    public function setAdditionalInformationAttribute($value)
+    {
+        $this->attributes['additional_information'] = strtoupper($value);
+    }
+
 }

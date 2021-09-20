@@ -32,9 +32,6 @@ class Company extends Model implements Auditable
         'web',
     ];
 
-    protected $casts = [
-        'commercial_activities' => 'array'];
-
     // Relationships
     public function activityType()
     {
@@ -74,7 +71,7 @@ class Company extends Model implements Auditable
     }
     public function setWebAttribute($value)
     {
-        $this->attributes['web'] = strtolower($value);
+        $this->attributes['web'] = strtoupper($value);
     }
 
     // Scopes
