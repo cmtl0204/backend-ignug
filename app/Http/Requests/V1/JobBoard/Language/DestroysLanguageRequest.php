@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\V1\JobBoard\Skill;
+namespace App\Http\Requests\V1\JobBoard\Language;
 
 use Illuminate\Foundation\Http\FormRequest;
 

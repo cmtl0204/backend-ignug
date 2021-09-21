@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 // Models
 use App\Models\JobBoard\Professional;
-use App\Models\App\Core\Catalogue;
+use App\Models\Core\Catalogue;
 use App\Models\JobBoard\Experience;
 
 // Resources
@@ -49,7 +49,7 @@ class ExperienceController extends Controller
             ]);
     }
 
-    function show(Experience $experience)
+    function show(Professional $professional,Experience $experience)
     {
         return (new ExperienceResource($experience))
         ->additional([
@@ -135,25 +135,26 @@ class ExperienceController extends Controller
                 ]
             ]);
     }
-    function uploadFiles(UploadFileRequest $request)
-    {
-        return (new FileController())->upload($request, Experience::getInstance($request->input('id')));
-    }
 
-    function deleteFile($fileId)
-    {
-        return (new FileController())->delete($fileId);
-    }
+    // function uploadFiles(UploadFileRequest $request)
+    // {
+    //     return (new FileController())->upload($request, Experience::getInstance($request->input('id')));
+    // }
 
-    function indexFile(IndexFileRequest $request)
-    {
-        return (new FileController())->index($request, Experience::getInstance($request->input('id')));
-    }
+    // function deleteFile($fileId)
+    // {
+    //     return (new FileController())->delete($fileId);
+    // }
 
-    function ShowFile($fileId)
-    {
-        return (new FileController())->show($fileId);
-    }
+    // function indexFile(IndexFileRequest $request)
+    // {
+    //     return (new FileController())->index($request, Experience::getInstance($request->input('id')));
+    // }
+
+    // function ShowFile($fileId)
+    // {
+    //     return (new FileController())->show($fileId);
+    // }
     /*******************************************************************************************************************
      * FILES
      *******************************************************************************************************************/

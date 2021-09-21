@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Dyrynda\Database\Support\CascadeSoftDeletes;
+// use Dyrynda\Database\Support\CascadeSoftDeletes;
 use App\Models\Core\Catalogue;
 
 /**
@@ -19,7 +19,7 @@ class Skill extends Model implements Auditable
     use HasFactory;
     use Auditing;
     use SoftDeletes;
-    use CascadeSoftDeletes;
+    // use CascadeSoftDeletes;}
 
     protected $table = 'job_board.skills';
 

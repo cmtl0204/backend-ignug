@@ -6,7 +6,7 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 
 // Models
-use App\Models\App\Catalogue;
+use App\Models\Core\Catalogue;
 use App\Models\JobBoard\Professional;
 use App\Models\JobBoard\Language;
 
@@ -21,7 +21,7 @@ use App\Http\Requests\V1\JobBoard\Language\UpdateLanguageRequest;
 use App\Http\Requests\V1\JobBoard\Language\CreateLanguageRequest;
 use App\Http\Requests\V1\JobBoard\Language\StoreLanguageRequest;
 use App\Http\Requests\V1\JobBoard\Language\DeleteLanguageRequest;
-use App\Http\Requests\V1\JobBoard\Language\DestroysLanguagesRequest;
+use App\Http\Requests\V1\JobBoard\Language\DestroysLanguageRequest;
 use App\Http\Controllers\App\FileController;
 use App\Http\Requests\App\File\UpdateFileRequest;
 use App\Http\Requests\App\File\UploadFileRequest;
@@ -49,7 +49,7 @@ class LanguageController extends Controller
             ]);
     }
 
-    function show(Language $language)
+    function show(Professional $professional, Language $language)
     {
         return (new LanguageResource($language))
             ->additional([
@@ -122,7 +122,7 @@ class LanguageController extends Controller
             ]);
     }
 
-    public function destroys(DestroysLanguagesRequest $request)
+    public function destroys(DestroysLanguageRequest $request)
     {
         $languages = Language::whereIn('id', $request->input('ids'))->get();
         Language::destroy($request->input('ids'));
@@ -136,25 +136,25 @@ class LanguageController extends Controller
                 ]
             ]);
     }
-    function uploadFiles(UploadFileRequest $request)
-    {
-        return (new FileController())->upload($request, Language::getInstance($request->input('id')));
-    }
+    // function uploadFiles(UploadFileRequest $request)
+    // {
+    //     return (new FileController())->upload($request, Language::getInstance($request->input('id')));
+    // }
 
-    function deleteFile($fileId)
-    {
-        return (new FileController())->delete($fileId);
-    }
+    // function deleteFile($fileId)
+    // {
+    //     return (new FileController())->delete($fileId);
+    // }
 
-    function indexFile(IndexFileRequest $request)
-    {
-        return (new FileController())->index($request, Language::getInstance($request->input('id')));
-    }
+    // function indexFile(IndexFileRequest $request)
+    // {
+    //     return (new FileController())->index($request, Language::getInstance($request->input('id')));
+    // }
 
-    function ShowFile($fileId)
-    {
-        return (new FileController())->show($fileId);
-    }
+    // function ShowFile($fileId)
+    // {
+    //     return (new FileController())->show($fileId);
+    // }
     /*******************************************************************************************************************
      * FILES
      *******************************************************************************************************************/
@@ -168,7 +168,7 @@ class LanguageController extends Controller
         return $languaje->uploadFile($request);
     }
 
-    public function downloadFile(Language $languaje, File $file)
+    public function downloadFile(Language $language, File $file)
     {
         return $language->downloadFile($file);
     }
