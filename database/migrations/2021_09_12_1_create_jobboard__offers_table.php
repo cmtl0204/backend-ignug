@@ -42,11 +42,10 @@ class CreateJobboardOffersTable extends Migration
                 ->constrained('authentication.states')
                 ->comment('FK desde states');
 
-            $table->foreignId('experience_time')
+            $table->foreignId('experience_time_id')
                 ->comment('FK desde states');
 
             $table->string('code')->comment('Codigo de la oferta');
-
 
             $table->string('position')->comment('Nombre de la puesto');
 

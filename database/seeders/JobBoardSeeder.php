@@ -50,9 +50,21 @@ class JobBoardSeeder extends Seeder
         Professional::factory(10)->create();
     }
 
+
+    // public function createProfessionals()
+    // {
+    //     Professional::factory()
+    //         ->hasReferences(3)
+    //         ->hasAcademicFormations(3)
+    //         ->hasCourses(3)
+    //         ->hasExperiences(3)
+    //         ->hasLanguages(3)
+    //         ->hasSkills(3)
+    //         ->create();
+    // }
+
     private function createAcademicFormations()
     {
         AcademicFormation::factory(10)->create();
     }
-
 }
