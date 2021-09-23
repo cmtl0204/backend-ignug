@@ -24,16 +24,16 @@ class LanguageFactory extends Factory
     public function definition()
     {
         $professionals = Professional::get();
-        // $professionals = Catalogue::get();
-        // $professionals = Catalogue::get();
-        // $professionals = Catalogue::get();
-        // $professionals = Catalogue::get();
+        $writtenlevels = Catalogue::where('type', 'LANGUAGE_WRITTEN_LEVEL')->get();
+        $spokenlevels = Catalogue::where('type', 'LANGUAGE_SPOKEN_LEVEL')->get();
+        $readlevels = Catalogue::where('type', 'LANGUAGE_READ_LEVEL')->get();
+        $idioms = Catalogue::where('type', 'LANGUAGE_IDIOM')->get();
         return [
             'professional_id'=>$professionals[rand(0, sizeof($professionals) - 1)],
-            'idiom_id'=>1,
-            'written_level_id'=>1,
-            'spoken_level_id'=>1,
-            'read_level_id'=>1,
+            'idiom_id'=>$idioms[rand(0, sizeof($idioms) - 1)],
+            'written_level_id'=>$writtenlevels[rand(0, sizeof($writtenlevels) - 1)],
+            'spoken_level_id'=>$spokenlevels[rand(0, sizeof($spokenlevels) - 1)],
+            'read_level_id'=>$readlevels[rand(0, sizeof($readlevels) - 1)],
         ];
     }
 }

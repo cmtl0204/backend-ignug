@@ -76,11 +76,6 @@ class Offer extends Model implements Auditable
         return $this->belongsTo(Location::class);
     }
 
-    public function position()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-
     public function professionals()
     {
         return $this->belongsToMany(Professional::class)->withTimestamps();
@@ -104,11 +99,6 @@ class Offer extends Model implements Auditable
     public function trainingHours()
     {
         return $this->belongsTo(Catalogue::class,);
-    }
-
-    public function status()
-    {
-        return $this->belongsTo(Status::class);
     }
     
     public function state()

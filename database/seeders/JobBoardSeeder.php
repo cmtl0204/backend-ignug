@@ -55,6 +55,58 @@ class JobBoardSeeder extends Seeder
         Catalogue::factory()->count(20)->create([
             'type' => $catalogues['catalogue']['course_area']['type']
         ]);
+
+        Catalogue::factory()->count(2)->create([
+            'type' => $catalogues['catalogue']['skill_type']['type']
+        ]);
+
+        Catalogue::factory()->count(5)->create([
+            'type' => $catalogues['catalogue']['language_idiom']['type']
+        ]);
+
+        Catalogue::factory()->count(5)->create([
+            'type' => $catalogues['catalogue']['language_written_level']['type']
+        ]);
+
+        Catalogue::factory()->count(5)->create([
+            'type' => $catalogues['catalogue']['language_spoken_level']['type']
+        ]);
+
+        Catalogue::factory()->count(5)->create([
+            'type' => $catalogues['catalogue']['language_read_level']['type']
+        ]);
+
+        Catalogue::factory()->count(3)->create([
+            'type' => $catalogues['catalogue']['company_type']['type']
+        ]);
+
+        Catalogue::factory()->count(3)->create([
+            'type' => $catalogues['catalogue']['company_activity_type']['type']
+        ]);
+
+        Catalogue::factory()->count(2)->create([
+            'type' => $catalogues['catalogue']['company_person_type']['type']
+        ]);
+
+        Catalogue::factory()->count(5)->create([
+            'type' => $catalogues['catalogue']['offer_contract_type']['type']
+        ]);
+
+        Catalogue::factory()->count(3)->create([
+            'type' => $catalogues['catalogue']['offer_sector']['type']
+        ]);
+
+        Catalogue::factory()->count(5)->create([
+            'type' => $catalogues['catalogue']['offer_working_day']['type']
+        ]);
+
+        Catalogue::factory()->count(2)->create([
+            'type' => $catalogues['catalogue']['offer_training_hours']['type']
+        ]);
+
+        Catalogue::factory()->count(2)->create([
+            'type' => $catalogues['catalogue']['offer_experience_time']['type']
+        ]);
     }
     private function createCategories()
     {
@@ -122,7 +174,7 @@ class JobBoardSeeder extends Seeder
 
     private function createCategorieOffers()
     {
-        $offers=Offer::get();
+        $offers = Offer::get();
         Category::get()
             ->has($offers);
 

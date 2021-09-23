@@ -24,9 +24,10 @@ class SkillFactory extends Factory
     public function definition()
     {
         $professionals = Professional::get();
+        $types = Catalogue::where('type', 'SKILL_TYPE')->get();
         return [
             'professional_id'=> $professionals[rand(0, sizeof($professionals) - 1)],
-            'type_id'=> 1,
+            'type_id'=> $types[rand(0, sizeof($types) - 1)],
             'description'=> $this->faker->text()
         ];
     }
