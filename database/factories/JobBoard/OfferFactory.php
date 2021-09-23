@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\JobBoard;
 
-use App\Models\Model;
 use App\Models\Core\Catalogue;
 use App\Models\Core\Location;
 use App\Models\Core\State;
 use App\Models\JobBoard\Company;
+use App\Models\JobBoard\Offer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OfferFactory extends Factory
@@ -16,7 +16,7 @@ class OfferFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
+    protected $model = Offer::class;
 
     /**
      * Define the model's default state.

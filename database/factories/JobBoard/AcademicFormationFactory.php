@@ -35,8 +35,8 @@ class AcademicFormationFactory extends Factory
         }
 
         return [
-            'professional_id' => $professionals[rand(0, sizeof($professionals) - 1)],
-            'professional_degree_id' => $professionalDegrees[rand(0, sizeof($professionalDegrees) - 1)],
+            'professional_id' => $professionals[rand(0, sizeof($professionals) - 1)]->id,
+            'professional_degree_id' => $professionalDegrees[rand(0, sizeof($professionalDegrees) - 1)]->id,
             'registration_at' => $registrationAt,
             'senescyt_code' => $senescytCode,
             'certificated' => $certificated,

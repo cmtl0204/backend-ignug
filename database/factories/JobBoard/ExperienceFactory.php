@@ -2,8 +2,8 @@
 
 namespace Database\Factories\JobBoard;
 
-use App\Models\Model;
 use App\Models\JobBoard\Professional;
+use App\Models\JobBoard\Experience;
 use App\Models\Core\Catalogue;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,7 +14,7 @@ class ExperienceFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
+    protected $model = Experience::class;
 
     /**
      * Define the model's default state.
@@ -27,14 +27,14 @@ class ExperienceFactory extends Factory
         $areas = Catalogue::where('type', 'AREA_EXPERIENCE')->get();
         return [
             'area_id' => $areas[rand(0, sizeof($areas) - 1)],
-            'professional_id' => $professionals[rand(0, sizeof($professionals) - 1)],
+            'professional_id'=>$professionals[rand(0, sizeof($professionals) - 1)],
             'activities' => $this->faker->sentences(2),
             'employer' => $this->faker->word(),
             'end_at' => $this->faker->date(),
             'position' => $this->faker->word(),
             'reason_leave' => $this->faker->text(30),
             'start_at' => $this->faker->date(),
-            'worked' => $this->faker->boolean(),
+            'worked' => $this->faker->boolean()
         ];
     }
 }

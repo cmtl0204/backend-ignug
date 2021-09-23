@@ -3,7 +3,7 @@
 namespace Database\Factories\JobBoard;
 
 use App\Models\Core\Catalogue;
-use App\Models\Model;
+use App\Models\JobBoard\Course;
 use App\Models\JobBoard\Professional;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,7 +14,7 @@ class CourseFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
+    protected $model = Course::class;
 
     /**
      * Define the model's default state.

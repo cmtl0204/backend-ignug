@@ -2,8 +2,8 @@
 
 namespace Database\Factories\JobBoard;
 
-use App\Models\Model;
 use App\Models\JobBoard\Professional;
+use App\Models\JobBoard\Language;
 use App\Models\Core\Catalogue;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,7 +14,7 @@ class LanguageFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
+    protected $model = Language::class;
 
     /**
      * Define the model's default state.
@@ -24,16 +24,16 @@ class LanguageFactory extends Factory
     public function definition()
     {
         $professionals = Professional::get();
-        $professionals = Catalogue::get();
-        $professionals = Catalogue::get();
-        $professionals = Catalogue::get();
-        $professionals = Catalogue::get();
+        // $professionals = Catalogue::get();
+        // $professionals = Catalogue::get();
+        // $professionals = Catalogue::get();
+        // $professionals = Catalogue::get();
         return [
             'professional_id'=>$professionals[rand(0, sizeof($professionals) - 1)],
-            'idiom_id'=>'',
-            'written_level_id'=>'',
-            'spoken_level_id'=>'',
-            'read_level_id'=>'',
+            'idiom_id'=>1,
+            'written_level_id'=>1,
+            'spoken_level_id'=>1,
+            'read_level_id'=>1,
         ];
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Database\Factories\JobBoard;
 
-use App\Models\Model;
 use App\Models\Core\Catalogue;
 use App\Models\JobBoard\Professional;
+use App\Models\JobBoard\Skill;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SkillFactory extends Factory
@@ -14,7 +14,7 @@ class SkillFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
+    protected $model = Skill::class;
 
     /**
      * Define the model's default state.
@@ -26,7 +26,7 @@ class SkillFactory extends Factory
         $professionals = Professional::get();
         return [
             'professional_id'=> $professionals[rand(0, sizeof($professionals) - 1)],
-            'type_id'=> '',
+            'type_id'=> 1,
             'description'=> $this->faker->text()
         ];
     }
