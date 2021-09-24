@@ -41,6 +41,10 @@ class Experience extends Model implements Auditable
         'worked'
     ];
 
+    protected $casts = [
+        'activities' => 'array'
+    ];
+
     public function area()
     {
         return $this->belongsTo(Catalogue::class);

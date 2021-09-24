@@ -35,7 +35,7 @@ class StoreReferenceRequest extends FormRequest
             ],
             'contactEmail' => [
                 'required',
-                'regex:'.$this->regularExpresionEmail,
+                // 'regex:'.$this->regularExpresionEmail,
             ]
         ];
 

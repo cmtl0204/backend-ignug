@@ -36,7 +36,7 @@ class ReferenceController extends Controller
         return Professional::select('about_me', 'has_travel')->with('course')->get();
     }
 
-    function index(IndexReferenceRequest $request,Professional $professional)
+    function index(IndexReferenceRequest $request, Professional $professional)
     {
         $sorts = explode(',', $request->sort);
 
@@ -58,9 +58,8 @@ class ReferenceController extends Controller
             ]);
     }
 
-    function show(Reference $reference)
+    function show(Professional $professional, Reference $reference)
     {
-
         return (new ReferenceResource($reference))
             ->additional([
                 'msg' => [
@@ -71,18 +70,15 @@ class ReferenceController extends Controller
             ]);
     }
 
-
-
-
     function store(StoreReferenceRequest $request, Professional $professional)
     {
         $reference = new Reference();
-        $reference->institution=$request->input('institution');
+        $reference->professional()->associate($professional);
+        $reference->institution = $request->input('institution');
         $reference->position = $request->input('position');
         $reference->contact_name = $request->input('contactName');
         $reference->contact_phone = $request->input('contactPhone');
         $reference->contact_email = $request->input('contactEmail');
-        $reference->professional()->associate($professional);
         $reference->save();
 
         return (new ReferenceResource($reference))
@@ -96,9 +92,9 @@ class ReferenceController extends Controller
     }
 
 
-    function update(UpdateReferenceRequest $request, Reference $reference)
+    function update(UpdateReferenceRequest $request, Professional $professional, Reference $reference)
     {
-        $reference->institution=$request->input('institution');
+        $reference->institution = $request->input('institution');
         $reference->position = $request->input('position');
         $reference->contact_name = $request->input('contactName');
         $reference->contact_phone = $request->input('contactPhone');
@@ -106,13 +102,13 @@ class ReferenceController extends Controller
         $reference->save();
 
         return (new ReferenceResource($reference))
-        ->additional([
-            'msg' => [
-                'summary' => 'Registro Actualizado',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
 
@@ -143,23 +139,23 @@ class ReferenceController extends Controller
                 ]
             ]);
     }
-    function deleteFile($fileId)
-    {
-        return (new FileController())->delete($fileId);
-    }
+    // function deleteFile($fileId)
+    // {
+    //     return (new FileController())->delete($fileId);
+    // }
 
-    function uploadFiles(UploadFileRequest $request)
-    {
-        return (new FileController())->upload($request, Reference::getInstance($request->input('id')));
-    }
+    // function uploadFiles(UploadFileRequest $request)
+    // {
+    //     return (new FileController())->upload($request, Reference::getInstance($request->input('id')));
+    // }
 
-    function indexFile(IndexFileRequest $request)
-    {
-        return (new FileController())->index($request, Reference::getInstance($request->input('id')));
-    }
+    // function indexFile(IndexFileRequest $request)
+    // {
+    //     return (new FileController())->index($request, Reference::getInstance($request->input('id')));
+    // }
 
-    function ShowFile($fileId)
-    {
-        return (new FileController())->show($fileId);
-    }
+    // function ShowFile($fileId)
+    // {
+    //     return (new FileController())->show($fileId);
+    // }
 }

@@ -32,6 +32,10 @@ class Company extends Model implements Auditable
         'web',
     ];
 
+    protected $casts = [
+        'commercial_activities' => 'array'
+    ];
+
     // Relationships
     public function activityType()
     {

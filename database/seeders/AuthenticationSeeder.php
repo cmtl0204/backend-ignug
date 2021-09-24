@@ -7,6 +7,7 @@ use App\Models\Core\Email;
 use App\Models\Core\Location;
 use App\Models\Core\Menu;
 use App\Models\Core\Phone;
+use App\Models\Core\State;
 use App\Models\Core\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -42,6 +43,8 @@ class AuthenticationSeeder extends Seeder
         $this->createPermissions();
         $this->assignRolePermissions();
         $this->assignUserRoles();
+
+        $this->createStates();
     }
 
     private function createMenus()
@@ -655,8 +658,6 @@ class AuthenticationSeeder extends Seeder
         DB::select("insert into authentication.locations(type_id,parent_id,code,name) values(3,273,'9001','LAS GOLONDRINAS');");
         DB::select("insert into authentication.locations(type_id,parent_id,code,name) values(3,273,'9002','MANGA DEL CURA');");
         DB::select("insert into authentication.locations(type_id,parent_id,code,name) values(3,273,'9003','EL PIEDRERO');");
-
-
     }
 
     private function createIdentificationTypeCatalogues()
@@ -670,10 +671,12 @@ class AuthenticationSeeder extends Seeder
             ],
             [
                 'code' => $catalogues['catalogue']['identification_type']['passport'],
-                'name' => 'PASAPORTE', 'type' => $catalogues['catalogue']['identification_type']['type']],
+                'name' => 'PASAPORTE', 'type' => $catalogues['catalogue']['identification_type']['type']
+            ],
             [
                 'code' => $catalogues['catalogue']['identification_type']['ruc'],
-                'name' => 'RUC', 'type' => $catalogues['catalogue']['identification_type']['type']],
+                'name' => 'RUC', 'type' => $catalogues['catalogue']['identification_type']['type']
+            ],
         )->create();
     }
 
@@ -907,5 +910,11 @@ class AuthenticationSeeder extends Seeder
                 'type' => $catalogues['catalogue']['phone_type']['type'],
             ],
         )->create();
+    }
+
+    private function createStates()
+    {
+        $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
+        State::factory()->count(7)->create();
     }
 }

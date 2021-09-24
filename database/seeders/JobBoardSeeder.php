@@ -33,9 +33,9 @@ class JobBoardSeeder extends Seeder
         $this->createReferences();
         $this->createSkills();
         $this->createCourses();
-        // $this->createExperiences();
-        // $this->createOffers();
-        // $this->createCompanies();
+        $this->createExperiences();
+        $this->createCompanies();
+        $this->createOffers();
         // $this->createCategorieOffers();
         // $this->createCompanyProfessionals();
         // $this->createOfferProfessionals();
@@ -54,6 +54,10 @@ class JobBoardSeeder extends Seeder
 
         Catalogue::factory()->count(20)->create([
             'type' => $catalogues['catalogue']['course_area']['type']
+        ]);
+
+        Catalogue::factory()->count(10)->create([
+            'type' => $catalogues['catalogue']['experience_area']['type']
         ]);
 
         Catalogue::factory()->count(2)->create([
@@ -119,19 +123,6 @@ class JobBoardSeeder extends Seeder
         Professional::factory(10)->create();
     }
 
-
-    // public function createProfessionals()
-    // {
-    //     Professional::factory()
-    //         ->hasReferences(3)
-    //         ->hasAcademicFormations(3)
-    //         ->hasCourses(3)
-    //         ->hasExperiences(3)
-    //         ->hasLanguages(3)
-    //         ->hasSkills(3)
-    //         ->create();
-    // }
-
     private function createAcademicFormations()
     {
         AcademicFormation::factory(10)->create();
@@ -174,31 +165,22 @@ class JobBoardSeeder extends Seeder
 
     private function createCategorieOffers()
     {
-        $offers = Offer::get();
-        Category::get()
-            ->has($offers);
-
-        // Offer::factory()
-        //     ->count(3)
-        //     ->hasAttached($categories)
-        //     ->create();
+        Offer::factory()
+        ->has(Category::factory()->count(3))
+        ->create();
     }
 
     private function createCompanyProfessionals()
     {
-        $companies = Company::get();
         Professional::factory()
-            ->count(3)
-            ->hasAttached($companies)
-            ->create();
+        ->has(Company::factory()->count(3))
+        ->create();
     }
 
     private function createOfferProfessionals()
     {
-        $offers = Offer::factory()->count(3)->create();
         Professional::factory()
-            ->count(3)
-            ->hasAttached($offers)
-            ->create();
+        ->has(Offer::factory()->count(3))
+        ->create();
     }
 }

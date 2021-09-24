@@ -24,10 +24,10 @@ class ExperienceFactory extends Factory
     public function definition()
     {
         $professionals = Professional::get();
-        $areas = Catalogue::where('type', 'AREA_EXPERIENCE')->get();
+        $areas = Catalogue::where('type', 'EXPERIENCE_AREA')->get();
         return [
             'area_id' => $areas[rand(0, sizeof($areas) - 1)],
-            'professional_id'=>$professionals[rand(0, sizeof($professionals) - 1)],
+            'professional_id' => $professionals[rand(0, sizeof($professionals) - 1)],
             'activities' => $this->faker->sentences(2),
             'employer' => $this->faker->word(),
             'end_at' => $this->faker->date(),

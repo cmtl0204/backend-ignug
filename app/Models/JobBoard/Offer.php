@@ -55,6 +55,11 @@ class Offer extends Model implements Auditable
 
     protected $cascadeDeletes = ['categories'];
 
+    protected $casts = [
+        'activities' => 'array',
+        'requirements' => 'array'
+    ];
+
     // Relationships
     public function categories()
     {
