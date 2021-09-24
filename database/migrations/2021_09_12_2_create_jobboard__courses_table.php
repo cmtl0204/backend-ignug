@@ -52,8 +52,8 @@ class CreateJobboardCoursesTable extends Migration
             $table->integer('hours')
             ->comment('Horas');
 
-            $table->string('institution');
-
+            $table->string('institution')
+            ->comment('Institucion en la que se llevo o lleva el curso');
         });
     }
 

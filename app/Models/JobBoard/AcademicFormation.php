@@ -19,7 +19,7 @@ class AcademicFormation extends Model implements Auditable
     protected $table = 'job_board.academic_formations';
 
     protected $fillable = [
-        'registration_date',
+        'registration_at',
         'senescyt_code',
         'certificated'
     ];

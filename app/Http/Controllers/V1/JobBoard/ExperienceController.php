@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 // Models
 use App\Models\JobBoard\Professional;
-use App\Models\App\Core\Catalogue;
+use App\Models\Core\Catalogue;
 use App\Models\JobBoard\Experience;
 
 // Resources
@@ -49,7 +49,7 @@ class ExperienceController extends Controller
             ]);
     }
 
-    function show(Experience $experience)
+    function show(Professional $professional,Experience $experience)
     {
         return (new ExperienceResource($experience))
         ->additional([
@@ -109,7 +109,7 @@ class ExperienceController extends Controller
             ]);
     }
 
-    function delete(Professional $professional,Experience $experience)
+    function destroy(Professional $professional, Experience $experience)
     {
         $experience->delete();
         return (new ExperienceResource($experience))
@@ -135,60 +135,61 @@ class ExperienceController extends Controller
                 ]
             ]);
     }
-    function uploadFiles(UploadFileRequest $request)
-    {
-        return (new FileController())->upload($request, Experience::getInstance($request->input('id')));
-    }
 
-    function deleteFile($fileId)
-    {
-        return (new FileController())->delete($fileId);
-    }
+    // function uploadFiles(UploadFileRequest $request)
+    // {
+    //     return (new FileController())->upload($request, Experience::getInstance($request->input('id')));
+    // }
 
-    function indexFile(IndexFileRequest $request)
-    {
-        return (new FileController())->index($request, Experience::getInstance($request->input('id')));
-    }
+    // function deleteFile($fileId)
+    // {
+    //     return (new FileController())->delete($fileId);
+    // }
 
-    function ShowFile($fileId)
-    {
-        return (new FileController())->show($fileId);
-    }
+    // function indexFile(IndexFileRequest $request)
+    // {
+    //     return (new FileController())->index($request, Experience::getInstance($request->input('id')));
+    // }
+
+    // function ShowFile($fileId)
+    // {
+    //     return (new FileController())->show($fileId);
+    // }
     /*******************************************************************************************************************
      * FILES
      *******************************************************************************************************************/
-    public function indexFiles(Experience $request, Experience $experience)
-    {
-        return $experience->indexFiles($request);
-    }
+    // public function indexFiles(Experience $request, Experience $experience)
+    // {
+    //     return $experience->indexFiles($request);
+    // }
 
-    public function uploadFile(UploadFileRequest $request, Experience $experience)
-    {
-        return $experience->uploadFile($request);
-    }
+    // public function uploadFile(UploadFileRequest $request, Experience $experience)
+    // {
+    //     return $experience->uploadFile($request);
+    // }
 
-    public function downloadFile(Experience $experience, File $file)
-    {
-        return $experience->downloadFile($file);
-    }
+    // public function downloadFile(Experience $experience, File $file)
+    // {
+    //     return $experience->downloadFile($file);
+    // }
 
-    public function showFile(Experience $experience, File $file)
-    {
-        return $experience->showFile($file);
-    }
+    // public function showFile(Experience $experience, File $file)
+    // {
+    //     return $experience->showFile($file);
+    // }
 
-    public function updateFile(UpdateFileRequest $request, Experience $experience, File $file)
-    {
-        return $experience->updateFile($request, $file);
-    }
+    // public function updateFile(UpdateFileRequest $request, Experience $experience, File $file)
+    // {
+    //     return $experience->updateFile($request, $file);
+    // }
 
-    public function destroyFile(Experience $experience, File $file)
-    {
-        return $experience->destroyFile($file);
-    }
+    // public function destroyFile(Experience $experience, File $file)
+    // {
+    //     return $experience->destroyFile($file);
+    // }
 
-    public function destroyFiles(Experience $experience, DestroysFileRequest $request)
-    {
-        return $experience->destroyFiles($request);
-    }
+    // public function destroyFiles(Experience $experience, DestroysFileRequest $request)
+    // {
+    //     return $experience->destroyFiles($request);
+    // }
 }

@@ -38,6 +38,11 @@ class Category extends Model implements Auditable
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
+    public function offers()
+    {
+        return $this->belongsToMany(Offer::class);
+    }
+
     // Scopes
 
     public function scopeCustomOrderBy($query, $sorts)

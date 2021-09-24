@@ -6,6 +6,11 @@ use App\Http\Controllers\V1\Core\FileController;
 use App\Http\Controllers\V1\Core\CatalogueController;
 use App\Http\Controllers\V1\JobBoard\AcademicFormationController;
 use App\Http\Controllers\V1\JobBoard\CourseController;
+use App\Http\Controllers\V1\JobBoard\LanguageController;
+use App\Http\Controllers\V1\JobBoard\ExperienceController;
+use App\Http\Controllers\V1\JobBoard\ReferenceController;
+use App\Http\Controllers\V1\JobBoard\SkillController;
+
 
 /***********************************************************************************************************************
  * CATALOGUES

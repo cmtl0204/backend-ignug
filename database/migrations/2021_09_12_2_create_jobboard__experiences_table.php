@@ -43,7 +43,7 @@ class CreateJobboardExperiencesTable extends Migration
 
             $table->text('reason_leave')
                 ->nullable()
-                ->comment('');
+                ->comment('Motivo de renuncia');
 
 
             $table->date('start_at')
@@ -51,7 +51,8 @@ class CreateJobboardExperiencesTable extends Migration
 
 
             $table->boolean('worked')
-                ->default(false);
+                ->default(false)
+                ->comment('Para saber si continua trabajando o no; false=no continua');
         });
     }
 

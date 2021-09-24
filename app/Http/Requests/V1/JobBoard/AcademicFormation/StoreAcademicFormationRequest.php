@@ -15,7 +15,7 @@ class StoreAcademicFormationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'registrationDate' => [
+            'registrationAt' => [
                 'required',
             ],
             'senescytCode' => [
@@ -35,7 +35,7 @@ class StoreAcademicFormationRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'registrationDate'=>'Fecha de registro',
+            'registrationAt'=>'Fecha de registro',
             'senescytCode'=>'Codigo de Senescyt',
             'certificated'=>'Tiene certificado',
             'professionalDegree.id'=>'Id de tituto de grado',

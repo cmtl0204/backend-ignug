@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\App\FileController;
 use App\Http\Controllers\App\ImageController;
 use App\Http\Requests\JobBoard\Skill\DeleteSkillRequest;
-use App\Models\App\Catalogue;
+use App\Models\Core\Catalogue;
 use App\Models\JobBoard\Skill;
 use App\Http\Requests\V1\JobBoard\Skill\StoreSkillRequest;
 use App\Http\Requests\V1\JobBoard\Skill\IndexSkillRequest;
@@ -46,7 +46,7 @@ class SkillController extends Controller
             ]);
     }
 
-    function show(Skill $skill)
+    function show(Professional $professional,Skill $skill)
     {
         return (new SkillResource($skill))
             ->additional([
@@ -60,13 +60,11 @@ class SkillController extends Controller
 
     function store(StoreSkillRequest $request, Professional $professional)
     {
-
-        $type = Catalogue::getInstance($request->input('type.id'));
-
+        $type = Catalogue::find($request->input('type.id'));
         $skill = new Skill();
-        $skill->description = $request->input('description');
         $skill->professional()->associate($professional);
         $skill->type()->associate($type);
+        $skill->description = $request->input('description');
         $skill->save();
 
         return (new SkillResource($skill))
@@ -81,10 +79,9 @@ class SkillController extends Controller
 
     function update(UpdateSkillRequest $request, Professional $professional, Skill $skill)
     {
-        // Crea una instanacia del modelo Catalogue para poder insertar en el modelo skill.
-        $type = Catalogue::getInstance($request->input('type.id'));
-        $skill->description = $request->input('description');
+        $type = Catalogue::find($request->input('type.id'));
         $skill->type()->associate($type);
+        $skill->description = $request->input('description');
         $skill->save();
 
         return (new SkillResource($skill))

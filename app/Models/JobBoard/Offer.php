@@ -55,6 +55,11 @@ class Offer extends Model implements Auditable
 
     protected $cascadeDeletes = ['categories'];
 
+    protected $casts = [
+        'activities' => 'array',
+        'requirements' => 'array'
+    ];
+
     // Relationships
     public function categories()
     {
@@ -74,11 +79,6 @@ class Offer extends Model implements Auditable
     public function location()
     {
         return $this->belongsTo(Location::class);
-    }
-
-    public function position()
-    {
-        return $this->belongsTo(Catalogue::class);
     }
 
     public function professionals()
@@ -104,11 +104,6 @@ class Offer extends Model implements Auditable
     public function trainingHours()
     {
         return $this->belongsTo(Catalogue::class,);
-    }
-
-    public function status()
-    {
-        return $this->belongsTo(Status::class);
     }
     
     public function state()
@@ -154,11 +149,6 @@ class Offer extends Model implements Auditable
         if ($code) {
             return $query->orWhere('code', 'ILIKE', "%$code%");
         }
-    }
-
-    public function setCodeAttribute($value)
-    {
-        $this->attributes['code'] = strtoupper($value);
     }
 
     public function scopeProfessional($query, $professional)
