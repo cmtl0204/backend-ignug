@@ -15,10 +15,15 @@ class CreateLicenseReasonsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_LICENSE'))->create('reasons', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD:database/migrations/2021_09_24_135244_create_license__reasons_table.php
             $table->softDeletes();
             $table->timestamps();
 
             $table->string('name')
+=======
+
+            $table->string( 'name ')
+>>>>>>> 0a68ee059c17859d8413b0251d7298fabbd8ba1d:database/migrations/2021_09_24_135244_create_permission__reasons_table.php
               ->comment('reason name');
 
             $table->string('description_one')
@@ -50,7 +55,11 @@ class CreateLicenseReasonsTable extends Migration
      */
     public function down()
     {
+<<<<<<< HEAD:database/migrations/2021_09_24_135244_create_license__reasons_table.php
         Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('reasons'); 
+=======
+        Schema::connection(env('DB_CONNECTION'))->dropIfExists('reasons');
+>>>>>>> 0a68ee059c17859d8413b0251d7298fabbd8ba1d:database/migrations/2021_09_24_135244_create_permission__reasons_table.php
     }
 }
 
