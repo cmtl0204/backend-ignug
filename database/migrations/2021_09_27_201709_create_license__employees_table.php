@@ -21,7 +21,7 @@ class CreateLicenseEmployeesTable extends Migration
             $table->foreingId('user_id')
              ->comment('Id del usuario')
              ->constrained('license.users');
-            
+
         });
     }
 
