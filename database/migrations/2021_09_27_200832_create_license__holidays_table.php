@@ -17,10 +17,10 @@ class CreateLicenseHolidaysTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            
+
 
             $table->foreignId('employee_id')
-            ->comment('Losep.Cod.trabajo')
+            ->comment('fk nombre del trabajador Losep.Cod.')
             ->constrained('license.employees');
 
             $table->integer('number_days')

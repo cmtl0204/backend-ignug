@@ -40,6 +40,6 @@ class CreateLicenseFormsTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('forms');
+        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('forms');
     }
 }

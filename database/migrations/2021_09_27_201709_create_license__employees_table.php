@@ -19,7 +19,6 @@ class CreateLicenseEmployeesTable extends Migration
             $table->timestamps();
 
             $table->foreignId('user_id')
-            foreignId
              ->comment('Id del usuario')
              ->constrained('license.users');
 
