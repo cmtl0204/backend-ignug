@@ -15,7 +15,7 @@ class CreatePermissionReasonsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION'))->create('reasons', function (Blueprint $table) {
             $table->id();
-            
+
             $table->string( 'name ')
               ->comment('reason name');
             $table->string('description_one ')
@@ -46,7 +46,7 @@ class CreatePermissionReasonsTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('reasons'); 
+        Schema::connection(env('DB_CONNECTION'))->dropIfExists('reasons');
     }
 }
 
