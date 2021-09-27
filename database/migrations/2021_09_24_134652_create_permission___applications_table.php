@@ -13,9 +13,36 @@ class CreatePermissionApplicationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('permission___applications', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION'))->create('applications', function (Blueprint $table){
             $table->id();
+
+            $table->foreignId('employee_id')
+                ->comment('Id del empleado que realiza la licencia o permiso')
+                ->constrained('permission.employees');
+            $table->foreignId('reason_id')
+                ->comment('Id de las razones por la cula se realiza la licencia o permiso')
+                ->constrained('permission.reasons');
+            $table->foreignId('location_id')
+                ->comment('Id de la localización')
+                ->constrained('permission.locations');
+            $table->foreignId('type')
+                ->comment('catalogues, para saber si es por fechas o por horas el permiso')
+                ->constrained('permission.types');
+
+            $table->date('start_date')
+                ->comment('Fecha de inicio de la Licencia o Permiso');
+            $table->date('end_date')
+                ->comment('Fecha final de la Licencia o Permiso');
+            $table->time('start_time')
+                ->comment('Hora de inicio de la Licencia o Permiso');
+            $table->time('end_time')
+                ->comment('Hora final de la Licencia o Permiso');
+            $table->text('observations')
+                ->comment('Listado de observaciones');
+
+            $table->softDeletes();
             $table->timestamps();
+
         });
     }
 
@@ -26,6 +53,6 @@ class CreatePermissionApplicationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permission___applications');
+        Schema::connection(env('DB_CONNECTION'))->dropIfExists('applications');
     }
 }
