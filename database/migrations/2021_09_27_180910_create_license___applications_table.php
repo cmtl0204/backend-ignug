@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermissionApplicationsTable extends Migration
+class CreateLicenseApplicationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,35 +13,42 @@ class CreatePermissionApplicationsTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION'))->create('applications', function (Blueprint $table){
+        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('applications', function (Blueprint $table){
             $table->id();
+            $table->softDeletes();
+            $table->timestamps();
 
             $table->foreignId('employee_id')
                 ->comment('Id del empleado que realiza la licencia o permiso')
                 ->constrained('permission.employees');
+
             $table->foreignId('reason_id')
                 ->comment('Id de las razones por la cula se realiza la licencia o permiso')
                 ->constrained('permission.reasons');
+
             $table->foreignId('location_id')
                 ->comment('Id de la localización')
-                ->constrained('permission.locations');
+                ->constrained('core.locations');
+
             $table->foreignId('type')
                 ->comment('catalogues, para saber si es por fechas o por horas el permiso')
-                ->constrained('permission.types');
+                ->constrained('core.catalogues');
 
-            $table->date('start_date')
+            $table->date('date_started_at')
                 ->comment('Fecha de inicio de la Licencia o Permiso');
-            $table->date('end_date')
+
+            $table->date('date_ended_at')
                 ->comment('Fecha final de la Licencia o Permiso');
-            $table->time('start_time')
+
+            $table->time('time_started_at')
                 ->comment('Hora de inicio de la Licencia o Permiso');
-            $table->time('end_time')
+
+            $table->time('time_ended_at')
                 ->comment('Hora final de la Licencia o Permiso');
-            $table->text('observations')
+
+            $table->json('observations')
                 ->comment('Listado de observaciones');
 
-            $table->softDeletes();
-            $table->timestamps();
 
         });
     }
@@ -53,6 +60,6 @@ class CreatePermissionApplicationsTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('applications');
+        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('applications');
     }
 }
