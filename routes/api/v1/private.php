@@ -4,9 +4,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Core\UserController;
 use App\Http\Controllers\V1\Core\FileController;
 use App\Http\Controllers\V1\Core\CatalogueController;
-use App\Http\Controllers\V1\JobBoard\AcademicFormationController;
-use App\Http\Controllers\V1\JobBoard\CourseController;
+
+
 
 /***********************************************************************************************************************
  * Route license Work
+<<<<<<< HEAD
  **********************************************************************************************************************/
+=======
+<<<<<<< HEAD
+ **********************************************************************************************************************/
+=======
+ *****************************************************************************************************************/
+
+
+
+>>>>>>> 022c3489b2e131bcf44c064c5f568db2050a3500
+>>>>>>> ad1cfb8f329b988aff93d50393347314c8c2deed
