@@ -17,6 +17,10 @@ class CreateLicenseStatesTable extends Migration
             $table->id();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->string('name')
+                ->comment('nombre del estado (aprobado-no aprobado-pendiente)');
+
         });
     }
 
