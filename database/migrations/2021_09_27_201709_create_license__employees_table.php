@@ -18,7 +18,8 @@ class CreateLicenseEmployeesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreingId('user_id')
+            $table->foreignId('user_id')
+            foreignId
              ->comment('Id del usuario')
              ->constrained('license.users');
             
