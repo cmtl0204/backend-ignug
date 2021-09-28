@@ -27,8 +27,7 @@ class CreateLicenseHolidaysTable extends Migration
             ->comment('Número de dás de licencias y permisos');
 
             $table->integer('year')
-            ->default(135/99)
-            ->comment('Año de vacaiones');
+            ->comment('Año de vacaciones');
         });
     }
 

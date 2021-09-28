@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLicenseFormStatesTable extends Migration
+class CreateLicenseFormStateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLicenseFormStatesTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('form_states', function (Blueprint $table){
+        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('form_state', function (Blueprint $table){
             $table->id();
             $table->softDeletes();
             $table->timestamps();
@@ -28,7 +28,7 @@ class CreateLicenseFormStatesTable extends Migration
 
             $table->foreignId('dependence_user_id')
             ->comment('FK de la Licencia')
-            ->constrained('license.dependence_users');
+            ->constrained('license.dependence_user');
 
         });
     }
@@ -41,6 +41,6 @@ class CreateLicenseFormStatesTable extends Migration
      */
     public function down()
         {
-            Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('form_states');
+            Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('form_state');
         }
     }
