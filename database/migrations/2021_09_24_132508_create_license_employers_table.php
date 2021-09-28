@@ -13,16 +13,16 @@ class CreateLicenseEmployersTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('applications', function (Blueprint $table){
+        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('employers', function (Blueprint $table){
             $table->id();
             $table->softDeletes();
             $table->timestamps();
-        
+
             $table->string('logo')
             ->comment('logo de senescyt');
 
             $table->string('department')
-            ->comment('texto');
+            ->comment('departamento de la senescyt');
 
             $table->string('coordination')
             ->comment('Sub.Fom. Técnica y Tecnológica');
@@ -31,11 +31,11 @@ class CreateLicenseEmployersTable extends Migration
             ->comment('Nombre del Instituto');
 
             $table->string('approval_name')
-            ->comment('Nombre de quien aprueba');
+            ->comment('Nombre de al persona quien aprueba');
 
             $table->string('register_name')
             ->comment('Senescyt_Talento_Humano');
-            
+
         });
         //
     }

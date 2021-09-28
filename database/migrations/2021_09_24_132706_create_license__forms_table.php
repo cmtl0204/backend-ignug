@@ -18,6 +18,10 @@ class CreateLicenseFormsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
+            $table->foreignId('employer_id')
+                ->comment('Id del empleador')
+                ->constrained('license.employers');
+
             $table->string('code')
             ->comment('Código del formulario');
 
@@ -25,11 +29,17 @@ class CreateLicenseFormsTable extends Migration
             ->comment('Formulario de Licencias y Permisos');
 
             $table->string('regime')
-            ->comment('Losep.Cod.trabajo');
+            ->comment('Losep.Codigo de trabajo');
 
             $table->float('days_const')
             ->default(135/99)
             ->comment('1.363636');
+
+            $table->integer('approved_level')
+                ->comment('Nivel de aprobación que debe tener el formulario 1 2 3 4 etc');
+
+            $table->boolean('state')
+                ->comment('estado del formulario true activo false inactivo');
         });
     }
 

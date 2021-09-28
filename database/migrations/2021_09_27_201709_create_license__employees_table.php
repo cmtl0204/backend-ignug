@@ -32,6 +32,6 @@ class CreateLicenseEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('employees'); ;
+        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('employees');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLicenseFormsStateTable extends Migration
+class CreateLicenseFormStatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -28,8 +28,9 @@ class CreateLicenseFormsStateTable extends Migration
 
             $table->foreignId('dependence_user_id')
             ->comment('FK de la Licencia')
-            ->constrained('license.dependences_users');
+            ->constrained('license.dependence_users');
 
+        });
     }
 
 
@@ -39,6 +40,7 @@ class CreateLicenseFormsStateTable extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('forms_state');
-    }}
+        {
+            Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('form_states');
+        }
+    }
