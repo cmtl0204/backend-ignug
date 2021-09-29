@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\V1\Core;
+namespace App\Http\Controllers\V1\Authentication;
 
 use App\Exceptions\ModelNotFound;
 use App\Http\Controllers\Controller;
@@ -13,8 +13,8 @@ use App\Http\Requests\V1\Core\Authentications\UserUnlockAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\LoginAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\VerifyTransactionalCodeAuthRequest;
 use App\Http\Resources\V1\Core\Authentications\AuthResource;
-use App\Models\Core\TransactionalCode;
-use App\Models\Core\PasswordReset;
+use App\Models\Authentication\TransactionalCode;
+use App\Models\Authentication\PasswordReset;
 use App\Models\Authentication\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

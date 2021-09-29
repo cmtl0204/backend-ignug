@@ -1,6 +1,6 @@
 <?php
 
-    use App\Http\Controllers\V1\Core\AuthController;
+    use App\Http\Controllers\V1\Authentication\AuthController;
     use App\Http\Controllers\V1\Core\LocationController;
     use Illuminate\Support\Facades\Artisan;
     use Illuminate\Support\Facades\DB;

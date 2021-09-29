@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\V1\Core\AuthController;
-use App\Http\Controllers\V1\Core\RoleController;
-use App\Http\Controllers\V1\Core\PermissionController;
-use App\Http\Controllers\V1\Core\MenuController;
+use App\Http\Controllers\V1\Authentication\AuthController;
+use App\Http\Controllers\V1\Authentication\RoleController;
+use App\Http\Controllers\V1\Authentication\PermissionController;
+use App\Http\Controllers\V1\Authentication\MenuController;
 
 Route::apiResource('menus', MenuController::class);
 
