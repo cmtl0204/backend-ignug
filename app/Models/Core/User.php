@@ -2,6 +2,7 @@
 
 namespace App\Models\Core;
 
+use App\Models\LicenseWork\Employee;
 use App\Traits\EmailTrait;
 use App\Traits\FileTrait;
 use App\Traits\ImageTrait;
@@ -71,6 +72,15 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     ];
 
     // Relationships
+
+    public function employees(){
+        return $this->hasMany(Employee::class);
+    }
+
+    public function dependenceUser(){
+        return $this->hasMany();
+    }
+
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');

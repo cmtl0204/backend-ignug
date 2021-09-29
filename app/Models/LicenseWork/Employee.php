@@ -2,6 +2,7 @@
 
 namespace App\Models\LicenseWork;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,14 @@ class Employee extends Model
     protected $table ='licence.employees';
 
     function user(){
-        return $this->belongsTo();
+        return $this->belongsTo(User::class);
+    }
+
+    function applications(){
+        return $this->hasMany(Application::class);
+    }
+    function holidays(){
+        return $this->hasMany(Holiday::class);
     }
 
 }

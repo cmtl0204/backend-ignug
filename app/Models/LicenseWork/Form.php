@@ -5,28 +5,42 @@ namespace App\Models\LicenseWork;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class Form extends Model
 {
     use HasFactory;
-    protected $table='license.states';
+    protected $table= 'license.forms';
     protected $fillable=[
-        'name',
+        'code',
+        'description',
+        'regime',
+        'days_const',
+        'approved_level',
+        'state',
+
     ];
 
-    function FormState(){
+    function employer(){
+        return $this->belongsTo(Employer::class);
+    }
+
+    function formState(){
         return $this->hasMany(FormState::class);
     }
 
     // Scopes
-
-    public function scopeName($query, $name)
+    public function scopeCode($query, $code)
     {
-        if ($name) {
-            return $query->orWhere('name', 'ILIKE', "%$name%");
+        if ($code) {
+            return $query->orWhere('code', 'ILIKE', "%$code%");
         }
     }
 
-
+    public function scopeRegime($query, $regime)
+    {
+        if ($regime) {
+            return $query->orWhere('regime', 'ILIKE', "%$regime%");
+        }
+    }
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {

@@ -19,6 +19,9 @@ class Reason extends Model
         'days_max',
     ];
 
+    function reasons(){
+        return $this->hasMany(Reason::class);
+    }
      // Scopes
      public function scopeName($query, $name)
      {
@@ -39,7 +42,7 @@ class Reason extends Model
              return $query->orWhere('description_one', 'ILIKE', "%$description_two%");
          }
      }
-     
+
      public function scopeCustomOrderBy($query, $sorts)
      {
          if (!empty($sorts[0])) {
@@ -54,7 +57,7 @@ class Reason extends Model
              return $query;
          }
      }
- 
+
      public function scopeCustomSelect($query, $fields)
      {
          if (!empty($fields)) {
@@ -65,7 +68,7 @@ class Reason extends Model
                      unset($fields[$fieldExist]);
                  }
              }
- 
+
              array_unshift($fields, 'id');
              return $query->select($fields);
          }

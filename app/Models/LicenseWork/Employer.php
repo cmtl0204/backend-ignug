@@ -9,15 +9,20 @@ class Employer extends Model
 {
     use HasFactory;
     protected $table= 'license.employers';
-    protected $filable=[
+    protected $fillable=[
         'logo',
         'department',
         'coordination',
         'unit',
         'approval_name',
         'register_name',
-        
+
     ];
+
+    function forms(){
+        return $this->hasMany(Form::class);
+    }
+
     // Scopes
     public function scopeLogo($query, $logo)
     {
@@ -43,19 +48,6 @@ class Employer extends Model
     {
         if ($unit) {
             return $query->orWhere('unit', 'ILIKE', "%$unit%");
-        }
-    }
-    public function scopeApprovalName($query, $approval_name)
-    {
-        if ($approval_name) {
-            return $query->orWhere('approval_name', 'ILIKE', "%$approval_name%");
-        }
-    }
-
-    public function scopeRegisterName($query, $register_name)
-    {
-        if ($register_name) {
-            return $query->orWhere('register_name', 'ILIKE', "%$register_name%");
         }
     }
     public function scopeCustomOrderBy($query, $sorts)

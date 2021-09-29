@@ -9,12 +9,13 @@ class Holiday extends Model
 {
     use HasFactory;
     protected $table= 'license.holidays';
-    protected $filable=[
+    protected $fillable=[
         'number_days',
         'year',
 
     ];
     function employee(){
-        return $this->belongsTo();
+        return $this->belongsTo(Employee::class);
     }
+
 }
