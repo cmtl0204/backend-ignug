@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 //Models
 use App\Models\Core\Catalogue;
 use App\Models\Core\Address;
-use App\Models\Core\User;
+use App\Models\Authentication\User;
 use App\Models\JobBoard\Company;
 use App\Models\Core\Location;
 

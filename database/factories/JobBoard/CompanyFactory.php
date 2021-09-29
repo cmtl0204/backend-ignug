@@ -3,7 +3,7 @@
 namespace Database\Factories\JobBoard;
 
 use App\Models\Core\Catalogue;
-use App\Models\Core\User;
+use App\Models\Authentication\User;
 use App\Models\JobBoard\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

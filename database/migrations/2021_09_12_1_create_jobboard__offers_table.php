@@ -37,7 +37,7 @@ class CreateJobboardOffersTable extends Migration
                 ->constrained('core.states');
 
             $table->foreignId('experience_time_id')
-                ->constrained('authentication.catalogues')
+                ->constrained('core.catalogues')
                 ->comment('FK desde catalogues');
 
             $table->string('code')->comment('Codigo de la oferta');
