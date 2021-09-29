@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models\LicenseWork;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Application extends Model
+{
+    use HasFactory;
+    protected $table='license.applications';
+    protected $fillable=[
+        'type',
+        'date_started_at',
+        'date_ended_at',
+        'time_started_at',
+        'time_ended_at',
+        'observations',
+    ];
+
+    function employee(){
+        return $this->belongsTo();
+    }
+
+    function reason(){
+        return $this->belongsTo();
+    }
+    function location(){
+        return $this->belongsTo();
+    }
+
+
+}
