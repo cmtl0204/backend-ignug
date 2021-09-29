@@ -12,12 +12,12 @@ use App\Models\App\Catalogue;
 use App\Models\App\Location;
 use App\Models\Authentication\Route;
 use Illuminate\Http\Request;
-use App\Http\Requests\JobBoard\Offer\IndexOfferRequest;
-use App\Http\Requests\JobBoard\Offer\StoreOfferRequest;
-use App\Http\Requests\JobBoard\Offer\UpdateOfferRequest;
-use App\Http\Requests\JobBoard\Offer\UpdateStatusOfferRequest;
-use App\Http\Requests\JobBoard\Offer\DeleteOfferRequest;
-use App\Http\Requests\JobBoard\Offer\GetProfessionalOfferRequest;
+use App\Http\Requests\V1\JobBoard\Offer\IndexOfferRequest;
+use App\Http\Requests\V1\JobBoard\Offer\StoreOfferRequest;
+use App\Http\Requests\V1\JobBoard\Offer\UpdateOfferRequest;
+use App\Http\Requests\V1\JobBoard\Offer\UpdateStatusOfferRequest;
+use App\Http\Requests\V1\JobBoard\Offer\DeleteOfferRequest;
+use App\Http\Requests\V1\JobBoard\Offer\GetProfessionalOfferRequest;
 use Illuminate\Database\Eloquent\Model;
 
 class OfferController extends Controller
@@ -51,30 +51,30 @@ class OfferController extends Controller
     function store(StoreOfferRequest $request)
     {
         $company = $request->user()->company->first();
-        $location = Location::find($request->input('offer.location.id'));
-        $contractType = Catalogue::find($request->input('offer.contract_type.id'));
-        $position = Catalogue::find($request->input('offer.position.id'));
-        $sector = Catalogue::find($request->input('offer.sector.id'));
-        $workingDay = Catalogue::find($request->input('offer.working_day.id'));
-        $experienceTime = Catalogue::find($request->input('offer.experience_time.id'));
-        $trainingHours = Catalogue::find($request->input('offer.training_hours.id'));
-        $status = Status::find($request->input('offer.status.id'));
+        $location = Location::find($request->input('location.id'));
+        $contractType = Catalogue::find($request->input('contractType.id'));
+        $position = Catalogue::find($request->input('position.id'));
+        $sector = Catalogue::find($request->input('sector.id'));
+        $workingDay = Catalogue::find($request->input('workingDay.id'));
+        $experienceTime = Catalogue::find($request->input('experienceTime.id'));
+        $trainingHours = Catalogue::find($request->input('trainingHours.id'));
+        $status = Status::find($request->input('status.id'));
         $lastOffer = Offer::get()->last();
         $number = $lastOffer?$lastOffer->id + 1:1;
 
         $offer = new Offer;
         $offer->code = $company->prefix.$number;
-        $offer->contact_name = $request->input('offer.contact_name');
-        $offer->contact_email = $request->input('offer.contact_email');
-        $offer->contact_phone = $request->input('offer.contact_phone');
-        $offer->contact_cellphone = $request->input('offer.contact_cellphone');
-        $offer->remuneration = $request->input('offer.remuneration');
-        $offer->vacancies = $request->input('offer.vacancies');
-        $offer->start_date = $request->input('offer.start_date');
-        $offer->end_date = $this->calculateEndOffer($request->input('offer.start_date'));
-        $offer->activities = $request->input('offer.activities');
-        $offer->requirements = $request->input('offer.requirements');
-        $offer->aditional_information = $request->input('offer.aditional_information');
+        $offer->contact_name = $request->input('contactName');
+        $offer->contact_email = $request->input('contactEmail');
+        $offer->contact_phone = $request->input('contactPhone');
+        $offer->contact_cellphone = $request->input('contactCellphone');
+        $offer->remuneration = $request->input('remuneration');
+        $offer->vacancies = $request->input('vacancies');
+        $offer->start_at = $request->input('startAt');
+        $offer->end_at = $this->calculateEndOffer($request->input('startAt'));
+        $offer->activities = $request->input('activities');
+        $offer->requirements = $request->input('requirements');
+        $offer->aditional_information = $request->input('aditionalInformation');
         $offer->company()->associate($company);
         $offer->location()->associate($location);
         $offer->contractType()->associate($contractType);
@@ -87,7 +87,7 @@ class OfferController extends Controller
 
         DB::transaction(function () use($offer, $request) {
             $offer->save();
-            $offer->categories()->attach($request->input('offer.categories'));
+            $offer->categories()->attach($request->input('categories'));
         });
 
 
@@ -120,26 +120,26 @@ class OfferController extends Controller
 
     function update(UpdateOfferRequest $request, Offer $offer)
     {
-        $location = Location::find($request->input('offer.location.id'));
-        $contractType = Catalogue::find($request->input('offer.contract_type.id'));
-        $position = Catalogue::find($request->input('offer.position.id'));
-        $sector = Catalogue::find($request->input('offer.sector.id'));
-        $workingDay = Catalogue::find($request->input('offer.working_day.id'));
-        $experienceTime = Catalogue::find($request->input('offer.experience_time.id'));
-        $trainingHours = Catalogue::find($request->input('offer.training_hours.id'));
-        $status = Status::find($request->input('offer.status.id'));
+        $location = Location::find($request->input('location.id'));
+        $contractType = Catalogue::find($request->input('contract_type.id'));
+        $position = Catalogue::find($request->input('position.id'));
+        $sector = Catalogue::find($request->input('sector.id'));
+        $workingDay = Catalogue::find($request->input('working_day.id'));
+        $experienceTime = Catalogue::find($request->input('experience_time.id'));
+        $trainingHours = Catalogue::find($request->input('training_hours.id'));
+        $status = Status::find($request->input('status.id'));
 
-        $offer->contact_name = $request->input('offer.contact_name');
-        $offer->contact_email = $request->input('offer.contact_email');
-        $offer->contact_phone = $request->input('offer.contact_phone');
-        $offer->contact_cellphone = $request->input('offer.contact_cellphone');
-        $offer->remuneration = $request->input('offer.remuneration');
-        $offer->vacancies = $request->input('offer.vacancies');
-        $offer->start_date = $request->input('offer.start_date');
-        $offer->end_date = $this->calculateEndOffer($request->input('offer.start_date'));
-        $offer->activities = $request->input('offer.activities');
-        $offer->requirements = $request->input('offer.requirements');
-        $offer->aditional_information = $request->input('offer.aditional_information');
+        $offer->contact_name = $request->input('contactName');
+        $offer->contact_email = $request->input('contactEmail');
+        $offer->contact_phone = $request->input('contactPhone');
+        $offer->contact_cellphone = $request->input('contactCellphone');
+        $offer->remuneration = $request->input('remuneration');
+        $offer->vacancies = $request->input('vacancies');
+        $offer->start_date = $request->input('startAt');
+        $offer->end_date = $this->calculateEndOffer($request->input('startAt'));
+        $offer->activities = $request->input('activities');
+        $offer->requirements = $request->input('requirements');
+        $offer->aditional_information = $request->input('aditionalInformation');
         $offer->location()->associate($location);
         $offer->contractType()->associate($contractType);
         $offer->position()->associate($position);
@@ -153,7 +153,7 @@ class OfferController extends Controller
         DB::transaction(function () use($offer, $request) {
             $offer->categories()->detach();
             $offer->save();
-            $offer->categories()->attach($request->input('offer.categories'));
+            $offer->categories()->attach($request->input('categories'));
         });
 
         return response()->json([
@@ -179,7 +179,7 @@ class OfferController extends Controller
     }
 
     function changeStatus(UpdateStatusOfferRequest $request, Offer $offer){
-        $offer->status()->associate(Status::find($request->input('offer.status.id')));
+        $offer->status()->associate(Status::find($request->input('status.id')));
         $offer->save();
         return response()->json([
             'data' => $offer,

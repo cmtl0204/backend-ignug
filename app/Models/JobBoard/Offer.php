@@ -45,22 +45,20 @@ class Offer extends Model implements Auditable
         'contact_cellphone',
         'remuneration',
         'vacancies',
-        'start_date',
-        'end_date',
+        'start_at',
+        'end_at',
         'aditional_information',
-    ];
-
-    protected $casts = [
-        'activities' => 'array',
-        'requirements' => 'array',
-        'start_date' => 'datetime:Y-m-d',
-        'end_date' => 'datetime:Y-m-d',
-        'created_at' => 'datetime:Y-m-d h:m:s',
-        'updated_at' => 'datetime:Y-m-d h:m:s',
-        'deleted_at' => 'datetime:Y-m-d h:m:s',
+        'position',
+        'activities',
+        'requirements',
     ];
 
     protected $cascadeDeletes = ['categories'];
+
+    protected $casts = [
+        'activities' => 'array',
+        'requirements' => 'array'
+    ];
 
     // Relationships
     public function categories()
@@ -83,11 +81,6 @@ class Offer extends Model implements Auditable
         return $this->belongsTo(Location::class);
     }
 
-    public function position()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-
     public function professionals()
     {
         return $this->belongsToMany(Professional::class)->withTimestamps();
@@ -95,30 +88,55 @@ class Offer extends Model implements Auditable
 
     public function sector()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Catalogue::class,);
     }
 
     public function workingDay()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Catalogue::class,);
     }
 
     public function experienceTime()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Catalogue::class,);
     }
 
     public function trainingHours()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Catalogue::class,);
     }
-
-    public function status()
+    
+    public function state()
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(State::class);
     }
 
     // Scopes
+
+    public function scopeCustomOrderBy($query, $sorts)
+    {
+        if (!empty($sorts[0])) {
+            foreach ($sorts as $sort) {
+                $field = explode('-', $sort);
+                if (empty($field[0]) && in_array($field[1], $this->fillable)) {
+                    $query = $query->orderByDesc($field[1]);
+                } else if (in_array($field[0], $this->fillable)) {
+                    $query = $query->orderBy($field[0]);
+                }
+            }
+            return $query;
+        }
+    }
+
+    public function scopeCustomSelect($query, $fields)
+    {
+        if (!empty($fields)) {
+            $fields = explode(',', $fields);
+            array_unshift($fields, 'id');
+            return $query->select($fields);
+        }
+    }
+
     public function scopeAditionalInformation($query, $aditionalInformation)
     {
         if ($aditionalInformation) {
@@ -131,11 +149,6 @@ class Offer extends Model implements Auditable
         if ($code) {
             return $query->orWhere('code', 'ILIKE', "%$code%");
         }
-    }
-
-    public function setCodeAttribute($value)
-    {
-        $this->attributes['code'] = strtoupper($value);
     }
 
     public function scopeProfessional($query, $professional)
@@ -216,4 +229,56 @@ class Offer extends Model implements Auditable
             });
         }
     }
+
+    // Mutators
+    public function setCodeAttribute($value)
+    {
+        $this->attributes['code'] = strtoupper($value);
+    }
+ 
+    public function setPositionAttribute($value)
+    {
+        $this->attributes['position'] = strtoupper($value);
+    }
+ 
+    public function setContactNameAttribute($value)
+    {
+        $this->attributes['contact_name'] = strtoupper($value);
+    }
+
+    public function setContactEmailAttribute($value)
+    {
+        $this->attributes['contact_email'] = strtoupper($value);
+    }
+ 
+    public function setContactPhoneAttribute($value)
+    {
+        $this->attributes['contact_phone'] = strtoupper($value);
+    }
+ 
+    public function setContactCellphoneAttribute($value)
+    {
+        $this->attributes['contact_cellphone'] = strtoupper($value);
+    }
+
+    public function setRemunerationAttribute($value)
+    {
+        $this->attributes['remuneration'] = strtoupper($value);
+    }
+ 
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = strtolower($value);
+    }
+ 
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = strtolower($value);
+    }
+
+    public function setAdditionalInformationAttribute($value)
+    {
+        $this->attributes['additional_information'] = strtoupper($value);
+    }
+
 }

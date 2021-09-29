@@ -13,10 +13,10 @@ use App\Models\JobBoard\Professional;
 use App\Models\App\Location;
 
 // FormRequest
-use App\Http\Requests\JobBoard\Professional\StoreProfessionalRequest;
-use App\Http\Requests\JobBoard\Professional\GetProfessionalRequest;
+use App\Http\Requests\V1\JobBoard\Professional\StoreProfessionalRequest;
+use App\Http\Requests\V1\JobBoard\Professional\GetProfessionalRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests\JobBoard\Professional\UpdateProfessionalRequest;
+use App\Http\Requests\V1\JobBoard\Professional\UpdateProfessionalRequest;
 
 class ProfessionalController extends Controller
 {

@@ -27,17 +27,17 @@ class AcademicFormationFactory extends Factory
         $professionalDegrees = Category::get();
         $certificated = $this->faker->boolean();
         if ($certificated) {
-            $registrationDate = $this->faker->date();
+            $registrationAt = $this->faker->date();
             $senescytCode = $this->faker->uuid();
         } else {
-            $registrationDate = null;
+            $registrationAt = null;
             $senescytCode = null;
         }
 
         return [
-            'professional_id' => $professionals[rand(0, sizeof($professionals) - 1)],
-            'professional_degree_id' => $professionalDegrees[rand(0, sizeof($professionalDegrees) - 1)],
-            'registration_date' => $registrationDate,
+            'professional_id' => $professionals[rand(0, sizeof($professionals) - 1)]->id,
+            'professional_degree_id' => $professionalDegrees[rand(0, sizeof($professionalDegrees) - 1)]->id,
+            'registration_at' => $registrationAt,
             'senescyt_code' => $senescytCode,
             'certificated' => $certificated,
         ];

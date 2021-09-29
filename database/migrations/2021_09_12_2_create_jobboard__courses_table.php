@@ -15,30 +15,52 @@ class CreateJobboardCoursesTable extends Migration
             $table->timestamps();
 
             $table->foreignId('professional_id')
-                ->constrained('job_board.professionals');;
+                ->constrained('job_board.professionals')
+                ->comment('Numero de profesional');
+
 
             $table->foreignId('type_id')
                 ->comment('tipo de evento')
                 ->constrained('core.catalogues');
 
             $table->foreignId('certification_type_id')
+<<<<<<< HEAD
                 ->constrained('core.catalogues');
 
             $table->foreignId('area_id')
                 ->constrained('core.catalogues');
+=======
+                ->constrained('authentication.catalogues')
+                ->comment('Verificar numero de certificado');
+
+
+            $table->foreignId('area_id')
+                ->constrained('authentication.catalogues')
+                ->comment('Identificador de area');
+
+
+            $table->text('name')
+            ->comment('Nombre del curso');
+>>>>>>> 1ff8bf3648ca800014c8bc17d3bfc6d6093bcf34
 
             $table->text('description')
-                ->nullable();
+                ->nullable()
+                ->comment('Descripcion');
 
-            $table->date('end_date');
 
-            $table->integer('hours');
+            $table->date('start_at')
+            ->comment('13 de septiembre del 2021');
 
-            $table->string('institution');
 
-            $table->text('name');
+            $table->date('end_at')
+            ->comment('Fecha final');
 
-            $table->date('start_date');
+
+            $table->integer('hours')
+            ->comment('Horas');
+
+            $table->string('institution')
+            ->comment('Institucion en la que se llevo o lleva el curso');
         });
     }
 

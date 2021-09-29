@@ -17,33 +17,32 @@ class StoreExperienceRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'experience.area.id' => [
-                'required',
-            ],
-            'experience.employer' => [
+            'area.id' => ['required'],
+            'employer' => [
                 'required',
                 'min:2',
                 'max:250',
             ],
-            'experience.position' => [
+            'position' => [
                 'required',
                 'min:3',
                 'max:250',
             ],
-            'experience.start_date' => [
+            'startAt' => [
                 'required',
                 'date',
             ],
-            'experience.end_date' => [],
-            'experience.activities' => [
+            'endAt' => [],
+            'activities' => [
                 'required',
                 'array',
             ],
-            'experience.reason_leave' => [],
-            'experience.is_working' => [
+            'reasonLeave' => ['required',],
+            'worked' => [
+                'required',
                 'boolean',
             ],
-            'experience.is_disability' => []
+
         ];
         return JobBoardFormRequest::rules($rules);
     }
@@ -51,15 +50,14 @@ class StoreExperienceRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'experience.area.id' => 'area-ID',
-            'experience.employer' => 'nombre de empleadora',
-            'experience.position' => 'posicion',
-            'experience.start_date' => 'fecha inicio',
-            'experience.end_date' => 'fercha fin',
-            'experience.activities' => 'ocupaciones',
-            'experience.reason_leave' => 'razon que se fue',
-            'experience.is_working' => 'está trabajando',
-            'experience.is_disability' => 'es discapacitado',
+            'area.id' => 'area-ID',
+            'employer' => 'nombre de empleadora',
+            'position' => 'posicion',
+            'startAt' => 'fecha inicio',
+            'endAt' => 'fercha fin',
+            'activities' => 'ocupaciones',
+            'reasonLeave' => 'razon por la que se fue del trabajo',
+            'worked' => 'está trabajando',
 
         ];
         return JobBoardFormRequest::attributes($attributes);

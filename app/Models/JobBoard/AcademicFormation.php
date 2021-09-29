@@ -19,13 +19,9 @@ class AcademicFormation extends Model implements Auditable
     protected $table = 'job_board.academic_formations';
 
     protected $fillable = [
-        'registration_date',
+        'registration_at',
         'senescyt_code',
         'certificated'
-    ];
-
-    protected $casts = [
-        'registration_date' => 'datetime:Y-m-d'
     ];
 
     public function professional()
@@ -68,6 +64,17 @@ class AcademicFormation extends Model implements Auditable
         if ($senescytCode) {
             return $query->orWhere('senescyt_code', 'ILIKE', $senescytCode);
         }
+    }
+    
+    // Mutators
+    public function setRegistrationDateAttribute($value)
+    {
+        $this->attributes['registration_date'] = strtolower($value);
+    }
+
+    public function setSenescytCodeAttribute($value)
+    {
+        $this->attributes['senescyt_code'] = strtoupper($value);
     }
 
 }

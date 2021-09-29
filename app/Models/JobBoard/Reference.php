@@ -64,10 +64,40 @@ class Reference extends Model implements Auditable
 
     public function setContactEmailAttribute($value)
     {
-        $this->attributes['contact_name'] = strtolower($value);
+        $this->attributes['contact_email'] = strtoupper($value);
+    }
+
+    public function setContactPhoneAttribute($value)
+    {
+        $this->attributes['contact_phone'] = strtoupper($value);
     }
 
     // Scopes
+
+    public function scopeCustomOrderBy($query, $sorts)
+    {
+        if (!empty($sorts[0])) {
+            foreach ($sorts as $sort) {
+                $field = explode('-', $sort);
+                if (empty($field[0]) && in_array($field[1], $this->fillable)) {
+                    $query = $query->orderByDesc($field[1]);
+                } else if (in_array($field[0], $this->fillable)) {
+                    $query = $query->orderBy($field[0]);
+                }
+            }
+            return $query;
+        }
+    }
+
+    public function scopeCustomSelect($query, $fields)
+    {
+        if (!empty($fields)) {
+            $fields = explode(',', $fields);
+            array_unshift($fields, 'id');
+            return $query->select($fields);
+        }
+    }
+
     public function scopePosition($query, $position)
     {
         if ($position) {

@@ -15,9 +15,11 @@ class CreateJobboardLanguagesTable extends Migration
             $table->timestamps();
 
             $table->foreignId('professional_id')
-                ->constrained('job_board.professionals');;
+                ->constrained('job_board.professionals')
+                ->comment('FK desde professionals');
 
             $table->foreignId('idiom_id')
+<<<<<<< HEAD
                 ->constrained('core.catalogues');
 
             $table->foreignId('written_level_id')
@@ -28,6 +30,22 @@ class CreateJobboardLanguagesTable extends Migration
 
             $table->foreignId('read_level_id')
                 ->constrained('core.catalogues');
+=======
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
+
+            $table->foreignId('written_level_id')
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
+
+            $table->foreignId('spoken_level_id')
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
+
+            $table->foreignId('read_level_id')
+                ->constrained('authentication.catalogues')
+                ->comment('FK desde catalogues');
+>>>>>>> 1ff8bf3648ca800014c8bc17d3bfc6d6093bcf34
         });
     }
 

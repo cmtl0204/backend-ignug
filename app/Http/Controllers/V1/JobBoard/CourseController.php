@@ -61,8 +61,8 @@ class CourseController extends Controller
 
         $course->name = $request->input('name');
         $course->description = $request->input('description');
-        $course->start_date = $request->input('startDate');
-        $course->end_date = $request->input('endDate');
+        $course->start_at = $request->input('startAt');
+        $course->end_at = $request->input('endAt');
         $course->hours = $request->input('hours');
         $course->institution = $request->input('institution');
 
@@ -102,8 +102,8 @@ class CourseController extends Controller
 
         $course->name = $request->input('name');
         $course->description = $request->input('description');
-        $course->start_date = $request->input('startDate');
-        $course->end_date = $request->input('endDate');
+        $course->start_at = $request->input('startAt');
+        $course->end_at = $request->input('endAt');
         $course->hours = $request->input('hours');
         $course->institution = $request->input('institution');
         $course->save();

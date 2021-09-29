@@ -27,23 +27,25 @@ class UpdateReferenceRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'reference.institution' => [
+            'institution' => [
                 'required',
-
+                'min:5',
+                'max:30',
             ],
-            'reference.position' => [
+            'position' => [
                 'required',
-
+                'min:5',
+                'max:30',
             ],
-            'reference.contact_name' => [
+            'contactName' => [
                 'required',
-
+                'max:30',
             ],
-            'reference.contact_phone' => [
+            'contactPhone' => [
                 'required',
-
+                'numeric',
             ],
-            'reference.contact_email' => [
+            'contactEmail' => [
                 'required',
                 'regex:'.$this->regularExpresionEmail,
             ]
@@ -55,11 +57,11 @@ class UpdateReferenceRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'reference.institution' => 'institución',
-            'reference.position' => 'posición',
-            'reference.contact_name' => 'nombre de contacto',
-            'reference.contact_phone' => 'teledono de contacto',
-            'reference.contact_email' => 'email de contacto',
+            'institution' => 'institución',
+            'position' => 'posición',
+            'contactName' => 'nombre de contacto',
+            'contactPhone' => 'teléfono de contacto',
+            'contactEmail' => 'email de contacto',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

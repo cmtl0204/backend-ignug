@@ -21,6 +21,8 @@ class LanguageResource extends JsonResource
             'writtenLevel' => CatalogueResource::make($this->resource),
             'spokenLevel' => CatalogueResource::make($this->resource),
             'readLevel' => CatalogueResource::make($this->resource),
+            'createAt'=>$this->create_at,
+            'updateAt'=>$this->update_at,
         ];
     }
 }

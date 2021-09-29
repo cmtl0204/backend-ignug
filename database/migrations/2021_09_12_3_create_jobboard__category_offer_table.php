@@ -13,10 +13,13 @@ class CreateJobboardCategoryOfferTable extends Migration
             $table->timestamps();
 
             $table->foreignId('category_id')
-                ->constrained('job_board.categories');
+                ->constrained('job_board.categories')
+                ->comment('FK desde categories');
+                
 
             $table->foreignId('offer_id')
-                ->constrained('job_board.offers');
+                ->constrained('job_board.offers')
+                ->comment('FK desde offers');
         });
     }
 

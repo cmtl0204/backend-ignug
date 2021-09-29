@@ -32,15 +32,10 @@ class Course extends Model implements Auditable
 
     protected $fillable = [
         'description',
-        'end_date',
+        'end_at',
         'hours',
         'name',
-        'start_date',
-    ];
-
-    protected $casts = [
-        'start_date' => 'date:Y-m-d',
-        'end_date' => 'date:Y-m-d'
+        'start_at',
     ];
 
     // Relationships
@@ -73,6 +68,26 @@ class Course extends Model implements Auditable
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper($value);
+    }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = strtoupper($value);
+    }
+
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = strtolower($value);
+    }
+
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = strtolower($value);
+    }
+
+    public function setInstitutionAttribute($value)
+    {
+        $this->attributes['institution'] = strtoupper($value);
     }
 
     // Scopes

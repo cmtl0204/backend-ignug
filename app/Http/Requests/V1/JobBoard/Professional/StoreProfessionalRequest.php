@@ -5,7 +5,7 @@ namespace App\Http\Requests\V1\JobBoard\Reference;
 use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreReferenceRequest extends FormRequest
+class StoreProfessionalRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,27 +15,27 @@ class StoreReferenceRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'institution' => [
+            'reference.institution' => [
                 'required',
                 'min:5',
                 'max:30',
             ],
-            'position' => [
+            'reference.position' => [
                 'required',
                 'min:5',
                 'max:30',
             ],
-            'contactName' => [
+            'reference.contact_name' => [
                 'required',
                 'max:30',
             ],
-            'contactPhone' => [
+            'reference.contact_phone' => [
                 'required',
                 'numeric',
             ],
-            'contactEmail' => [
+            'reference.contact_email' => [
                 'required',
-                // 'regex:'.$this->regularExpresionEmail,
+                'regex:'.$this->regularExpresionEmail,
             ]
         ];
 
@@ -44,11 +44,11 @@ class StoreReferenceRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'institution' => 'institución',
-            'position' => 'posición',
-            'contactName' => 'nombre de contacto',
-            'contactPhone' => 'teléfono de contacto',
-            'contactEmail' => 'email de contacto',
+            'reference.institution' => 'institución',
+            'reference.position' => 'posición',
+            'reference.contact_name' => 'nombre de contacto',
+            'reference.contact_phone' => 'teléfono de contacto',
+            'reference.contact_email' => 'email de contacto',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

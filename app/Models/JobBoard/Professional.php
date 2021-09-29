@@ -13,7 +13,15 @@ use App\Models\Core\Catalogue;
 
 /**
  * @property BigInteger id
+ * @property bool traveled
+ * @property bool disabled
+ * @property bool familiar_disabled
+ * @property bool identification_familiar_disabled
+ * @property bool catastrophic_diseased
+ * @property bool familiar_catastrophic_diseased
  * @property string about_me
+ * 
+ * 
  */
 class Professional extends Model implements Auditable
 {
@@ -33,28 +41,10 @@ class Professional extends Model implements Auditable
         'familiar_catastrophic_diseased',
     ];
 
-    protected $casts = [
-        'traveled' => 'boolean',
-        'disabled' => 'boolean',
-        'familiar_disabled' => 'boolean',
-        'catastrophic_diseased' => 'boolean',
-        'familiar_catastrophic_diseased' => 'boolean',
-    ];
-
     // Relationships
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function sex()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-
-    public function gender()
-    {
-        return $this->belongsTo(Catalogue::class);
     }
 
     public function offers()
@@ -108,6 +98,31 @@ class Professional extends Model implements Auditable
     }
 
     // Scopes
+
+    public function scopeCustomOrderBy($query, $sorts)
+    {
+        if (!empty($sorts[0])) {
+            foreach ($sorts as $sort) {
+                $field = explode('-', $sort);
+                if (empty($field[0]) && in_array($field[1], $this->fillable)) {
+                    $query = $query->orderByDesc($field[1]);
+                } else if (in_array($field[0], $this->fillable)) {
+                    $query = $query->orderBy($field[0]);
+                }
+            }
+            return $query;
+        }
+    }
+
+    public function scopeCustomSelect($query, $fields)
+    {
+        if (!empty($fields)) {
+            $fields = explode(',', $fields);
+            array_unshift($fields, 'id');
+            return $query->select($fields);
+        }
+    }
+
     public function scopeCompany($query, $company)
     {
         if ($company) {
@@ -121,5 +136,10 @@ class Professional extends Model implements Auditable
     public function setAboutMeAttribute($value)
     {
         $this->attributes['about_me'] = strtoupper($value);
+    }
+
+    public function setIdentificationFamiliarDisabledAttribute($value)
+    {
+        $this->attributes['identification_familiar_disabled'] = strtoupper($value);
     }
 }

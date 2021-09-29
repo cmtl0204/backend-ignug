@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\App\FileController;
 use App\Http\Controllers\App\ImageController;
 use App\Http\Requests\JobBoard\Skill\DeleteSkillRequest;
-use App\Models\App\Catalogue;
+use App\Models\Core\Catalogue;
 use App\Models\JobBoard\Skill;
-use App\Http\Requests\JobBoard\Skill\StoreSkillRequest;
-use App\Http\Requests\JobBoard\Skill\IndexSkillRequest;
-use App\Http\Requests\JobBoard\Skill\UpdateSkillRequest;
+use App\Http\Requests\V1\JobBoard\Skill\StoreSkillRequest;
+use App\Http\Requests\V1\JobBoard\Skill\IndexSkillRequest;
+use App\Http\Requests\V1\JobBoard\Skill\UpdateSkillRequest;
+use App\Http\Requests\V1\JobBoard\Skill\DestroysSkillRequest;
 use App\Http\Requests\App\Image\UpdateImageRequest;
 use App\Http\Requests\App\Image\UploadImageRequest;
 use App\Http\Requests\App\File\UpdateFileRequest;
@@ -18,121 +19,107 @@ use App\Http\Requests\App\File\UploadFileRequest;
 use App\Http\Requests\App\File\IndexFileRequest;
 use App\Http\Requests\App\Image\IndexImageRequest;
 
+use App\Models\JobBoard\Professional;
+
+// Resources
+use App\Http\Resources\V1\JobBoard\SkillCollection;
+use App\Http\Resources\V1\JobBoard\SkillResource;
+
 class SkillController extends Controller
 {
-    function index(IndexSkillRequest $request)
+    function index(IndexSkillRequest $request,Professional $professional)
     {
-        $professional = $request->user()->professional()->first();
-        if (!$professional) {
-            return response()->json([
-                'data' => null,
+        $sorts = explode(',', $request->sort);
+
+        $skills = $professional->skills()
+            ->customOrderBy($sorts)
+            ->description($request->input('description'))
+            ->paginate($request->per_page);
+
+        return (new SkillCollection($skills))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraró al profesional',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-
-        if ($request->has('search')) {
-            $skills = $professional->skills()
-                ->description($request->input('search'))
-                ->paginate($request->input('per_page'));
-        } else {
-            $skills = $professional->skills()->paginate($request->input('per_page'));
-        }
-
-        if ($skills->count() === 0) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'No se encontraron Habilidades',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-
-        return response()->json($skills, 200);
+            ]);
     }
 
-    function show(Skill $skill)
+    function show(Professional $professional,Skill $skill)
     {
-        return response()->json([
-            'data' => $skill,
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ], 200);
+        return (new SkillResource($skill))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function store(StoreSkillRequest $request)
+    function store(StoreSkillRequest $request, Professional $professional)
     {
-        $professional = $request->user()->professional()->first();
-
-        if (!$professional) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'No se encontraró al profesional',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-
-        // Crea una instanacia del modelo Catalogue para poder insertar en el modelo skill.
-        $type = Catalogue::getInstance($request->input('skill.type.id'));
-
+        $type = Catalogue::find($request->input('type.id'));
         $skill = new Skill();
-        $skill->description = $request->input('skill.description');
         $skill->professional()->associate($professional);
         $skill->type()->associate($type);
+        $skill->description = $request->input('description');
         $skill->save();
 
-        return response()->json([
-            'data' => $skill->fresh(),
-            'msg' => [
-                'summary' => 'Habilidad creada',
-                'detail' => 'El registro fue creado',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new SkillResource($skill))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function update(UpdateSkillRequest $request, Skill $skill)
+    function update(UpdateSkillRequest $request, Professional $professional, Skill $skill)
     {
-        // Crea una instanacia del modelo Catalogue para poder insertar en el modelo skill.
-        $type = Catalogue::getInstance($request->input('skill.type.id'));
-        $skill->description = $request->input('skill.description');
+        $type = Catalogue::find($request->input('type.id'));
         $skill->type()->associate($type);
+        $skill->description = $request->input('description');
         $skill->save();
 
-        return response()->json([
-            'data' => $skill->fresh(),
-            'msg' => [
-                'summary' => 'Habilidad actualizada',
-                'detail' => 'El registro fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new SkillResource($skill))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function delete(DeleteSkillRequest $request)
+    public function destroy(Professional $professional, Skill $skill)
     {
-        // Es una eliminación lógica
+        $skill->delete();
+        return (new SkillResource($skill))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysSkillRequest $request)
+    {
+        $skills = Skill::whereIn('id', $request->input('ids'))->get();
         Skill::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Habilidad(es) eliminada(s)',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new SkillCollection($skills))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 
     function uploadImages(UploadImageRequest $request)

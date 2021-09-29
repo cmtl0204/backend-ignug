@@ -22,19 +22,24 @@ class CreateJobboardProfessionalsTable extends Migration
                 ->comment('Para saber si puede viajar o no el profesional, true=>puede false=no puede');
 
             $table->boolean('disabled')
-                ->default(false);
+                ->default(false)
+                ->comment('Para saber si el profesional tiene una discapacidad, true=>tiene false=no tiene');
 
             $table->boolean('familiar_disabled')
-                ->default(false);
+                ->default(false)
+                ->comment('Para saber si el profesional tiene un familiar con una discapacidad, true=>tiene false=no tiene');
 
             $table->string('identification_familiar_disabled')
                 ->nullable()
                 ->comment('escriba número de identificación');
 
             $table->boolean('catastrophic_diseased')
-                ->default(false);
+                ->default(false)
+                ->comment('Para saber si el profesional tiene una enfermedad catastrofica, true=>tiene false=no tiene');
 
-            $table->boolean('familiar_catastrophic_diseased')->default(false);
+            $table->boolean('familiar_catastrophic_diseased')
+            ->default(false)
+            ->comment('Para saber si el profesional tieneun familiar con una enfermedad catastrofica, true=>tiene false=no tiene');
 
             $table->text('about_me')
                 ->nullable()

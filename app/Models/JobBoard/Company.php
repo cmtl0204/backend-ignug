@@ -14,7 +14,7 @@ use App\Models\Core\Catalogue;
 /**
  * @property BigInteger id
  * @property string trade_name
- * @property string comercial_activity
+ * @property json comercial_activity
  * @property string web
  */
 
@@ -33,7 +33,8 @@ class Company extends Model implements Auditable
     ];
 
     protected $casts = [
-        'commercial_activities' => 'array'];
+        'commercial_activities' => 'array'
+    ];
 
     // Relationships
     public function activityType()
@@ -74,7 +75,34 @@ class Company extends Model implements Auditable
     }
     public function setWebAttribute($value)
     {
-        $this->attributes['web'] = strtolower($value);
+        $this->attributes['web'] = strtoupper($value);
     }
+
+    // Scopes
+
+    public function scopeCustomOrderBy($query, $sorts)
+    {
+        if (!empty($sorts[0])) {
+            foreach ($sorts as $sort) {
+                $field = explode('-', $sort);
+                if (empty($field[0]) && in_array($field[1], $this->fillable)) {
+                    $query = $query->orderByDesc($field[1]);
+                } else if (in_array($field[0], $this->fillable)) {
+                    $query = $query->orderBy($field[0]);
+                }
+            }
+            return $query;
+        }
+    }
+
+    public function scopeCustomSelect($query, $fields)
+    {
+        if (!empty($fields)) {
+            $fields = explode(',', $fields);
+            array_unshift($fields, 'id');
+            return $query->select($fields);
+        }
+    }
+
 
 }
