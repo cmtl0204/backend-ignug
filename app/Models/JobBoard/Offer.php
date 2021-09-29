@@ -63,7 +63,7 @@ class Offer extends Model implements Auditable
     // Relationships
     public function categories()
     {
-        return $this->belongsToMany(Category::class)->withTimestamps();
+        return $this->belongsToMany(Category::class,'job_board.category_offer')->withTimestamps();
     }
 
     public function company()
@@ -83,7 +83,7 @@ class Offer extends Model implements Auditable
 
     public function professionals()
     {
-        return $this->belongsToMany(Professional::class)->withTimestamps();
+        return $this->belongsToMany(Professional::class,'job_board.offer_professional')->withTimestamps();
     }
 
     public function sector()

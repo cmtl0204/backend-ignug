@@ -10,6 +10,9 @@ use App\Http\Controllers\V1\JobBoard\LanguageController;
 use App\Http\Controllers\V1\JobBoard\ExperienceController;
 use App\Http\Controllers\V1\JobBoard\ReferenceController;
 use App\Http\Controllers\V1\JobBoard\SkillController;
+use App\Http\Controllers\V1\JobBoard\CategoryController;
+use App\Http\Controllers\V1\JobBoard\CompanyController;
+use App\Http\Controllers\V1\JobBoard\OfferController;
 
 
 /***********************************************************************************************************************
@@ -153,11 +156,10 @@ Route::prefix('reference')->group(function () {
 });
 
 Route::prefix('reference/{reference}')->group(function () {
-   
 });
 
 /***********************************************************************************************************************
- * SKILL
+ * SKILLS
  **********************************************************************************************************************/
 Route::apiResource('professionals.skills', SkillController::class);
 
@@ -166,5 +168,40 @@ Route::prefix('skill')->group(function () {
 });
 
 Route::prefix('skill/{skill}')->group(function () {
-   
+});
+
+/***********************************************************************************************************************
+ * OFFERS
+ **********************************************************************************************************************/
+Route::apiResource('professionals.offers', OfferController::class);
+
+Route::prefix('offer')->group(function () {
+    Route::patch('destroys', [OfferController::class, 'destroys']);
+});
+
+Route::prefix('offer/{offer}')->group(function () {
+});
+
+/***********************************************************************************************************************
+ * COMPANIES
+ **********************************************************************************************************************/
+Route::apiResource('professionals.companies', CompanyController::class);
+
+Route::prefix('company')->group(function () {
+    Route::patch('destroys', [CompanyController::class, 'destroys']);
+});
+
+Route::prefix('company/{company}')->group(function () {
+});
+
+/***********************************************************************************************************************
+ * CATEGORIES
+ **********************************************************************************************************************/
+Route::apiResource('professionals.categories', CategoryController::class);
+
+Route::prefix('category')->group(function () {
+    Route::patch('destroys', [CategoryController::class, 'destroys']);
+});
+
+Route::prefix('category/{category}')->group(function () {
 });

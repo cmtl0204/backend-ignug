@@ -49,12 +49,12 @@ class Professional extends Model implements Auditable
 
     public function offers()
     {
-        return $this->belongsToMany(Offer::class);
+        return $this->belongsToMany(Offer::class,'job_board.offer_professional');
     }
 
     public function companies()
     {
-        return $this->belongsToMany(Company::class);
+        return $this->belongsToMany(Company::class,'job_board.company_professional');
     }
 
     public function references()
