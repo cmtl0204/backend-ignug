@@ -24,24 +24,10 @@ class CreateJobboardCoursesTable extends Migration
                 ->constrained('core.catalogues');
 
             $table->foreignId('certification_type_id')
-<<<<<<< HEAD
                 ->constrained('core.catalogues');
 
             $table->foreignId('area_id')
                 ->constrained('core.catalogues');
-=======
-                ->constrained('authentication.catalogues')
-                ->comment('Verificar numero de certificado');
-
-
-            $table->foreignId('area_id')
-                ->constrained('authentication.catalogues')
-                ->comment('Identificador de area');
-
-
-            $table->text('name')
-            ->comment('Nombre del curso');
->>>>>>> 1ff8bf3648ca800014c8bc17d3bfc6d6093bcf34
 
             $table->text('description')
                 ->nullable()
@@ -61,6 +47,9 @@ class CreateJobboardCoursesTable extends Migration
 
             $table->string('institution')
             ->comment('Institucion en la que se llevo o lleva el curso');
+
+            $table->text('name')
+            ->comment('Nombre del curso');
         });
     }
 

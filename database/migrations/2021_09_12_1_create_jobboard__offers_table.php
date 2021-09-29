@@ -19,7 +19,6 @@ class CreateJobboardOffersTable extends Migration
                 ->comment('FK desde companies');
 
             $table->foreignId('location_id')
-<<<<<<< HEAD
                 ->constrained('core.locations');
 
             $table->foreignId('contract_type_id')
@@ -36,30 +35,6 @@ class CreateJobboardOffersTable extends Migration
 
             $table->foreignId('state_id')
                 ->constrained('core.states');
-=======
-                ->constrained('authentication.locations')
-                ->comment('FK desde locations');
-
-            $table->foreignId('contract_type_id')
-                ->constrained('authentication.catalogues')
-                ->comment('FK desde catalogues');
-
-            $table->foreignId('sector_id')
-                ->constrained('authentication.catalogues')
-                ->comment('FK desde catalogues');
-
-            $table->foreignId('working_day_id')
-                ->constrained('authentication.catalogues')
-                ->comment('FK desde catalogues');
-
-            $table->foreignId('training_hours_id')
-                ->constrained('authentication.catalogues')
-                ->comment('FK desde catalogues');
-
-            $table->foreignId('state_id')
-                ->constrained('authentication.states')
-                ->comment('FK desde states');
->>>>>>> 1ff8bf3648ca800014c8bc17d3bfc6d6093bcf34
 
             $table->foreignId('experience_time_id')
                 ->constrained('authentication.catalogues')

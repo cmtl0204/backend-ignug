@@ -20,15 +20,11 @@ class CreateJobboardCompanyProfessionalTable extends Migration
             $table->foreignId('professional_id')
                 ->constrained('job_board.professionals')
                 ->comment('FK desde professionals');
-
-            $table->foreignId('state_id')
+                
+                $table->foreignId('state_id')
                 ->nullable()
-<<<<<<< HEAD
-                ->constrained('core.states');
-=======
-                ->constrained('authentication.states')
-                ->comment('FK desde states');
->>>>>>> 1ff8bf3648ca800014c8bc17d3bfc6d6093bcf34
+                ->constrained('core.states')
+                ->comment('FK desde professionals');
         });
     }
 
