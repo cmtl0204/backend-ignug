@@ -30,7 +30,7 @@ class CreateJobboardExperiencesTable extends Migration
             ->comment('Empleador');
 
 
-            $table->date('end_at')
+            $table->date('ended_at')
                 ->nullable()
                 ->comment('Fecha final');
 
@@ -44,13 +44,13 @@ class CreateJobboardExperiencesTable extends Migration
                 ->comment('Motivo de renuncia');
 
 
-            $table->date('start_at')
+            $table->date('started_at')
             ->comment('Fecha de inicio');
 
 
             $table->boolean('worked')
                 ->default(false)
-                ->comment('Para saber si continua trabajando o no; false=no continua');
+                ->comment('Para saber si continua trabajando o no; true=ya no trabaja');
         });
     }
 

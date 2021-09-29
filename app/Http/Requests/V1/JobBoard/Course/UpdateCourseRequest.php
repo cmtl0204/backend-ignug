@@ -30,11 +30,11 @@ class UpdateCourseRequest extends FormRequest
             'description' => [
                 'min:10',
             ],
-            'startAt' => [
+            'startedAt' => [
                 'required',
                 'date',
             ],
-            'endAt' => [
+            'endedAt' => [
                 'required',
                 'date',
                 'after_or_equal:startDate'
@@ -57,11 +57,11 @@ class UpdateCourseRequest extends FormRequest
             'area.id' => 'area de estudios',
             'certificationType.id' => 'tipo de certificación',
             'description' => 'descripción',
-            'endAt' => 'fecha de fin',
+            'endedAt' => 'fecha de fin',
             'hours' => 'horas',
             'institution' => 'institución',
             'name' => 'nombre del evento',
-            'startAt' => 'fecha de inicio',
+            'startedAt' => 'fecha de inicio',
             'type.id' => 'tipo de evento',
         ];
         return JobBoardFormRequest::attributes($attributes);

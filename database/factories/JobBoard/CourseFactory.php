@@ -36,8 +36,8 @@ class CourseFactory extends Factory
             'area_id' => $areas[rand(0, sizeof($areas) - 1)],
             'name' => $this->faker->word(),
             'description' => $this->faker->text(30),
-            'start_at' => $this->faker->date(),
-            'end_at' => $this->faker->date(),
+            'started_at' => $this->faker->date(),
+            'ended_at' => $this->faker->date(),
             'hours' => $this->faker->randomDigit(),
             'institution' => $this->faker->word(),
         ];

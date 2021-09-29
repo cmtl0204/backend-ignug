@@ -32,7 +32,7 @@ class StoreOfferRequest extends FormRequest
             'contactCellphone' => [
                 'required_without:offer.contact_phone',
             ],
-            'startAt' => [
+            'startedAt' => [
                 'required',
                 'date',
             ],
@@ -87,7 +87,7 @@ class StoreOfferRequest extends FormRequest
             'contactEmail' => 'email-contacto',
             'contactPhone' => 'telefono-contacto',
             'contactCellphone' => 'celular-contacto',
-            'startAt' => 'fecha-inicio',
+            'startedAt' => 'fecha-inicio',
             'activities' => 'actividades',
             'requirements' => 'requerimientos',
             'location.id' => 'locacion-id',

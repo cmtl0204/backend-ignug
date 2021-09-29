@@ -32,10 +32,10 @@ class Course extends Model implements Auditable
 
     protected $fillable = [
         'description',
-        'end_at',
+        'ended_at',
         'hours',
         'name',
-        'start_at',
+        'started_at',
     ];
 
     // Relationships

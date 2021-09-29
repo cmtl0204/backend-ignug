@@ -24,8 +24,8 @@ class ExperienceResource extends JsonResource
             'reasonLeave' => $this->reason_leave,
             'startDate' => $this->start_date,
             'worked' => $this->worked,
-            'createAt'=>$this->create_at,
-            'updateAt'=>$this->update_at,
+            'createdAt'=>$this->created_at,
+            'updatedAt'=>$this->updated_at,
         ];
     }
 }

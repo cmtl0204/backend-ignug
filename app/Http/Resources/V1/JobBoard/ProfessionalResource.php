@@ -15,18 +15,18 @@ class ProfessionalResource extends JsonResource
      */
     public function toArray($request)
     {
-         return [
-             'id' => $this->id,
-             'user' => UserResource::make($this->resource),
-             'traveled' => $this->traveled,
-             'disabled' => $this->disabled,
-             'familiar_disabled' => $this->familiar_disabled,
-             'identification_familiar_disabled' => $this->identification_familiar_disabled,
-             'catastrophic_diseased' => $this->catastrophic_diseased,
-             'familiar_catastrophic_diseased' => $this->familiar_catastrophic_diseased,
-             'aboutMe' => $this->about_me,
-             'createAt'=>$this->create_at,
-            'updateAt'=>$this->update_at,
+        return [
+            'id' => $this->id,
+            'user' => UserResource::make($this->resource),
+            'traveled' => $this->traveled,
+            'disabled' => $this->disabled,
+            'familiar_disabled' => $this->familiar_disabled,
+            'identification_familiar_disabled' => $this->identification_familiar_disabled,
+            'catastrophic_diseased' => $this->catastrophic_diseased,
+            'familiar_catastrophic_diseased' => $this->familiar_catastrophic_diseased,
+            'aboutMe' => $this->about_me,
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at,
         ];
     }
 }

@@ -30,10 +30,10 @@ class ExperienceFactory extends Factory
             'professional_id' => $professionals[rand(0, sizeof($professionals) - 1)],
             'activities' => $this->faker->sentences(2),
             'employer' => $this->faker->word(),
-            'end_at' => $this->faker->date(),
+            'ended_at' => $this->faker->date(),
             'position' => $this->faker->word(),
             'reason_leave' => $this->faker->text(30),
-            'start_at' => $this->faker->date(),
+            'started_at' => $this->faker->date(),
             'worked' => $this->faker->boolean()
         ];
     }

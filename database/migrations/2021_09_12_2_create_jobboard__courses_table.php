@@ -34,11 +34,11 @@ class CreateJobboardCoursesTable extends Migration
                 ->comment('Descripcion');
 
 
-            $table->date('start_at')
+            $table->date('started_at')
             ->comment('13 de septiembre del 2021');
 
 
-            $table->date('end_at')
+            $table->date('ended_at')
             ->comment('Fecha final');
 
 
