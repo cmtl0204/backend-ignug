@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
-    protected $table ='licence.employees';
+    protected $table ='license_work.employees';
 
     function user(){
         return $this->belongsTo(User::class);

@@ -13,18 +13,18 @@ class CreateLicenseApplicationsTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('applications', function (Blueprint $table){
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->create('applications', function (Blueprint $table){
             $table->id();
             $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('employee_id')
                 ->comment('Id del empleado que realiza la licencia o permiso')
-                ->constrained('license.employees');
+                ->constrained('license_work.employees');
 
             $table->foreignId('reason_id')
                 ->comment('Id de las razones por la cula se realiza la licencia o permiso')
-                ->constrained('license.reasons');
+                ->constrained('license_work.reasons');
 
             $table->foreignId('location_id')
                 ->comment('Id de la localización')
@@ -59,6 +59,6 @@ class CreateLicenseApplicationsTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('applications');
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('applications');
     }
 }

@@ -1,30 +1,28 @@
 <?php
 
-namespace App\Models\Core;
+namespace App\Models\Authentication;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 
 /**
  * @property BigInteger id
- * @property string username
  * @property boolean is_valid
  * @property string token
+ * @property string username
  */
-
-class PasswordReset extends Model implements Auditable
+class TransactionalCode extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
 
-    protected $table = 'authentication.password_resets';
+    protected $table = 'authentication.transactional_codes';
 
     protected $fillable = [
         'username',
-        'token',
-        'used'
+        'used',
+        'token'
     ];
 }
-

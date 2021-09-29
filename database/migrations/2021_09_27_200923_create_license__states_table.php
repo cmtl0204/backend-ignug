@@ -13,7 +13,7 @@ class CreateLicenseStatesTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('states', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->create('states', function (Blueprint $table) {
             $table->id();
             $table->softDeletes();
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateLicenseStatesTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('states');
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('states');
     }
 }

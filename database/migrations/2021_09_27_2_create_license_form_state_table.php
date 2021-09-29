@@ -13,22 +13,22 @@ class CreateLicenseFormStateTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('form_state', function (Blueprint $table){
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->create('form_state', function (Blueprint $table){
             $table->id();
             $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('form_id')
             ->comment('FK del formulario')
-            ->constrained('license.forms');
+            ->constrained('license_work.forms');
 
             $table->foreignId('state_id')
             ->comment('Fk del estado')
-            ->constrained('license.states');
+            ->constrained('license_work.states');
 
             $table->foreignId('dependence_user_id')
-            ->comment('FK de la Licencia')
-            ->constrained('license.dependence_user');
+            ->comment('FK de la Licencia');
+//            ->constrained('license_work.dependence_user');
 
         });
     }
@@ -41,6 +41,6 @@ class CreateLicenseFormStateTable extends Migration
      */
     public function down()
         {
-            Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('form_state');
+            Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('form_state');
         }
     }

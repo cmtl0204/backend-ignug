@@ -13,7 +13,7 @@ class CreateLicenseHolidaysTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('holidays', function (Blueprint $table)  {
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->create('holidays', function (Blueprint $table)  {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -21,7 +21,7 @@ class CreateLicenseHolidaysTable extends Migration
 
             $table->foreignId('employee_id')
             ->comment('fk nombre del trabajador Losep.Cod.')
-            ->constrained('license.employees');
+            ->constrained('license_work.employees');
 
             $table->integer('number_days')
             ->comment('Número de dás de licencias y permisos');
@@ -38,5 +38,5 @@ class CreateLicenseHolidaysTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('holidays');    }
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('holidays');    }
 }

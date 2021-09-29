@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Holiday extends Model
 {
     use HasFactory;
-    protected $table= 'license.holidays';
+    protected $table= 'license_work.holidays';
     protected $fillable=[
         'number_days',
         'year',

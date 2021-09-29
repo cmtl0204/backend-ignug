@@ -78,7 +78,7 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'pgsql-app' => [
+        'pgsql-core' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -89,10 +89,10 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'schema' => env('DB_SCHEMA_APP', 'public'),
+            'schema' => env('DB_SCHEMA_CORE', 'public'),
             'sslmode' => 'prefer',
         ],
-        'pgsql-license' => [
+        'pgsql-license-work' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -103,7 +103,7 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'schema' => env('DB_SCHEMA_LICENSE', 'public'),
+            'schema' => env('DB_SCHEMA_LICENSE_WORK', 'public'),
             'sslmode' => 'prefer',
         ],
 

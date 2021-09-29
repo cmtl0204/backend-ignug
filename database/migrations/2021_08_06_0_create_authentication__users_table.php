@@ -15,12 +15,12 @@ class CreateAuthenticationUsersTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION'))->create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('identification_type_id')->nullable()->constrained('authentication.catalogues');
-            $table->foreignId('sex_id')->nullable()->constrained('authentication.catalogues');
-            $table->foreignId('gender_id')->nullable()->constrained('authentication.catalogues');
-            $table->foreignId('ethnic_origin_id')->nullable()->constrained('authentication.catalogues');
-            $table->foreignId('blood_type_id')->nullable()->constrained('authentication.catalogues');
-            $table->foreignId('civil_status_id')->nullable()->constrained('authentication.catalogues');
+            $table->foreignId('identification_type_id')->nullable()->constrained('core.catalogues');
+            $table->foreignId('sex_id')->nullable()->constrained('core.catalogues');
+            $table->foreignId('gender_id')->nullable()->constrained('core.catalogues');
+            $table->foreignId('ethnic_origin_id')->nullable()->constrained('core.catalogues');
+            $table->foreignId('blood_type_id')->nullable()->constrained('core.catalogues');
+            $table->foreignId('civil_status_id')->nullable()->constrained('core.catalogues');
             $table->string('avatar')->nullable()->unique();
             $table->string('username')->unique();
             $table->string('name');
@@ -30,7 +30,7 @@ class CreateAuthenticationUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('password_changed')->default(false);
-            $table->integer('max_attempts')->default(\App\Models\Core\User::MAX_ATTEMPTS);
+            $table->integer('max_attempts')->default(\App\Models\Authentication\User::MAX_ATTEMPTS);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

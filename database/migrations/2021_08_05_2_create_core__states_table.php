@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuthenticationStatesTable extends Migration
+class CreateCoreStatesTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION'))->create('states', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CORE'))->create('states', function (Blueprint $table) {
             $table->id();
             $table->softDeletes();
             $table->timestamps();
@@ -21,6 +21,6 @@ class CreateAuthenticationStatesTable extends Migration
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('states');
+        Schema::connection(env('DB_CONNECTION_CORE'))->dropIfExists('states');
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     use HasFactory;
-    protected $table='license.applications';
+    protected $table='license_work.applications';
     protected $fillable=[
         'type',
         'date_started_at',

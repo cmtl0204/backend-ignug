@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FormState extends Model
 {
     use HasFactory;
-    protected $table= 'license.form_state';
+    protected $table= 'license_work.form_state';
 
     function form(){
         return $this->belongsTo(Form::class);

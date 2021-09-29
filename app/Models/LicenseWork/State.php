@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class State extends Model
 {
     use HasFactory;
-    protected $table='license.states';
+    protected $table='license_work.states';
     protected $fillable=[
         'name',
     ];

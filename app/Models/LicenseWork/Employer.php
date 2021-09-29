@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employer extends Model
 {
     use HasFactory;
-    protected $table= 'license.employers';
+    protected $table= 'license_work.employers';
     protected $fillable=[
         'logo',
         'department',

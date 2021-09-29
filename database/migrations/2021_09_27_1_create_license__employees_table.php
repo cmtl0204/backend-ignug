@@ -13,7 +13,7 @@ class CreateLicenseEmployeesTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('employees', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->create('employees', function (Blueprint $table) {
             $table->id();
             $table->softDeletes();
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreateLicenseEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('employees');
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('employees');
     }
 }

@@ -13,7 +13,7 @@ class CreateLicenseReasonsTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('reasons', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->create('reasons', function (Blueprint $table) {
             $table->id();
             $table->softDeletes();
             $table->timestamps();
@@ -51,7 +51,7 @@ class CreateLicenseReasonsTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('reasons');
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('reasons');
     }
 }
 

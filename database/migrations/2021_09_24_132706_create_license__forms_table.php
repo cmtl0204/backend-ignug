@@ -13,14 +13,14 @@ class CreateLicenseFormsTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->create('forms', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->create('forms', function (Blueprint $table) {
             $table->id();
             $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('employer_id')
                 ->comment('Id del empleador')
-                ->constrained('license.employers');
+                ->constrained('license_work.employers');
 
             $table->string('code')
             ->comment('Código del formulario');
@@ -50,6 +50,6 @@ class CreateLicenseFormsTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE'))->dropIfExists('forms');
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('forms');
     }
 }
