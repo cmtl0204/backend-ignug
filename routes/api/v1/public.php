@@ -1,6 +1,6 @@
 <?php
 
-    use App\Http\Controllers\V1\Core\AuthController;
+    use App\Http\Controllers\V1\Authentication\AuthController;
     use App\Http\Controllers\V1\Core\LocationController;
     use Illuminate\Support\Facades\Artisan;
     use Illuminate\Support\Facades\DB;
@@ -23,11 +23,11 @@
 
         DB::select('drop schema if exists public cascade;');
         DB::select('drop schema if exists authentication cascade;');
-        DB::select('drop schema if exists app cascade;');
+        DB::select('drop schema if exists core cascade;');
         DB::select('drop schema if exists job_board cascade;');
 
         DB::select('create schema authentication;');
-        DB::select('create schema app;');
+        DB::select('create schema core;');
         DB::select('create schema job_board;');
 
 

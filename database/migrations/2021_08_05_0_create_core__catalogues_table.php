@@ -4,16 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuthenticationCataloguesTable extends Migration
+class CreateCoreCataloguesTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION'))->create('catalogues', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CORE'))->create('catalogues', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('authentication.catalogues')
+                ->constrained('core.catalogues')
                 ->comment('Un catalogo puede tener catalogos hijos');
 
             $table->string('code')->comment('No debe ser modificado una vez que se lo crea');
@@ -35,6 +35,6 @@ class CreateAuthenticationCataloguesTable extends Migration
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('catalogues');
+        Schema::connection(env('DB_CONNECTION_CORE'))->dropIfExists('catalogues');
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Factories\Core;
+namespace Database\Factories\Authentication;
 
 use App\Models\Core\PrimeIcons;
-use App\Models\Core\Menu;
+use App\Models\Authentication\Menu;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MenuFactory extends Factory

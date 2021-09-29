@@ -19,31 +19,25 @@ class CreateJobboardOffersTable extends Migration
                 ->comment('FK desde companies');
 
             $table->foreignId('location_id')
-                ->constrained('authentication.locations')
-                ->comment('FK desde locations');
+                ->constrained('core.locations');
 
             $table->foreignId('contract_type_id')
-                ->constrained('authentication.catalogues')
-                ->comment('FK desde catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('sector_id')
-                ->constrained('authentication.catalogues')
-                ->comment('FK desde catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('working_day_id')
-                ->constrained('authentication.catalogues')
-                ->comment('FK desde catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('training_hours_id')
-                ->constrained('authentication.catalogues')
-                ->comment('FK desde catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('state_id')
-                ->constrained('authentication.states')
-                ->comment('FK desde states');
+                ->constrained('core.states');
 
             $table->foreignId('experience_time_id')
-                ->constrained('authentication.catalogues')
+                ->constrained('core.catalogues')
                 ->comment('FK desde catalogues');
 
             $table->string('code')->comment('Codigo de la oferta');

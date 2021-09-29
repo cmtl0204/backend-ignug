@@ -14,7 +14,7 @@ class Address extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'authentication.address';
+    protected $table = 'core.address';
 
     protected $fillable = [
         'latitude',

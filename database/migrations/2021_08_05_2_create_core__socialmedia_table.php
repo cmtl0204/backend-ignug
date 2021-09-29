@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuthenticationSocialmediaTable extends Migration
+class CreateCoreSocialmediaTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION'))->create('socialmedia', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CORE'))->create('socialmedia', function (Blueprint $table) {
             $table->id();
             $table->softDeletes();
             $table->timestamps();
@@ -20,6 +20,6 @@ class CreateAuthenticationSocialmediaTable extends Migration
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('socialmedia');
+        Schema::connection(env('DB_CONNECTION_CORE'))->dropIfExists('socialmedia');
     }
 }

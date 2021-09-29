@@ -14,7 +14,7 @@ class Location extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'authentication.locations';
+    protected $table = 'core.locations';
 
     protected $fillable = [
         'code',
