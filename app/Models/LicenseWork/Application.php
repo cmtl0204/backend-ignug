@@ -2,6 +2,7 @@
 
 namespace App\Models\LicenseWork;
 
+use App\Models\Core\Location;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,14 +20,14 @@ class Application extends Model
     ];
 
     function employee(){
-        return $this->belongsTo();
+        return $this->belongsTo(Employee::class);
     }
 
     function reason(){
-        return $this->belongsTo();
+        return $this->belongsTo(Reason::class);
     }
     function location(){
-        return $this->belongsTo();
+        return $this->belongsTo(Location::class);
     }
 
 
