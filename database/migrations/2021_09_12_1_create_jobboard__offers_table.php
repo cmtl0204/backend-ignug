@@ -18,22 +18,22 @@ class CreateJobboardOffersTable extends Migration
                 ->constrained('job_board.companies');
 
             $table->foreignId('location_id')
-                ->constrained('authentication.locations');
+                ->constrained('core.locations');
 
             $table->foreignId('contract_type_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('sector_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('working_day_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('training_hours_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('state_id')
-                ->constrained('authentication.states');
+                ->constrained('core.states');
 
             $table->string('code');
 

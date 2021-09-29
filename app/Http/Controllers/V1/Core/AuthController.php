@@ -15,7 +15,7 @@ use App\Http\Requests\V1\Core\Authentications\VerifyTransactionalCodeAuthRequest
 use App\Http\Resources\V1\Core\Authentications\AuthResource;
 use App\Models\Core\TransactionalCode;
 use App\Models\Core\PasswordReset;
-use App\Models\Core\User;
+use App\Models\Authentication\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

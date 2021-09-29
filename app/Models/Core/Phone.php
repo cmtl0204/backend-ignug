@@ -9,7 +9,7 @@ class Phone extends Model
 {
     use HasFactory;
 
-    protected $table = 'authentication.phones';
+    protected $table = 'core.phones';
 
     protected $fillable = [
         'number',

@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories\Core;
+namespace Database\Factories\Authentication;
 
-use App\Models\Core\User;
+use App\Models\Authentication\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory

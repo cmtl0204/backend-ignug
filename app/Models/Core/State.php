@@ -14,7 +14,7 @@ class State extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'app.status';
+    protected $table = 'core.status';
 
     protected $fillable = ['code', 'name'];
 }

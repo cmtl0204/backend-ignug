@@ -8,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Brick\Math\BigInteger;
-use App\Models\Core\User;
+use App\Models\Authentication\User;
 use App\Models\Core\Catalogue;
 
 /**

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuthenticationPhonesTable extends Migration
+class CreateCorePhonesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,23 @@ class CreateAuthenticationPhonesTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION'))->create('phones', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CORE'))->create('phones', function (Blueprint $table) {
             $table->id();
             $table->morphs('phoneable');
 
             $table->foreignId('operator_id')
                 ->nullable()
-                ->constrained('authentication.catalogues')
+                ->constrained('core.catalogues')
                 ->comment('CNT, MOVISTAR, CLARO');
 
             $table->foreignId('location_id')
                 ->nullable()
-                ->constrained('authentication.locations')
+                ->constrained('core.locations')
                 ->comment('Para obtener el codido de pais');
 
             $table->foreignId('type_id')
                 ->nullable()
-                ->constrained('authentication.catalogues')
+                ->constrained('core.catalogues')
                 ->comment('Celular, convencional, fax');
 
             $table->boolean('main')
@@ -50,6 +50,6 @@ class CreateAuthenticationPhonesTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('phones');
+        Schema::connection(env('DB_CONNECTION_CORE'))->dropIfExists('phones');
     }
 }

@@ -18,16 +18,16 @@ class CreateJobboardLanguagesTable extends Migration
                 ->constrained('job_board.professionals');;
 
             $table->foreignId('idiom_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('written_level_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('spoken_level_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('read_level_id')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
         });
     }
 

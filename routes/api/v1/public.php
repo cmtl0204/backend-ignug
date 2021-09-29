@@ -23,11 +23,11 @@
 
         DB::select('drop schema if exists public cascade;');
         DB::select('drop schema if exists authentication cascade;');
-        DB::select('drop schema if exists app cascade;');
+        DB::select('drop schema if exists core cascade;');
         DB::select('drop schema if exists job_board cascade;');
 
         DB::select('create schema authentication;');
-        DB::select('create schema app;');
+        DB::select('create schema core;');
         DB::select('create schema job_board;');
 
 

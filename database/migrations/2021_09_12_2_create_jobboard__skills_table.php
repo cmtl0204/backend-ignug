@@ -18,7 +18,7 @@ class CreateJobboardSkillsTable extends Migration
 
             $table->foreignId('type_id')
                 ->comment('soft or hard')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->text('description');
         });
