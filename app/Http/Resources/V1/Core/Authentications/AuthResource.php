@@ -20,7 +20,6 @@ class AuthResource extends JsonResource
             'roles' => RoleResource::collection($this->roles),
             'permissions' => PermissionResource::collection($this->permissions),
             'user' => UserResource::make($this->resource),
-            'professional' => ProfessionalResource::make($this->resource),
         ];
     }
 }
