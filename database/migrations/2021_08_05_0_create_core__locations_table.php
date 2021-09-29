@@ -4,20 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuthenticationLocationsTable extends Migration
+class CreateCoreLocationsTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION'))->create('locations', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CORE'))->create('locations', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('type_id')
                 ->nullable()
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('authentication.locations');
+                ->constrained('core.locations');
 
             $table->string('code');
 
@@ -57,6 +57,6 @@ class CreateAuthenticationLocationsTable extends Migration
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('locations');
+        Schema::connection(env('DB_CONNECTION_CORE'))->dropIfExists('locations');
     }
 }

@@ -17,7 +17,7 @@ use App\Http\Resources\V1\Core\Users\UserCollection;
 use App\Http\Resources\V1\Core\Users\UserResource;
 use App\Models\Core\Catalogue;
 use App\Models\Core\File;
-use App\Models\Core\User;
+use App\Models\Authentication\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 

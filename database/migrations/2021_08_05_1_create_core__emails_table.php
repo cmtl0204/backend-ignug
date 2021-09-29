@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuthenticationEmailsTable extends Migration
+class CreateCoreEmailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAuthenticationEmailsTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION'))->create('emails', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CORE'))->create('emails', function (Blueprint $table) {
             $table->id();
             $table->morphs('emailable');
             $table->string('email');
@@ -31,6 +31,6 @@ class CreateAuthenticationEmailsTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('emails');
+        Schema::connection(env('DB_CONNECTION_CORE'))->dropIfExists('emails');
     }
 }

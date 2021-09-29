@@ -22,7 +22,7 @@ class File extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'authentication.files';
+    protected $table = 'core.files';
 
     protected $fillable = [
         'name',

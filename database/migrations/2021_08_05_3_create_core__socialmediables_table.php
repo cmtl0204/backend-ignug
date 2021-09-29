@@ -4,13 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuthenticationSocialmediablesTable extends Migration
+class CreateCoreSocialmediablesTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION'))->create('socialmediables', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CORE'))->create('socialmediables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('socialmedia_id')->constrained('authentication.socialmedia');
+            $table->foreignId('socialmedia_id')->constrained('core.socialmedia');
             $table->morphs('socialmediables');
             $table->string('user');
             $table->string('url');
@@ -21,6 +21,6 @@ class CreateAuthenticationSocialmediablesTable extends Migration
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('socialmediables');
+        Schema::connection(env('DB_CONNECTION_CORE'))->dropIfExists('socialmediables');
     }
 }

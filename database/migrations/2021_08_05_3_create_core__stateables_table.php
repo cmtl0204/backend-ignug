@@ -4,17 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuthenticationStateablesTable extends Migration
+class CreateCoreStateablesTable extends Migration
 {
 
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION'))->create('stateables', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CORE'))->create('stateables', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
             $table->foreignId('state_id')
-                ->constrained('authentication.states');
+                ->constrained('core.states');
 
             $table->morphs('stateable');
 
@@ -24,6 +24,6 @@ class CreateAuthenticationStateablesTable extends Migration
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION'))->dropIfExists('stateables');
+        Schema::connection(env('DB_CONNECTION_CORE'))->dropIfExists('stateables');
     }
 }

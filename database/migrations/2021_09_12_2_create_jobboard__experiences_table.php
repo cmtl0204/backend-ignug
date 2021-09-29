@@ -15,9 +15,13 @@ class CreateJobboardExperiencesTable extends Migration
             $table->timestamps();
 
             $table->foreignId('area_id')
+<<<<<<< HEAD
+                ->constrained('core.catalogues');
+=======
                 ->constrained('authentication.catalogues')
                 ->comment('FK desde catalogues');
 
+>>>>>>> 1ff8bf3648ca800014c8bc17d3bfc6d6093bcf34
 
             $table->foreignId('professional_id')
                 ->constrained('job_board.professionals')

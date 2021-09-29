@@ -20,15 +20,19 @@ class CreateJobboardCompaniesTable extends Migration
 
             $table->foreignId('type_id')
                 ->comment('PUBLICA, PRIVADA, MIXTA')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->foreignId('activity_type_id')
+<<<<<<< HEAD
+                ->constrained('core.catalogues');
+=======
                 ->constrained('authentication.catalogues')
                 ->comment('FK desde authentication.catalogues');
+>>>>>>> 1ff8bf3648ca800014c8bc17d3bfc6d6093bcf34
 
             $table->foreignId('person_type_id')
                 ->comment('NATURAL O JURIDICA')
-                ->constrained('authentication.catalogues');
+                ->constrained('core.catalogues');
 
             $table->text('trade_name')
                 ->comment('Nombre comercial de la compañia');

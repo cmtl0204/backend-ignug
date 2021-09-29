@@ -15,7 +15,7 @@ class Catalogue extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'authentication.catalogues';
+    protected $table = 'core.catalogues';
 
     protected $fillable = [
         'code',

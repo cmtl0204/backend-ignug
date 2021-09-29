@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Core;
+namespace App\Models\Authentication;
 
 use App\Traits\EmailTrait;
 use App\Traits\FileTrait;

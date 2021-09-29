@@ -22,7 +22,7 @@ class Image extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'authentication.images';
+    protected $table = 'core.images';
 
     protected $fillable = [
         'name',
