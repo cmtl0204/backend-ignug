@@ -20,7 +20,7 @@ class CreateLicenseEmployeesTable extends Migration
 
             $table->foreignId('user_id')
              ->comment('Id del usuario')
-             ->constrained('license.users');
+             ->constrained('authentication.users');
 
         });
     }
