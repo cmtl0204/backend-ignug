@@ -20,8 +20,8 @@ class ReferenceResource extends JsonResource
             'contactPhone' => $this->contact_phone,
             'contactEmail' => $this->contact_email,
             'institution' => $this->institution,
-            'createAt'=>$this->create_at,
-            'updateAt'=>$this->update_at,
+            'createdAt'=>$this->created_at,
+            'updatedAt'=>$this->updated_at,
         ];
     }
 }

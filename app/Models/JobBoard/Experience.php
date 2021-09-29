@@ -33,11 +33,11 @@ class Experience extends Model implements Auditable
 
     protected $fillable = [
         'activities',
-        'end_at',
+        'ended_at',
         'employer',
         'position',
         'reason_leave',
-        'start_at',
+        'started_at',
         'worked'
     ];
 

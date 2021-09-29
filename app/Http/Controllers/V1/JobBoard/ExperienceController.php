@@ -35,7 +35,7 @@ class ExperienceController extends Controller
         $experiences = $professional->experiences()
             ->customOrderBy($sorts)
             ->employer($request->input('employer'))
-            ->Position($request->input('Position'))
+            ->position($request->input('position'))
             ->reasonLeave($request->input('reasonLeave'))
             ->paginate($request->per_page);
 
@@ -69,8 +69,8 @@ class ExperienceController extends Controller
         $experience->area()->associate($area);
         $experience->employer = $request->input('employer');
         $experience->position = $request->input('position');
-        $experience->start_at = $request->input('startAt');
-        $experience->end_at = $request->input('endAt');
+        $experience->started_at = $request->input('startedAt');
+        $experience->ended_at = $request->input('endedAt');
         $experience->activities = $request->input('activities');
         $experience->reason_leave = $request->input('reasonLeave');
         $experience->worked = $request->input('worked');
@@ -91,8 +91,8 @@ class ExperienceController extends Controller
         $area = Catalogue::find($request->input('area.id'));
         $experience->employer = $request->input('employer');
         $experience->position = $request->input('position');
-        $experience->start_at = $request->input('startAt');
-        $experience->end_at = $request->input('endAt');
+        $experience->started_at = $request->input('startedAt');
+        $experience->ended_at = $request->input('endedAt');
         $experience->activities = $request->input('activities');
         $experience->reason_leave = $request->input('reasonLeave');
         $experience->worked = $request->input('worked');

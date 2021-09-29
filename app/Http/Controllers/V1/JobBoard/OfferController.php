@@ -70,8 +70,8 @@ class OfferController extends Controller
         $offer->contact_cellphone = $request->input('contactCellphone');
         $offer->remuneration = $request->input('remuneration');
         $offer->vacancies = $request->input('vacancies');
-        $offer->start_at = $request->input('startAt');
-        $offer->end_at = $this->calculateEndOffer($request->input('startAt'));
+        $offer->started_at = $request->input('startedAt');
+        $offer->ended_at = $this->calculateEndOffer($request->input('startedAt'));
         $offer->activities = $request->input('activities');
         $offer->requirements = $request->input('requirements');
         $offer->aditional_information = $request->input('aditionalInformation');
@@ -135,8 +135,8 @@ class OfferController extends Controller
         $offer->contact_cellphone = $request->input('contactCellphone');
         $offer->remuneration = $request->input('remuneration');
         $offer->vacancies = $request->input('vacancies');
-        $offer->start_date = $request->input('startAt');
-        $offer->end_date = $this->calculateEndOffer($request->input('startAt'));
+        $offer->start_date = $request->input('startedAt');
+        $offer->end_date = $this->calculateEndOffer($request->input('startedAt'));
         $offer->activities = $request->input('activities');
         $offer->requirements = $request->input('requirements');
         $offer->aditional_information = $request->input('aditionalInformation');
