@@ -22,12 +22,8 @@ class CreateJobboardOfferProfessionalTable extends Migration
 
             $table->foreignId('state_id')
                 ->nullable()
-<<<<<<< HEAD
-                ->constrained('core.states');
-=======
-                ->constrained('authentication.states')
+                ->constrained('core.states')
                 ->comment('FK desde states');
->>>>>>> 1ff8bf3648ca800014c8bc17d3bfc6d6093bcf34
         });
     }
 
