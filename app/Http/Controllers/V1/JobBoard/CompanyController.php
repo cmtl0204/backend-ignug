@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\V1\JobBoard;
 
-use App\Http\Requests\JobBoard\Company\IndexCompanyRequest;
-use App\Http\Requests\JobBoard\Company\VerifyRequest;
+// use App\Http\Requests\JobBoard\Company\IndexCompanyRequest;
+use App\Http\Requests\V1\JobBoard\Company\VerifyRequest;
 use App\Models\App\Status;
 
 //Controllers
 use App\Http\Controllers\Controller;
 
 //Models
-use App\Models\App\Catalogue;
-use App\Models\App\Address;
-use App\Models\Authentication\User;
+use App\Models\Core\Catalogue;
+use App\Models\Core\Address;
+use App\Models\Core\User;
 use App\Models\JobBoard\Company;
-use App\Models\App\Location;
+use App\Models\Core\Location;
 
 
 // FormRequest

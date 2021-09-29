@@ -26,7 +26,6 @@ class JobBoardSeeder extends Seeder
     {
         $this->createCourseCatalogues();
         $this->createCategories();
-        $this->createCategories();
         $this->createProfessionals();
         $this->createAcademicFormations();
         $this->createLanguages();
@@ -36,9 +35,9 @@ class JobBoardSeeder extends Seeder
         $this->createExperiences();
         $this->createCompanies();
         $this->createOffers();
-        // $this->createCategorieOffers();
-        // $this->createCompanyProfessionals();
-        // $this->createOfferProfessionals();
+        $this->createCategoryOffers();
+        $this->createCompanyProfessionals();
+        $this->createOfferProfessionals();
     }
 
     private function createCourseCatalogues()
@@ -114,7 +113,7 @@ class JobBoardSeeder extends Seeder
     }
     private function createCategories()
     {
-        Category::factory(20)->create();
+        Category::factory(10)->create();
     }
 
     private function createProfessionals()
@@ -163,23 +162,23 @@ class JobBoardSeeder extends Seeder
         Offer::factory(10)->create();
     }
 
-    private function createCategorieOffers()
+    private function createCategoryOffers()
     {
-        Offer::factory()
+        Offer::factory(5)
         ->has(Category::factory()->count(3))
         ->create();
     }
 
     private function createCompanyProfessionals()
     {
-        Professional::factory()
+        Professional::factory(5)
         ->has(Company::factory()->count(3))
         ->create();
     }
 
     private function createOfferProfessionals()
     {
-        Professional::factory()
+        Professional::factory(5)
         ->has(Offer::factory()->count(3))
         ->create();
     }

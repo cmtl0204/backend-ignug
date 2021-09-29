@@ -6,11 +6,11 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 
 //Models
-use App\Models\App\Catalogue;
-use App\Models\App\Address;
-use App\Models\Authentication\User;
+use App\Models\Core\Catalogue;
+use App\Models\Core\Address;
+use App\Models\Core\User;
 use App\Models\JobBoard\Professional;
-use App\Models\App\Location;
+use App\Models\Core\Location;
 
 // FormRequest
 use App\Http\Requests\V1\JobBoard\Professional\StoreProfessionalRequest;

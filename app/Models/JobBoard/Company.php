@@ -54,7 +54,7 @@ class Company extends Model implements Auditable
 
     public function professionals()
     {
-        return $this->belongsToMany(Professional::class)->withTimestamps();
+        return $this->belongsToMany(Professional::class,'job_board.company_professional')->withTimestamps();
     }
 
     public function type()

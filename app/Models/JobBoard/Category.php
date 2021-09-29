@@ -40,7 +40,7 @@ class Category extends Model implements Auditable
 
     public function offers()
     {
-        return $this->belongsToMany(Offer::class);
+        return $this->belongsToMany(Offer::class, 'job_board.category_offer');
     }
 
     // Scopes
@@ -93,11 +93,10 @@ class Category extends Model implements Auditable
     {
         $this->attributes['name'] = strtoupper($value);
     }
-    
+
 
     public function setIconAttribute($value)
     {
         $this->attributes['icon'] = strtoupper($value);
     }
-
 }
