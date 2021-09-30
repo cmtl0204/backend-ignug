@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Resources\V1\LicenseWork\Forms;
+namespace App\Http\Resources\V1\LicenseWork;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class FormCollection extends ResourceCollection
+class ReasonCollection extends ResourceCollection
 {
-    public $collects = FormResource::class;
+    public $collects = ReasonResource::class;
+
     /**
      * Transform the resource collection into an array.
      *
@@ -18,6 +19,5 @@ class FormCollection extends ResourceCollection
         return [
             'data'=>$this->collection,
         ];
-        
     }
 }

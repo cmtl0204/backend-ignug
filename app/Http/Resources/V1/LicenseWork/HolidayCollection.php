@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Resources\V1\LicenseWork\Reasons;
+namespace App\Http\Resources\V1\LicenseWork;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ReasonCollection extends ResourceCollection
+class HolidayCollection extends ResourceCollection
 {
-    public $collects = ReasonResource::class;
-
+    public $collects = HolidayResource::class;
     /**
      * Transform the resource collection into an array.
      *

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\LicenseWork\Employees;
+namespace App\Http\Resources\V1\LicenseWork;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

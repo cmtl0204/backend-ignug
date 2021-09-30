@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\LicenseWork\Reasons;
+namespace App\Http\Resources\V1\LicenseWork;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,7 +14,7 @@ class ReasonResource extends JsonResource
      */
     public function toArray($request)
     {
-    
+
             return [
                 'data'=>[
                   'id'=>$this->id,
@@ -24,7 +24,7 @@ class ReasonResource extends JsonResource
                   'discountableHolidays'=>$this->discountable_holidays,
                   'daysMin'=>$this->days_min,
                   'daysMax'=>$this->days_max,
-                  
+
                ]
         ];
     }

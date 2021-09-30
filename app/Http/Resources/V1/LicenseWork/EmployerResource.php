@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\LicenseWork\Employers;
+namespace App\Http\Resources\V1\LicenseWork;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,7 +14,7 @@ class EmployerResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [ 
+        return [
             'data'=>[
                 'id'=>$this->id,
                 'logo'=>$this->logo,
@@ -23,7 +23,7 @@ class EmployerResource extends JsonResource
                 'unit'=>$this-> unit,
                 'approvalName'=>$this-> approval_name,
                 'registerName'=>$this-> register_name,
-             
+
             ]
         ];
     }

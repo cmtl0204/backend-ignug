@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\LicenseWork\Employees;
+namespace App\Http\Resources\V1\LicenseWork;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +18,7 @@ class EmployeeResource extends JsonResource
             'data'=>[
               'id'=>$this->id,
               'user'=>$this->user,
-              
+
            ]
     ];
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\V1\LicenseWork\Holidays;
+namespace App\Http\Resources\V1\LicenseWork;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class HolidayCollection extends ResourceCollection
+class FormCollection extends ResourceCollection
 {
-    public $collects = HolidayResource::class;
+    public $collects = FormResource::class;
     /**
      * Transform the resource collection into an array.
      *
@@ -18,5 +18,6 @@ class HolidayCollection extends ResourceCollection
         return [
             'data'=>$this->collection,
         ];
+
     }
 }
