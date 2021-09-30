@@ -2,6 +2,7 @@
 
 namespace App\Models\Core;
 
+use App\Models\LicenseWork\Application;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -38,6 +39,9 @@ class Catalogue extends Model implements Auditable
     public function roles()
     {
         return $this->morphedByMany(Role::class, 'catalogueable');
+    }
+    public function applications(){
+        return $this->hasMany(Application::class);
     }
 
 //    public function offer()

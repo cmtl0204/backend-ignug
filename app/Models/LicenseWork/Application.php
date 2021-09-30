@@ -2,6 +2,7 @@
 
 namespace App\Models\LicenseWork;
 
+use App\Models\Core\Catalogue;
 use App\Models\Core\Location;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,6 @@ class Application extends Model
     use HasFactory;
     protected $table='license_work.applications';
     protected $fillable=[
-        'type',
         'date_started_at',
         'date_ended_at',
         'time_started_at',
@@ -30,5 +30,7 @@ class Application extends Model
         return $this->belongsTo(Location::class);
     }
 
-
+    function type(){
+        return $this->belongsTo(Catalogue::class);
+    }
 }

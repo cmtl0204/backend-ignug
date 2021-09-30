@@ -13,7 +13,7 @@ class State extends Model
         'name',
     ];
 
-    function FormState(){
+    function formState(){
         return $this->hasMany(FormState::class);
     }
 

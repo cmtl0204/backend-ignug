@@ -38,8 +38,8 @@ class Reason extends Model
 
      public function scopeDescriptionTwo($query, $description_two)
      {
-         if (description_two) {
-             return $query->orWhere('description_one', 'ILIKE', "%$description_two%");
+         if ($description_two) {
+             return $query->orWhere('scopeDescriptionTwo', 'ILIKE', "%$description_two%");
          }
      }
 
