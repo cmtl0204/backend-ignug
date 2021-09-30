@@ -19,7 +19,7 @@ class CreateLicenseReasonsTable extends Migration
             $table->timestamps();
 
 
-            $table->string( 'name ')
+            $table->string( 'name')
               ->comment('reason name');
 
             $table->string('description_one')
