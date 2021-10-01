@@ -7,14 +7,13 @@ use App\Http\Requests\V1\LicenseWork\Applications\DestroysApplicationRequest;
 use App\Http\Requests\V1\LicenseWork\Applications\IndexApplicationRequest;
 use App\Http\Requests\V1\LicenseWork\Applications\StoreApplicationRequest;
 use App\Http\Requests\V1\LicenseWork\Applications\UpdateApplicationRequest;
-use App\Http\Resources\V1\LicenseWork\Applications\ApplicationCollection;
-use App\Http\Resources\V1\LicenseWork\Applications\ApplicationResource;
+use App\Http\Resources\V1\LicenseWork\ApplicationCollection;
+use App\Http\Resources\V1\LicenseWork\ApplicationResource;
 use App\Models\Core\Catalogue;
 use App\Models\Core\Location;
 use App\Models\LicenseWork\Application;
 use App\Models\LicenseWork\Employee;
 use App\Models\LicenseWork\Reason;
-use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
@@ -61,7 +60,6 @@ class ApplicationController extends Controller
         $application->type()
             ->associate(Catalogue::find($request->input('catalogue.id')));
 
-        $application->type = $request->input('type');
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
         $application->time_started_at = $request->input('timeStartedAt');
@@ -155,6 +153,12 @@ class ApplicationController extends Controller
                 ]
             ]);
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
     public function destroys(DestroysApplicationRequest $request)
     {

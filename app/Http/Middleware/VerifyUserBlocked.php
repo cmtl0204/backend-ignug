@@ -17,6 +17,7 @@ class VerifyUserBlocked
      */
     public function handle(Request $request, Closure $next)
     {
+        return $next($request);
         $user = User::firstWhere('username', $request->username);
         if (($request->user() && $request->user()->max_attempts <= 0) || ($user && $user->max_attempts <= 0)) {
             return response()->json([

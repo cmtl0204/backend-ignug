@@ -25,9 +25,9 @@ class StoreApplicationRequest extends FormRequest
     {
         return [
             'id'=>['required'],
-            'employeeId'=>['required'],
-            'reasonId'=>['required'],
-            'locationId'=>['required'],
+            'employee'=>['required'],
+            'reason'=>['required'],
+            'location'=>['required'],
             'type'=>['required'],
             'dateStartedAt'=>['required'],
             'dateEndedAt'=>['required'],
@@ -40,9 +40,9 @@ class StoreApplicationRequest extends FormRequest
     {
         $attributes = [
             'id'=>'id de la solicitud',
-            'employeeId'=>'empleado',
-            'reasonId'=>'razones',
-            'locationId'=>'localización',
+            'employee'=>'empleado',
+            'reason'=>'razones',
+            'location'=>'localización',
             'type'=>'catalogues',
             'dateStartedAt'=>'Fecha de inicio de la Licencia o Permiso',
             'dateEndedAt'=>'Fecha final de la Licencia o Permiso',
