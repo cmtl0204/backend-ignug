@@ -30,7 +30,6 @@
         DB::select('create schema core;');
         DB::select('create schema job_board;');
 
-
         Artisan::call('migrate', ['--seed' => true]);
 
         return response()->json([
