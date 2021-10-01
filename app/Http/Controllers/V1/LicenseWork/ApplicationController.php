@@ -26,8 +26,7 @@ class ApplicationController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $applications = Application::customOrderBy($sorts)
-            ->paginate($request->per_page);
+        $applications = Application::paginate($request->per_page);
 
         return (new ApplicationCollection($applications))
             ->additional([
@@ -58,7 +57,7 @@ class ApplicationController extends Controller
             ->associate(Location::find($request->input('location.id')));
 
         $application->type()
-            ->associate(Catalogue::find($request->input('catalogue.id')));
+            ->associate(Catalogue::find($request->input('type.id')));
 
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');

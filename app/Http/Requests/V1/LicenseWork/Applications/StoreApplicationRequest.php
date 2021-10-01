@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1\LicenseWork\Applications;
 
+use App\Http\Requests\V1\LicenseWork\LicenseWorkFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreApplicationRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreApplicationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +24,7 @@ class StoreApplicationRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'id'=>['required'],
             'employee'=>['required'],
             'reason'=>['required'],
@@ -35,6 +36,7 @@ class StoreApplicationRequest extends FormRequest
             'timeEndedAt'=>['required'],
             'observations'=>['required'],
         ];
+        return LicenseWorkFormRequest::rules($rules);
     }
     public function attributes()
     {
@@ -50,6 +52,6 @@ class StoreApplicationRequest extends FormRequest
             'timeEndedAt'=>'Hora final de la Licencia o Permiso',
             'observations'=>'Listado de observaciones',
         ];
-        return $attributes;
+        return LicenseWorkFormRequest::attributes($attributes);
     }
 }
