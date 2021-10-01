@@ -24,8 +24,7 @@ class EmployeeController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $employees = Employee::customOrderBy($sorts)
-            ->paginate($request->per_page);
+        $employees = Employee::paginate($request->per_page);
 
         return (new EmployeeCollection($employees))
             ->additional([

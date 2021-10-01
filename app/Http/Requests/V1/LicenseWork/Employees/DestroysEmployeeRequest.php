@@ -13,7 +13,7 @@ class DestroysEmployeeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,11 +27,10 @@ class DestroysEmployeeRequest extends FormRequest
             'ids' => ['required'],
         ];
     }
-
+    public function attributes()
     {
         return [
-            'ids' => 'ID`s de los empleados',
+            'ids' => 'ID`s de las solicitudes',
         ];
     }
-
 }
