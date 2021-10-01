@@ -38,7 +38,7 @@ class StoreCourseRequest extends FormRequest
             'endedAt' => [
                 'required',
                 'date',
-                'after_or_equal:startDate'
+                'after_or_equal:startedDate'
             ],
             'hours' => [
                 'required',

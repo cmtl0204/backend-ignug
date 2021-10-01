@@ -22,8 +22,8 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
  * @property string contact_cellphone
  * @property string remuneration
  * @property integer vacancies
- * @property Date start_date
- * @property Date end_date
+ * @property Date started_at
+ * @property Date ended_at
  * @property string aditional_information
  * @property json activities
  * @property json requirements
