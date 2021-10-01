@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     use HasFactory;
+
     protected $table='license_work.applications';
     protected $fillable=[
         'date_started_at',

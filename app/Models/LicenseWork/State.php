@@ -13,7 +13,7 @@ class State extends Model
         'name',
     ];
 
-    function formState(){
+    function formStates(){
         return $this->hasMany(FormState::class);
     }
 
@@ -25,7 +25,6 @@ class State extends Model
             return $query->orWhere('name', 'ILIKE', "%$name%");
         }
     }
-
 
     public function scopeCustomOrderBy($query, $sorts)
     {

@@ -1,16 +1,48 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
+use App\Http\Controllers\V1\Core\UserController;
+use App\Http\Controllers\V1\Core\FileController;
+use App\Http\Controllers\V1\Core\CatalogueController;
+use App\Http\Controllers\V1\Core\ReasonController;
+use App\Http\Controllers\V1\Core\EmployeeController;
+
+
+/***********************************************************************************************************************
+ * Route license Work REASON
+<<<<<<< HEAD
+ **********************************************************************************************************************/
+
+Route::apiResource('reasons', ReasonController::class);
+
+Route::prefix('reason')->group(function () {
+    Route::patch('destroys', [ReasonController::class, 'destroys']);
+});
+
+Route::prefix('reason/{reason}')->group(function () {
+    Route::prefix('file')->group(function () {
+        Route::get('{file}/download', [ReasonController::class, 'indexFiles']);
+        Route::get('{file}', [ReasonController::class, 'showFile']);
+        Route::post('', [ReasonController::class, 'uploadFile']);
+        Route::put('{file}', [ReasonController::class, 'updateFile']);
+        Route::delete('{file}', [ReasonController::class, 'destroyFile']);
+        Route::patch('', [ReasonController::class, 'destroyFiles']);
+    });
+});
+=======
 
 use App\Http\Controllers\V1\LicenseWork\ApplicationController;
 use App\Http\Controllers\V1\LicenseWork\StateController;
+>>>>>>> 2b3e31c815d55f26e59fad552db72e0989172476
 
 
 
 /***********************************************************************************************************************
- * Route license Work
+ * Route license Work EMPLOYEE
 <<<<<<< HEAD
  **********************************************************************************************************************/
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***********************************************************************************************************************
  * ROUTE FORM
@@ -70,6 +102,22 @@ Route::prefix('academic-formation/{academic_formation}')->group(function () {
         Route::put('{file}', [EmployerController::class, 'updateFile']);
         Route::delete('{file}', [EmployerController::class, 'destroyFile']);
         Route::patch('', [EmployerController::class, 'destroyFiles']);
+=======
+Route::apiResource('employees', EmployeeController::class);
+
+Route::prefix('employee')->group(function () {
+    Route::patch('destroys', [ReasonController::class, 'destroys']);
+});
+
+Route::prefix('employee/{employee}')->group(function () {
+    Route::prefix('file')->group(function () {
+        Route::get('{file}/download', [EmployeeController::class, 'indexFiles']);
+        Route::get('{file}', [EmployeeController::class, 'showFile']);
+        Route::post('', [EmployeeController::class, 'uploadFile']);
+        Route::put('{file}', [EmployeeController::class, 'updateFile']);
+        Route::delete('{file}', [EmployeeController::class, 'destroyFile']);
+        Route::patch('', [EmployeeController::class, 'destroyFiles']);
+>>>>>>> 44fadb2057ff871275d91ac03d0fe7856b10df91
     });
 });
 =======
