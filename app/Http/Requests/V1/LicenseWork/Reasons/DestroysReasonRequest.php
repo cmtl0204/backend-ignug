@@ -27,10 +27,10 @@ class DestroysReasonRequest extends FormRequest
             'ids' => ['required'],
         ];
     }
-
+    public function attributes()
     {
         return [
-            'ids' => 'ID`s de las razones',
+            'ids' => 'ID`s de las solicitudes',
         ];
     }
 }

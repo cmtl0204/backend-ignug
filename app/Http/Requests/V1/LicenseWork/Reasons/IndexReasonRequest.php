@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1\LicenseWork\Reasons;
 
+use App\Http\Requests\V1\LicenseWork\LicenseWorkFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexReasonRequest extends FormRequest
@@ -13,7 +14,7 @@ class IndexReasonRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +24,16 @@ class IndexReasonRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules= [
+
         ];
+        return LicenseWorkFormRequest::rules($rules);
+    }
+    public function attributes()
+    {
+        $attributes = [
+
+        ];
+        return LicenseWorkFormRequest::attributes($attributes);
     }
 }

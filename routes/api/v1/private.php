@@ -1,12 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-use App\Http\Controllers\V1\Core\UserController;
-use App\Http\Controllers\V1\Core\FileController;
-use App\Http\Controllers\V1\Core\CatalogueController;
-use App\Http\Controllers\V1\Core\ReasonController;
-use App\Http\Controllers\V1\Core\EmployeeController;
+use App\Http\Controllers\V1\LicenseWork\ApplicationController;
+use App\Http\Controllers\V1\LicenseWork\StateController;
+use App\Http\Controllers\V1\LicenseWork\ReasonController;
+use App\Http\Controllers\V1\LicenseWork\EmployeeController;
 
 
 /***********************************************************************************************************************
@@ -30,19 +28,11 @@ Route::prefix('reason/{reason}')->group(function () {
         Route::patch('', [ReasonController::class, 'destroyFiles']);
     });
 });
-=======
-
-use App\Http\Controllers\V1\LicenseWork\ApplicationController;
-use App\Http\Controllers\V1\LicenseWork\StateController;
->>>>>>> 2b3e31c815d55f26e59fad552db72e0989172476
-
-
 
 /***********************************************************************************************************************
  * Route license Work EMPLOYEE
 <<<<<<< HEAD
  **********************************************************************************************************************/
-<<<<<<< HEAD
 Route::apiResource('employees', EmployeeController::class);
 
 Route::prefix('employee')->group(function () {
@@ -59,8 +49,6 @@ Route::prefix('employee/{employee}')->group(function () {
         Route::patch('', [EmployeeController::class, 'destroyFiles']);
     });
 });
-=======
-
 
 /***********************************************************************************************************************
  * Route Application
@@ -98,4 +86,3 @@ Route::prefix('state')->group(function () {
 
 Route::prefix('state/{state}')->group(function () {
 });
->>>>>>> 2b3e31c815d55f26e59fad552db72e0989172476
