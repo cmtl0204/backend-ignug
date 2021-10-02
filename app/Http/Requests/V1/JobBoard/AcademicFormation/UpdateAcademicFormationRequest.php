@@ -14,7 +14,7 @@ class UpdateAcademicFormationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'registrationAt' => [
+            'registeredAt' => [
                 'required',
             ],
             'senescytCode' => [
@@ -35,7 +35,7 @@ class UpdateAcademicFormationRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'registrationAt'=>'Fecha de registro',
+            'registeredAt'=>'Fecha de registro',
             'senescytCode'=>'Codigo de Senescyt',
             'certificated'=>'Tiene certificado',
             'professionalDegree.id'=>'Id de tituto de grado',

@@ -266,14 +266,14 @@ class Offer extends Model implements Auditable
         $this->attributes['remuneration'] = strtoupper($value);
     }
  
-    public function setStartDateAttribute($value)
+    public function setStartedAtAttribute($value)
     {
-        $this->attributes['start_date'] = strtolower($value);
+        $this->attributes['started_at'] = strtolower($value);
     }
  
     public function setEndDateAttribute($value)
     {
-        $this->attributes['end_date'] = strtolower($value);
+        $this->attributes['ended_at'] = strtolower($value);
     }
 
     public function setAdditionalInformationAttribute($value)

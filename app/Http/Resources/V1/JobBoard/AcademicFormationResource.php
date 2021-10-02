@@ -18,7 +18,7 @@ class   AcademicFormationResource extends JsonResource
         return [
             'id' => $this->id,
             'professionalDegree' => CategoryResource::make($this->professionalDegree),
-            'registrationAt' => $this->registration_at,
+            'registeredAt' => $this->registered_at,
             'senescytCode' => $this->senescyt_code,
             'certificated' => $this->certificated,
             'createdAt'=>$this->created_at,

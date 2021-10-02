@@ -19,7 +19,7 @@ class AcademicFormation extends Model implements Auditable
     protected $table = 'job_board.academic_formations';
 
     protected $fillable = [
-        'registration_at',
+        'registered_at',
         'senescyt_code',
         'certificated'
     ];
@@ -67,9 +67,9 @@ class AcademicFormation extends Model implements Auditable
     }
     
     // Mutators
-    public function setRegistrationDateAttribute($value)
+    public function setRegisteredAtAttribute($value)
     {
-        $this->attributes['registration_date'] = strtolower($value);
+        $this->attributes['registered_at'] = strtolower($value);
     }
 
     public function setSenescytCodeAttribute($value)

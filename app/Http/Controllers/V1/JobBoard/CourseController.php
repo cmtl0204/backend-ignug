@@ -35,6 +35,7 @@ class CourseController extends Controller
             ->customOrderBy($sorts)
             ->description($request->input('description'))
             ->name($request->input('name'))
+            ->institution($request->input('institution'))
             ->paginate($request->per_page);
 
         return (new CourseCollection($courses))

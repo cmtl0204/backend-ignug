@@ -135,8 +135,8 @@ class OfferController extends Controller
         $offer->contact_cellphone = $request->input('contactCellphone');
         $offer->remuneration = $request->input('remuneration');
         $offer->vacancies = $request->input('vacancies');
-        $offer->start_date = $request->input('startedAt');
-        $offer->end_date = $this->calculateEndOffer($request->input('startedAt'));
+        $offer->started_at = $request->input('startedAt');
+        $offer->ended_at = $this->calculateEndOffer($request->input('startedAt'));
         $offer->activities = $request->input('activities');
         $offer->requirements = $request->input('requirements');
         $offer->aditional_information = $request->input('aditionalInformation');
@@ -203,7 +203,7 @@ class OfferController extends Controller
         ], 201);
     }
 
-    private function calculateEndOffer($startDate){
-        return (Carbon::createFromFormat('Y-m-d', $startDate))->addMonth();
+    private function calculateEndOffer($startedAt){
+        return (Carbon::createFromFormat('Y-m-d', $startedAt))->addMonth();
     }
 }
