@@ -5,7 +5,7 @@ namespace App\Http\Requests\V1\JobBoard\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 
-class GetParentCategoryRequest extends FormRequest
+class GetAreasRequest extends FormRequest
 {
     public function authorize()
     {

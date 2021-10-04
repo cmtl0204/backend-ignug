@@ -197,10 +197,12 @@ Route::prefix('company/{company}')->group(function () {
 /***********************************************************************************************************************
  * CATEGORIES
  **********************************************************************************************************************/
-Route::apiResource('professionals.categories', CategoryController::class);
+Route::apiResource('categories', CategoryController::class);
 
 Route::prefix('category')->group(function () {
     Route::patch('destroys', [CategoryController::class, 'destroys']);
+    Route::get('professional-degrees', [CategoryController::class, 'getProfessionalDegrees']);
+    Route::get('areas', [CategoryController::class, 'getAreas']);
 });
 
 Route::prefix('category/{category}')->group(function () {
