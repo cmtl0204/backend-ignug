@@ -16,8 +16,8 @@ use App\Models\Core\File;
  * @property BigInteger id
  * @property string employer
  * @property string position
- * @property date start_date
- * @property date end_date
+ * @property date started_at
+ * @property date ended_at
  * @property json activities
  * @property string reason_leave
  * @property boolean is_workign
@@ -33,11 +33,11 @@ class Experience extends Model implements Auditable
 
     protected $fillable = [
         'activities',
-        'end_at',
+        'ended_at',
         'employer',
         'position',
         'reason_leave',
-        'start_at',
+        'started_at',
         'worked'
     ];
 
@@ -113,14 +113,14 @@ class Experience extends Model implements Auditable
         $this->attributes['employer'] = strtoupper($value);
     }
 
-    public function setStartDateAttribute($value)
+    public function setStartedAtAttribute($value)
     {
-        $this->attributes['start_date'] = strtolower($value);
+        $this->attributes['started_at'] = strtolower($value);
     }
 
     public function setEndDateAttribute($value)
     {
-        $this->attributes['end_date'] = strtolower($value);
+        $this->attributes['ended_at'] = strtolower($value);
     }
 
     public function setPositionAttribute($value)

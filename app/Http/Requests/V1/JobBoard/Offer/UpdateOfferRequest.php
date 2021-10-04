@@ -24,7 +24,7 @@ class UpdateOfferRequest extends FormRequest
                 'min:10',
                 'max:1000',
             ],
-            'offer.start_date' => [
+            'offer.started_at' => [
                 'required',
                 'date',
             ],
@@ -77,7 +77,7 @@ class UpdateOfferRequest extends FormRequest
         $attributes = [
             'offer.contact_name' => 'nombre-contacto',
             'offer.contact_email' => 'email-contacto',
-            'offer.start_date' => 'fecha-inicio',
+            'offer.started_at' => 'fecha-inicio',
             'offer.activities' => 'actividades',
             'offer.requirements' => 'requerimientos',
             'offer.location.id' => 'locacion-id',

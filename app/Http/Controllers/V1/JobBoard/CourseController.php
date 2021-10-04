@@ -35,6 +35,7 @@ class CourseController extends Controller
             ->customOrderBy($sorts)
             ->description($request->input('description'))
             ->name($request->input('name'))
+            ->institution($request->input('institution'))
             ->paginate($request->per_page);
 
         return (new CourseCollection($courses))
@@ -61,8 +62,8 @@ class CourseController extends Controller
 
         $course->name = $request->input('name');
         $course->description = $request->input('description');
-        $course->start_at = $request->input('startAt');
-        $course->end_at = $request->input('endAt');
+        $course->started_at = $request->input('startedAt');
+        $course->ended_at = $request->input('endedAt');
         $course->hours = $request->input('hours');
         $course->institution = $request->input('institution');
 
@@ -102,8 +103,8 @@ class CourseController extends Controller
 
         $course->name = $request->input('name');
         $course->description = $request->input('description');
-        $course->start_at = $request->input('startAt');
-        $course->end_at = $request->input('endAt');
+        $course->started_at = $request->input('startedAt');
+        $course->ended_at = $request->input('endedAt');
         $course->hours = $request->input('hours');
         $course->institution = $request->input('institution');
         $course->save();

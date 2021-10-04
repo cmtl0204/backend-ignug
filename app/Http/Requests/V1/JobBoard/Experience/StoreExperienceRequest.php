@@ -28,11 +28,11 @@ class StoreExperienceRequest extends FormRequest
                 'min:3',
                 'max:250',
             ],
-            'startAt' => [
+            'startedAt' => [
                 'required',
                 'date',
             ],
-            'endAt' => [],
+            'endedAt' => [],
             'activities' => [
                 'required',
                 'array',
@@ -53,8 +53,8 @@ class StoreExperienceRequest extends FormRequest
             'area.id' => 'area-ID',
             'employer' => 'nombre de empleadora',
             'position' => 'posicion',
-            'startAt' => 'fecha inicio',
-            'endAt' => 'fercha fin',
+            'startedAt' => 'fecha inicio',
+            'endedAt' => 'fecha fin',
             'activities' => 'ocupaciones',
             'reasonLeave' => 'razon por la que se fue del trabajo',
             'worked' => 'está trabajando',

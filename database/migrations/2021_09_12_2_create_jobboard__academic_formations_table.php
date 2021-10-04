@@ -21,7 +21,7 @@ class CreateJobboardAcademicFormationsTable extends Migration
                 ->constrained('job_board.categories')
                 ->comment('FK desde categories');
 
-            $table->date('registration_at')
+            $table->date('registered_at')
                 ->nullable()
                 ->comment('Fecha del registro');
 

@@ -21,6 +21,9 @@ class CategoryController extends Controller
         $sorts = explode(',', $request->sort);
 
         $categories = Category::customOrderBy($sorts)
+            ->code($request->input('code'))
+            ->name($request->input('name'))
+            ->icon($request->input('icon'))
             ->paginate($request->per_page);
 
         return (new CategoryCollection($categories))

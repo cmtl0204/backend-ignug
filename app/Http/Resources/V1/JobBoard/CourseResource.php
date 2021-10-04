@@ -27,14 +27,14 @@ class CourseResource extends JsonResource
             'area' => CatalogueResource::make($this->area),
             'name' => $this->name,
             'description' => $this->description,
-            'startDate' => Carbon::create(strval($this->start_date))->format('Y-m-d'),
-//            'startDate' => Carbon::create(strval($this->start_date))->toDayDateTimeString(),
-            'endDate' => Carbon::create(strval($this->end_date))->format('Y-m-d'),
-//            'endDate' => Carbon::create(strval($this->end_date))->toDayDateTimeString(),
+            'startedAt' => Carbon::create(strval($this->started_at))->format('Y-m-d'),
+//            'startedAt' => Carbon::create(strval($this->started_at))->toDayDateTimeString(),
+            'endedAt' => Carbon::create(strval($this->ended_at))->format('Y-m-d'),
+//            'endDate' => Carbon::create(strval($this->ended_at))->toDayDateTimeString(),
             'hours' => $this->hours,
             'institution' => $this->institution,
-            'createAt'=>$this->create_at,
-            'updateAt'=>$this->update_at,
+            'createdAt'=>$this->created_at,
+            'updatedAt'=>$this->updated_at,
         ];
     }
 }

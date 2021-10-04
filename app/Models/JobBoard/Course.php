@@ -16,8 +16,8 @@ use App\Models\Core\File;
  * @property BigInteger id
  * @property string name
  * @property string description
- * @property date start_date
- * @property date end_date
+ * @property date started_at
+ * @property date ended_at
  * @property integer hours
  * @property string institution
  */
@@ -32,10 +32,11 @@ class Course extends Model implements Auditable
 
     protected $fillable = [
         'description',
-        'end_at',
+        'ended_at',
         'hours',
         'name',
-        'start_at',
+        'started_at',
+        'institution'
     ];
 
     // Relationships
@@ -75,14 +76,14 @@ class Course extends Model implements Auditable
         $this->attributes['description'] = strtoupper($value);
     }
 
-    public function setStartDateAttribute($value)
+    public function setStartedAtAttribute($value)
     {
-        $this->attributes['start_date'] = strtolower($value);
+        $this->attributes['started_at'] = strtolower($value);
     }
 
     public function setEndDateAttribute($value)
     {
-        $this->attributes['end_date'] = strtolower($value);
+        $this->attributes['ended_at'] = strtolower($value);
     }
 
     public function setInstitutionAttribute($value)
@@ -132,6 +133,13 @@ class Course extends Model implements Auditable
     {
         if ($name) {
             return $query->orWhere('name', 'ILIKE', "%$name%");
+        }
+    }
+    
+    public function scopeInstitution($query, $institution)
+    {
+        if ($institution) {
+            return $query->orWhere('institution', 'ILIKE', "%$institution%");
         }
     }
 }

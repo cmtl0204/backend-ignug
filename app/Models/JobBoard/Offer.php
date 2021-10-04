@@ -22,8 +22,8 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
  * @property string contact_cellphone
  * @property string remuneration
  * @property integer vacancies
- * @property Date start_date
- * @property Date end_date
+ * @property Date started_at
+ * @property Date ended_at
  * @property string aditional_information
  * @property json activities
  * @property json requirements
@@ -45,8 +45,8 @@ class Offer extends Model implements Auditable
         'contact_cellphone',
         'remuneration',
         'vacancies',
-        'start_at',
-        'end_at',
+        'started_at',
+        'ended_at',
         'aditional_information',
         'position',
         'activities',
@@ -266,14 +266,14 @@ class Offer extends Model implements Auditable
         $this->attributes['remuneration'] = strtoupper($value);
     }
  
-    public function setStartDateAttribute($value)
+    public function setStartedAtAttribute($value)
     {
-        $this->attributes['start_date'] = strtolower($value);
+        $this->attributes['started_at'] = strtolower($value);
     }
  
     public function setEndDateAttribute($value)
     {
-        $this->attributes['end_date'] = strtolower($value);
+        $this->attributes['ended_at'] = strtolower($value);
     }
 
     public function setAdditionalInformationAttribute($value)
