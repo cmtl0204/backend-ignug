@@ -19,7 +19,7 @@ class ExperienceResource extends JsonResource
             'id' => $this->id,
             'area' => CatalogueResource::make($this->resource),
             'activities' => $this->activities,
-            'endDate' => $this->ended_at,
+            'endedAt' => $this->ended_at,
             'position' => $this->position,
             'reasonLeave' => $this->reason_leave,
             'startedAt' => $this->started_at,
