@@ -19,19 +19,16 @@ class Reason extends Model
         'days_max',
     ];
 
-    function reasons(){
-        return $this->hasMany(Reason::class);
-    }
      // Scopes
      public function scopeName($query, $name)
      {
-         if (name) {
+         if ($name) {
              return $query->orWhere('name', 'ILIKE', "%$name%");
          }
      }
      public function scopeDescriptionOne($query, $description_one)
      {
-         if (description_one) {
+         if ($description_one) {
              return $query->orWhere('description_one', 'ILIKE', "%$description_one%");
          }
      }

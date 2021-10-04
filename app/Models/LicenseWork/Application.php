@@ -20,6 +20,12 @@ class Application extends Model
         'observations',
     ];
 
+    // casts
+    protected $casts=[
+        'observations'=>'array',
+    ];
+
+    // dependecias
     function employee(){
         return $this->belongsTo(Employee::class);
     }
@@ -34,4 +40,5 @@ class Application extends Model
     function type(){
         return $this->belongsTo(Catalogue::class);
     }
+
 }

@@ -23,7 +23,7 @@ class Form extends Model
         return $this->belongsTo(Employer::class);
     }
 
-    function formState(){
+    function formStates(){
         return $this->hasMany(FormState::class);
     }
 

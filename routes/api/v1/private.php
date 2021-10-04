@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\V1\LicenseWork\EmployerController;
+use App\Http\Controllers\V1\LicenseWork\FormController;
+use App\Http\Controllers\V1\LicenseWork\HolidayController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\LicenseWork\ApplicationController;
 use App\Http\Controllers\V1\LicenseWork\StateController;
@@ -29,13 +32,6 @@ Route::prefix('reason/{reason}')->group(function () {
     });
 });
 
-/***********************************************************************************************************************
- * Route license Work EMPLOYEE
-<<<<<<< HEAD
- **********************************************************************************************************************/
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***********************************************************************************************************************
  * ROUTE FORM
  **********************************************************************************************************************/
@@ -94,9 +90,12 @@ Route::prefix('academic-formation/{academic_formation}')->group(function () {
         Route::put('{file}', [EmployerController::class, 'updateFile']);
         Route::delete('{file}', [EmployerController::class, 'destroyFile']);
         Route::patch('', [EmployerController::class, 'destroyFiles']);
-=======
-=======
->>>>>>> 2b08c22376ee9da50969a863b4301a639bc20862
+    });
+});
+/***********************************************************************************************************************
+ * ROUTE EMPLOYER
+ **********************************************************************************************************************/
+
 Route::apiResource('employees', EmployeeController::class);
 
 Route::prefix('employee')->group(function () {
@@ -111,7 +110,6 @@ Route::prefix('employee/{employee}')->group(function () {
         Route::put('{file}', [EmployeeController::class, 'updateFile']);
         Route::delete('{file}', [EmployeeController::class, 'destroyFile']);
         Route::patch('', [EmployeeController::class, 'destroyFiles']);
->>>>>>> 44fadb2057ff871275d91ac03d0fe7856b10df91
     });
 });
 
