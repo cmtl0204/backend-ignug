@@ -14,12 +14,12 @@ class CreateJobboardExperiencesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreignId('area_id')
-                ->constrained('core.catalogues');
-
             $table->foreignId('professional_id')
                 ->constrained('job_board.professionals')
                 ->comment('FK desde professionals');
+
+            $table->foreignId('area_id')
+                ->constrained('core.catalogues');
 
 
             $table->json('activities')
