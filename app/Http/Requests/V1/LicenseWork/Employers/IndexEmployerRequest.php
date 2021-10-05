@@ -13,7 +13,7 @@ class IndexEmployerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,17 @@ class IndexEmployerRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules= [
+
+
         ];
+        return LicenseWorkFormRequest::rules($rules);
+    }
+    public function attributes()
+    {
+        $attributes = [
+
+        ];
+        return LicenseWorkFormRequest::attributes($attributes);
     }
 }

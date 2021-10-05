@@ -13,7 +13,7 @@ class UpdateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -32,6 +32,7 @@ class UpdateFormRequest extends FormRequest
             'approvedLevel'=>['required'],
             'state'=>['required'],
         ];
+        return LicenseWorkFormRequest::rules($rules);
     }
     public function attributes()
     {
@@ -44,5 +45,6 @@ class UpdateFormRequest extends FormRequest
             'approvedLevel'=>'Nivel Aprobado',
             'state'=>'Estado',
         ];
+        return LicenseWorkFormRequest::attributes($attributes);
     }
 }
