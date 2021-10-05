@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\V1\LicenseWork\Employees;
 
+use App\Http\Requests\V1\LicenseWork\LicenseWorkFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
+
+
 
 class IndexEmployeeRequest extends FormRequest
 {
@@ -23,8 +26,23 @@ class IndexEmployeeRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+         $rules= [
+
         ];
+
+        return  LicenseWorkFormRequest::rules($rules);
+    
     }
+
+
+    public function attributes()
+    {
+        $attributes = [
+
+        ];
+        return LicenseWorkFormRequest::attributes($attributes);
+    }
+
+
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1\LicenseWork\Reasons;
 
+use App\Http\Requests\V1\LicenseWork\LicenseWorkFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateReasonRequest extends FormRequest
@@ -23,7 +24,7 @@ class UpdateReasonRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             //
             'id'=>['required'],
             'name'=>['required'],
@@ -33,7 +34,9 @@ class UpdateReasonRequest extends FormRequest
             'daysMin'=>['required'],
             'daysMax'=>['required'],
 
-        ];
+         ];
+
+         return LicenseWorkFormRequest::rules($rules);
     }
 
     public function attributes()
@@ -46,6 +49,7 @@ class UpdateReasonRequest extends FormRequest
             'daysMin'=>'dias minimos',
             'daysMax'=>'dias maximos',
         ];
+        return LicenseWorkFormRequest::attributes($attributes);
     }
 
 
