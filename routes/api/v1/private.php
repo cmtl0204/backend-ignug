@@ -10,6 +10,7 @@ use App\Http\Controllers\V1\LicenseWork\ReasonController;
 use App\Http\Controllers\V1\LicenseWork\EmployeeController;
 
 
+
 /***********************************************************************************************************************
  * Route license Work REASON
 <<<<<<< HEAD
@@ -31,6 +32,7 @@ Route::prefix('reason/{reason}')->group(function () {
         Route::patch('', [ReasonController::class, 'destroyFiles']);
     });
 });
+
 
 /***********************************************************************************************************************
  * ROUTE FORM
@@ -111,7 +113,9 @@ Route::prefix('employee/{employee}')->group(function () {
         Route::delete('{file}', [EmployeeController::class, 'destroyFile']);
         Route::patch('', [EmployeeController::class, 'destroyFiles']);
     });
+
 });
+
 
 /***********************************************************************************************************************
  * Route Application
@@ -149,3 +153,4 @@ Route::prefix('state')->group(function () {
 
 Route::prefix('state/{state}')->group(function () {
 });
+
