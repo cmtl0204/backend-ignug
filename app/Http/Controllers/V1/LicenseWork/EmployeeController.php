@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\V1\LicenseWork;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\V1\LicenseWork\Employees\DestroysEmployeeRequest;
+use App\Http\Requests\V1\LicenseWork\Employees\IndexEmployeeRequest;
+use App\Http\Requests\V1\LicenseWork\Employees\StoreEmployeeRequest;
+use App\Http\Requests\V1\LicenseWork\Employees\UpdateEmployeeRequest;
+use App\Http\Resources\V1\LicenseWork\EmployeeCollection;
+use App\Http\Resources\V1\LicenseWork\EmployeeResource;
+use App\Models\Authentication\User;
 use App\Models\LicenseWork\Employee;
 
 class EmployeeController extends Controller
@@ -13,15 +19,14 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   
+
     public function index(IndexEmployeeRequest $request)
     {
         $sorts = explode(',', $request->sort);
 
-        $employees = Reason::customOrderBy($sorts)
-            ->paginate($request->per_page);
+        $employees = Employee::paginate($request->per_page);
 
-        return (new EmployeeCollection($reasons))
+        return (new EmployeeCollection($employees))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -42,7 +47,7 @@ class EmployeeController extends Controller
     {
          $employee = new Employee();
          $employee->users()
-            ->associate(Users::find($request->input('users.id')));
+            ->associate(User::find($request->input('users.id')));
          $employee->save();
 
         return (new EmployeeResource($employee))
@@ -82,9 +87,9 @@ class EmployeeController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-         
+
          $employee->users()
-            ->associate(Users::find($request->input('users.id')));
+            ->associate(User::find($request->input('user.id')));
          $employee->save();
 
          return (new EmployeeResource($employee))
@@ -103,12 +108,12 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
-    
+
+
     public function destroy(Employee $employee)
     {
         $employee->delete();
-        return (new employeeResource($emplopyee))
+        return (new EmployeeResource($employee))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Eliminado',
@@ -120,7 +125,7 @@ class EmployeeController extends Controller
 
     public function destroys(DestroysEmployeeRequest $request)
     {
-        $employee = EmployeeResource::whereIn('id', $request->input('ids'))->get();
+        $employees = EmployeeResource::whereIn('id', $request->input('ids'))->get();
         EmployeeResource::destroy($request->input('ids'));
 
         return (new EmployeeCollection($employees))
@@ -131,11 +136,7 @@ class EmployeeController extends Controller
                     'code' => '201'
                 ]
             ]);
-   
+    }
 }
 
 
-
-
-
-}
