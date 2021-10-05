@@ -27,7 +27,7 @@ class UpdateCategoryRequest extends FormRequest
                 'max:250',
             ],
             'parent.id' => [
-                'required',
+                '',
             ],
         ];
         return JobBoardFormRequest::rules($rules);

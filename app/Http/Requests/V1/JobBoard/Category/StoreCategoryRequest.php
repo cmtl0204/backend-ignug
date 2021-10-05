@@ -26,7 +26,7 @@ class StoreCategoryRequest extends FormRequest
                 'max:250',
             ],
             'parent.id' => [
-                'required',
+                '',
             ],
         ];
         return JobBoardFormRequest::rules($rules);
