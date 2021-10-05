@@ -7,6 +7,7 @@ use App\Models\Core\Email;
 use App\Models\Core\File;
 use App\Models\Core\Image;
 use App\Models\Core\Phone;
+use App\Models\LicenseWork\Employee;
 use App\Traits\EmailTrait;
 use App\Traits\FileTrait;
 use App\Traits\ImageTrait;
@@ -129,6 +130,9 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+    public function  employees(){
+        return $this->hasMany(Employee::class);
     }
 
     // Scopes

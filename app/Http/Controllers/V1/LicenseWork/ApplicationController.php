@@ -24,7 +24,6 @@ class ApplicationController extends Controller
      */
     public function index(IndexApplicationRequest $request)
     {
-        $sorts = explode(',', $request->sort);
 
         $applications = Application::paginate($request->per_page);
 
