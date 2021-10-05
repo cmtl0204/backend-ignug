@@ -20,7 +20,7 @@ class CreateLicenseReasonsTable extends Migration
 
 
             $table->string( 'name')
-              ->comment('reason name');
+              ->comment('tipo de razon (permiso o licencia)');
 
             $table->string('description_one')
               ->comment('Maternity: can be three to six months');

@@ -30,7 +30,7 @@ class CreateLicenseApplicationsTable extends Migration
                 ->comment('Id de la localización')
                 ->constrained('core.locations');
 
-            $table->foreignId('type')
+            $table->foreignId('type_id')
                 ->comment('catalogues, para saber si es por fechas o por horas el permiso')
                 ->constrained('core.catalogues');
 

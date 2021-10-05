@@ -36,7 +36,7 @@ class UpdateApplicationRequest extends FormRequest
             'timeEndedAt'=>['required'],
             'observations'=>['required'],
         ];
-        return LicenseWorkFormRequest::rules($rules);
+            return LicenseWorkFormRequest::rules($rules);
     }
     public function attributes()
     {

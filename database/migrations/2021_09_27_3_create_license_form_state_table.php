@@ -26,9 +26,9 @@ class CreateLicenseFormStateTable extends Migration
             ->comment('Fk del estado')
             ->constrained('license_work.states');
 
-            $table->foreignId('dependence_user_id')
-            ->comment('FK de la Licencia');
-//            ->constrained('license_work.dependence_user');
+//            $table->foreignId('dependence_user_id')
+//            ->comment('FK de la Licencia');
+//          ->constrained('license_work.dependence_user');
 
         });
     }
