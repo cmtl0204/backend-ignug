@@ -13,7 +13,7 @@ class UpdateEmployerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -31,6 +31,7 @@ class UpdateEmployerRequest extends FormRequest
             'approvalName'=>['required'],
             'registerName'=>['required'],
         ];
+        return LicenseWorkFormRequest::rules($rules);
     }
     public function attributes()
     {
@@ -42,6 +43,7 @@ class UpdateEmployerRequest extends FormRequest
             'approvalName'=>'Nombre de quien aprueba',
             'registerName'=>'SENECYT Talento Humano',
         ];
+        return LicenseWorkFormRequest::attributes($attributes);
     }
 }
 

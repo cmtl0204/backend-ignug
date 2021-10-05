@@ -13,7 +13,7 @@ class StoreFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -32,6 +32,7 @@ class StoreFormRequest extends FormRequest
             'approvedLevel'=>['required'],
             'state'=>['required'],
         ];
+        return LicenseWorkFormRequest::rules($rules);
     }
     public function attributes()
     {
@@ -44,5 +45,6 @@ class StoreFormRequest extends FormRequest
             'approvedLevel'=>'Nivel Aprobado',
             'state'=>'Estado',
         ];
+        return LicenseWorkFormRequest::attributes($attributes);
     }
 }
