@@ -2,7 +2,7 @@
 
 namespace App\Models\LicenseWork;
 
-use App\Models\User;
+use App\Models\Authentication\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

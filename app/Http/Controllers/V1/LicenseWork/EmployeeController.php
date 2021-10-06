@@ -22,8 +22,6 @@ class EmployeeController extends Controller
 
     public function index(IndexEmployeeRequest $request)
     {
-        $sorts = explode(',', $request->sort);
-
         $employees = Employee::paginate($request->per_page);
 
         return (new EmployeeCollection($employees))
@@ -46,8 +44,9 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
          $employee = new Employee();
-         $employee->users()
-            ->associate(User::find($request->input('users.id')));
+
+         $employee->user()
+            ->associate(User::find($request->input('user.id')));
          $employee->save();
 
         return (new EmployeeResource($employee))
