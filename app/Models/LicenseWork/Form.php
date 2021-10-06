@@ -17,7 +17,7 @@ class Form extends Model
         'approved_level',
         'state',
 
-    ];
+    ]; 
 
     function employer(){
         return $this->belongsTo(Employer::class);
