@@ -67,10 +67,6 @@ class AcademicFormation extends Model implements Auditable
     }
     
     // Mutators
-    public function setRegisteredAtAttribute($value)
-    {
-        $this->attributes['registered_at'] = strtolower($value);
-    }
 
     public function setSenescytCodeAttribute($value)
     {
