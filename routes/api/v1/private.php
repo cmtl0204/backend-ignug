@@ -8,6 +8,7 @@ use App\Http\Controllers\V1\LicenseWork\ApplicationController;
 use App\Http\Controllers\V1\LicenseWork\StateController;
 use App\Http\Controllers\V1\LicenseWork\ReasonController;
 use App\Http\Controllers\V1\LicenseWork\EmployeeController;
+use App\Http\Controllers\V1\LicenseWork\DependenceController;
 
 
 
@@ -154,3 +155,25 @@ Route::prefix('state')->group(function () {
 Route::prefix('state/{state}')->group(function () {
 });
 
+/***********************************************************************************************************************
+ *ROUTE DEPENDENCE 
+ **********************************************************************************************************************/
+
+Route::apiResource('dependence',DependenceController ::class);
+
+
+Route::prefix('dependence')->group(function () {
+    Route::patch('destroys', [DependenceController::class, 'destroys']);
+});
+
+Route::prefix('dependence/{dependence}')->group(function () {
+    Route::prefix('file')->group(function () {
+        Route::get('{file}/download', [DependenceController::class, 'downloadFile']);
+        Route::get('', [DependenceController::class, 'indexFiles']);
+        Route::get('{file}', [DependenceController::class, 'showFile']);
+        Route::post('', [DependenceController::class, 'uploadFile']);
+        Route::put('{file}', [DependenceController::class, 'updateFile']);
+        Route::delete('{file}', [DependenceController::class, 'destroyFile']);
+        Route::patch('', [DependenceController::class, 'destroyFiles']);
+    });
+});
