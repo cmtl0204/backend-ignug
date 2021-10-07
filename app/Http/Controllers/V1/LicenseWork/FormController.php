@@ -16,14 +16,7 @@ class FormController extends Controller
      */
     public function index(IndexFormRequest $request)
     {
-        $sorts = explode(',', $request->sort);
-<<<<<<< HEAD
-                
-        $forms = Form::customOrderBy($sorts)
-=======
-
-        $froms = From::customOrderBy($sorts)
->>>>>>> 02cfdc31aab61cd4889b2326b3058260faf837d6
+        $sorts = explode(',', $request->sort)
             ->paginate($request->per_page)
             ->code($request->input('code'))
             ->regime($request->input('regime'))

@@ -26,23 +26,19 @@ class UpdateHolidayRequest extends FormRequest
     public function rules()
     {
         return [
-            'logo'=>['required'],
-            'department'=>['required'],
-            'coordination'=>['required'],
-            'unit'=>['required'],
-            'approvalName'=>['required'],
-            'registerName'=>['required'],
+            'employee_id'=>['required'],
+            'code'=>['required'],
+            'numberDays'=>['required'],
+            'year'=>['required'],
         ];
     }
     public function attributes()
     {
         $attributes = [
-            'logo'=>'Logo SENECYT',
-            'department'=>'Departamento SENECYT',
-            'coordination'=>'Coordinación',
-            'unit'=>'Unidad',
-            'approvalName'=>'Nombre de quien aprueba',
-            'registerName'=>'SENECYT Talento Humano',
+            'employee_id'=>'Empleado',
+            'code'=>'Código',
+            'numberDays'=>'Número de días',
+            'year'=>'Año De vacaciones',
         ];
     }
 }

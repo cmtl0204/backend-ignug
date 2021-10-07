@@ -25,6 +25,7 @@ class UpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
+            'employer_id'=>['required'],
             'code'=>['required'],
             'description'=>['required'],
             'regime'=>['required'],
@@ -37,6 +38,7 @@ class UpdateFormRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
+            'employer_id'=>['required'],
             'code'=>'Código',
             'description'=>'Descripción',
             'regime'=>'Región',
