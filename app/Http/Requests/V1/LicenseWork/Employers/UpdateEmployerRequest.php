@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1\LicenseWork\Employers;
 
+use App\Http\Requests\V1\LicenseWork\LicenseWorkFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateEmployerRequest extends FormRequest

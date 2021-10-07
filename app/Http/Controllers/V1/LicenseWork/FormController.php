@@ -5,7 +5,7 @@ namespace App\Http\Controllers\V1\LicenseWork;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\LicenseWork\Forms\IndexFormRequest;
 use Illuminate\Http\Request;
-use App\Models\LicenseWork\From;
+use App\Models\LicenseWork\Form;
 
 class FormController extends Controller
 {
@@ -17,8 +17,13 @@ class FormController extends Controller
     public function index(IndexFormRequest $request)
     {
         $sorts = explode(',', $request->sort);
+<<<<<<< HEAD
+                
+        $forms = Form::customOrderBy($sorts)
+=======
 
         $froms = From::customOrderBy($sorts)
+>>>>>>> 02cfdc31aab61cd4889b2326b3058260faf837d6
             ->paginate($request->per_page)
             ->code($request->input('code'))
             ->regime($request->input('regime'))
@@ -26,7 +31,7 @@ class FormController extends Controller
 
 
 
-        return (new FromCollection($froms))
+        return (new FormCollection($forms))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -91,7 +96,7 @@ class FormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateApplicationRequest $request, Application $application)
+    public function update(UpdateFormRequest $request, Form $form)
     {
 
         $form->employer()
