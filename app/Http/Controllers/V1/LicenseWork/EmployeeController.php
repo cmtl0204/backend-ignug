@@ -46,8 +46,8 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
          $employee = new Employee();
-         $employee->users()
-            ->associate(User::find($request->input('users.id')));
+         $employee->user()
+            ->associate(User::find($request->input('user.id')));
          $employee->save();
 
         return (new EmployeeResource($employee))
@@ -88,7 +88,7 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
 
-         $employee->users()
+         $employee->user()
             ->associate(User::find($request->input('user.id')));
          $employee->save();
 
