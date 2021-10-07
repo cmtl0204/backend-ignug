@@ -15,12 +15,11 @@ class DependenceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'data'=>[
+            
               'id'=>$this->id,
               'name'=>$this->name,
               'level'=>$this->level,
 
-           ]
     ];
     }
 }
