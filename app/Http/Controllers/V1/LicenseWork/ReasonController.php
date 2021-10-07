@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\LicenseWork\Reasons\IndexReasonRequest;
 use App\Http\Requests\V1\LicenseWork\Reasons\StoreReasonRequest;
 use App\Http\Requests\V1\LicenseWork\Reasons\UpdateReasonRequest;
+use App\Http\Requests\V1\LicenseWork\Reasons\DestroysReasonRequest;
 use App\Http\Resources\V1\LicenseWork\ReasonCollection;
 use App\Http\Resources\V1\LicenseWork\ReasonResource;
 use Illuminate\Http\Request;
@@ -135,8 +136,8 @@ class ReasonController extends Controller
 
     public function destroys(DestroysReasonRequest $request)
     {
-        $reasons = ReasonResource::whereIn('id', $request->input('ids'))->get();
-        ReasonResource::destroy($request->input('ids'));
+        $reasons = Reason::whereIn('id', $request->input('ids'))->get();
+        Reason::destroy($request->input('ids'));
 
         return (new ReasonCollection($reasons))
             ->additional([
