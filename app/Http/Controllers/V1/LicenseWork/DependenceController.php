@@ -122,8 +122,8 @@ class DependenceController extends Controller
 
     public function destroys(DestroysDependenceRequest $request)
     {
-        $dependence = DependenceResource::whereIn('id', $request->input('ids'))->get();
-        DependenceResource::destroy($request->input('ids');
+        $dependence = Dependence::whereIn('id', $request->input('ids'))->get();
+        Dependence::destroy($request->input('ids'));
 
         return (new DependenceCollection($dependence))
             ->additional([

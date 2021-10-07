@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\LicenseWork;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\LicenseWork\Forms\IndexFormRequest;
 use Illuminate\Http\Request;
 use App\Models\LicenseWork\From;
 
@@ -13,10 +14,10 @@ class FormController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(IndexFromRequest $request)
+    public function index(IndexFormRequest $request)
     {
         $sorts = explode(',', $request->sort);
-                
+
         $froms = From::customOrderBy($sorts)
             ->paginate($request->per_page)
             ->code($request->input('code'))
@@ -46,7 +47,6 @@ class FormController extends Controller
         $form = new Form();
         $form->employer()
             ->associate(Employer::find($request->input('employer.id')));
-        
 
         $form->code= $request->input('code');
         $form->description= $request->input('description');
@@ -93,10 +93,10 @@ class FormController extends Controller
      */
     public function update(UpdateApplicationRequest $request, Application $application)
     {
-       
+
         $form->employer()
             ->associate(Employer::find($request->input('employer.id')));
-        
+
 
         $form->code= $request->input('code');
         $form->description= $request->input('description');
@@ -147,6 +147,6 @@ class FormController extends Controller
                     'code' => '201'
                 ]
             ]);
-   
+
 }
 }

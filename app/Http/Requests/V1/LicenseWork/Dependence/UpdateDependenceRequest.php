@@ -25,7 +25,6 @@ class UpdateDependenceRequest extends FormRequest
     public function rules()
     {
         $rules =  [
-            'id'=>['required'],
             'name'=>['required'],
             'level'=>['required'],
         ];
@@ -39,7 +38,7 @@ class UpdateDependenceRequest extends FormRequest
             'user'=>'usuario',
             'level'=>'nivel',
         ];
-        
+
         return LicenseWorkFormRequest::attributes($attributes);
 
     }
