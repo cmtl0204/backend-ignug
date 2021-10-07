@@ -141,8 +141,8 @@ class FormController extends Controller
     }
     public function destroys(DestroysFormRequest $request)
     {
-        $forms = FormResource::whereIn('id', $request->input('ids'))->get();
-        FormResource::destroy($request->input('ids'));
+        $forms = Form::whereIn('id', $request->input('ids'))->get();
+        Form::destroy($request->input('ids'));
 
         return (new FormCollection($forms))
             ->additional([

@@ -87,7 +87,7 @@ class EmployerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateApplicationRequest $request, Application $application)
+    public function update(UpdateEmployerRequest $request, Employer $employer)
     {
     
 
@@ -130,8 +130,8 @@ class EmployerController extends Controller
     }
     public function destroys(DestroysEmployerRequest $request)
     {
-        $employers = EmployerResource::whereIn('id', $request->input('ids'))->get();
-        EmployerResource::destroy($request->input('ids'));
+        $employers = Employer::whereIn('id', $request->input('ids'))->get();
+        Employer::destroy($request->input('ids'));
 
         return (new EmployerCollection($employers))
             ->additional([

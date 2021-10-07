@@ -79,7 +79,7 @@ class HolidayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateApplicationRequest $request, Application $application)
+    public function update(UpdateHolidayRequest $request, Holiday $holiday)
     {
         $holiday->employee()
             ->associate(Employee::find($request->input('employee.id')));
@@ -118,8 +118,8 @@ class HolidayController extends Controller
     }
     public function destroys(DestroysHolidayRequest $request)
     {
-        $holidays = HolidayResource::whereIn('id', $request->input('ids'))->get();
-        HolidayResource::destroy($request->input('ids'));
+        $holidays = Holiday::whereIn('id', $request->input('ids'))->get();
+        Holiday::destroy($request->input('ids'));
 
         return (new HolidayCollection($holidays))
             ->additional([
