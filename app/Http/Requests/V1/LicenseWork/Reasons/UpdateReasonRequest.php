@@ -25,8 +25,7 @@ class UpdateReasonRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            //
-            'id'=>['required'],
+            
             'name'=>['required'],
             'descriptionOne'=>['required'],
             'descriptionTwo'=>['required'],

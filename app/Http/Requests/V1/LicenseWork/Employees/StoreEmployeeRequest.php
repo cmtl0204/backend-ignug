@@ -25,7 +25,7 @@ class StoreEmployeeRequest extends FormRequest
     public function rules()
     {
         $rules =  [
-            'id'=>['required'],
+            
             'user'=>['required'],
         ];
 
