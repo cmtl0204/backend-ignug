@@ -13,8 +13,8 @@ class State extends Model
         'name',
     ];
 
-    function formStates(){
-        return $this->hasMany(FormState::class);
+    function forms(){
+        return $this->belongsToMany(Form::class);
     }
 
     // Scopes

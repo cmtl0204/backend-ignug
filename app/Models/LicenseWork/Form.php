@@ -17,14 +17,14 @@ class Form extends Model
         'approved_level',
         'state',
 
-    ];    
+    ];
 
     function employer(){
         return $this->belongsTo(Employer::class);
     }
 
-    function formStates(){
-        return $this->hasMany(FormState::class);
+    function states(){
+        return $this->belongsToMany(State::class);
     }
 
     // Scopes
