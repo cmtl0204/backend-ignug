@@ -12,7 +12,7 @@ use App\Http\Resources\V1\LicenseWork\DependenceResource;
 use App\Models\LicenseWork\Dependence;
 use Illuminate\Http\Request;
 
-  //hola
+  //holagggggg
 class DependenceController extends Controller
 {
     /**
