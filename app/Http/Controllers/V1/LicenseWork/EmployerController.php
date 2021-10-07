@@ -3,6 +3,12 @@
 namespace App\Http\Controllers\V1\LicenseWork;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\LicenseWork\Applications\UpdateApplicationRequest;
+use App\Http\Requests\V1\LicenseWork\Employers\DestroysEmployerRequest;
+use App\Http\Requests\V1\LicenseWork\Employers\IndexEmployerRequest;
+use App\Http\Requests\V1\LicenseWork\Employers\StoreEmployerRequest;
+use App\Http\Resources\V1\LicenseWork\EmployerCollection;
+use App\Http\Resources\V1\LicenseWork\EmployerResource;
 use Illuminate\Http\Request;
 use App\Models\LicenseWork\Employer;
 
@@ -18,12 +24,11 @@ class EmployerController extends Controller
         $sorts = explode(',', $request->sort);
 
         $employers = Employer::customOrderBy($sorts)
-            ->paginate($request->per_page)
+            ->logo($request->input('logo'))
             ->department($request->input('department'))
             ->coordination($request->input('coordination'))
             ->unit($request->input('unit'))
-            ->select($request->input('select'))
-            ->unit($request->input('unit'));
+            ->paginate($request->per_page);
 
 
         return (new EmployerCollection($employers))
@@ -44,8 +49,7 @@ class EmployerController extends Controller
      */
     public function store(StoreEmployerRequest $request)
     {
-    
-
+        $employer = new Employer();
         $employer->logo = $request->input('logo');
         $employer->department = $request->input('department');
         $employer->coordination= $request->input('coordination');
@@ -87,10 +91,8 @@ class EmployerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateApplicationRequest $request, Application $application)
+    public function update(UpdateApplicationRequest $request, Employer $employer)
     {
-    
-
         $employer->logo = $request->input('logo');
         $employer->department = $request->input('department');
         $employer->coordination= $request->input('coordination');
@@ -107,7 +109,7 @@ class EmployerController extends Controller
                     'code' => '200'
                 ]
             ]);
-            
+
     }
 
     /**
@@ -130,8 +132,8 @@ class EmployerController extends Controller
     }
     public function destroys(DestroysEmployerRequest $request)
     {
-        $employers = EmployerResource::whereIn('id', $request->input('ids'))->get();
-        EmployerResource::destroy($request->input('ids'));
+        $employers = Employer::whereIn('id', $request->input('ids'))->get();
+        Employer::destroy($request->input('ids'));
 
         return (new EmployerCollection($employers))
             ->additional([
@@ -141,6 +143,6 @@ class EmployerController extends Controller
                     'code' => '201'
                 ]
             ]);
-   
+
 }
 }

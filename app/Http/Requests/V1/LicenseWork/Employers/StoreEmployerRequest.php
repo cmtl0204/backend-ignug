@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1\LicenseWork\Employers;
 
+use App\Http\Requests\V1\LicenseWork\LicenseWorkFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreEmployerRequest extends FormRequest
@@ -23,7 +24,7 @@ class StoreEmployerRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'logo'=>['required'],
             'department'=>['required'],
             'coordination'=>['required'],

@@ -124,8 +124,8 @@ class EmployeeController extends Controller
 
     public function destroys(DestroysEmployeeRequest $request)
     {
-        $employees = EmployeeResource::whereIn('id', $request->input('ids'))->get();
-        EmployeeResource::destroy($request->input('ids'));
+        $employees = Employee::whereIn('id', $request->input('ids'))->get();
+        Employee::destroy($request->input('ids'));
 
         return (new EmployeeCollection($employees))
             ->additional([

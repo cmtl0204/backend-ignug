@@ -25,9 +25,9 @@ class UpdateApplicationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'employee'=>['required'],
-            'reason'=>['required'],
-            'location'=>['required'],
+            'employee.id'=>['required'],
+            'reason.id'=>['required'],
+            'location.id'=>['required'],
             'type.id'=>['required'],
             'dateStartedAt'=>['required'],
             'dateEndedAt'=>['required'],
@@ -40,9 +40,9 @@ class UpdateApplicationRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'employee'=>'empleado',
-            'reason'=>'razones',
-            'location'=>'localización',
+            'employee.id'=>'empleado',
+            'reason.id'=>'razones',
+            'location.id'=>'localización',
             'type.id'=>'tipo',
             'dateStartedAt'=>'Fecha de inicio de la Licencia o Permiso',
             'dateEndedAt'=>'Fecha final de la Licencia o Permiso',
