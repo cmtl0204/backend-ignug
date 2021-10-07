@@ -14,8 +14,7 @@ class EmployerResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'data'=>[
+        return [           
                 'id'=>$this->id,
                 'logo'=>$this->logo,
                 'department'=>$this-> department,
@@ -23,8 +22,7 @@ class EmployerResource extends JsonResource
                 'unit'=>$this-> unit,
                 'approvalName'=>$this-> approval_name,
                 'registerName'=>$this-> register_name,
-
-            ]
+ 
         ];
     }
 }

@@ -25,6 +25,7 @@ class UpdateHolidayRequest extends FormRequest
      */
     public function rules()
     {
+<<<<<<< HEAD
         $rules = [
             'logo'=>['required'],
             'department'=>['required'],
@@ -32,18 +33,23 @@ class UpdateHolidayRequest extends FormRequest
             'unit'=>['required'],
             'approvalName'=>['required'],
             'registerName'=>['required'],
+=======
+        return [
+            'employee_id'=>['required'],
+            'code'=>['required'],
+            'numberDays'=>['required'],
+            'year'=>['required'],
+>>>>>>> 281e2707b4549da147780a5b0f2b6bf3b0daad52
         ];
         return LicenseWorkFormRequest::attributes($rules);
     }
     public function attributes()
     {
         $attributes = [
-            'logo'=>'Logo SENECYT',
-            'department'=>'Departamento SENECYT',
-            'coordination'=>'Coordinación',
-            'unit'=>'Unidad',
-            'approvalName'=>'Nombre de quien aprueba',
-            'registerName'=>'SENECYT Talento Humano',
+            'employee_id'=>'Empleado',
+            'code'=>'Código',
+            'numberDays'=>'Número de días',
+            'year'=>'Año De vacaciones',
         ];
         return LicenseWorkFormRequest::attributes($attributes);
     }

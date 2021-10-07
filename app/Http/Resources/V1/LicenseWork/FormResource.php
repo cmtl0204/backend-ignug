@@ -16,7 +16,6 @@ class FormResource extends JsonResource
     {
 
         return [
-            'data'=>[
                 'id'=>$this->id,
                 'employer'=>$this->employer,
                 'code'=>$this->code,
@@ -25,7 +24,6 @@ class FormResource extends JsonResource
                 'daysConst'=>$this->days_const,
                 'approvedLevel'=>$this->approved_level,
                 'state'=>$this->state,
-            ]
         ];
     }
 }

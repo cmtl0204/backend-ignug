@@ -15,14 +15,11 @@ class HolidayResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'data'=>[
                 'id'=>$this->id,
                 'employee'=>$this->employee,
                 'code'=>$this->code,
                 'numberDays'=>$this->number_days,
                 'year'=>$this->year,
-
-            ]
         ];
     }
 }

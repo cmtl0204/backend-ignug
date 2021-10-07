@@ -16,7 +16,7 @@ class ReasonResource extends JsonResource
     {
 
             return [
-                'data'=>[
+                
                   'id'=>$this->id,
                   'name'=>$this->name,
                   'descriptionOne'=>$this->description_one,
@@ -25,7 +25,7 @@ class ReasonResource extends JsonResource
                   'daysMin'=>$this->days_min,
                   'daysMax'=>$this->days_max,
 
-               ]
+               
         ];
     }
 }
