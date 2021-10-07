@@ -248,7 +248,7 @@ class Offer extends Model implements Auditable
 
     public function setContactEmailAttribute($value)
     {
-        $this->attributes['contact_email'] = strtoupper($value);
+        $this->attributes['contact_email'] = strtolower($value);
     }
  
     public function setContactPhoneAttribute($value)
@@ -264,16 +264,6 @@ class Offer extends Model implements Auditable
     public function setRemunerationAttribute($value)
     {
         $this->attributes['remuneration'] = strtoupper($value);
-    }
- 
-    public function setStartedAtAttribute($value)
-    {
-        $this->attributes['started_at'] = strtolower($value);
-    }
- 
-    public function setEndDateAttribute($value)
-    {
-        $this->attributes['ended_at'] = strtolower($value);
     }
 
     public function setAdditionalInformationAttribute($value)

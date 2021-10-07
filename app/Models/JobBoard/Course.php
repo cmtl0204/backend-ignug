@@ -76,16 +76,6 @@ class Course extends Model implements Auditable
         $this->attributes['description'] = strtoupper($value);
     }
 
-    public function setStartedAtAttribute($value)
-    {
-        $this->attributes['started_at'] = strtolower($value);
-    }
-
-    public function setEndDateAttribute($value)
-    {
-        $this->attributes['ended_at'] = strtolower($value);
-    }
-
     public function setInstitutionAttribute($value)
     {
         $this->attributes['institution'] = strtoupper($value);

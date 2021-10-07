@@ -113,19 +113,14 @@ class Experience extends Model implements Auditable
         $this->attributes['employer'] = strtoupper($value);
     }
 
-    public function setStartedAtAttribute($value)
-    {
-        $this->attributes['started_at'] = strtolower($value);
-    }
-
-    public function setEndDateAttribute($value)
-    {
-        $this->attributes['ended_at'] = strtolower($value);
-    }
-
     public function setPositionAttribute($value)
     {
         $this->attributes['position'] = strtoupper($value);
+    }
+
+    public function setReasonLeaveAttribute($value)
+    {
+        $this->attributes['reason_leave'] = strtoupper($value);
     }
     
 }

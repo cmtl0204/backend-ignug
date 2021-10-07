@@ -64,7 +64,7 @@ class Reference extends Model implements Auditable
 
     public function setContactEmailAttribute($value)
     {
-        $this->attributes['contact_email'] = strtoupper($value);
+        $this->attributes['contact_email'] = strtolower($value);
     }
 
     public function setContactPhoneAttribute($value)

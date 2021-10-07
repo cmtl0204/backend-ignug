@@ -137,9 +137,4 @@ class Professional extends Model implements Auditable
     {
         $this->attributes['about_me'] = strtoupper($value);
     }
-
-    public function setIdentificationFamiliarDisabledAttribute($value)
-    {
-        $this->attributes['identification_familiar_disabled'] = strtoupper($value);
-    }
 }
