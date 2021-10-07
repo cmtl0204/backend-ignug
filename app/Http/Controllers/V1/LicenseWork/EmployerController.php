@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\V1\LicenseWork;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\LicenseWork\Applications\UpdateApplicationRequest;
 use App\Http\Requests\V1\LicenseWork\Employers\DestroysEmployerRequest;
 use App\Http\Requests\V1\LicenseWork\Employers\IndexEmployerRequest;
 use App\Http\Requests\V1\LicenseWork\Employers\StoreEmployerRequest;
+use App\Http\Requests\V1\LicenseWork\Employers\UpdateEmployerRequest;
 use App\Http\Resources\V1\LicenseWork\EmployerCollection;
 use App\Http\Resources\V1\LicenseWork\EmployerResource;
 use Illuminate\Http\Request;
@@ -91,7 +91,8 @@ class EmployerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateApplicationRequest $request, Employer $employer)
+
+    public function update(UpdateEmployerRequest $request, Employer $employer)
     {
         $employer->logo = $request->input('logo');
         $employer->department = $request->input('department');

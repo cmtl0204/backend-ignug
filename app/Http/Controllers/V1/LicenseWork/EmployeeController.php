@@ -44,7 +44,6 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
          $employee = new Employee();
-
          $employee->user()
             ->associate(User::find($request->input('user.id')));
          $employee->save();
