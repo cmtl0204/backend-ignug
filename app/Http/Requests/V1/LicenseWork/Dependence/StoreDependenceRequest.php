@@ -25,7 +25,6 @@ class StoreDependenceRequest extends FormRequest
     public function rules()
     {
         $rules =  [
-            'id'=>['required'],
             'name'=>['required'],
             'level'=>['required'],
         ];
