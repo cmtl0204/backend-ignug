@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1\LicenseWork\Forms;
 
+use App\Http\Requests\V1\LicenseWork\LicenseWorkFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreFormRequest extends FormRequest
@@ -23,8 +24,8 @@ class StoreFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'employer_id'=>['required'],
+        $rules= [
+            'employer'=>['required'],
             'code'=>['required'],
             'description'=>['required'],
             'regime'=>['required'],
@@ -37,7 +38,7 @@ class StoreFormRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'employer_id'=>'Empleador',
+            'employer'=>'Empleador',
             'code'=>'Código',
             'description'=>'Descripción',
             'regime'=>'Región',

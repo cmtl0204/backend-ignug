@@ -19,7 +19,6 @@ class DependenceResource extends JsonResource
               'id'=>$this->id,
               'name'=>$this->name,
               'level'=>$this->level,
-
            ]
     ];
     }

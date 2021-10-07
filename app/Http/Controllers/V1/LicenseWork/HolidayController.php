@@ -3,6 +3,13 @@
 namespace App\Http\Controllers\V1\LicenseWork;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\LicenseWork\Holidays\DestroysHolidayRequest;
+use App\Http\Requests\V1\LicenseWork\Holidays\IndexHolidayRequest;
+use App\Http\Requests\V1\LicenseWork\Holidays\StoreHolidayRequest;
+use App\Http\Requests\V1\LicenseWork\Holidays\UpdateHolidayRequest;
+use App\Http\Resources\V1\LicenseWork\HolidayCollection;
+use App\Http\Resources\V1\LicenseWork\HolidayResource;
+use App\Models\LicenseWork\Employee;
 use Illuminate\Http\Request;
 use App\Models\LicenseWork\Holiday;
 class HolidayController extends Controller
@@ -14,10 +21,8 @@ class HolidayController extends Controller
      */
     public function index(IndexHolidayRequest $request)
     {
-        $sorts = explode(',', $request->sort);
 
-        $holidays = Holiday::customOrderBy($sorts)
-            ->paginate($request->per_page);
+        $holidays = Holiday::paginate($request->per_page);
 
         return (new HolidayCollection($holidays))
             ->additional([
@@ -116,6 +121,12 @@ class HolidayController extends Controller
                 ]
             ]);
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroys(DestroysHolidayRequest $request)
     {
         $holidays = Holiday::whereIn('id', $request->input('ids'))->get();
@@ -129,6 +140,6 @@ class HolidayController extends Controller
                     'code' => '201'
                 ]
             ]);
-   
+
 }
 }

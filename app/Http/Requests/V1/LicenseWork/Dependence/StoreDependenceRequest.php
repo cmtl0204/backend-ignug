@@ -14,7 +14,7 @@ class StoreDependenceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -39,7 +39,7 @@ class StoreDependenceRequest extends FormRequest
             'user'=>'usuario',
             'level'=>'nivel',
         ];
-        
+
         return LicenseWorkFormRequest::attributes($attributes);
 
     }

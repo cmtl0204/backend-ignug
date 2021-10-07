@@ -15,7 +15,7 @@ class UpdateHolidayRequest extends FormRequest
     public function authorize()
     {
         return true;
-        
+
     }
 
     /**
@@ -25,7 +25,7 @@ class UpdateHolidayRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'logo'=>['required'],
             'department'=>['required'],
             'coordination'=>['required'],
@@ -33,6 +33,7 @@ class UpdateHolidayRequest extends FormRequest
             'approvalName'=>['required'],
             'registerName'=>['required'],
         ];
+        return LicenseWorkFormRequest::attributes($rules);
     }
     public function attributes()
     {
@@ -44,6 +45,7 @@ class UpdateHolidayRequest extends FormRequest
             'approvalName'=>'Nombre de quien aprueba',
             'registerName'=>'SENECYT Talento Humano',
         ];
+        return LicenseWorkFormRequest::attributes($attributes);
     }
 }
 

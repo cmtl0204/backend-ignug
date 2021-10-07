@@ -24,11 +24,11 @@ class DependenceController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $dependence = Dependence::customOrderBy($sorts)
+        $dependences = Dependence::customOrderBy($sorts)
             ->name($request->input('name'))
             ->paginate($request->per_page);
 
-        return (new DependenceCollection($dependence))
+        return (new DependenceCollection($dependences))
             ->additional([
                 'msg' => [
                     'summary' => 'success',

@@ -156,10 +156,10 @@ Route::prefix('state/{state}')->group(function () {
 });
 
 /***********************************************************************************************************************
- *ROUTE DEPENDENCE 
+ *ROUTE DEPENDENCE
  **********************************************************************************************************************/
 
-Route::apiResource('dependence',DependenceController ::class);
+Route::apiResource('dependences',DependenceController ::class);
 
 
 Route::prefix('dependence')->group(function () {

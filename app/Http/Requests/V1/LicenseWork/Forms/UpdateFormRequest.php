@@ -24,7 +24,7 @@ class UpdateFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules= [
             'code'=>['required'],
             'description'=>['required'],
             'regime'=>['required'],

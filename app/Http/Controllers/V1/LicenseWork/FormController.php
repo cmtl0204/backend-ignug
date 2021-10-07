@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\V1\LicenseWork;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\LicenseWork\Forms\DestroysFormRequest;
 use App\Http\Requests\V1\LicenseWork\Forms\IndexFormRequest;
+use App\Http\Requests\V1\LicenseWork\Forms\StoreFormRequest;
+use App\Http\Requests\V1\LicenseWork\Forms\UpdateFormRequest;
+use App\Http\Resources\V1\LicenseWork\FormCollection;
+use App\Http\Resources\V1\LicenseWork\FormResource;
+use App\Models\LicenseWork\Employer;
 use Illuminate\Http\Request;
 use App\Models\LicenseWork\Form;
 
@@ -17,13 +23,12 @@ class FormController extends Controller
     public function index(IndexFormRequest $request)
     {
         $sorts = explode(',', $request->sort);
-        $froms = From::customOrderBy($sorts)
-            ->paginate($request->per_page)
+
+        $forms = Form::customOrderBy($sorts)
+
             ->code($request->input('code'))
             ->regime($request->input('regime'))
-            ->orderBy($request->input('orderBy'));
-
-
+            ->paginate($request->per_page);
 
         return (new FormCollection($forms))
             ->additional([
@@ -95,8 +100,6 @@ class FormController extends Controller
 
         $form->employer()
             ->associate(Employer::find($request->input('employer.id')));
-
-
         $form->code= $request->input('code');
         $form->description= $request->input('description');
         $form->regime= $request->input('regime');
