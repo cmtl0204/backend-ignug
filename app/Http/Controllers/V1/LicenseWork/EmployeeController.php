@@ -87,7 +87,7 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
 
-         $employee->users()
+         $employee->user()
             ->associate(User::find($request->input('user.id')));
          $employee->save();
 

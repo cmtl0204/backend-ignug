@@ -133,10 +133,6 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function  employees(){
-        return $this->hasMany(Employee::class);
-    }
-
     public function dependences(){
         return $this->belongsToMany(Dependence::class);
     }

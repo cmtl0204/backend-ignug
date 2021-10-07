@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLicenseDependenceTable extends Migration
+class CreateLicenseDependencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -35,6 +35,6 @@ class CreateLicenseDependenceTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('dependences');         
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('dependences');
     }
 }

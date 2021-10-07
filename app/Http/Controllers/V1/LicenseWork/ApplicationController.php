@@ -112,10 +112,9 @@ class ApplicationController extends Controller
             ->associate(Location::find($request->input('location.id')));
 
         $application->type()
-            ->associate(Catalogue::find($request->input('catalogue.id')));
+            ->associate(Catalogue::find($request->input('type.id')));
 
-        $application->type = $request->input('registrationAt');
-        $application->date_started_at = $request->input('timeEndedAt');
+        $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
         $application->time_started_at = $request->input('timeStartedAt');
         $application->time_ended_at = $request->input('timeEndedAt');
@@ -160,8 +159,8 @@ class ApplicationController extends Controller
 
     public function destroys(DestroysApplicationRequest $request)
     {
-        $applications = ApplicationResource::whereIn('id', $request->input('ids'))->get();
-        ApplicationResource::destroy($request->input('ids'));
+        $applications = Application::whereIn('id', $request->input('ids'))->get();
+        Application::destroy($request->input('ids'));
 
         return (new ApplicationCollection($applications))
             ->additional([

@@ -19,7 +19,7 @@ class CreateLicenseDependenceUserTable extends Migration
 
             $table->foreignId('dependence_id')
              ->comment('FK de dependence')
-             ->constrained('license_work_dependences');
+             ->constrained('license_work.dependences');
 
              $table->foreignId('user_id')
              ->comment('FK de Users')
@@ -38,6 +38,6 @@ class CreateLicenseDependenceUserTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('dependence_user');         
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('dependence_user');
     }
 }

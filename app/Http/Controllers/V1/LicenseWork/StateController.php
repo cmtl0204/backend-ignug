@@ -122,8 +122,8 @@ class StateController extends Controller
 
     public function destroys(DestroysStateRequest $request)
     {
-        $states = StateResource::whereIn('id', $request->input('ids'))->get();
-        StateResource::destroy($request->input('ids'));
+        $states = State::whereIn('id', $request->input('ids'))->get();
+        State::destroy($request->input('ids'));
 
         return (new StateCollection($states))
             ->additional([

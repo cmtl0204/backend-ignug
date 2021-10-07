@@ -14,7 +14,7 @@ class State extends Model
     ];
 
     function forms(){
-        return $this->belongsToMany(Form::class);
+        return $this->belongsToMany(Form::class)->withPivot('dependence_user_id');
     }
 
     // Scopes
