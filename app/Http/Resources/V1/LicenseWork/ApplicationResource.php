@@ -15,7 +15,6 @@ class ApplicationResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'data'=>[
                 'id'=>$this->id,
                 'employee'=>$this->employee,
                 'reason'=>$this->reason,
@@ -26,7 +25,6 @@ class ApplicationResource extends JsonResource
                 'timeStartedAt'=>$this->time_started_at,
                 'timeEndedAt' =>$this->time_ended_at,
                 'observations'=>$this->observations,
-            ]
         ];
     }
 }

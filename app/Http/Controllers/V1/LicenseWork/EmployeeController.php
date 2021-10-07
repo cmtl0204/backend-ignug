@@ -22,8 +22,6 @@ class EmployeeController extends Controller
 
     public function index(IndexEmployeeRequest $request)
     {
-        $sorts = explode(',', $request->sort);
-
         $employees = Employee::paginate($request->per_page);
 
         return (new EmployeeCollection($employees))

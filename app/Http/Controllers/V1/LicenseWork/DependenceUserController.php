@@ -3,31 +3,31 @@
 namespace App\Http\Controllers\V1\LicenseWork;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\LicenseWork\States\DestroysStateRequest;
-use App\Http\Requests\V1\LicenseWork\States\IndexStateRequest;
-use App\Http\Requests\V1\LicenseWork\States\StoreStateRequest;
-use App\Http\Requests\V1\LicenseWork\States\UpdateStateRequest;
-use App\Http\Resources\V1\LicenseWork\StateCollection;
-use App\Http\Resources\V1\LicenseWork\StateResource;
-use App\Models\LicenseWork\State;
+use App\Http\Requests\V1\LicenseWork\DependenceUser\DestroysDependenceUserRequest;
+use App\Http\Requests\V1\LicenseWork\DependenceUser\IndexDependenceUserRequest;
+use App\Http\Requests\V1\LicenseWork\DependenceUser\StoreDependenceRequest;
+use App\Http\Requests\V1\LicenseWork\DependenceUser\UpdateDependenceUserRequest;
+use App\Http\Resources\V1\LicenseWork\DependenceUserCollection;
+use App\Http\Resources\V1\LicenseWork\DependenceUserResource;
+use App\Models\LicenseWork\DependenceUser;
 use Illuminate\Http\Request;
 
-class StateController extends Controller
+class DependenceUserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(IndexStateRequest $request)
+    public function index(IndexDependenceUserRequest $request)
     {
         $sorts = explode(',', $request->sort);
 
-        $states = State::customOrderBy($sorts)
+        $dependenceUser = DependenceUser::customOrderBy($sorts)
             ->name($request->input('name'))
             ->paginate($request->per_page);
 
-        return (new StateCollection($states))
+        return (new DependenceUserCollection($dependenceUser))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -43,14 +43,14 @@ class StateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStateRequest $request)
+    public function store(StoreDependenceUserRequest $request)
     {
-        $state = new State();
+        $dependenceUser = new DependenceUser();
 
-        $state->name = $request->input('name');
-        $state->save();
+        $dependenceUser->name = $request->input('name');
+        $dependenceUser->save();
 
-        return (new StateResource($state))
+        return (new DependenceUserResource($dependenceUser))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Creado',
@@ -66,9 +66,9 @@ class StateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(State $state)
+    public function show(DependenceUser $dependenceUser)
     {
-        return (new StateResource($state))
+        return (new dependenceUserResource($dependenceUser))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -85,13 +85,13 @@ class StateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateStateRequest $request, State $state)
+    public function update(UpdateDependenceUserRequest $request, DependenceUser $dependenceUser)
     {
 
-        $state->name = $request->input('name');
-        $state->save();
+        $dependenceUser->name = $request->input('name');
+        $dependenceUser->save();
 
-        return (new StateResource($state))
+        return (new DependenceUserResource($dependenceUser))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Actualizado',
@@ -107,10 +107,10 @@ class StateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(State $state)
+    public function destroy(DependenceUser $dependenceUser)
     {
-        $state->delete();
-        return (new StateResource($state))
+        $dependenceUser->delete();
+        return (new DependenceUserResource($dependenceUser))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Eliminado',
@@ -120,12 +120,12 @@ class StateController extends Controller
             ]);
     }
 
-    public function destroys(DestroysStateRequest $request)
+    public function destroys(DestroysDependenceUserRequest $request)
     {
-        $states = State::whereIn('id', $request->input('ids'))->get();
-        State::destroy($request->input('ids'));
+        $dependenceUser = DependenceUserResource::whereIn('id', $request->input('ids'))->get();
+        DependenceResource::destroys($request->input('ids');
 
-        return (new StateCollection($states))
+        return (new DependenceCollection($dependenceUser))
             ->additional([
                 'msg' => [
                     'summary' => 'Registros Eliminados',
@@ -135,3 +135,4 @@ class StateController extends Controller
             ]);
     }
 }
+

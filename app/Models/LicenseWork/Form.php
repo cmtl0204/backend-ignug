@@ -23,8 +23,8 @@ class Form extends Model
         return $this->belongsTo(Employer::class);
     }
 
-    function formStates(){
-        return $this->hasMany(FormState::class);
+    function states(){
+        return $this->belongsToMany(State::class)->withPivot('dependence_user_id');
     }
 
     // Scopes
