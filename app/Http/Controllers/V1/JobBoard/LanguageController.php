@@ -158,39 +158,39 @@ class LanguageController extends Controller
     /*******************************************************************************************************************
      * FILES
      *******************************************************************************************************************/
-    public function indexFiles(IndexFileRequest $request, Language $language)
-    {
-        return $language->indexFiles($request);
-    }
+    // public function indexFiles(IndexFileRequest $request, Language $language)
+    // {
+    //     return $language->indexFiles($request);
+    // }
 
-    public function uploadFile(UploadFileRequest $request, Language $languaje)
-    {
-        return $languaje->uploadFile($request);
-    }
+    // public function uploadFile(UploadFileRequest $request, Language $languaje)
+    // {
+    //     return $languaje->uploadFile($request);
+    // }
 
-    public function downloadFile(Language $language, File $file)
-    {
-        return $language->downloadFile($file);
-    }
+    // public function downloadFile(Language $language, File $file)
+    // {
+    //     return $language->downloadFile($file);
+    // }
 
-    public function showFile(Language $language, File $file)
-    {
-        return $language->showFile($file);
-    }
+    // public function showFile(Language $language, File $file)
+    // {
+    //     return $language->showFile($file);
+    // }
 
-    public function updateFile(UpdateFileRequest $request, Language $language, File $file)
-    {
-        return $language->updateFile($request, $file);
-    }
+    // public function updateFile(UpdateFileRequest $request, Language $language, File $file)
+    // {
+    //     return $language->updateFile($request, $file);
+    // }
 
-    public function destroyFile(Language $language, File $file)
-    {
-        return $language->destroyFile($file);
-    }
+    // public function destroyFile(Language $language, File $file)
+    // {
+    //     return $language->destroyFile($file);
+    // }
 
-    public function destroyFiles(Language $languaje, DestroysFileRequest $request)
-    {
-        return $language->destroyFiles($request);
-    }
+    // public function destroyFiles(Language $language, DestroysFileRequest $request)
+    // {
+    //     return $language->destroyFiles($request);
+    // }
 }
 
