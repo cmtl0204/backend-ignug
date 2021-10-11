@@ -16,6 +16,7 @@ class ReferenceResource extends JsonResource
     {
          return [
             'id' => $this->id,
+            'position' => $this->position,
             'contactName' => $this->contact_name,
             'contactPhone' => $this->contact_phone,
             'contactEmail' => $this->contact_email,
