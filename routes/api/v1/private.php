@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Core\UserController;
+use App\Http\Controllers\V1\JobBoard\ProfessionalController;
 use App\Http\Controllers\V1\Core\FileController;
 use App\Http\Controllers\V1\Core\CatalogueController;
 use App\Http\Controllers\V1\JobBoard\AcademicFormationController;
@@ -61,6 +62,38 @@ Route::prefix('file')->group(function () {
 
 Route::prefix('file/{file}')->group(function () {
     Route::get('download', [FileController::class, 'download']);
+});
+
+/***********************************************************************************************************************
+ * PROFESSIONALS
+ **********************************************************************************************************************/
+Route::apiResource('professionals', ProfessionalController::class);
+
+Route::prefix('professional')->group(function () {
+    Route::patch('destroys', [ProfessionalController::class, 'destroys']);
+    Route::put('profile/{professional}', [ProfessionalController::class, 'updateProfile']);
+    Route::get('profile/{professional}', [ProfessionalController::class, 'getProfile']);
+});
+
+Route::prefix('professional/{professional}')->group(function () {
+    Route::prefix('file')->group(function () {
+        Route::get('{file}/download', [ProfessionalController::class, 'downloadFile']);
+        Route::get('', [ProfessionalController::class, 'indexFiles']);
+        Route::get('{file}', [ProfessionalController::class, 'showFile']);
+        Route::post('', [ProfessionalController::class, 'uploadFile']);
+        Route::put('{file}', [ProfessionalController::class, 'updateFile']);
+        Route::delete('{file}', [ProfessionalController::class, 'destroyFile']);
+        Route::patch('', [ProfessionalController::class, 'destroyFiles']);
+    });
+    Route::prefix('image')->group(function () {
+        Route::get('{image}/download', [ProfessionalController::class, 'downloadImage']);
+        Route::get('', [ProfessionalController::class, 'indexImages']);
+        Route::get('{image}', [ProfessionalController::class, 'showImage']);
+        Route::post('', [ProfessionalController::class, 'uploadImage']);
+        Route::put('{image}', [ProfessionalController::class, 'updateImage']);
+        Route::delete('{image}', [ProfessionalController::class, 'destroyImage']);
+        Route::patch('', [ProfessionalController::class, 'destroyImages']);
+    });
 });
 
 /***********************************************************************************************************************

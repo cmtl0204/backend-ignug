@@ -7,6 +7,7 @@ use App\Models\Core\Email;
 use App\Models\Core\File;
 use App\Models\Core\Image;
 use App\Models\Core\Phone;
+use App\Models\JobBoard\Professional;
 use App\Traits\EmailTrait;
 use App\Traits\FileTrait;
 use App\Traits\ImageTrait;
@@ -76,6 +77,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     ];
 
     // Relationships
+
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');
@@ -84,6 +86,11 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function professional()
+    {
+        return $this->hasOne(Professional::class);
     }
 
     public function phones()

@@ -131,7 +131,7 @@ class CategoryController extends Controller
             ]);
     }
 
-    function getProfessionalDegrees()
+    public function getProfessionalDegrees()
     {
         $professionalDegrees = Category::whereNotNull('parent_id')->orderBy('name')->get();
 

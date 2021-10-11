@@ -111,6 +111,7 @@ class JobBoardSeeder extends Seeder
             'type' => $catalogues['catalogue']['offer_experience_time']['type']
         ]);
     }
+
     private function createCategories()
     {
         Category::factory(10)->create();
@@ -165,21 +166,21 @@ class JobBoardSeeder extends Seeder
     private function createCategoryOffers()
     {
         Offer::factory(5)
-        ->has(Category::factory()->count(3))
-        ->create();
+            ->has(Category::factory()->count(3))
+            ->create();
     }
 
     private function createCompanyProfessionals()
     {
         Professional::factory(5)
-        ->has(Company::factory()->count(3))
-        ->create();
+            ->has(Company::factory()->count(3))
+            ->create();
     }
 
     private function createOfferProfessionals()
     {
         Professional::factory(5)
-        ->has(Offer::factory()->count(3))
-        ->create();
+            ->has(Offer::factory()->count(3))
+            ->create();
     }
 }

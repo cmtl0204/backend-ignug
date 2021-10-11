@@ -6,47 +6,28 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 
 //Models
+use App\Http\Resources\V1\JobBoard\ProfileResource;
 use App\Models\Core\Catalogue;
 use App\Models\Core\Address;
-use App\Models\Authentication\User;
 use App\Models\JobBoard\Professional;
 use App\Models\Core\Location;
 
 // FormRequest
-use App\Http\Requests\V1\JobBoard\Professional\StoreProfessionalRequest;
-use App\Http\Requests\V1\JobBoard\Professional\GetProfessionalRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\V1\JobBoard\Professional\UpdateProfessionalRequest;
 
 class ProfessionalController extends Controller
 {
-    function getProfessional(GetProfessionalRequest $request)
+    function getProfile(Professional $professional)
     {
-
-        $professional = $request->user()->professional()->with(['user' => function ($user) {
-            $user->with('gender', 'sex')
-                ->with(['address' => function ($address) {
-                    $address->with([
-                        'location' => function ($location) {
-                            $location->with('parent');
-                        }, 'sector'
-                    ]);
-                }]);
-        }])->first();
-        if (!$professional) {
-            return response()->json([
-                'data' => $professional,
+        return (new ProfileResource($professional))
+            ->additional([
                 'msg' => [
-                    'summary' => 'professional no encontrada',
-                    'detail' => 'Vuelva a intentar',
-                    'code' => '404',
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        // $course = $professional->course()->with('professional')->first();
-        // $skill = $professional->skill()->with('professional')->first();
-
-        return response()->json([
+            ]);return response()->json([
             'data' => $professional,
             'msg' => [
                 'summary' => 'success',
@@ -92,7 +73,7 @@ class ProfessionalController extends Controller
         ], 200);
     }
 
-    function updateProfessional(UpdateProfessionalRequest $request)
+    function updateProfile(UpdateProfessionalRequest $request, Professional $professional)
     {
         // Crea una instanacia del modelo Catalogue para poder actualizar en el modelo Professional.
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);

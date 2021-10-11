@@ -16,7 +16,7 @@ class CategoryResource extends JsonResource
     {
          return [
             'id' => $this->id,
-            'parent' => CategoryResource::make($this->parent_id),
+            'parent' => CategoryResource::make($this->parent),
             'code' => $this->code,
             'name' => $this->name,
             'icon' => $this->icon,
