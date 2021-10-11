@@ -11,6 +11,7 @@ use App\Http\Resources\V1\LicenseWork\ApplicationCollection;
 use App\Http\Resources\V1\LicenseWork\ApplicationResource;
 use App\Models\Core\Catalogue;
 use App\Models\Core\Location;
+use App\Models\Core\State;
 use App\Models\LicenseWork\Application;
 use App\Models\LicenseWork\Employee;
 use App\Models\LicenseWork\Reason;
@@ -168,6 +169,41 @@ class ApplicationController extends Controller
                     'summary' => 'Registros Eliminados',
                     'detail' => '',
                     'code' => '201'
+                ]
+            ]);
+    }
+
+// cuando el docente va a solicitar el permiso
+    public function requestApplication(StoreApplicationRequest $request)
+    {
+        $application = new Application();
+        $application->employee()
+            ->associate(Employee::find($request->input('employee.id')));
+
+        $application->reason()
+            ->associate(Reason::find($request->input('reason.id')));
+
+        $application->location()
+            ->associate(Location::find($request->input('location.id')));
+
+        $application->type()
+            ->associate(Catalogue::find($request->input('type.id')));
+
+        $application->date_started_at = $request->input('dateStartedAt');
+        $application->date_ended_at = $request->input('dateEndedAt');
+        $application->time_started_at = $request->input('timeStartedAt');
+        $application->time_ended_at = $request->input('timeEndedAt');
+        $application->observations = $request->input('observations');
+        $application->save();
+        $state = State::firstWhere('code','PROCESS');
+        $application->states()->attch($state);
+
+        return (new ApplicationResource($application))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
                 ]
             ]);
     }

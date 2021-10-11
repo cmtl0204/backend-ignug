@@ -127,6 +127,7 @@ Route::apiResource('applications', ApplicationController::class);
 
 Route::prefix('application')->group(function () {
     Route::patch('destroys', [ApplicationController::class, 'destroys']);
+    Route::post('request-application', [ApplicationController::class, 'requestApplication']);
 });
 
 Route::prefix('application/{application}')->group(function () {

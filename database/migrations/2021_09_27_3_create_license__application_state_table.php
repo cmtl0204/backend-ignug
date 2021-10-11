@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLicenseFormStateTable extends Migration
+class CreateLicenseApplicationStateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateLicenseFormStateTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->create('form_state', function (Blueprint $table){
+        Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->create('application_state', function (Blueprint $table){
             $table->id();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreignId('form_id')
+            $table->foreignId('application_id')
             ->comment('FK del formulario')
             ->constrained('license_work.forms');
 
@@ -26,9 +26,9 @@ class CreateLicenseFormStateTable extends Migration
             ->comment('Fk del estado')
             ->constrained('license_work.states');
 
-//            $table->foreignId('dependence_user_id')
-//            ->comment('FK de la Licencia');
-//          ->constrained('license_work.dependence_user');
+            $table->foreignId('dependence_user_id')
+            ->comment('FK de la Licencia')
+            ->nullable();
 
         });
     }
@@ -41,6 +41,6 @@ class CreateLicenseFormStateTable extends Migration
      */
     public function down()
         {
-            Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('form_state');
+            Schema::connection(env('DB_CONNECTION_LICENSE_WORK'))->dropIfExists('application_state');
         }
     }

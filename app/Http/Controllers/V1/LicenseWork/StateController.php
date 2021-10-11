@@ -26,6 +26,7 @@ class StateController extends Controller
 
         $states = State::customOrderBy($sorts)
             ->name($request->input('name'))
+            ->code($request->input('code'))
             ->paginate($request->per_page);
 
         return (new StateCollection($states))

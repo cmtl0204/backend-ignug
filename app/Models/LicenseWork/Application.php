@@ -25,6 +25,9 @@ class Application extends Model
         'observations'=>'array',
     ];
 
+    function states(){
+        return $this->belongsToMany(State::class)->withPivot('dependence_user_id');
+    }
     // dependecias
     function employee(){
         return $this->belongsTo(Employee::class);

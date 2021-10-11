@@ -11,10 +11,11 @@ class State extends Model
     protected $table='license_work.states';
     protected $fillable=[
         'name',
+        'code',
     ];
 
-    function forms(){
-        return $this->belongsToMany(Form::class)->withPivot('dependence_user_id');
+    function applications(){
+        return $this->belongsToMany(Application::class)->withPivot('dependence_user_id');
     }
 
     // Scopes
@@ -23,6 +24,12 @@ class State extends Model
     {
         if ($name) {
             return $query->orWhere('name', 'ILIKE', "%$name%");
+        }
+    }
+    public function scopeCode($query, $code)
+    {
+        if ($code) {
+            return $query->orWhere('code', 'ILIKE', "%$code%");
         }
     }
 
