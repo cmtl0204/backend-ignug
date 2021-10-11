@@ -25,7 +25,8 @@ class JobBoardSeeder extends Seeder
     public function run()
     {
         $this->createCourseCatalogues();
-        $this->createCategories();
+        // $this->createCategories();
+        $this->createAreas();
         $this->createProfessionals();
         $this->createAcademicFormations();
         $this->createLanguages();
@@ -34,7 +35,7 @@ class JobBoardSeeder extends Seeder
         $this->createCourses();
         $this->createExperiences();
         $this->createCompanies();
-        $this->createOffers();
+        // $this->createOffers();
         $this->createCategoryOffers();
         $this->createCompanyProfessionals();
         $this->createOfferProfessionals();
@@ -117,6 +118,14 @@ class JobBoardSeeder extends Seeder
         Category::factory(10)->create();
     }
 
+    private function createAreas()
+    {
+        Category::factory()
+        ->count(10)
+        ->hasChildren(5)
+        ->create();
+    }
+
     private function createProfessionals()
     {
         Professional::factory()->create(['user_id' => 1]);
@@ -165,9 +174,10 @@ class JobBoardSeeder extends Seeder
 
     private function createCategoryOffers()
     {
-        Offer::factory(5)
-            ->has(Category::factory()->count(3))
-            ->create();
+        Offer::factory()
+        ->count(10)
+        ->hasCategories(5)
+        ->create();
     }
 
     private function createCompanyProfessionals()

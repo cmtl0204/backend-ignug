@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\V1\JobBoard;
 
 use App\Http\Controllers\Controller;
-use App\Models\App\Catalogue;
 use App\Models\JobBoard\Category;
 use App\Http\Requests\V1\JobBoard\Category\StoreCategoryRequest;
 use App\Http\Requests\V1\JobBoard\Category\IndexCategoryRequest;
@@ -85,7 +84,6 @@ class CategoryController extends Controller
     function update(UpdateCategoryRequest $request, Category $category)
     {
         $parent = Category::find($request->input('parent.id'));
-
         $category->parent()->associate($parent);
         $category->code = $request->input('code');
         $category->name = $request->input('name');
