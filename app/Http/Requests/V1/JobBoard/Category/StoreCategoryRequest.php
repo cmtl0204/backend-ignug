@@ -37,7 +37,7 @@ class StoreCategoryRequest extends FormRequest
         $attributes = [
             'code' => 'código',
             'name' => 'nombre',
-            'parent.id' => 'CategoriaID'
+            'parent.id' => 'Área de estudios'
         ];
         return JobBoardFormRequest::attributes($attributes);
     }
