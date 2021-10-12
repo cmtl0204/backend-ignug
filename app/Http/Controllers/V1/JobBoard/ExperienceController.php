@@ -28,7 +28,7 @@ use App\Http\Requests\App\File\IndexFileRequest;
 class ExperienceController extends Controller
 {
     // Muestra los datos del profesional con experiencia
-    function index(IndexExperienceRequest $request, Professional $professional)
+    public function index(IndexExperienceRequest $request, Professional $professional)
     {
         $sorts = explode(',', $request->sort);
 
@@ -49,19 +49,19 @@ class ExperienceController extends Controller
             ]);
     }
 
-    function show(Professional $professional,Experience $experience)
+    public function show(Professional $professional, Experience $experience)
     {
         return (new ExperienceResource($experience))
-        ->additional([
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function store(StoreExperienceRequest $request, Professional $professional)
+    public function store(StoreExperienceRequest $request, Professional $professional)
     {
         $area = Catalogue::find($request->input('area.id'));
         $experience = new Experience();
@@ -86,7 +86,7 @@ class ExperienceController extends Controller
             ]);
     }
 
-    function update(UpdateExperienceRequest $request, Professional $professional,Experience $experience)
+    public function update(UpdateExperienceRequest $request, Professional $professional, Experience $experience)
     {
         $area = Catalogue::find($request->input('area.id'));
         $experience->employer = $request->input('employer');
@@ -109,7 +109,7 @@ class ExperienceController extends Controller
             ]);
     }
 
-    function destroy(Professional $professional, Experience $experience)
+    public function destroy(Professional $professional, Experience $experience)
     {
         $experience->delete();
         return (new ExperienceResource($experience))
@@ -121,6 +121,7 @@ class ExperienceController extends Controller
                 ]
             ]);
     }
+
     public function destroys(DestroysExperienceRequest $request)
     {
         $experiences = Experience::whereIn('id', $request->input('ids'))->get();

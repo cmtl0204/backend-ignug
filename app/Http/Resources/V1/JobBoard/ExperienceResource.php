@@ -17,8 +17,9 @@ class ExperienceResource extends JsonResource
     {
          return [
             'id' => $this->id,
-            'area' => CatalogueResource::make($this->resource),
+            'area' => CatalogueResource::make($this->area),
             'activities' => $this->activities,
+            'employer' => $this->employer,
             'endedAt' => $this->ended_at,
             'position' => $this->position,
             'reasonLeave' => $this->reason_leave,

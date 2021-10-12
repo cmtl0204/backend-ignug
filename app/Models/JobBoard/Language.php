@@ -40,17 +40,17 @@ class Language extends Model implements Auditable
         return $this->belongsTo(Professional::class);
     }
 
-    public function read_level()
+    public function readLevel()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function spoken_level()
+    public function spokenLevel()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function written_level()
+    public function writtenLevel()
     {
         return $this->belongsTo(Catalogue::class);
     }

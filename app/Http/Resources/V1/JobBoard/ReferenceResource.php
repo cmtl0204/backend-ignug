@@ -20,6 +20,7 @@ class ReferenceResource extends JsonResource
             'contactPhone' => $this->contact_phone,
             'contactEmail' => $this->contact_email,
             'institution' => $this->institution,
+            'position' => $this->position,
             'createdAt'=>$this->created_at,
             'updatedAt'=>$this->updated_at,
         ];

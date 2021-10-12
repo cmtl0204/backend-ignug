@@ -64,16 +64,16 @@ class LanguageController extends Controller
     function store(StoreLanguageRequest $request, Professional $professional)
     {
         $idiom = Catalogue::find($request->input('idiom.id'));
-        $written_level = Catalogue::find($request->input('writtenLevel.id'));
-        $spoken_level = Catalogue::find($request->input('spokenLevel.id'));
-        $read_level = Catalogue::find($request->input('readLevel.id'));
+        $writtenLevel = Catalogue::find($request->input('writtenLevel.id'));
+        $spokenLevel = Catalogue::find($request->input('spokenLevel.id'));
+        $readLevel = Catalogue::find($request->input('readLevel.id'));
 
         $language = new Language();
         $language->professional()->associate($professional);
         $language->idiom()->associate($idiom);
-        $language->written_level()->associate($written_level);
-        $language->spoken_level()->associate($spoken_level);
-        $language->read_level()->associate($read_level);
+        $language->writtenLevel()->associate($writtenLevel);
+        $language->spokenLevel()->associate($spokenLevel);
+        $language->readLevel()->associate($readLevel);
         $language->save();
 
         return (new LanguageResource($language))
@@ -89,14 +89,14 @@ class LanguageController extends Controller
     function update(UpdateLanguageRequest $request, Professional $professional,Language $language)
     {
         $idiom = Catalogue::find($request->input('idiom.id'));
-        $written_level = Catalogue::find($request->input('writtenLevel.id'));
-        $spoken_level = Catalogue::find($request->input('spokenLevel.id'));
-        $read_level = Catalogue::find($request->input('readLevel.id'));
+        $writtenLevel = Catalogue::find($request->input('writtenLevel.id'));
+        $spokenLevel = Catalogue::find($request->input('spokenLevel.id'));
+        $readLevel = Catalogue::find($request->input('readLevel.id'));
 
         $language->idiom()->associate($idiom);
-        $language->written_level()->associate($written_level);
-        $language->spoken_level()->associate($spoken_level);
-        $language->read_level()->associate($read_level);
+        $language->writtenLevel()->associate($writtenLevel);
+        $language->spokenLevel()->associate($spokenLevel);
+        $language->readLevel()->associate($readLevel);
         $language->save();
 
         return (new LanguageResource($language))
@@ -188,7 +188,7 @@ class LanguageController extends Controller
         return $language->destroyFile($file);
     }
 
-    public function destroyFiles(Language $languaje, DestroysFileRequest $request)
+    public function destroyFiles(Language $language, DestroysFileRequest $request)
     {
         return $language->destroyFiles($request);
     }

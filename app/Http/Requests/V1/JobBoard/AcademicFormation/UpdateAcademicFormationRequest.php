@@ -14,31 +14,29 @@ class UpdateAcademicFormationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'registeredAt' => [
-                'required',
-            ],
-            'senescytCode' => [
+            'professionalDegree.id' => [
                 'required',
             ],
             'certificated' => [
                 'required',
             ],
-            'professionalDegree.id' => [
-                'required',
+            'registeredAt' => [
+                'required_if:certificated,==,true',
+            ],
+            'senescytCode' => [
+                'required_if:certificated,==,true',
             ]
         ];
         return JobBoardFormRequest::rules($rules);
     }
 
-
-
     public function attributes()
     {
         $attributes = [
-            'registeredAt'=>'Fecha de registro',
-            'senescytCode'=>'Codigo de Senescyt',
-            'certificated'=>'Tiene certificado',
-            'professionalDegree.id'=>'Id de tituto de grado',
+            'registeredAt' => 'FECHA DE REGISTRO',
+            'senescytCode' => 'CÓDIGO SENESCYT',
+            'certificated' => '¿ESTÁ TITULADO?',
+            'professionalDegree.id' => 'TÍTULO',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

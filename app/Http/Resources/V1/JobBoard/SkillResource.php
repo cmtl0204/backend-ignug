@@ -17,7 +17,7 @@ class SkillResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'type' => CatalogueResource::make($this->resource),
+            'type' => CatalogueResource::make($this->type),
             'description' => $this->description,
             'createdAt'=>$this->created_at,
             'updatedAt'=>$this->updated_at,

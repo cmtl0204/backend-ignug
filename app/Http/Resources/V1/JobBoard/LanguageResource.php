@@ -17,10 +17,10 @@ class LanguageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'idiom' => CatalogueResource::make($this->resource),
-            'writtenLevel' => CatalogueResource::make($this->resource),
-            'spokenLevel' => CatalogueResource::make($this->resource),
-            'readLevel' => CatalogueResource::make($this->resource),
+            'idiom' => CatalogueResource::make($this->idiom),
+            'writtenLevel' => CatalogueResource::make($this->writtenLevel),
+            'spokenLevel' => CatalogueResource::make($this->spokenLevel),
+            'readLevel' => CatalogueResource::make($this->readLevel),
             'createdAt'=>$this->created_at,
             'updatedAt'=>$this->updated_at,
         ];

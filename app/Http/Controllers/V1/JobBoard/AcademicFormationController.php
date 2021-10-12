@@ -52,9 +52,13 @@ class AcademicFormationController extends Controller
         $academicFormation->professional()->associate($professional);
         $academicFormation->professionalDegree()->associate(Category::find($request->input('professionalDegree.id')));
 
-        $academicFormation->registered_at = $request->input('registeredAt');
-        $academicFormation->senescyt_code = $request->input('senescytCode');
         $academicFormation->certificated = $request->input('certificated');
+
+        if ($request->input('certificated')) {
+            $academicFormation->registered_at = $request->input('registeredAt');
+            $academicFormation->senescyt_code = $request->input('senescytCode');
+        }
+
         $academicFormation->save();
 
         return (new AcademicFormationResource($academicFormation))
@@ -82,10 +86,16 @@ class AcademicFormationController extends Controller
     public function update(UpdateAcademicFormationRequest $request, Professional $professional, AcademicFormation $academicFormation)
     {
         $academicFormation->professionalDegree()->associate(Category::find($request->input('professionalDegree.id')));
-
-        $academicFormation->registered_at = $request->input('registeredAt');
-        $academicFormation->senescyt_code = $request->input('senescytCode');
         $academicFormation->certificated = $request->input('certificated');
+
+        if ($request->input('certificated')) {
+            $academicFormation->registered_at = $request->input('registeredAt');
+            $academicFormation->senescyt_code = $request->input('senescytCode');
+        }else{
+            $academicFormation->registered_at = null;
+            $academicFormation->senescyt_code = null;
+        }
+
         $academicFormation->save();
 
         return (new AcademicFormationResource($academicFormation))
