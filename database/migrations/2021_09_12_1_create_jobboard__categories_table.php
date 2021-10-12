@@ -19,7 +19,9 @@ class CreateJobboardCategoriesTable extends Migration
                 ->constrained('job_board.categories')
                 ->comment('FK desde categories');
 
-            $table->string('code')->comment('Codigo de la categoria');
+            $table->string('code')
+                ->nullable()
+                ->comment('Codigo de la categoria');
 
             $table->text('name')->comment('Nombre de la categoria');
 

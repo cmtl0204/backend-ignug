@@ -14,7 +14,6 @@ use App\Http\Resources\V1\JobBoard\CategoryResource;
 
 class CategoryController extends Controller
 {
-
     function index(IndexCategoryRequest $request)
     {
         $sorts = explode(',', $request->sort);
