@@ -17,7 +17,7 @@ class ProfessionalResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => UserResource::make($this->resource),
+            'user' => UserResource::make($this->user),
             'traveled' => $this->traveled,
             'disabled' => $this->disabled,
             'familiar_disabled' => $this->familiar_disabled,
