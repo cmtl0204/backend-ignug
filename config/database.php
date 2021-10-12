@@ -92,7 +92,7 @@ return [
             'schema' => env('DB_SCHEMA_CORE', 'public'),
             'sslmode' => 'prefer',
         ],
-        'pgsql-job-board' => [
+        'pgsql-custom' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -103,7 +103,7 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'schema' => env('DB_SCHEMA_JOB_BOARD', 'public'),
+            'schema' => env('DB_SCHEMA_CUSTOM', 'public'),
             'sslmode' => 'prefer',
         ],
 

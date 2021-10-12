@@ -26,9 +26,10 @@
     },
     "module": {
         "authentication": "AUTHENTICATION",
-        "app": "APP",
-        "attendance": "ATTENDANCE",
+        "core": "CORE",
         "job_board": "JOB_BOARD",
+        "uic": "UIC",
+        "attendance": "ATTENDANCE",
         "web": "WEB",
         "teacher_eval": "TEACHER_EVAL",
         "community": "COMMUNITY",

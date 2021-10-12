@@ -3,7 +3,7 @@
 namespace App\Http\Resources\V1\Core\Authentications;
 
 use App\Http\Resources\V1\Core\Users\UserResource;
-use App\Http\Resources\V1\JobBoard\ProfessionalResource;
+use App\Http\Resources\V1\Custom\ProfessionalResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthResource extends JsonResource
