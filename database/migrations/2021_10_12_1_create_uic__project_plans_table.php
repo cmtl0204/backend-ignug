@@ -17,7 +17,7 @@ class CreateUicProjectPlansTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->string('title')
                 ->comment('Título');
 
@@ -25,12 +25,12 @@ class CreateUicProjectPlansTable extends Migration
                 ->comment('Descripción');
 
             $table->string('act_code')
-                ->comment('Código de acto');
+                ->comment('Código de acta');
 
             $table->date('approval_date')
                 ->comment('Fecha de aprobación');
 
-            $table->boolean('is_approved')
+            $table->boolean('approved')
                 ->comment('Esta aprovado');
 
             $table->json('observations')

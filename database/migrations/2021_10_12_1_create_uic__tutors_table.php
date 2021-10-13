@@ -9,7 +9,7 @@ class CreateUicTutorsTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return void 
+     * @return void
      */
     public function up()
     {
@@ -22,7 +22,7 @@ class CreateUicTutorsTable extends Migration
                 ->nullable()
                 ->constrained('uic.project_plans')
                 ->comment('FK de career');
-            
+
             $table->foreignId('teacher_id')
                 ->constrained('app.teachers')
                 ->comment('FK de teacher: id de la tabla');
@@ -32,8 +32,9 @@ class CreateUicTutorsTable extends Migration
                 ->comment('FK de type: para saber si es tutor, revisor ,etc');
 
             $table->json('observations')
-                ->comment('registro de cambios')->nullable();
-                
+                ->comment('registro de cambios')
+                ->nullable();
+
         });
     }
 

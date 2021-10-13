@@ -32,10 +32,10 @@ class CreateUicTutorShipsTable extends Migration
             $table->date('started_at')->nullable()
                 ->comment('Fecha de la tutoría');
 
-            $table->time('started_hour_at')
+            $table->time('time_started_at')
                 ->comment('Hora de inicio de la tutoría');
 
-            $table->time('ended_hour_at')
+            $table->time('time_ended_at')
                 ->comment('Hora en que terminó latutoría');
 
             $table->time('duration')

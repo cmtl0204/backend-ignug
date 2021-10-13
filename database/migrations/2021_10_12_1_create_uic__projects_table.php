@@ -35,8 +35,8 @@ class CreateUicProjectsTable extends Migration
             $table->integer('score')
                 ->comment('Puntaje');
 
-            $table->string('approved')
-                ->comment('Aprovado');
+            $table->boolean('approved')
+                ->comment('Aprobado');
 
             $table->string('total_advance')
                 ->default(0)

@@ -32,7 +32,6 @@ class CreateUicPlanningsTable extends Migration
 
             $table->string('description')->nullable()
                 ->comment('descripcion');
-
         });
     }
 

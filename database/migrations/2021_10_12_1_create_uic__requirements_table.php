@@ -9,9 +9,9 @@ class CreateUicRequirementsTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return void 
+     * @return void
      */
-    public function up() 
+    public function up()
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('requirements', function (Blueprint $table) {
             $table->id();
@@ -25,10 +25,10 @@ class CreateUicRequirementsTable extends Migration
             $table->string('name')
                 ->comment('Nombre');
 
-                $table->boolean('is_required')
+                $table->boolean('required')
                 ->comment('true si es requerido');
-                
-            $table->boolean('is_solicitable')
+
+            $table->boolean('solicited')
                 ->comment('para saber si la institución puede otorgar el requerimiento');
 
         });
