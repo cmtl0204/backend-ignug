@@ -33,6 +33,8 @@ class CreateUicMeshStudentRequirementsTable extends Migration
             $table->text('observations')
                 ->nullable()
                 ->comment('Observaciones');
+            $table->softDeletes();
+            $table->timestamps();
             
         });
     }

@@ -33,6 +33,7 @@ class CreateUicTutorsTable extends Migration
 
             $table->json('observations')
                 ->comment('registro de cambios')->nullable();
+                
         });
     }
 

@@ -30,7 +30,7 @@ class CreateUicRequirementsTable extends Migration
                 
             $table->boolean('is_solicitable')
                 ->comment('para saber si la institución puede otorgar el requerimiento');
-            
+
         });
     }
 
