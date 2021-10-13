@@ -20,7 +20,7 @@ class CreateUicRequirementsTable extends Migration
 
             $table->foreignId('career_id')
                 ->constrained('app.careers')
-                ->comment('FK desde career');
+                ->comment('FK de career');
 
             $table->string('name')
                 ->comment('Nombre');

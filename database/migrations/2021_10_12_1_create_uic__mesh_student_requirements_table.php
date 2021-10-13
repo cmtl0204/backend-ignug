@@ -20,11 +20,11 @@ class CreateUicMeshStudentRequirementsTable extends Migration
 
             $table->foreignId('mesh_student_id')
                 ->constrained('app.mesh_student')
-                ->comment('FK desde mesh_student ');
+                ->comment('FK de mesh_student ');
 
             $table->foreignId('requirement_id')
                 ->constrained('uic.requirements')
-                ->comment('FK desde requirement ');
+                ->comment('FK de requirement ');
 
             $table->boolean('is_approved')
                 ->nullable()
