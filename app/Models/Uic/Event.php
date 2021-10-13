@@ -15,14 +15,14 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
  * @property BigInteger id
  * @property string field_example
  */
-class Example extends Model implements Auditable
+class Event extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'schema.table';
+    protected $table = 'uic.events';
 
     protected $fillable = [
         'field_example',
@@ -31,9 +31,14 @@ class Example extends Model implements Auditable
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function files()
+    public function planning()
     {
-        return $this->morphMany(File::class, 'fileable');
+        return $this->belongsTo(Planning::class);
+    }
+
+    public function name()
+    {
+        return $this->belongsTo(Name::class);
     }
 
     // Scopes
@@ -61,17 +66,10 @@ class Example extends Model implements Auditable
         }
     }
 
-    public function scopeFieldExample($query, $fieldExample)
-    {
-        if ($fieldExample) {
-            return $query->where('field_example', 'ILIKE', "%$fieldExample%");
-        }
-    }
-
     // Mutators
-    public function setFieldExampleAttribute($value)
+    public function setFieldEventAttribute($value)
     {
-        $this->attributes['field_example'] = strtoupper($value);
+        $this->attributes['field_event'] = strtoupper($value);
     }
 
 }
