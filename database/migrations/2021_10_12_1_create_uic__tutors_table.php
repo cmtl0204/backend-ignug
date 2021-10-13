@@ -15,13 +15,25 @@ class CreateUicTutorsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('tutors', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreignId('project_plan_id')->nullable()->constrained('uic.project_plans');
-            $table->foreignId('teacher_id')->comment('id de la tabla')->constrained('core.teachers');
-            $table->foreignId('type_id')->comment('para saber si es tutor, revisor ,etc')->constrained('core.catalogues');
-            $table->json('observations')->comment('registro de cambios')->nullable();
+            $table->foreignId('project_plan_id')
+                ->nullable()
+                ->constrained('uic.project_plans')
+                ->comment('FK desde career');
+            
+            $table->foreignId('teacher_id')
+                ->constrained('app.teachers')
+                ->comment('FK desde teacher: id de la tabla');
+
+            $table->foreignId('type_id')
+                ->constrained('core.catalogues')
+                ->comment('FK desde type: para saber si es tutor, revisor ,etc');
+
+            $table->json('observations')
+                ->comment('registro de cambios')->nullable();
+                
         });
     }
 
@@ -32,6 +44,6 @@ class CreateUicTutorsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('tutors');
+        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('tutors');
     }
 }

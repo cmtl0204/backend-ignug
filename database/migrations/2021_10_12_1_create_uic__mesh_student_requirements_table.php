@@ -15,13 +15,24 @@ class CreateUicMeshStudentRequirementsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('mesh_student_requirements', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreignId('mesh_student_id')->constrained('core.mesh_student');
-            $table->foreignId('requirement_id')->constrained('uic.requirements');
-            $table->boolean('is_approved')->nullable();
-            $table->text('observations')->nullable();
+            $table->foreignId('mesh_student_id')
+                ->constrained('app.mesh_student')
+                ->comment('FK desde mesh_student ');
+
+            $table->foreignId('requirement_id')
+                ->constrained('uic.requirements')
+                ->comment('FK desde requirement ');
+
+            $table->boolean('is_approved')
+                ->nullable()
+                ->comment('Para saber si es aprovado');
+
+            $table->text('observations')
+                ->nullable()
+                ->comment('Observaciones');
             
         });
     }
@@ -33,6 +44,6 @@ class CreateUicMeshStudentRequirementsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('mesh_student_requirements');
+        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('mesh_student_requirements');
     }
 }
