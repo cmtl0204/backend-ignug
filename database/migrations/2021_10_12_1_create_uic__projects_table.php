@@ -15,8 +15,8 @@ class CreateUicProjectsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('projects', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreignId('enrollment_id')
                 ->constrained('uic.enrollments')
