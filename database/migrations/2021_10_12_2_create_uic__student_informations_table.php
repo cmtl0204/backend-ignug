@@ -15,20 +15,27 @@ class CreateUicStudentInformationsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('student_informations', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreignId('student_id')->constrained('core.students')
-                ->comment('FK de estudiante');
-            $table->foreignId('relation_laboral_career_id')->constrained('core.catalogues')
+            $table->foreignId('student_id')
+                ->constrained('app.students')
+                ->comment('FK de students');
+
+            $table->foreignId('relation_laboral_career_id')
+                ->constrained('core.catalogues')
                 ->nullable()
-                ->comment('FK de la empresa receptora');
-            $table->foreignId('company_area_id')->constrained('core.catalogues')
+                ->comment('FK de catalogues');
+
+            $table->foreignId('company_area_id')
+                ->constrained('core.catalogues')
                 ->nullable()
-                ->comment('FK del área de la empresa');
-            $table->foreignId('company_position_id')->constrained('core.catalogues')
+                ->comment('FK de catalogues');
+
+            $table->foreignId('company_position_id')
+                ->constrained('core.catalogues')
                 ->nullable()
-                ->comment('FK de la posición que ocupa en la empresa');
+                ->comment('FK de catalogues');
             
             $table->string('company_work')
                 ->nullable()
@@ -43,6 +50,6 @@ class CreateUicStudentInformationsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('mesh_student_requirements');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('student_informations');
     }
 }

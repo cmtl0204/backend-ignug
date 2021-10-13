@@ -15,17 +15,23 @@ class CreateUicRequirementRequestsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('requirement_requests', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreignId('requirement_id')->constrained('uic.requirements')
-            ->comment('FK requisito: true si es requerido');
-            $table->foreignId('mesh_student_id')->constrained('app.mesh_student')
-            ->comment('FK de malla a la que pertenece el estudiante');
+            $table->foreignId('requirement_id')
+                ->constrained('uic.requirements')
+                ->comment('FK de requirements: true si es requerido');
+
+            $table->foreignId('mesh_student_id')
+                ->constrained('app.mesh_student')
+                ->comment('FK de mesh_student, de malla a la que pertenece el estudiante');
             
-            $table->date('date');
+            $table->date('registered_at')
+                ->comment('true si es requerido');
+
             $table->boolean('approved')
                 ->comment('true si es requerido');
+
             $table->json('observations')
                 ->nullable()
                 ->comment('true si es requerido');
@@ -39,6 +45,6 @@ class CreateUicRequirementRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('requirement_requests');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('requirement_requests');
     }
 }

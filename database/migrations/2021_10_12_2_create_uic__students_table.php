@@ -15,14 +15,17 @@ class CreateUicStudentsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('students', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreignId('project_plan_id')->constrained('uic.project_plans')
+            $table->foreignId('project_plan_id')
+                ->constrained('uic.project_plans')
                 ->nullable()
-                ->comment('Fk plan de proyecto');
-            $table->foreignId('mesh_student_id')->constrained('core.mesh_student')
-                ->comment('FK de malla a la que pertence el estudiante');
+                ->comment('FK de project_plans');
+            
+                $table->foreignId('mesh_student_id')
+                ->constrained('app.mesh_student')
+                ->comment('FK de mesh_student');
             
             $table->json('observations')
                 ->nullable()
@@ -37,6 +40,6 @@ class CreateUicStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('students');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('students');
     }
 }
