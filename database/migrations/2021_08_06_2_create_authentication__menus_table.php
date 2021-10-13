@@ -10,28 +10,32 @@ class CreateAuthenticationMenusTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION'))->create('menus', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
 
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('authentication.menus')
-                ->comment('Un menu puede tener menus hijos');
+                ->comment('Un menu puede tener menus hijos')
+                ->constrained('authentication.menus');
 
             $table->string('label');
 
-            $table->string('router_link')->nullable();
+            $table->string('router_link')
+                ->nullable();
 
-            $table->text('description')->nullable();
+            $table->text('description')
+                ->nullable();
 
-            $table->text('color')->comment('color en hexadecimal')->default('#9c9c9c');
+            $table->text('color')
+                ->comment('color en hexadecimal')
+                ->default('#9c9c9c');
 
             $table->string('type')
                 ->nullable()
                 ->comment('Para categorizar los menus');
 
-            $table->string('icon')->nullable()->comment('Icono de la libreria que se usa en el frontend');
-
-            $table->softDeletes();
-            $table->timestamps();
+            $table->string('icon')
+                ->nullable()
+                ->comment('Icono de la libreria que se usa en el frontend');
         });
     }
 

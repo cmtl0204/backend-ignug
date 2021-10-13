@@ -1,18 +1,18 @@
 <?php
 
-namespace Database\Factories\Core;
+namespace Database\Factories\Custom;
 
-use App\Models\Core\Phone;
+use App\Models\Custom\Example;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PhoneFactory extends Factory
+class ExampleFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Phone::class;
+    protected $model = Example::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class PhoneFactory extends Factory
     public function definition()
     {
         return [
-           'number'=>$this->faker->phoneNumber(),
+            //
         ];
     }
 }

@@ -15,10 +15,15 @@ class CreateAuthenticationPasswordResetsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION'))->create('password_resets', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->index();
-            $table->string('token');
-            $table->boolean('used')->default(false);
             $table->timestamps();
+
+            $table->string('username')
+                ->index();
+
+            $table->string('token');
+
+            $table->boolean('used')
+                ->default(false);
         });
     }
 
