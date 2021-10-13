@@ -12,10 +12,18 @@ class Holiday extends Model
     protected $fillable=[
         'number_days',
         'year',
-
     ];
-    function employee(){
-        return $this->belongsTo(Employee::class);
+
+    public function calculteDaysDiscountables(){
+        return;
     }
+
+    public function calcularVacaciones(){
+        return;
+    }
+
+    function employee(){
+            return $this->belongsTo(Employee::class);
+        }
 
 }

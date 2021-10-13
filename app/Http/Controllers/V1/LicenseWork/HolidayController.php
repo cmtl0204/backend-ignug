@@ -141,5 +141,6 @@ class HolidayController extends Controller
                 ]
             ]);
 
-}
+    }
+
 }

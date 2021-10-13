@@ -1,5 +1,5 @@
 <?php
-//actualizado
+
 namespace App\Http\Controllers\V1\LicenseWork;
 
 use App\Http\Controllers\Controller;
@@ -14,6 +14,7 @@ use App\Models\Core\Location;
 use App\Models\Core\State;
 use App\Models\LicenseWork\Application;
 use App\Models\LicenseWork\Employee;
+use App\Models\LicenseWork\Form;
 use App\Models\LicenseWork\Reason;
 
 class ApplicationController extends Controller
@@ -58,6 +59,9 @@ class ApplicationController extends Controller
 
         $application->type()
             ->associate(Catalogue::find($request->input('type.id')));
+
+        $application->form()
+            ->associate(Form::find($request->input('form.id')));
 
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
@@ -114,6 +118,9 @@ class ApplicationController extends Controller
 
         $application->type()
             ->associate(Catalogue::find($request->input('type.id')));
+
+        $application->form()
+            ->associate(Form::find($request->input('form.id')));
 
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
@@ -172,9 +179,13 @@ class ApplicationController extends Controller
                 ]
             ]);
     }
-
+// seleccionar si es de licencia o permiso
+    public function selectLicenseWork ()
+    {
+        return "licencia o permiso";
+    }
 // cuando el docente va a solicitar el permiso
-    public function requestApplication(StoreApplicationRequest $request)
+    public function storeApplication(StoreApplicationRequest $request)
     {
         $application = new Application();
         $application->employee()
@@ -188,6 +199,9 @@ class ApplicationController extends Controller
 
         $application->type()
             ->associate(Catalogue::find($request->input('type.id')));
+
+        $application->form()
+            ->associate(Form::find($request->input('form.id')));
 
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
@@ -206,5 +220,22 @@ class ApplicationController extends Controller
                     'code' => '200'
                 ]
             ]);
+    }
+    // Guardar el formulario en la bandeja de formularios del empleado
+    public function saveApplication ()
+    {
+        return "guardar el formulario";
+    }
+    // subir el justificacion
+    public function uploadJustification (){
+        return "justificado cargado";
+    }
+    // generar el pdf cuando el empleado lo solicite
+    public function generateDocument (){
+        return "PDF generado";
+    }
+    // seleccionar la razon por la cual se esta solicitando la licencia o permiso
+    public function selectReason(){
+        return "Razon de la licencia o permiso";
     }
 }

@@ -22,6 +22,10 @@ class CreateLicenseApplicationsTable extends Migration
                 ->comment('Id del empleado que realiza la licencia o permiso')
                 ->constrained('license_work.employees');
 
+            $table->foreignId('form_id')
+                ->comment('Id del formulario')
+                ->constrained('license_work.forms');
+
             $table->foreignId('reason_id')
                 ->comment('Id de las razones por la cula se realiza la licencia o permiso')
                 ->constrained('license_work.reasons');

@@ -19,7 +19,15 @@ class Application extends Model
         'time_ended_at',
         'observations',
     ];
+    // procesos de calculo
 
+    // calcular el tiempo de la licencia o permiso
+    public function calculteDate(){
+        return;
+    }
+    public function calculteTime(){
+        return;
+    }
     // casts
     protected $casts=[
         'observations'=>'array',
@@ -28,7 +36,7 @@ class Application extends Model
     function states(){
         return $this->belongsToMany(State::class)->withPivot('dependence_user_id');
     }
-    // dependecias
+    // RelationShip
     function employee(){
         return $this->belongsTo(Employee::class);
     }
@@ -42,6 +50,9 @@ class Application extends Model
 
     function type(){
         return $this->belongsTo(Catalogue::class);
+    }
+    function form(){
+        return $this->belongsTo(Form::class);
     }
 
 }

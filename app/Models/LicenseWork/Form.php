@@ -18,9 +18,13 @@ class Form extends Model
         'state',
 
     ];
-
+    // RelationShip
     function employer(){
         return $this->belongsTo(Employer::class);
+    }
+
+    function applications(){
+        return $this->hasMany(Application::class);
     }
 
     // Scopes

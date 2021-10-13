@@ -127,7 +127,12 @@ Route::apiResource('applications', ApplicationController::class);
 
 Route::prefix('application')->group(function () {
     Route::patch('destroys', [ApplicationController::class, 'destroys']);
-    Route::post('request-application', [ApplicationController::class, 'requestApplication']);
+    Route::post('store-application', [ApplicationController::class, 'storeApplication']);
+    Route::post('select-license-work', [ApplicationController::class, 'selectLicenseWork']);
+    Route::patch('save-application', [ApplicationController::class, 'saveApplication']);
+    Route::patch('upload-justification', [ApplicationController::class, 'uploadJustification']);
+    Route::patch('generate-document', [ApplicationController::class, 'generateDocument']);
+    Route::patch('select-reason', [ApplicationController::class, 'selectReason']);
 });
 
 Route::prefix('application/{application}')->group(function () {
@@ -151,6 +156,8 @@ Route::apiResource('states',StateController ::class);
 
 Route::prefix('state')->group(function () {
     Route::patch('destroys', [StateController::class, 'destroys']);
+    Route::patch('update-state', [StateController::class, 'updateState']);
+    Route::patch('select-employer', [StateController::class, 'selectEmployer']);
 });
 
 Route::prefix('state/{state}')->group(function () {
