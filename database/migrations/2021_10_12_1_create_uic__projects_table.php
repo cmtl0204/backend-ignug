@@ -19,12 +19,12 @@ class CreateUicProjectsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('enrollment_id')
-                ->constrained('uic.enrollments')
-                ->comment('Inscripción');
+                ->comment('FK de : Inscripción')
+                ->constrained('uic.enrollments');
 
             $table->foreignId('project_plan_id')
-                ->constrained('uic.project_plans')
-                ->comment('Plan de proyecto');
+                ->comment('FK de : Plan de proyecto')
+                ->constrained('uic.project_plans');
 
             $table->string('title')
                 ->comment('titulo');

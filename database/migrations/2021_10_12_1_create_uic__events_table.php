@@ -19,12 +19,12 @@ class CreateUicEventsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('planning_id')
-                ->constrained('uic.plannings')
-                ->comment('FK de plannings');
+                ->comment('FK de plannings')
+                ->constrained('uic.plannings');
 
             $table->foreignId('name_id')
-                ->constrained('app.catalogues')
-                ->comment('FK de catalogues');
+                ->comment('FK de catalogues')
+                ->constrained('app.catalogues');
 
             $table->date('startedAt')
                 ->comment('fecha inicio');
