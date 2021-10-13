@@ -15,15 +15,27 @@ class CreateUicProjectPlansTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('project_plans', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
             
-            $table->string('title');
-            $table->string('description');
-            $table->string('act_code');
-            $table->date('approval_date');
-            $table->boolean('is_approved');
-            $table->json('observations')->nullable();
+            $table->string('title')
+                ->comment('Título');
+
+            $table->string('description')
+                ->comment('Descripción');
+
+            $table->string('act_code')
+                ->comment('Código de acto');
+
+            $table->date('approval_date')
+                ->comment('Fecha de aprobación');
+
+            $table->boolean('is_approved')
+                ->comment('Esta aprovado');
+
+            $table->json('observations')
+                ->nullable()
+                ->comment('Observaciones');
         });
     }
 
@@ -34,6 +46,6 @@ class CreateUicProjectPlansTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('project_plans');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('project_plans');
     }
 }
