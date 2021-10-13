@@ -33,13 +33,13 @@ class CreateUicEnrollmentsTable extends Migration
             $table->foreignId('planning_id')
                 ->constrained('uic.plannings')
                 ->comment('saber el evento al que pertenece');
-            
+
             $table->date('registered_at')
                 ->comment('Fecha matrícula');
 
             $table->string('code')
                 ->comment('');
-                
+
             $table->json('observations')
                 ->nullable()
                 ->comment('');

@@ -13,7 +13,7 @@ class CreateUicPlanningsTable extends Migration
      */
     public function up()
     {
-        Schema::connection(.env('DB_CONNECTION_UIC'))->create('plannings', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_UIC'))->create('plannings', function (Blueprint $table) {
             $table->id();
             $table->softDeletes();
             $table->timestamps();
@@ -22,17 +22,17 @@ class CreateUicPlanningsTable extends Migration
                 ->comment('FK de status: carrera');
 
             $table->string('name')->nullable()
-                ->comment('FK de status: nombre');
-                
+                ->comment('nombre');
+
             $table->date('start_date')
-                ->comment('FK de status: fecha de inicio');
+                ->comment('fecha de inicio');
 
             $table->date('end_date')
-                ->comment('FK de status: fecha fin');
+                ->comment('fecha fin');
 
             $table->string('description')->nullable()
-                ->comment('FK de staus: descripcion evento');
-            
+                ->comment('descripcion');
+
         });
     }
 

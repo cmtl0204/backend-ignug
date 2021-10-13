@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTutorShipsTable extends Migration
+class CreateUicTutorShipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTutorShipsTable extends Migration
      */
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_UIC'))->create('tutorships', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_UIC'))->create('tutor_ships', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -54,7 +54,7 @@ class CreateTutorShipsTable extends Migration
      */
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('tutorships');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('tutor_ships');
     }
-    
+
 }
