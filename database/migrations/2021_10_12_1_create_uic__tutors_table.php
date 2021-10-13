@@ -44,6 +44,6 @@ class CreateUicTutorsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('tutors');
+        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('tutors');
     }
 }

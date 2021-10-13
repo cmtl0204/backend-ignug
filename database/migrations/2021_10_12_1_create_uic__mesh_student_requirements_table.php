@@ -33,8 +33,6 @@ class CreateUicMeshStudentRequirementsTable extends Migration
             $table->text('observations')
                 ->nullable()
                 ->comment('Observaciones');
-            $table->softDeletes();
-            $table->timestamps();
             
         });
     }
@@ -46,6 +44,6 @@ class CreateUicMeshStudentRequirementsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('mesh_student_requirements');
+        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('mesh_student_requirements');
     }
 }

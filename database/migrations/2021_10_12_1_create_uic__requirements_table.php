@@ -41,6 +41,6 @@ class CreateUicRequirementsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('requirements');
+        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('requirements');
     }
 }
