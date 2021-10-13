@@ -19,18 +19,18 @@ class CreateUicRequirementRequestsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('requirement_id')
-                ->constrained('uic.requirements')
-                ->comment('FK de requirements: true si es requerido');
+                ->comment('FK de requirements: true si es requerido')
+                ->constrained('uic.requirements');
 
             $table->foreignId('mesh_student_id')
-                ->constrained('app.mesh_student')
-                ->comment('FK de mesh_student, de malla a la que pertenece el estudiante');
+                ->comment('FK de mesh_student, de malla a la que pertenece el estudiante')
+                ->constrained('app.mesh_student');
             
             $table->date('registered_at')
                 ->comment('true si es requerido');
 
             $table->boolean('approved')
-                ->comment('true si es requerido');
+                ->comment('¿Está aprobado?');
 
             $table->json('observations')
                 ->nullable()

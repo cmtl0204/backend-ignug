@@ -10,12 +10,13 @@ use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 
-
 /**
  * @property BigInteger id
- * @property string field_example
+ * @property array observations
+ * @property boolean approved
+ * @property date registered_at
  */
-class Example extends Model implements Auditable
+class RequimentRequest extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
@@ -25,15 +26,21 @@ class Example extends Model implements Auditable
     protected $table = 'schema.table';
 
     protected $fillable = [
-        'field_example',
+        'observations',
+        'registered_at'
     ];
 
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function files()
+    public function requirement()
     {
-        return $this->morphMany(File::class, 'fileable');
+        return $this->belongsTo(Requirement::class);
+    }
+
+    public function meshStudent()
+    {
+        return $this->belongsTo(MeshStudent::class);
     }
 
     // Scopes
@@ -60,18 +67,4 @@ class Example extends Model implements Auditable
             return $query->select($fields);
         }
     }
-
-    public function scopeFieldExample($query, $fieldExample)
-    {
-        if ($fieldExample) {
-            return $query->where('field_example', 'ILIKE', "%$fieldExample%");
-        }
-    }
-
-    // Mutators
-    public function setFieldExampleAttribute($value)
-    {
-        $this->attributes['field_example'] = strtoupper($value);
-    }
-
 }

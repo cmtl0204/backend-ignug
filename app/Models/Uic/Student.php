@@ -13,7 +13,7 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_example
+ * @property array observations
  */
 class Student extends Model implements Auditable
 {
@@ -31,11 +31,6 @@ class Student extends Model implements Auditable
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function files()
-    {
-        return $this->morphMany(File::class, 'fileable');
-    }
-
     public function projectPlan()
     {
         return $this->belongsTo(ProjectPlan::class);

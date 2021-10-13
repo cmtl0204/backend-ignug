@@ -2,6 +2,7 @@
 
 namespace App\Models\Uic;
 
+use App\Models\Core\Catalogue;
 use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,27 +14,42 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_example
+ * @property string company_work
  */
-class Example extends Model implements Auditable
+class StudentInformation extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'schema.table';
+    protected $table = 'uic.student_informations';
 
     protected $fillable = [
-        'field_example',
+        'company_work',
     ];
 
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function files()
+    public function student()
     {
-        return $this->morphMany(File::class, 'fileable');
+        return $this->belongsTo(Student::class);
+    }
+
+    public function relationLaboralCareer()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function companyArea()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function companyPosition()
+    {
+        return $this->belongsTo(Catalogue::class);
     }
 
     // Scopes
@@ -61,17 +77,17 @@ class Example extends Model implements Auditable
         }
     }
 
-    public function scopeFieldExample($query, $fieldExample)
+    public function scopeCompanyWork($query, $companyWork)
     {
-        if ($fieldExample) {
-            return $query->where('field_example', 'ILIKE', "%$fieldExample%");
+        if ($companyWork) {
+            return $query->where('company_work', 'ILIKE', "%$companyWork%");
         }
     }
 
     // Mutators
-    public function setFieldExampleAttribute($value)
+    public function setFieldCompanyWorkAttribute($value)
     {
-        $this->attributes['field_example'] = strtoupper($value);
+        $this->attributes['company_work'] = strtoupper($value);
     }
 
 }

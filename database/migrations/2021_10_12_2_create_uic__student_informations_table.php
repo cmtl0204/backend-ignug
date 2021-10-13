@@ -17,25 +17,25 @@ class CreateUicStudentInformationsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-
+            
             $table->foreignId('student_id')
-                ->constrained('app.students')
-                ->comment('FK de students');
+                ->comment('FK de students')
+                ->constrained('app.students');
 
             $table->foreignId('relation_laboral_career_id')
+                ->comment('FK de catalogues')
                 ->constrained('core.catalogues')
-                ->nullable()
-                ->comment('FK de catalogues');
+                ->nullable();
 
             $table->foreignId('company_area_id')
+                ->comment('FK de catalogues')
                 ->constrained('core.catalogues')
-                ->nullable()
-                ->comment('FK de catalogues');
+                ->nullable();
 
             $table->foreignId('company_position_id')
+                ->comment('FK de catalogues')
                 ->constrained('core.catalogues')
-                ->nullable()
-                ->comment('FK de catalogues');
+                ->nullable();
             
             $table->string('company_work')
                 ->nullable()

@@ -19,12 +19,12 @@ class CreateUicTutorShipsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('tutor_id')
-                ->constrained('uic.tutors')
-                ->comment('FK de tutors');
+                ->comment('FK de tutors')
+                ->constrained('uic.tutors');
 
             $table->foreignId('enrollment_id')
-                ->constrained('uic.enrollments')
-                ->comment('FK de enrollments');
+                ->comment('FK de enrollments')
+                ->constrained('uic.enrollments');
 
             $table->json('topics')->nullable()
                 ->comment('Temas tratados en la tutoría');

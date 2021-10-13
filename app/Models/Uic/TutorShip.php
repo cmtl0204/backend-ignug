@@ -13,27 +13,42 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_example
+ * @property array topics
+ * @property date started_at
+ * @property time time_started_at
+ * @property time time_ended_at
+ * @property time duration
+ * @property integer percentage_advance
  */
-class Example extends Model implements Auditable
+class TutorShip extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'schema.table';
+    protected $table = 'uic.tutor_ships';
 
     protected $fillable = [
-        'field_example',
+        'topics',
+        'started_at',
+        'time_started_at',
+        'time_ended_at',
+        'duration',
+        'percentage_advance',
     ];
 
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function files()
+    public function tutor()
     {
-        return $this->morphMany(File::class, 'fileable');
+        return $this->belongsTo(Tutor::class);
+    }
+
+    public function enrollment()
+    {
+        return $this->belongsTo(Enrollment::class);
     }
 
     // Scopes
@@ -60,18 +75,4 @@ class Example extends Model implements Auditable
             return $query->select($fields);
         }
     }
-
-    public function scopeFieldExample($query, $fieldExample)
-    {
-        if ($fieldExample) {
-            return $query->where('field_example', 'ILIKE', "%$fieldExample%");
-        }
-    }
-
-    // Mutators
-    public function setFieldExampleAttribute($value)
-    {
-        $this->attributes['field_example'] = strtoupper($value);
-    }
-
 }
