@@ -20,16 +20,16 @@ class CreateUicTutorsTable extends Migration
 
             $table->foreignId('project_plan_id')
                 ->nullable()
-                ->constrained('uic.project_plans')
-                ->comment('FK de career');
+                ->comment('FK de project_plan')
+                ->constrained('uic.project_plans');
 
             $table->foreignId('teacher_id')
-                ->constrained('app.teachers')
-                ->comment('FK de teacher: id de la tabla');
+                ->comment('FK de teacher: id de la tabla')
+                ->constrained('app.teachers');
 
             $table->foreignId('type_id')
-                ->constrained('core.catalogues')
-                ->comment('FK de type: para saber si es tutor, revisor ,etc');
+                ->comment('FK de type: para saber si es tutor, revisor ,etc')
+                ->constrained('core.catalogues');
 
             $table->json('observations')
                 ->comment('registro de cambios')
