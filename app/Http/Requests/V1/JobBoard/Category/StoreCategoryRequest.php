@@ -16,9 +16,9 @@ class StoreCategoryRequest extends FormRequest
     {
         $rules = [
             'code' => [
-                'required',
-                'min:3',
-                'max:20',
+                // 'required',
+                // 'min:3',
+                // 'max:20',
             ],
             'name' => [
                 'required',

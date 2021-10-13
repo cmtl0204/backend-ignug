@@ -10,7 +10,9 @@ use App\Http\Requests\V1\JobBoard\Category\UpdateCategoryRequest;
 use App\Http\Requests\V1\JobBoard\Category\DestroysCategoryRequest;
 use App\Http\Requests\V1\JobBoard\Category\GetAreasRequest;
 use App\Http\Resources\V1\JobBoard\CategoryCollection;
+use App\Http\Resources\V1\JobBoard\ProfessionalDegreeCollection;
 use App\Http\Resources\V1\JobBoard\CategoryResource;
+use App\Http\Resources\V1\JobBoard\AreaResource;
 
 class CategoryController extends Controller
 {
@@ -59,7 +61,7 @@ class CategoryController extends Controller
             ]);
     }
 
-    function store(StoreCategoryRequest $request)
+    function storeProfessionalDegree(StoreCategoryRequest $request)
     {
         $parent = Category::find($request->input('parent.id'));
 
@@ -80,9 +82,27 @@ class CategoryController extends Controller
             ]);
     }
 
-    function update(UpdateCategoryRequest $request, Category $category)
+    function storeArea(StoreCategoryRequest $request)
+    {
+        $category = new Category();
+        $category->code = $request->input('code');
+        $category->name = $request->input('name');
+        $category->save();
+
+        return (new CategoryResource($category))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    function updateProfessionalDegree(UpdateCategoryRequest $request, Category $category)
     {
         $parent = Category::find($request->input('parent.id'));
+        
         $category->parent()->associate($parent);
         $category->code = $request->input('code');
         $category->name = $request->input('name');
@@ -90,6 +110,22 @@ class CategoryController extends Controller
         $category->save();
 
         return (new CategoryResource($category))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    function updateArea(UpdateCategoryRequest $request, Category $category)
+    {
+        $category->code = $request->input('code');
+        $category->name = $request->input('name');
+        $category->save();
+
+        return (new AreaResource($category))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Actualizado',
@@ -132,7 +168,7 @@ class CategoryController extends Controller
     {
         $professionalDegrees = Category::whereNotNull('parent_id')->orderBy('name')->get();
 
-        return (new CategoryCollection($professionalDegrees))
+        return (new ProfessionalDegreeCollection($professionalDegrees))
             ->additional([
                 'msg' => [
                     'summary' => 'success',

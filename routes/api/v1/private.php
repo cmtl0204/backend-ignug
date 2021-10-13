@@ -235,7 +235,11 @@ Route::apiResource('categories', CategoryController::class);
 Route::prefix('category')->group(function () {
     Route::patch('destroys', [CategoryController::class, 'destroys']);
     Route::get('professional-degrees', [CategoryController::class, 'getProfessionalDegrees']);
+    Route::post('professional-degrees', [CategoryController::class, 'storeProfessionalDegree']);
+    Route::put('professional-degrees/{professionalDegree}', [CategoryController::class, 'updateProfessionalDegree']);
     Route::get('areas', [CategoryController::class, 'getAreas']);
+    Route::post('areas', [CategoryController::class, 'storeArea']);
+    Route::put('areas/{area}', [CategoryController::class, 'updateArea']);
 });
 
 Route::prefix('category/{category}')->group(function () {
