@@ -15,13 +15,22 @@ class CreateUicEventsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('events', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreignId('planning_id')->constrained('uic.plannings');
-            $table->foreignId('name_id')->constrained('core.catalogues');
-            $table->date('startedAt')->comment('fecha inicio');
-            $table->date('endedAt')->comment('fecha fin');
+            $table->foreignId('planning_id')
+                ->constrained('uic.plannings')
+                ->comment('FK de plannings');
+
+            $table->foreignId('name_id')
+                ->constrained('app.catalogues')
+                ->comment('FK de catalogues');
+
+            $table->date('startedAt')
+                ->comment('fecha inicio');
+
+            $table->date('endedAt')
+                ->comment('fecha fin');
         });
     }
 
@@ -32,6 +41,6 @@ class CreateUicEventsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('events');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('events');
     }
 }

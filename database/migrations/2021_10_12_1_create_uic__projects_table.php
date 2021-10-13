@@ -15,15 +15,40 @@ class CreateUicProjectsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('projects', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreignId('enrollment_id')->constrained('uic.enrollments');
-            $table->foreignId('project_plan_id')->constrained('uic.project_plans');
-            $table->string('title')->comment('titulo');
-            $table->string('description');
-            $table->integer('score');
-            $table->json('observations')->nullable();
+            $table->foreignId('enrollment_id')
+                ->constrained('uic.enrollments')
+                ->comment('Inscripción');
+
+            $table->foreignId('project_plan_id')
+                ->constrained('uic.project_plans')
+                ->comment('Plan de proyecto');
+
+            $table->string('title')
+                ->comment('titulo');
+
+            $table->string('description')
+                ->comment('Descripcion');
+
+            $table->integer('score')
+                ->comment('Puntaje');
+
+            $table->string('approved')
+                ->comment('Aprovado');
+
+            $table->string('total_advance')
+                ->default(0)
+                ->comment('Avance');
+
+            $table->string('tutor_asigned')
+                ->default(false)
+                ->comment('Tutor asignado');
+
+            $table->json('observations')
+                ->nullable()
+                ->comment('Observaciones');
         });
     }
 
@@ -34,6 +59,6 @@ class CreateUicProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('projects');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('projects');
     }
 }
