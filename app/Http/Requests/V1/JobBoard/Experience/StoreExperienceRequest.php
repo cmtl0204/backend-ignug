@@ -32,7 +32,11 @@ class StoreExperienceRequest extends FormRequest
                 'required',
                 'date',
             ],
-            'endedAt' => [],
+            'endedAt' => [
+                'date',
+                'nullable',
+                'required_if:worked,==,true',
+            ],
             'activities' => [
                 'required',
                 'array',
@@ -52,7 +56,7 @@ class StoreExperienceRequest extends FormRequest
         $attributes = [
             'area.id' => 'area-ID',
             'employer' => 'nombre de empleadora',
-            'position' => 'posicion',
+            'position' => 'Cargo que ocupó',
             'startedAt' => 'fecha inicio',
             'endedAt' => 'fecha fin',
             'activities' => 'ocupaciones',

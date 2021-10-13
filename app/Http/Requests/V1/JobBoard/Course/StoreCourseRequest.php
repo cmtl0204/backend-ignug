@@ -29,6 +29,7 @@ class StoreCourseRequest extends FormRequest
                 'required',
             ],
             'description' => [
+                'nullable',
                 'min:10',
             ],
             'startedAt' => [

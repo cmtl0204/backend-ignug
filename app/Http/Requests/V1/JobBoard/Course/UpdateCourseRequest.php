@@ -29,6 +29,7 @@ class UpdateCourseRequest extends FormRequest
             ],
             'description' => [
                 'min:10',
+                'nullable',
             ],
             'startedAt' => [
                 'required',

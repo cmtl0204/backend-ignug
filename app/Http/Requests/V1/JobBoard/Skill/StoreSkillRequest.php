@@ -16,7 +16,7 @@ class StoreSkillRequest extends FormRequest
     {
         $rules = [
             'description' => [
-                'required',
+                'nullable',
                 'min:10',
                 'max:1000',
             ],

@@ -32,7 +32,11 @@ class UpdateExperienceRequest extends FormRequest
                 'required',
                 'date',
             ],
-            'endedAt' => [],
+            'endedAt' => [
+                'date',
+                'nullable',
+                'required_if:worked,==,true',
+            ],
             'activities' => [
                 'required',
                 'array',

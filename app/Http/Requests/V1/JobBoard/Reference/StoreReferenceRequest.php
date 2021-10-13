@@ -45,7 +45,7 @@ class StoreReferenceRequest extends FormRequest
     {
         $attributes = [
             'institution' => 'institución',
-            'position' => 'posición',
+            'position' => 'cargo que ocupó',
             'contactName' => 'nombre de contacto',
             'contactPhone' => 'teléfono de contacto',
             'contactEmail' => 'email de contacto',
