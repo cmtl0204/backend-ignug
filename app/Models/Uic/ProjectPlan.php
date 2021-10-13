@@ -13,7 +13,11 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_example
+ * @property string field_title
+ * @property string field_act_code
+ * @property date field_approval_date
+ * @property boolean field_act_code
+ * @property array observations
  */
 class ProjectPlan extends Model implements Auditable
 {
@@ -31,15 +35,6 @@ class ProjectPlan extends Model implements Auditable
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function files()
-    {
-        return $this->morphMany(File::class, 'fileable');
-    }
-
-    public function student()
-    {
-        return $this->hasOne(Student::class);
-    }
 
     // Scopes
     public function scopeCustomOrderBy($query, $sorts)
@@ -66,17 +61,17 @@ class ProjectPlan extends Model implements Auditable
         }
     }
 
-    public function scopeFieldExample($query, $fieldExample)
+    public function scopeFieldExample($query, $fieldProjectPlan)
     {
-        if ($fieldExample) {
-            return $query->where('field_example', 'ILIKE', "%$fieldExample%");
+        if ($fieldProjectPlan) {
+            return $query->where('field_ProjectPlan', 'ILIKE', "%$fieldProjectPlan%");
         }
     }
 
     // Mutators
-    public function setFieldExampleAttribute($value)
+    public function setFieldProjectPlanAttribute($value)
     {
-        $this->attributes['field_example'] = strtoupper($value);
+        $this->attributes['field_ProjectPlan'] = strtoupper($value);
     }
 
 }

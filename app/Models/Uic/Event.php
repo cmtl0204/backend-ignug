@@ -13,7 +13,8 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_example
+ * @property date startedAt
+ * @property date endedAt
  */
 class Event extends Model implements Auditable
 {
