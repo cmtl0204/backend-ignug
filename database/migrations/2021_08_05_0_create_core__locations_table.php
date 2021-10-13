@@ -10,6 +10,8 @@ class CreateCoreLocationsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('locations', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->foreignId('type_id')
                 ->nullable()
@@ -49,9 +51,6 @@ class CreateCoreLocationsTable extends Migration
 
             $table->json('timezones')
                 ->nullable();
-
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 

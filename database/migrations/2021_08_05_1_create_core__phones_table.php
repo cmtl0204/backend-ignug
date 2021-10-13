@@ -15,31 +15,27 @@ class CreateCorePhonesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('phones', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+            $table->softDeletes();
+
             $table->morphs('phoneable');
 
             $table->foreignId('operator_id')
                 ->nullable()
-                ->constrained('core.catalogues')
-                ->comment('CNT, MOVISTAR, CLARO');
+                ->comment('CNT, MOVISTAR, CLARO')
+                ->constrained('core.catalogues');
 
             $table->foreignId('location_id')
                 ->nullable()
-                ->constrained('core.locations')
-                ->comment('Para obtener el codido de pais');
+                ->comment('Para obtener el codido de pais')
+                ->constrained('core.locations');
 
             $table->foreignId('type_id')
                 ->nullable()
-                ->constrained('core.catalogues')
-                ->comment('Celular, convencional, fax');
-
-            $table->boolean('main')
-                ->default(false)
-                ->comment('Para saber si es el telefono principal');
+                ->comment('Celular, convencional, fax')
+                ->constrained('core.catalogues');
 
             $table->string('number');
-
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 

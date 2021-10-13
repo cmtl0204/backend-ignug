@@ -10,6 +10,8 @@ class CreateCoreAddressTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('address', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->foreignId('location_id')
                 ->constrained('core.locations');
@@ -37,9 +39,6 @@ class CreateCoreAddressTable extends Migration
 
             $table->double('longitude')
                 ->nullable();
-
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 

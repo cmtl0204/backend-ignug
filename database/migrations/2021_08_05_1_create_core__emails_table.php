@@ -15,12 +15,18 @@ class CreateCoreEmailsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('emails', function (Blueprint $table) {
             $table->id();
-            $table->morphs('emailable');
-            $table->string('email');
-            $table->string('domain')->nullable();
-            $table->string('icon')->nullable();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->morphs('emailable');
+
+            $table->string('email');
+
+            $table->string('domain')
+                ->nullable();
+
+            $table->string('icon')
+                ->nullable();
         });
     }
 
