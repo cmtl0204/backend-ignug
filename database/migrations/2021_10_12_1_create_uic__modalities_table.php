@@ -15,16 +15,25 @@ class CreateUicModalitiesTable extends Migration
             $table->timestamps();
             
             $table->foreignId('parent_id')->references('id')->on('modalities')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('career_id')->constrained('core.careers');
-            $table->string('name')->comment('nombre modalidad PT EC');
-            $table->text('description')->nullable();
-            $table->foreignId('status_id')->constrained('core.status')->comment('saber vigencia');
+
+            $table->foreignId('status_id')
+                ->constrained('core.status')
+                ->comment('FK de status: saber vigencia');
             
+            $table->foreignId('career_id')
+                ->constrained('core.careers')
+                ->comment('FK de status: nombre carrera');
+
+            $table->string('name')
+                ->comment('FK de status: nombre modalidad PT EC');
+
+            $table->text('description')->nullable()
+                ->comment('FK de status: nombre modalidad ');            
         });
     }
 
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('modalities');
+        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('modalities');
     }
 }

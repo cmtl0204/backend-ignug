@@ -18,11 +18,20 @@ class CreateUicPlanningsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreignId('career_id')->constrained('core.careers');
-            $table->string('name')->nullable()->comment('UIC 2021-1');
-            $table->date('start_date')->comment('fecha inicio');
-            $table->date('end_date')->comment('fecha fin');
-            $table->string('description')->nullable()->comment('descripcion evento');
+            $table->foreignId('career_id')
+                ->comment('FK de status: carrera');
+
+            $table->string('name')->nullable()
+                ->comment('FK de status: nombre');
+                
+            $table->date('start_date')
+                ->comment('FK de status: fecha de inicio');
+
+            $table->date('end_date')
+                ->comment('FK de status: fecha fin');
+
+            $table->string('description')->nullable()
+                ->comment('FK de staus: descripcion evento');
             
         });
     }
@@ -34,6 +43,6 @@ class CreateUicPlanningsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('pgsql-uic')->dropIfExists('plannings');
+        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('plannings');
     }
 }
