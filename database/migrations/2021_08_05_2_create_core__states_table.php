@@ -10,8 +10,8 @@ class CreateCoreStatesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('states', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->string('code');
 
