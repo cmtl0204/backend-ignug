@@ -9,7 +9,7 @@ use App\Http\Requests\V1\Custom\Example\StoreCustomRequest;
 use App\Http\Requests\V1\Custom\Example\UpdateCustomRequest;
 use App\Http\Resources\V1\Custom\ExampleCollection;
 use App\Http\Resources\V1\Custom\ExampleResource;
-use App\Models\Custom\Example;
+use App\Models\Uic\Example;
 
 class ExampleController extends Controller
 {

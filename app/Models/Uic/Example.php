@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models\Custom;
+namespace App\Models\Uic;
 
+use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -27,17 +28,12 @@ class Example extends Model implements Auditable
         'field_example',
     ];
 
-//    protected $cascadeDeletes = ['files'];
+    protected $cascadeDeletes = ['files'];
 
     // Relationships
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');
-    }
-
-    public function images()
-    {
-        return $this->morphMany(Image::class, 'imageable');
     }
 
     // Scopes

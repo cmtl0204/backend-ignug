@@ -7,7 +7,7 @@ use App\Models\Core\Email;
 use App\Models\Core\File;
 use App\Models\Core\Image;
 use App\Models\Core\Phone;
-use App\Models\Custom\Professional;
+use App\Models\Uic\Professional;
 use App\Traits\EmailTrait;
 use App\Traits\FileTrait;
 use App\Traits\ImageTrait;

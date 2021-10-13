@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Custom;
 
-use App\Models\Custom\Example;
+use App\Models\Uic\Example;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ExampleFactory extends Factory
