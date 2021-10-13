@@ -10,13 +10,20 @@ class CreateCoreImagesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('images', function (Blueprint $table) {
             $table->id();
-            $table->morphs('imageable');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('extension');
-            $table->text('directory')->nullable();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->morphs('imageable');
+
+            $table->string('name');
+
+            $table->text('description')
+                ->nullable();
+
+            $table->string('extension');
+
+            $table->text('directory')
+                ->nullable();
         });
     }
 

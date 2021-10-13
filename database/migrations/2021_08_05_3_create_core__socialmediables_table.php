@@ -10,12 +10,17 @@ class CreateCoreSocialmediablesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('socialmediables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('socialmedia_id')->constrained('core.socialmedia');
-            $table->morphs('socialmediables');
-            $table->string('user');
-            $table->string('url');
             $table->timestamps();
+
             $table->unique(['socialmedia_id', 'user']);
+
+            $table->foreignId('socialmedia_id')->constrained('core.socialmedia');
+
+            $table->morphs('socialmediables');
+
+            $table->string('user');
+
+            $table->string('url');
         });
     }
 

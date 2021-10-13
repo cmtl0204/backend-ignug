@@ -10,10 +10,13 @@ class CreateCoreSocialmediaTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('socialmedia', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
+
             $table->string('name')->unique();
+
             $table->string('icon')->nullable();
+
             $table->string('logo')->nullable();
         });
     }
