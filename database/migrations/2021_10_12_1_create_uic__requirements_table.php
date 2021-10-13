@@ -19,8 +19,8 @@ class CreateUicRequirementsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('career_id')
-                ->constrained('app.careers')
-                ->comment('FK de career');
+                ->comment('FK de career')
+                ->constrained('app.careers');
 
             $table->string('name')
                 ->comment('Nombre');

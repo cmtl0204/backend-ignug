@@ -13,7 +13,9 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_example
+ * @property string name
+ * @property boolean requiered
+ * @property boolean solicited
  */
 class Example extends Model implements Auditable
 {
@@ -22,20 +24,21 @@ class Example extends Model implements Auditable
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'schema.table';
+    protected $table = 'uic.requirements';
 
     protected $fillable = [
-        'field_example',
+        'name',
     ];
 
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function files()
-    {
-        return $this->morphMany(File::class, 'fileable');
-    }
 
+    public function career()
+    {
+        return $this->belongsTo(Career::class);
+    }
+    
     // Scopes
     public function scopeCustomOrderBy($query, $sorts)
     {
@@ -52,26 +55,18 @@ class Example extends Model implements Auditable
         }
     }
 
-    public function scopeCustomSelect($query, $fields)
-    {
-        if (!empty($fields)) {
-            $fields = explode(',', $fields);
-            array_unshift($fields, 'id');
-            return $query->select($fields);
-        }
-    }
 
-    public function scopeFieldExample($query, $fieldExample)
+    public function scopeFieldName($query, $fieldName)
     {
-        if ($fieldExample) {
-            return $query->where('field_example', 'ILIKE', "%$fieldExample%");
+        if ($fieldName) {
+            return $query->where('field_name', 'ILIKE', "%$fieldName%");
         }
     }
 
     // Mutators
-    public function setFieldExampleAttribute($value)
+    public function setFieldNameAttribute($value)
     {
-        $this->attributes['field_example'] = strtoupper($value);
+        $this->attributes['field_name'] = strtoupper($value);
     }
 
 }
