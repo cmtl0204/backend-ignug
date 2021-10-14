@@ -2,6 +2,7 @@
 
 namespace App\Models\Uic;
 
+use App\Models\Core\Catalogue;
 use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -44,7 +45,7 @@ class Example extends Model implements Auditable
 
     public function type()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsTo(Catalogue::class);
     }
 
     // Scopes
@@ -63,17 +64,12 @@ class Example extends Model implements Auditable
         }
     }
 
-    public function scopeFieldObservations($query, $fieldObservations)
+    public function scopeCustomSelect($query, $fields)
     {
-        if ($fieldObservations) {
-            return $query->where('field_observations', 'ILIKE', "%$fieldObservations%");
+        if (!empty($fields)) {
+            $fields = explode(',', $fields);
+            array_unshift($fields, 'id');
+            return $query->select($fields);
         }
     }
-
-    // Mutators
-    public function setFieldObservationsAttribute($value)
-    {
-        $this->attributes['field_observations'] = strtoupper($value);
-    }
-
 }

@@ -13,7 +13,7 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property text observations
+ * @property array observations
  * @property boolean approved
  */
 class Example extends Model implements Auditable
@@ -27,6 +27,7 @@ class Example extends Model implements Auditable
 
     protected $fillable = [
         'observations',
+        'approved',
     ];
 
     protected $cascadeDeletes = ['files'];
@@ -59,17 +60,12 @@ class Example extends Model implements Auditable
         }
     }
 
-    public function scopeFieldObservations($query, $fieldObservations)
+    public function scopeCustomSelect($query, $fields)
     {
-        if ($fieldObservations) {
-            return $query->where('field_observations', 'ILIKE', "%$fieldObservations%");
+        if (!empty($fields)) {
+            $fields = explode(',', $fields);
+            array_unshift($fields, 'id');
+            return $query->select($fields);
         }
     }
-
-    // Mutators
-    public function setFieldObservationsAttribute($value)
-    {
-        $this->attributes['field_observations'] = strtoupper($value);
-    }
-
 }

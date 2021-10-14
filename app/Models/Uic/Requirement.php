@@ -14,10 +14,10 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 /**
  * @property BigInteger id
  * @property string name
- * @property boolean requiered
+ * @property boolean required
  * @property boolean solicited
  */
-class Example extends Model implements Auditable
+class Requirement extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
@@ -28,6 +28,8 @@ class Example extends Model implements Auditable
 
     protected $fillable = [
         'name',
+        'required',
+        'solicited',
     ];
 
     protected $cascadeDeletes = ['files'];
@@ -36,7 +38,7 @@ class Example extends Model implements Auditable
 
     public function career()
     {
-        return $this->belongsTo(Career::class);
+        return $this->belongsTo(Career::class,'app.careers');
     }
     
     // Scopes
@@ -55,6 +57,14 @@ class Example extends Model implements Auditable
         }
     }
 
+    public function scopeCustomSelect($query, $fields)
+    {
+        if (!empty($fields)) {
+            $fields = explode(',', $fields);
+            array_unshift($fields, 'id');
+            return $query->select($fields);
+        }
+    }
 
     public function scopeFieldName($query, $fieldName)
     {
@@ -66,7 +76,7 @@ class Example extends Model implements Auditable
     // Mutators
     public function setFieldNameAttribute($value)
     {
-        $this->attributes['field_name'] = strtoupper($value);
+        $this->attributes['name'] = strtoupper($value);
     }
 
 }

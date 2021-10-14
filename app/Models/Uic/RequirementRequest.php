@@ -23,7 +23,7 @@ class RequimentRequest extends Model implements Auditable
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'schema.table';
+    protected $table = 'uic.requirement_requests';
 
     protected $fillable = [
         'observations',

@@ -13,10 +13,11 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_title
- * @property string field_act_code
- * @property date field_approval_date
- * @property boolean field_act_code
+ * @property string title
+ * @property string description
+ * @property string act_code
+ * @property date approved_at
+ * @property boolean approved
  * @property array observations
  */
 class ProjectPlan extends Model implements Auditable
@@ -26,15 +27,18 @@ class ProjectPlan extends Model implements Auditable
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'schema.table';
+    protected $table = 'uic.project_plans';
 
     protected $fillable = [
-        'field_example',
+        'title',
+        'description',
+        'act_code',
+        'approved_at',
+        'approved',
+        'observations',
     ];
 
     protected $cascadeDeletes = ['files'];
-
-    // Relationships
 
     // Scopes
     public function scopeCustomOrderBy($query, $sorts)

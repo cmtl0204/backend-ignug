@@ -2,6 +2,7 @@
 
 namespace App\Models\Uic;
 
+use App\Models\Core\Catalogue;
 use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,8 +14,8 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property date startedAt
- * @property date endedAt
+ * @property date started_at
+ * @property date ended_at
  */
 class Event extends Model implements Auditable
 {
@@ -26,7 +27,8 @@ class Event extends Model implements Auditable
     protected $table = 'uic.events';
 
     protected $fillable = [
-        'field_example',
+        'started_at',
+        'ended_at',
     ];
 
     protected $cascadeDeletes = ['files'];
@@ -39,7 +41,7 @@ class Event extends Model implements Auditable
 
     public function name()
     {
-        return $this->belongsTo(Name::class);
+        return $this->belongsTo(Catalogue::class);
     }
 
     // Scopes
@@ -66,11 +68,4 @@ class Event extends Model implements Auditable
             return $query->select($fields);
         }
     }
-
-    // Mutators
-    public function setFieldEventAttribute($value)
-    {
-        $this->attributes['field_event'] = strtoupper($value);
-    }
-
 }

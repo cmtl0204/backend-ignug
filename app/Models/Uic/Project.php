@@ -13,12 +13,12 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_title
- * @property string field_description
+ * @property string title
+ * @property string description
+ * @property string total_advance
+ * @property string tutor_asigned
  * @property integer score
  * @property boolean approved
- * @property string field_total_advance
- * @property string field_tutor_asigned
  * @property array observations
  */
 class Project extends Model implements Auditable
@@ -31,20 +31,26 @@ class Project extends Model implements Auditable
     protected $table = 'uic.projects';
 
     protected $fillable = [
-        'field_projects',
+        'title',
+        'description',
+        'score',
+        'approved',
+        'total_advance',
+        'tutor_asigned',
+        'observations',
     ];
 
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function enrollmen()
+    public function enrollment()
     {
-        return $this->belongsTo(Enrollmen::class, 'fileable');
+        return $this->belongsTo(Enrollment::class);
     }
 
     public function projectPlan()
     {
-        return $this->belongsTo(ProjectPlan::class, 'fileable');
+        return $this->belongsTo(ProjectPlan::class);
     }
 
 

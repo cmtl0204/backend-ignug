@@ -13,12 +13,12 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_modality
- * @property string field_description
+ * @property string modality
+ * @property string description
+ * @property string total_advance
+ * @property string tutor_asigned
  * @property integer score
  * @property boolean approved
- * @property string field_total_advance
- * @property string field_tutor_asigned
  * @property array observations
  */
 class Modality extends Model implements Auditable
