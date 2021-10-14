@@ -85,7 +85,7 @@ class StudentInformation extends Model implements Auditable
     }
 
     // Mutators
-    public function setFieldCompanyWorkAttribute($value)
+    public function setCompanyWorkAttribute($value)
     {
         $this->attributes['company_work'] = strtoupper($value);
     }
