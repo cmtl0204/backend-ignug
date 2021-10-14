@@ -2,6 +2,7 @@
 
 namespace App\Models\Uic;
 
+use App\Models\Core\Catalogue;
 use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,13 +14,7 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string modality
- * @property string description
- * @property string total_advance
- * @property string tutor_asigned
- * @property integer score
- * @property boolean approved
- * @property array observations
+ * @property string company_work
  */
 class Modality extends Model implements Auditable
 {
@@ -31,19 +26,34 @@ class Modality extends Model implements Auditable
     protected $table = 'uic.modality';
 
     protected $fillable = [
-        'field_modality',
+        'company_work',
     ];
 
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function files()
+    public function modality()
     {
-        return $this->morphMany(File::class, 'fileable');
+        return $this->belongsTo(Modality::class);
+    }
+
+    public function relationLaboralCareer()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function companyArea()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function companyPosition()
+    {
+        return $this->belongsTo(Catalogue::class);
     }
 
     // Scopes
-    public function scopeUicOrderBy($query, $sorts)
+    public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {
             foreach ($sorts as $sort) {
@@ -58,7 +68,7 @@ class Modality extends Model implements Auditable
         }
     }
 
-    public function scopeUicSelect($query, $fields)
+    public function scopeCustomSelect($query, $fields)
     {
         if (!empty($fields)) {
             $fields = explode(',', $fields);
@@ -67,17 +77,17 @@ class Modality extends Model implements Auditable
         }
     }
 
-    public function scopeFieldModality($query, $fieldModality)
+    public function scopeCompanyWork($query, $companyWork)
     {
-        if ($fieldModality) {
-            return $query->where('field_modality', 'ILIKE', "%$fieldModality%");
+        if ($companyWork) {
+            return $query->where('companyWork', 'ILIKE', "%$companyWork%");
         }
     }
 
     // Mutators
-    public function setFieldModalityAttribute($value)
+    public function setCompanyWorkAttribute($value)
     {
-        $this->attributes['field_modality'] = strtoupper($value);
+        $this->attributes['companyWork'] = strtoupper($value);
     }
 
 }

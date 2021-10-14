@@ -2,6 +2,7 @@
 
 namespace App\Models\Uic;
 
+use App\Models\Core\Catalogue;
 use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,13 +13,7 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_planning
- * @property string field_description
- * @property integer score
- * @property boolean approved
- * @property string field_total_advance
- * @property string field_tutor_asigned
- * @property array observations
+ * @property string company_work
  */
 class Planning extends Model implements Auditable
 {
@@ -30,19 +25,34 @@ class Planning extends Model implements Auditable
     protected $table = 'uic.planning';
 
     protected $fillable = [
-        'field_planning',
+        'company_work',
     ];
 
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function files()
+    public function modality()
     {
-        return $this->morphMany(File::class, 'fileable');
+        return $this->belongsTo(Modality::class);
+    }
+
+    public function relationLaboralCareer()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function companyArea()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function companyPosition()
+    {
+        return $this->belongsTo(Catalogue::class);
     }
 
     // Scopes
-    public function scopeUicOrderBy($query, $sorts)
+    public function scopeCustomOrderBy($query, $fields)
     {
         if (!empty($sorts[0])) {
             foreach ($sorts as $sort) {
@@ -57,7 +67,7 @@ class Planning extends Model implements Auditable
         }
     }
 
-    public function scopeUicSelect($query, $fields)
+    public function scopeCustomSelect($query, $fields)
     {
         if (!empty($fields)) {
             $fields = explode(',', $fields);
@@ -66,17 +76,17 @@ class Planning extends Model implements Auditable
         }
     }
 
-    public function scopeFieldPlanning($query, $fieldPlanning)
+    public function scopeCompanyWork($query, $companyWork)
     {
-        if ($fieldPlanning) {
-            return $query->where('field_planning', 'ILIKE', "%$fieldPlanning%");
+        if ($companyWork) {
+            return $query->where('company_work', 'ILIKE', "%$companyWork%");
         }
     }
 
     // Mutators
-    public function setFieldPlanningAttribute($value)
+    public function setCompanyWorkAttribute($value)
     {
-        $this->attributes['field_planning'] = strtoupper($value);
+        $this->attributes['company_work'] = strtoupper($value);
     }
 
 }
