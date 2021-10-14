@@ -22,7 +22,6 @@ class CreateUicMeshStudentRequirementsTable extends Migration
                 ->comment('FK de mesh_student ')            
                 ->constrained('app.mesh_student');
                 
-
             $table->foreignId('requirement_id')
                 ->comment('FK de requirement ')
                 ->constrained('uic.requirements');
@@ -31,7 +30,7 @@ class CreateUicMeshStudentRequirementsTable extends Migration
                 ->comment('Para saber si es aprovado')
                 ->nullable();
 
-            $table->text('observations')
+            $table->json('observations')
                 ->comment('Observaciones')
                 ->nullable();
             
@@ -45,6 +44,6 @@ class CreateUicMeshStudentRequirementsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('mesh_student_requirements');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('mesh_student_requirements');
     }
 }

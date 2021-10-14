@@ -19,19 +19,20 @@ class CreateUicPlanningsTable extends Migration
             $table->timestamps();
 
             $table->foreignId('career_id')
-                ->comment('FK de status: carrera');
+                ->comment('FK de status: carrera')
+                ->constrained('app.careers');
 
             $table->string('name')->nullable()
-                ->comment('nombre');
+                ->comment('Nombre');
 
-            $table->date('start_date')
-                ->comment('fecha de inicio');
+            $table->date('started_at')
+                ->comment('Fecha de inicio');
 
-            $table->date('end_date')
-                ->comment('fecha fin');
+            $table->date('ended_at')
+                ->comment('Fecha fin');
 
             $table->string('description')->nullable()
-                ->comment('descripcion');
+                ->comment('Descripción');
         });
     }
 
@@ -42,6 +43,6 @@ class CreateUicPlanningsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('plannings');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('plannings');
     }
 }

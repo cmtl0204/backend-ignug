@@ -27,7 +27,7 @@ class CreateUicProjectPlansTable extends Migration
             $table->string('act_code')
                 ->comment('Código de acta');
 
-            $table->date('approval_date')
+            $table->date('approved_at')
                 ->comment('Fecha de aprobación');
 
             $table->boolean('approved')

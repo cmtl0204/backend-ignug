@@ -24,13 +24,13 @@ class CreateUicEventsTable extends Migration
 
             $table->foreignId('name_id')
                 ->comment('FK de catalogues')
-                ->constrained('app.catalogues');
+                ->constrained('core.catalogues');
 
-            $table->date('startedAt')
-                ->comment('fecha inicio');
+            $table->date('started_at')
+                ->comment('Fecha de inicio');
 
-            $table->date('endedAt')
-                ->comment('fecha fin');
+            $table->date('ended_at')
+                ->comment('Fecha de fin');
         });
     }
 

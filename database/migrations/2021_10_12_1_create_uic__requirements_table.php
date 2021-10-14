@@ -25,7 +25,7 @@ class CreateUicRequirementsTable extends Migration
             $table->string('name')
                 ->comment('Nombre');
 
-                $table->boolean('required')
+            $table->boolean('required')
                 ->comment('true si es requerido');
 
             $table->boolean('solicited')
@@ -41,6 +41,6 @@ class CreateUicRequirementsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('requirements');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('requirements');
     }
 }

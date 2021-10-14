@@ -19,9 +19,9 @@ class CreateUicTutorsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('project_plan_id')
-                ->nullable()
                 ->comment('FK de project_plan')
-                ->constrained('uic.project_plans');
+                ->constrained('uic.project_plans')
+                ->nullable();
 
             $table->foreignId('teacher_id')
                 ->comment('FK de teacher: id de la tabla')
@@ -45,6 +45,6 @@ class CreateUicTutorsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('DB_CONNECTION_UIC')->dropIfExists('tutors');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('tutors');
     }
 }
