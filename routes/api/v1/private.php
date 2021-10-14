@@ -236,7 +236,7 @@ Route::prefix('category')->group(function () {
     Route::patch('destroys', [CategoryController::class, 'destroys']);
     Route::get('professional-degrees', [CategoryController::class, 'getProfessionalDegrees']);
     Route::post('professional-degrees', [CategoryController::class, 'storeProfessionalDegree']);
-    Route::put('professional-degrees/{professionalDegree}', [CategoryController::class, 'updateProfessionalDegree']);
+    Route::put('professional-degrees/{professional_degree}', [CategoryController::class, 'updateProfessionalDegree']);
     Route::get('areas', [CategoryController::class, 'getAreas']);
     Route::post('areas', [CategoryController::class, 'storeArea']);
     Route::put('areas/{area}', [CategoryController::class, 'updateArea']);

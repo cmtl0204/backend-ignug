@@ -99,33 +99,33 @@ class CategoryController extends Controller
             ]);
     }
 
-    function updateProfessionalDegree(UpdateCategoryRequest $request, Category $category)
+    function updateProfessionalDegree(UpdateCategoryRequest $request, Category $professionalDegree)
     {
         $parent = Category::find($request->input('parent.id'));
         
-        $category->parent()->associate($parent);
-        $category->code = $request->input('code');
-        $category->name = $request->input('name');
-        $category->icon = $request->input('icon');
-        $category->save();
+        $professionalDegree->parent()->associate($parent);
+        $professionalDegree->code = $request->input('code');
+        $professionalDegree->name = $request->input('name');
+        $professionalDegree->icon = $request->input('icon');
+        $professionalDegree->save();
 
-        return (new CategoryResource($category))
+        return (new CategoryResource($professionalDegree))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Actualizado',
                     'detail' => '',
-                    'code' => '200'
+                    'code' => '201'
                 ]
             ]);
     }
 
-    function updateArea(UpdateCategoryRequest $request, Category $category)
+    function updateArea(UpdateCategoryRequest $request, Category $area)
     {
-        $category->code = $request->input('code');
-        $category->name = $request->input('name');
-        $category->save();
+        $area->code = $request->input('code');
+        $area->name = $request->input('name');
+        $area->save();
 
-        return (new AreaResource($category))
+        return (new AreaResource($area))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Actualizado',
