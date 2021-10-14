@@ -38,7 +38,7 @@ class Requirement extends Model implements Auditable
 
     public function career()
     {
-        return $this->belongsTo(Career::class,'app.careers');
+        return $this->belongsTo(Career::class);
     }
     
     // Scopes
@@ -66,15 +66,15 @@ class Requirement extends Model implements Auditable
         }
     }
 
-    public function scopeFieldName($query, $fieldName)
+    public function scopeName($query, $Name)
     {
-        if ($fieldName) {
-            return $query->where('field_name', 'ILIKE', "%$fieldName%");
+        if ($Name) {
+            return $query->where('name', 'ILIKE', "%$Name%");
         }
     }
 
     // Mutators
-    public function setFieldNameAttribute($value)
+    public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper($value);
     }
