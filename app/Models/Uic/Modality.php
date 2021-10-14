@@ -13,19 +13,25 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_example
+ * @property string field_modality
+ * @property string field_description
+ * @property integer score
+ * @property boolean approved
+ * @property string field_total_advance
+ * @property string field_tutor_asigned
+ * @property array observations
  */
-class Example extends Model implements Auditable
+class Modality extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'schema.table';
+    protected $table = 'uic.modality';
 
     protected $fillable = [
-        'field_example',
+        'field_modality',
     ];
 
     protected $cascadeDeletes = ['files'];
@@ -37,7 +43,7 @@ class Example extends Model implements Auditable
     }
 
     // Scopes
-    public function scopeCustomOrderBy($query, $sorts)
+    public function scopeUicOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {
             foreach ($sorts as $sort) {
@@ -52,7 +58,7 @@ class Example extends Model implements Auditable
         }
     }
 
-    public function scopeCustomSelect($query, $fields)
+    public function scopeUicSelect($query, $fields)
     {
         if (!empty($fields)) {
             $fields = explode(',', $fields);
@@ -61,17 +67,17 @@ class Example extends Model implements Auditable
         }
     }
 
-    public function scopeFieldExample($query, $fieldExample)
+    public function scopeFieldModality($query, $fieldModality)
     {
-        if ($fieldExample) {
-            return $query->where('field_example', 'ILIKE', "%$fieldExample%");
+        if ($fieldModality) {
+            return $query->where('field_modality', 'ILIKE', "%$fieldModality%");
         }
     }
 
     // Mutators
-    public function setFieldExampleAttribute($value)
+    public function setFieldModalityAttribute($value)
     {
-        $this->attributes['field_example'] = strtoupper($value);
+        $this->attributes['field_modality'] = strtoupper($value);
     }
 
 }

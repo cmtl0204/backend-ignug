@@ -13,19 +13,23 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_example
+ * @property string field_enrollment
+ * @property string field_act_code
+ * @property date field_approval_date
+ * @property boolean field_act_code
+ * @property array observations
  */
-class Example extends Model implements Auditable
+class Enrollment extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'schema.table';
+    protected $table = 'uic.enrollment';
 
     protected $fillable = [
-        'field_example',
+        'field_enrollment',
     ];
 
     protected $cascadeDeletes = ['files'];
@@ -37,7 +41,7 @@ class Example extends Model implements Auditable
     }
 
     // Scopes
-    public function scopeCustomOrderBy($query, $sorts)
+    public function scopeUicOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {
             foreach ($sorts as $sort) {
@@ -52,7 +56,7 @@ class Example extends Model implements Auditable
         }
     }
 
-    public function scopeCustomSelect($query, $fields)
+    public function scopeUicSelect($query, $fields)
     {
         if (!empty($fields)) {
             $fields = explode(',', $fields);
@@ -61,17 +65,17 @@ class Example extends Model implements Auditable
         }
     }
 
-    public function scopeFieldExample($query, $fieldExample)
+    public function scopeFieldEnrollment($query, $fieldEnrollment)
     {
-        if ($fieldExample) {
-            return $query->where('field_example', 'ILIKE', "%$fieldExample%");
+        if ($fieldEnrollment) {
+            return $query->where('field_enrollment', 'ILIKE', "%$fieldEnrollment%");
         }
     }
 
     // Mutators
-    public function setFieldExampleAttribute($value)
+    public function setFieldEnrollmentAttribute($value)
     {
-        $this->attributes['field_example'] = strtoupper($value);
+        $this->attributes['field_enrollment'] = strtoupper($value);
     }
 
 }
