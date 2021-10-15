@@ -15,23 +15,23 @@ class CreateUicEnrollmentsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('modality_id')
-                ->comment('FK de modalities: saber si perdio, anulo')
+                ->comment('FK de modalities')
                 ->constrained('uic.modalities');
 
             $table->foreignId('school_period_id')
-                ->comment('FK de status: saber si perdio, anulo')
+                ->comment('FK de school_periods')
                 ->constrained('app.school_periods');
 
             $table->foreignId('mesh_student_id')
-                ->comment('FK de status: saber si perdio, anulo')
+                ->comment('FK de status')
                 ->constrained('app.mesh_student');
 
             $table->foreignId('status_id')
-                ->comment('FK de status: saber si perdio, anulo')
+                ->comment('FK de status')
                 ->constrained('app.status');
 
             $table->foreignId('planning_id')
-                ->comment('saber el evento al que pertenece')
+                ->comment('FK de plannings')
                 ->constrained('uic.plannings');
 
             $table->date('registered_at')

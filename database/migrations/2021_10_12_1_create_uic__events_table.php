@@ -27,10 +27,10 @@ class CreateUicEventsTable extends Migration
                 ->constrained('core.catalogues');
 
             $table->date('started_at')
-                ->comment('Fecha de inicio');
+                ->comment('Fecha de inicio del evento');
 
             $table->date('ended_at')
-                ->comment('Fecha de fin');
+                ->comment('Fecha del final del evento');
         });
     }
 

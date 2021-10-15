@@ -32,19 +32,19 @@ class CreateUicProjectsTable extends Migration
             $table->string('description')
                 ->comment('Descripcion');
 
-            $table->integer('score')
-                ->comment('Puntaje');
-
-            $table->boolean('approved')
-                ->comment('Aprobado');
+            $table->string('tutor_asigned')
+                ->default(false)
+                ->comment('Tutor asignado');
 
             $table->string('total_advance')
                 ->default(0)
                 ->comment('Avance');
 
-            $table->string('tutor_asigned')
-                ->default(false)
-                ->comment('Tutor asignado');
+            $table->integer('score')
+                ->comment('Puntaje');
+
+            $table->boolean('approved')
+                ->comment('Aprobado');
 
             $table->json('observations')
                 ->nullable()

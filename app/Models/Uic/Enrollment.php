@@ -14,7 +14,9 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string company_work
+ * @property date registered_at
+ * @property string code
+ * @property array observations
  */
 class Enrollment extends Model implements Auditable
 {
@@ -26,30 +28,37 @@ class Enrollment extends Model implements Auditable
     protected $table = 'uic.enrollment';
 
     protected $fillable = [
-        'company_work',
+        'registered_at',
+        'code',
+        'observations',
     ];
 
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function enrollment()
+    public function modality()
     {
-        return $this->belongsTo(Enrollment::class);
+        return $this->belongsTo(Modality::class);
     }
 
-    public function relationLaboralCareer()
+    public function schoolPeriod()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(SchoolPeriod::class);
     }
 
-    public function companyArea()
+    public function meshStudent()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(MeshStudent::class);
     }
 
-    public function companyPosition()
+    public function status()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Status::class);
+    }
+    
+    public function planning()
+    {
+        return $this->belongsTo(Planning::class);
     }
 
 
@@ -78,17 +87,17 @@ class Enrollment extends Model implements Auditable
         }
     }
 
-    public function scopeCompanyWork($query, $companyWork)
+    public function scopeCode($query, $code)
     {
-        if ($companyWork) {
-            return $query->where('company_work', 'ILIKE', "%$companyWork%");
+        if ($code) {
+            return $query->where('code', 'ILIKE', "%$code%");
         }
     }
 
     // Mutators
-    public function setCompanyWorkAttribute($value)
+    public function setCodeAttribute($value)
     {
-        $this->attributes['company_work'] = strtoupper($value);
+        $this->attributes['code'] = strtoupper($value);
     }
 
 }

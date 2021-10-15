@@ -68,17 +68,4 @@ class Example extends Model implements Auditable
             return $query->select($fields);
         }
     }
-
-    public function scopeObservations($query, $Observations)
-    {
-        if ($Observations) {
-            return $query->where('observations', 'ILIKE', "%$Observations%");
-        }
-    }
-
-    // Mutators
-    public function setObservationsAttribute($value)
-    {
-        $this->attributes['observations'] = strtoupper($value);
-    }
 }

@@ -14,7 +14,8 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string company_work
+ * @property string name
+ * @property string description
  */
 class Modality extends Model implements Auditable
 {
@@ -23,33 +24,29 @@ class Modality extends Model implements Auditable
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'uic.modality';
+    protected $table = 'uic.modalities';
 
     protected $fillable = [
-        'company_work',
+        'name',
+        'description',
     ];
 
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function modality()
+    public function parent()
     {
         return $this->belongsTo(Modality::class);
     }
 
-    public function relationLaboralCareer()
+    public function status()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Status::class);
     }
 
-    public function companyArea()
+    public function career()
     {
-        return $this->belongsTo(Catalogue::class);
-    }
-
-    public function companyPosition()
-    {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Career::class);
     }
 
     // Scopes
@@ -77,17 +74,29 @@ class Modality extends Model implements Auditable
         }
     }
 
-    public function scopeCompanyWork($query, $companyWork)
+    public function scopeName($query, $name)
     {
-        if ($companyWork) {
-            return $query->where('companyWork', 'ILIKE', "%$companyWork%");
+        if ($name) {
+            return $query->where('companyWork', 'ILIKE', "%$name%");
+        }
+    }
+    
+    public function scopeDescription($query, $description)
+    {
+        if ($description) {
+            return $query->where('companyWork', 'ILIKE', "%$description%");
         }
     }
 
     // Mutators
-    public function setCompanyWorkAttribute($value)
+    public function setDescriptionAttribute($value)
     {
-        $this->attributes['companyWork'] = strtoupper($value);
+        $this->attributes['description'] = strtoupper($value);
+    }
+    
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtoupper($value);
     }
 
 }

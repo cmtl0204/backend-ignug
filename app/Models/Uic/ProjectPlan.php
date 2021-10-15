@@ -65,24 +65,24 @@ class ProjectPlan extends Model implements Auditable
         }
     }
 
-    public function scopeTitle($query, $Title)
+    public function scopeTitle($query, $title)
     {
-        if ($Title) {
-            return $query->where('title', 'ILIKE', "%$Title%");
+        if ($title) {
+            return $query->where('title', 'ILIKE', "%$title%");
         }
     }
 
-    public function scopeActCode($query, $ActCode)
+    public function scopeActCode($query, $actCode)
     {
-        if ($ActCode) {
-            return $query->where('act_code', 'ILIKE', "%$ActCode%");
+        if ($actCode) {
+            return $query->where('act_code', 'ILIKE', "%$actCode%");
         }
     }
     
-    public function scopeDescription($query, $Description)
+    public function scopeDescription($query, $description)
     {
-        if ($Description) {
-            return $query->where('description', 'ILIKE', "%$Description%");
+        if ($description) {
+            return $query->where('description', 'ILIKE', "%$description%");
         }
     }
     // Mutators

@@ -19,20 +19,21 @@ class CreateUicPlanningsTable extends Migration
             $table->timestamps();
 
             $table->foreignId('career_id')
-                ->comment('FK de status: carrera')
+                ->comment('FK de status')
                 ->constrained('app.careers');
 
             $table->string('name')->nullable()
                 ->comment('Nombre');
 
-            $table->date('started_at')
-                ->comment('Fecha de inicio');
-
-            $table->date('ended_at')
-                ->comment('Fecha fin');
-
             $table->string('description')->nullable()
                 ->comment('Descripción');
+
+            $table->date('started_at')
+                ->comment('Fecha de inicio de la planeación');
+
+            $table->date('ended_at')
+                ->comment('Fecha del final de la planeación');
+
         });
     }
 

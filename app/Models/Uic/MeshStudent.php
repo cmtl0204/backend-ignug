@@ -13,7 +13,8 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 /**
  * @property BigInteger id
- * @property string field_example
+ * @property boolean approved
+ * @property array observations
  */
 class MeshStudent extends Model implements Auditable
 {
@@ -22,18 +23,24 @@ class MeshStudent extends Model implements Auditable
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'schema.table';
+    protected $table = 'uic.mesh_student_requirements';
 
     protected $fillable = [
-        'field_example',
+        'approved',
+        'observations',
     ];
 
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function files()
+    public function meshStudent()
     {
-        return $this->morphMany(File::class, 'fileable');
+        return $this->belongsTo(MeshStudent::class);
+    }
+    
+    public function requirement()
+    {
+        return $this->belongsTo(Requirement::class);
     }
 
     // Scopes
@@ -60,18 +67,4 @@ class MeshStudent extends Model implements Auditable
             return $query->select($fields);
         }
     }
-
-    public function scopeFieldExample($query, $fieldExample)
-    {
-        if ($fieldExample) {
-            return $query->where('field_example', 'ILIKE', "%$fieldExample%");
-        }
-    }
-
-    // Mutators
-    public function setFieldExampleAttribute($value)
-    {
-        $this->attributes['field_example'] = strtoupper($value);
-    }
-
 }

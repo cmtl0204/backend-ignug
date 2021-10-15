@@ -79,31 +79,31 @@ class Project extends Model implements Auditable
         }
     }
 
-    public function scopeTitle($query, $Title)
+    public function scopeTitle($query, $title)
     {
-        if ($Title) {
-            return $query->where('title', 'ILIKE', "%$Title%");
+        if ($title) {
+            return $query->where('title', 'ILIKE', "%$title%");
         }
     }
 
-    public function scopeDescription($query, $Description)
+    public function scopeDescription($query, $description)
     {
-        if ($Description) {
-            return $query->where('description', 'ILIKE', "%$Description%");
+        if ($description) {
+            return $query->where('description', 'ILIKE', "%$description%");
         }
     }
 
-    public function scopeTotalAdvance($query, $TotalAdvance)
+    public function scopeTotalAdvance($query, $totalAdvance)
     {
-        if ($TotalAdvance) {
-            return $query->where('total_advance', 'ILIKE', "%$TotalAdvance%");
+        if ($totalAdvance) {
+            return $query->where('total_advance', 'ILIKE', "%$totalAdvance%");
         }
     }
 
-    public function scopeTutorAsigned($query, $TutorAsigned)
+    public function scopeTutorAsigned($query, $tutorAsigned)
     {
-        if ($TutorAsigned) {
-            return $query->where('tutor_asigned', 'ILIKE', "%$TutorAsigned%");
+        if ($tutorAsigned) {
+            return $query->where('tutor_asigned', 'ILIKE', "%$tutorAsigned%");
         }
     }
 

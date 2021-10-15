@@ -68,15 +68,4 @@ class Event extends Model implements Auditable
             return $query->select($fields);
         }
     }
-
-     // Mutators
-     public function setStartedAtkAttribute($value)
-     {
-         $this->attributes['started_at'] = strtoupper($value);
-     }
-
-     public function setEndedAtkAttribute($value)
-     {
-         $this->attributes['ended_at'] = strtoupper($value);
-     }
 }

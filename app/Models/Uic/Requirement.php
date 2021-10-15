@@ -66,10 +66,10 @@ class Requirement extends Model implements Auditable
         }
     }
 
-    public function scopeName($query, $Name)
+    public function scopeName($query, $name)
     {
-        if ($Name) {
-            return $query->where('name', 'ILIKE', "%$Name%");
+        if ($name) {
+            return $query->where('name', 'ILIKE', "%$name%");
         }
     }
 
