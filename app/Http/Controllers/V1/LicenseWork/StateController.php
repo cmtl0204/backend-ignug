@@ -136,12 +136,4 @@ class StateController extends Controller
                 ]
             ]);
     }
-    // actualizar el estado del formulario si esta activo o inactivo
-    public function updateState(){
-        return "estado actualizado";
-    }
-    // seleccionar empleador
-    public function selectEmployer(){
-        return "empleador";
-    }
 }

@@ -147,6 +147,13 @@ class FormController extends Controller
                     'code' => '201'
                 ]
             ]);
-
-}
+    }
+    // actualizar el estado del formulario si esta activo o inactivo
+    public function updateState(){
+        return "estado actualizado";
+    }
+    // seleccionar empleador del formulario
+    public function selectEmployer(){
+        return "empleador";
+    }
 }

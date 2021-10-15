@@ -238,4 +238,8 @@ class ApplicationController extends Controller
     public function selectReason(){
         return "Razon de la licencia o permiso";
     }
+    //subir solicitud firmada
+    public function uploadSignedDocument(){
+        return "Documento firmado subido";
+    }
 }
