@@ -87,9 +87,34 @@ class Project extends Model implements Auditable
     }
 
     // Mutators
-    public function setFieldProjectAttribute($value)
+    public function setTitleAttribute($value)
     {
-        $this->attributes['field_projects'] = strtoupper($value);
+        $this->attributes['title'] = strtoupper($value);
+    }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = strtoupper($value);
+    }
+
+    public function setScoreAttribute($value)
+    {
+        $this->attributes['score'] = strtoupper($value);
+    }
+
+    public function setApprovedAttribute($value)
+    {
+        $this->attributes['approved'] = strtoupper($value);
+    }
+
+    public function setTotalAdvancenAttribute($value)
+    {
+        $this->attributes['total_advance'] = strtoupper($value);
+    }
+
+    public function setTutorAsignedAttribute($value)
+    {
+        $this->attributes['tutor_asigned'] = strtoupper($value);
     }
 
 }

@@ -73,9 +73,23 @@ class ProjectPlan extends Model implements Auditable
     }
 
     // Mutators
-    public function setFieldProjectPlanAttribute($value)
+    public function setTitleAttribute($value)
     {
-        $this->attributes['field_ProjectPlan'] = strtoupper($value);
+        $this->attributes['title'] = strtoupper($value);
     }
 
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = strtoupper($value);
+    }
+
+    public function setActCodeAttribute($value)
+    {
+        $this->attributes['act_code'] = strtoupper($value);
+    }
+    
+    public function setApprovedAttribute($value)
+    {
+        $this->attributes['approved'] = strtoupper($value);
+    }
 }
