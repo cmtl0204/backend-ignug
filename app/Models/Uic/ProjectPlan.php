@@ -65,13 +65,26 @@ class ProjectPlan extends Model implements Auditable
         }
     }
 
-    public function scopeObservations($query, $Observations)
+    public function scopeTitle($query, $Title)
     {
-        if ($Observations) {
-            return $query->where('observations', 'ILIKE', "%$Observations%");
+        if ($Title) {
+            return $query->where('title', 'ILIKE', "%$Title%");
         }
     }
 
+    public function scopeActCode($query, $ActCode)
+    {
+        if ($ActCode) {
+            return $query->where('act_code', 'ILIKE', "%$ActCode%");
+        }
+    }
+    
+    public function scopeDescription($query, $Description)
+    {
+        if ($Description) {
+            return $query->where('description', 'ILIKE', "%$Description%");
+        }
+    }
     // Mutators
     public function setTitleAttribute($value)
     {
@@ -86,15 +99,5 @@ class ProjectPlan extends Model implements Auditable
     public function setActCodeAttribute($value)
     {
         $this->attributes['act_code'] = strtoupper($value);
-    }
-    
-    public function setApprovedAttribute($value)
-    {
-        $this->attributes['approved'] = strtoupper($value);
-    }
-    
-    public function setObservationsAttribute($value)
-    {
-        $this->attributes['observations'] = strtoupper($value);
     }
 }

@@ -79,10 +79,31 @@ class Project extends Model implements Auditable
         }
     }
 
-    public function scopeObservations($query, $Observations)
+    public function scopeTitle($query, $Title)
     {
-        if ($Observations) {
-            return $query->where('observations', 'ILIKE', "%$Observations%");
+        if ($Title) {
+            return $query->where('title', 'ILIKE', "%$Title%");
+        }
+    }
+
+    public function scopeDescription($query, $Description)
+    {
+        if ($Description) {
+            return $query->where('description', 'ILIKE', "%$Description%");
+        }
+    }
+
+    public function scopeTotalAdvance($query, $TotalAdvance)
+    {
+        if ($TotalAdvance) {
+            return $query->where('total_advance', 'ILIKE', "%$TotalAdvance%");
+        }
+    }
+
+    public function scopeTutorAsigned($query, $TutorAsigned)
+    {
+        if ($TutorAsigned) {
+            return $query->where('tutor_asigned', 'ILIKE', "%$TutorAsigned%");
         }
     }
 
@@ -97,16 +118,6 @@ class Project extends Model implements Auditable
         $this->attributes['description'] = strtoupper($value);
     }
 
-    public function setScoreAttribute($value)
-    {
-        $this->attributes['score'] = strtoupper($value);
-    }
-
-    public function setApprovedAttribute($value)
-    {
-        $this->attributes['approved'] = strtoupper($value);
-    }
-
     public function setTotalAdvancenAttribute($value)
     {
         $this->attributes['total_advance'] = strtoupper($value);
@@ -115,11 +126,6 @@ class Project extends Model implements Auditable
     public function setTutorAsignedAttribute($value)
     {
         $this->attributes['tutor_asigned'] = strtoupper($value);
-    }
-
-    public function setObservationsAttribute($value)
-    {
-        $this->attributes['observations'] = strtoupper($value);
     }
 
 }
