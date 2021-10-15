@@ -173,6 +173,7 @@ Route::apiResource('dependences',DependenceController ::class);
 
 Route::prefix('dependence')->group(function () {
     Route::patch('destroys', [DependenceController::class, 'destroys']);
+    Route::patch('approve-application', [DependenceController::class, 'approveApplication']);
 });
 
 Route::prefix('dependence/{dependence}')->group(function () {

@@ -135,4 +135,8 @@ class DependenceController extends Controller
                 ]
             ]);
     }
+    //aprobar formularios solicitados
+    public function approveApplication(){
+        return "formulario aprobado";
+    }
 }
