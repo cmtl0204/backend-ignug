@@ -65,10 +65,10 @@ class ProjectPlan extends Model implements Auditable
         }
     }
 
-    public function scopeFieldExample($query, $fieldProjectPlan)
+    public function scopeObservations($query, $Observations)
     {
-        if ($fieldProjectPlan) {
-            return $query->where('field_ProjectPlan', 'ILIKE', "%$fieldProjectPlan%");
+        if ($Observations) {
+            return $query->where('observations', 'ILIKE', "%$Observations%");
         }
     }
 
@@ -91,5 +91,10 @@ class ProjectPlan extends Model implements Auditable
     public function setApprovedAttribute($value)
     {
         $this->attributes['approved'] = strtoupper($value);
+    }
+    
+    public function setObservationsAttribute($value)
+    {
+        $this->attributes['observations'] = strtoupper($value);
     }
 }

@@ -79,10 +79,10 @@ class Project extends Model implements Auditable
         }
     }
 
-    public function scopeFieldProyect($query, $fieldProject)
+    public function scopeObservations($query, $Observations)
     {
-        if ($fieldProject) {
-            return $query->where('field_projects', 'ILIKE', "%$fieldProject%");
+        if ($Observations) {
+            return $query->where('observations', 'ILIKE', "%$Observations%");
         }
     }
 
@@ -115,6 +115,11 @@ class Project extends Model implements Auditable
     public function setTutorAsignedAttribute($value)
     {
         $this->attributes['tutor_asigned'] = strtoupper($value);
+    }
+
+    public function setObservationsAttribute($value)
+    {
+        $this->attributes['observations'] = strtoupper($value);
     }
 
 }
