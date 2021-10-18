@@ -27,7 +27,6 @@ use App\Http\Requests\App\File\IndexFileRequest;
 
 class ExperienceController extends Controller
 {
-    // Muestra los datos del profesional con experiencia
     public function index(IndexExperienceRequest $request, Professional $professional)
     {
         $sorts = explode(',', $request->sort);
@@ -92,10 +91,17 @@ class ExperienceController extends Controller
         $experience->employer = $request->input('employer');
         $experience->position = $request->input('position');
         $experience->started_at = $request->input('startedAt');
-        $experience->ended_at = $request->input('endedAt');
         $experience->activities = $request->input('activities');
-        $experience->reason_leave = $request->input('reasonLeave');
         $experience->worked = $request->input('worked');
+
+        if ($request->input('worked')) {
+            $experience->ended_at = $request->input('endedAt');
+            $experience->reason_leave = $request->input('reasonLeave');
+        } else {
+            $experience->ended_at = null;
+            $experience->reason_leave = null;
+        }
+
         $experience->area()->associate($area);
         $experience->save();
 

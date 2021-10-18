@@ -34,8 +34,6 @@ class UpdateReferenceRequest extends FormRequest
             ],
             'position' => [
                 'required',
-                'min:5',
-                'max:30',
             ],
             'contactName' => [
                 'required',

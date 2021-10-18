@@ -33,19 +33,22 @@ class UpdateExperienceRequest extends FormRequest
                 'date',
             ],
             'endedAt' => [
-                'date',
-                'nullable',
                 'required_if:worked,==,true',
+                'nullable',
+                'date',
+                'after_or_equal:startedAt',
             ],
             'activities' => [
                 'required',
                 'array',
             ],
-            'reasonLeave' => [],
+            'reasonLeave' => [
+                'required_if:worked,==,true'
+            ],
             'worked' => [
                 'boolean',
             ],
-           
+
         ];
         return JobBoardFormRequest::rules($rules);
     }
@@ -53,16 +56,14 @@ class UpdateExperienceRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'area.id' => 'area-ID',
-            'employer' => 'nombre de empleadora',
-            'position' => 'posicion',
-            'startedAt' => 'fecha inicio',
-            'endedAt' => 'fecha fin',
-            'activities' => 'ocupaciones',
-            'reasonLeave' => 'razon que se fue',
-            'worked' => 'está trabajando',
-           
-
+            'area.id' => 'area de estudios',
+            'employer' => 'nombre de empleador o empresa',
+            'position' => 'cargo',
+            'startedAt' => 'fecha de inicio',
+            'endedAt' => 'fecha de fin',
+            'activities' => 'actividades realizadas',
+            'reasonLeave' => 'razon de salida',
+            'worked' => 'ya no trabaja',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

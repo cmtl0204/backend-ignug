@@ -33,15 +33,18 @@ class StoreExperienceRequest extends FormRequest
                 'date',
             ],
             'endedAt' => [
-                'date',
-                'nullable',
                 'required_if:worked,==,true',
+                'nullable',
+                'date',
+                'after_or_equal:startedAt',
             ],
             'activities' => [
                 'required',
                 'array',
             ],
-            'reasonLeave' => ['required',],
+            'reasonLeave' => [
+                'required_if:worked,==,true'
+            ],
             'worked' => [
                 'required',
                 'boolean',
@@ -54,15 +57,14 @@ class StoreExperienceRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'area.id' => 'area-ID',
-            'employer' => 'nombre de empleadora',
-            'position' => 'Cargo que ocupó',
-            'startedAt' => 'fecha inicio',
-            'endedAt' => 'fecha fin',
-            'activities' => 'ocupaciones',
-            'reasonLeave' => 'razon por la que se fue del trabajo',
-            'worked' => 'está trabajando',
-
+            'area.id' => 'area de estudios',
+            'employer' => 'nombre de empleador o empresa',
+            'position' => 'cargo',
+            'startedAt' => 'fecha de inicio',
+            'endedAt' => 'fecha de fin',
+            'activities' => 'actividades realizadas',
+            'reasonLeave' => 'razon de salida',
+            'worked' => 'ya no trabaja',
         ];
         return JobBoardFormRequest::attributes($attributes);
     }

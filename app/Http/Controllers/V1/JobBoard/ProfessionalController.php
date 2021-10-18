@@ -6,7 +6,9 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 
 //Models
+use App\Http\Requests\V1\JobBoard\Professional\UpdateProfileRequest;
 use App\Http\Resources\V1\JobBoard\ProfileResource;
+use App\Models\Authentication\User;
 use App\Models\Core\Catalogue;
 use App\Models\Core\Address;
 use App\Models\JobBoard\Professional;
@@ -27,14 +29,7 @@ class ProfessionalController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);return response()->json([
-            'data' => $professional,
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200',
-            ]
-        ], 200);
+            ]);
     }
 
     function getCurriculum(GetProfessionalRequest $request)
@@ -73,55 +68,60 @@ class ProfessionalController extends Controller
         ], 200);
     }
 
-    function updateProfile(UpdateProfessionalRequest $request, Professional $professional)
+    function updateProfile(UpdateProfileRequest $request, Professional $professional)
     {
-        // Crea una instanacia del modelo Catalogue para poder actualizar en el modelo Professional.
-        $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
-        $user = $request->user();
-        $address = $user->address()->first() ? $user->address()->first() : new Address();
-        $location = Location::find($request->input('professional.user.address.location.id'));
-        $sector = Catalogue::find($request->input('professional.user.address.sector.id'));
-        $address->main_street = $request->input('professional.user.address.main_street');
-        $address->secondary_street = $request->input('professional.user.address.secondary_street');
-        $address->number = $request->input('professional.user.address.number');
-        $address->post_code = $request->input('professional.user.address.post_code');
-        $address->reference = $request->input('professional.user.address.reference');
-        $address->longitude = $request->input('professional.user.address.longitude');
-        $address->latitude = $request->input('professional.user.address.latitude');
-        $address->location()->associate($location);
-        $address->sector()->associate($sector);
-        $address->save();
+//        $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
+        $user = $professional->user()->first();
+//        $address = $user->address()->first() ? $user->address()->first() : new Address();
+//        $location = Location::find($request->input('professional.user.address.location.id'));
+//        $sector = Catalogue::find($request->input('professional.user.address.sector.id'));
+//        $address->main_street = $request->input('professional.user.address.main_street');
+//        $address->secondary_street = $request->input('professional.user.address.secondary_street');
+//        $address->number = $request->input('professional.user.address.number');
+//        $address->post_code = $request->input('professional.user.address.post_code');
+//        $address->reference = $request->input('professional.user.address.reference');
+//        $address->longitude = $request->input('professional.user.address.longitude');
+//        $address->latitude = $request->input('professional.user.address.latitude');
+//        $address->location()->associate($location);
+//        $address->sector()->associate($sector);
+//        $address->save();
 
-        $sex = Catalogue::find($request->input('professional.user.sex.id'));
-        $gender = Catalogue::find($request->input('professional.user.gender.id'));
-        $user->identification = $request->input('professional.user.identification');
-        $user->email = $request->input('professional.user.maiel');
-        $user->names = $request->input('professional.user.names');
-        $user->first_lastname = $request->input('professional.user.first_lastname');
-        $user->second_lastname = $request->input('professional.user.second_lastname');
-        $user->phone = $request->input('professional.user.phone');
-        $user->gender()->associate($gender);
-        $user->address()->associate($address);
+        $identificationType = Catalogue::find($request->input('user.identificationType.id'));
+        $sex = Catalogue::find($request->input('user.sex.id'));
+        $gender = Catalogue::find($request->input('user.gender.id'));
+        $bloodType = Catalogue::find($request->input('user.bloodType.id'));
+        $ethnicOrigin = Catalogue::find($request->input('user.ethnicOrigin.id'));
+
+        $user->username = $request->input('user.username');
+        $user->email = $request->input('user.email');
+        $user->name = $request->input('user.name');
+        $user->lastname = $request->input('user.lastname');
+        $user->phone = $request->input('user.phone');
+        //        $user->address()->associate($address);
+
+        $user->identificationType()->associate($identificationType);
         $user->sex()->associate($sex);
+        $user->gender()->associate($gender);
+        $user->bloodType()->associate($bloodType);
+        $user->ethnicOrigin()->associate($ethnicOrigin);
         $user->save();
 
-        $professional = $request->user()->professional()->first();
-        $professional->is_travel = $request->input('professional.is_travel');
-        $professional->is_disability = $request->input('professional.is_disability');
-        $professional->is_familiar_disability = $request->input('professional.is_familiar_disability');
-        $professional->identification_familiar_disability = $request->input('professional.identification_familiar_disability');
-        $professional->is_catastrophic_illness = $request->input('professional.is_catastrophic_illness');
-        $professional->is_familiar_catastrophic_illness = $request->input('professional.is_familiar_catastrophic_illness');
-        $professional->about_me = $request->input('professional.about_me');
+        $professional->traveled = $request->input('traveled');
+        $professional->disabled = $request->input('disabled');
+        $professional->familiar_disabled = $request->input('familiarDisabled');
+        $professional->identification_familiar_disabled = $request->input('identificationFamiliarDisabled');
+        $professional->catastrophic_diseased = $request->input('catastrophicDiseased');
+        $professional->familiar_catastrophic_diseased = $request->input('familiarCatastrophicDiseased');
+        $professional->about_me = $request->input('aboutMe');
         $professional->save();
 
-        return response()->json([
-            'data' => $professional,
-            'msg' => [
-                'summary' => 'Profesional actualizado',
-                'detail' => 'El registro fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new ProfileResource($professional))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro actualizado',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }

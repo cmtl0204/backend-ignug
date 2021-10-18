@@ -38,7 +38,7 @@ class UpdateCourseRequest extends FormRequest
             'endedAt' => [
                 'required',
                 'date',
-                'after_or_equal:startedDate'
+                'after_or_equal:startedAt'
             ],
             'hours' => [
                 'required',

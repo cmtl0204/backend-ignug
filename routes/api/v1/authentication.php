@@ -9,7 +9,7 @@ use App\Http\Controllers\V1\Authentication\MenuController;
 Route::apiResource('menus', MenuController::class);
 
 Route::prefix('auth')->group(function () {
-    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('logout', [AuthController::class, 'logout']);
     Route::post('logout-all', [AuthController::class, 'logoutAll']);
     Route::post('reset-password', [AuthController::class, 'resetPassword']);
     Route::post('unlock-user', [AuthController::class, 'unlockUser']);

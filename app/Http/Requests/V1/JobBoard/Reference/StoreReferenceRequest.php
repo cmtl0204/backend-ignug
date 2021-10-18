@@ -22,8 +22,6 @@ class StoreReferenceRequest extends FormRequest
             ],
             'position' => [
                 'required',
-                'min:5',
-                'max:30',
             ],
             'contactName' => [
                 'required',
@@ -35,7 +33,6 @@ class StoreReferenceRequest extends FormRequest
             ],
             'contactEmail' => [
                 'required',
-                // 'regex:'.$this->regularExpresionEmail,
             ]
         ];
 

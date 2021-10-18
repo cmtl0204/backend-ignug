@@ -89,21 +89,21 @@ class Experience extends Model implements Auditable
     public function scopeEmployer($query, $employer)
     {
         if ($employer) {
-            return $query->orWhere('name', 'ILIKE', "%$employer%");
+            return $query->orWhere('employer', 'ILIKE', "%$employer%");
         }
     }
 
     public function scopePosition($query, $position)
     {
         if ($position) {
-            return $query->orWhere('name', 'ILIKE', "%$position%");
+            return $query->orWhere('position', 'ILIKE', "%$position%");
         }
     }
 
     public function scopeReasonLeave($query, $reason_leave)
     {
         if ($reason_leave) {
-            return $query->orWhere('name', 'ILIKE', "%$reason_leave%");
+            return $query->orWhere('reason_leave', 'ILIKE', "%$reason_leave%");
         }
     }
 
@@ -122,5 +122,5 @@ class Experience extends Model implements Auditable
     {
         $this->attributes['reason_leave'] = strtoupper($value);
     }
-    
+
 }

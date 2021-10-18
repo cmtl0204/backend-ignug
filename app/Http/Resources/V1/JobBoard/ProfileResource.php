@@ -16,6 +16,7 @@ class ProfileResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'user' => UserResource::make($this->user),
             'traveled' => $this->traveled,
             'disabled' => $this->disabled,
