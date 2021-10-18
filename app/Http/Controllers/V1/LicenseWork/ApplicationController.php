@@ -179,11 +179,7 @@ class ApplicationController extends Controller
                 ]
             ]);
     }
-// seleccionar si es de licencia o permiso
-    public function selectLicenseWork ()
-    {
-        return "licencia o permiso";
-    }
+
 // cuando el docente va a solicitar el permiso
     public function storeApplication(StoreApplicationRequest $request)
     {
@@ -209,8 +205,9 @@ class ApplicationController extends Controller
         $application->time_ended_at = $request->input('timeEndedAt');
         $application->observations = $request->input('observations');
         $application->save();
-        $state = State::firstWhere('code','PROCESS');
-        $application->states()->attch($state);
+        // hacer el borrador o enviar la solicitud
+        $state = State::find($request->input('state.id'));
+        $application->states()->attach($state);
 
         return (new ApplicationResource($application))
             ->additional([
@@ -221,25 +218,57 @@ class ApplicationController extends Controller
                 ]
             ]);
     }
-    // Guardar el formulario en la bandeja de formularios del empleado
-    public function saveApplication ()
+
+    // actualizar el estado de la solicitud
+    public function updateStateApplication(StoreApplicationRequest $request)
     {
-        return "guardar el formulario";
+        $application = new Application();
+        $application->employee()
+            ->associate(Employee::find($request->input('employee.id')));
+
+        $application->reason()
+            ->associate(Reason::find($request->input('reason.id')));
+
+        $application->location()
+            ->associate(Location::find($request->input('location.id')));
+
+        $application->type()
+            ->associate(Catalogue::find($request->input('type.id')));
+
+        $application->form()
+            ->associate(Form::find($request->input('form.id')));
+
+        $application->date_started_at = $request->input('dateStartedAt');
+        $application->date_ended_at = $request->input('dateEndedAt');
+        $application->time_started_at = $request->input('timeStartedAt');
+        $application->time_ended_at = $request->input('timeEndedAt');
+        $application->observations = $request->input('observations');
+        $application->save();
+        $state = State::find($request->input('state.id'));
+        $application->states()->attach($state);
+
+        return (new ApplicationResource($application))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
-    // subir el justificacion
-    public function uploadJustification (){
+
+    // subir la justificacion **ya esta realizado**
+    /*public function uploadJustification (){
         return "justificado cargado";
-    }
-    // generar el pdf cuando el empleado lo solicite
-    public function generateDocument (){
-        return "PDF generado";
-    }
-    // seleccionar la razon por la cual se esta solicitando la licencia o permiso
-    public function selectReason(){
-        return "Razon de la licencia o permiso";
-    }
-    //subir solicitud firmada
-    public function uploadSignedDocument(){
+    }*/
+
+    //subir solicitud firmada **ya esta realizado**
+    /*public function uploadSignedDocument(){
         return "Documento firmado subido";
-    }
+    }*/
+    // generar el pdf cuando el empleado lo solicite **ya esta realizado**
+    /*public function generateDocument (){
+        return "PDF generado";
+    }*/
+
 }

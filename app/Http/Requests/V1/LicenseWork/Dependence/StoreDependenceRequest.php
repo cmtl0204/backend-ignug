@@ -38,7 +38,6 @@ class StoreDependenceRequest extends FormRequest
             'user'=>'usuario',
             'level'=>'nivel',
         ];
-
         return LicenseWorkFormRequest::attributes($attributes);
 
     }

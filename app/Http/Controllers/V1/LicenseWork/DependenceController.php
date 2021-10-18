@@ -9,6 +9,9 @@ use App\Http\Requests\V1\LicenseWork\Dependence\StoreDependenceRequest;
 use App\Http\Requests\V1\LicenseWork\Dependence\UpdateDependenceRequest;
 use App\Http\Resources\V1\LicenseWork\DependenceCollection;
 use App\Http\Resources\V1\LicenseWork\DependenceResource;
+use App\Models\Authentication\User;
+use App\Models\Core\State;
+use App\Models\LicenseWork\Application;
 use App\Models\LicenseWork\Dependence;
 use Illuminate\Http\Request;
 
@@ -136,7 +139,33 @@ class DependenceController extends Controller
             ]);
     }
     //aprobar formularios solicitados
-    public function approveApplication(){
+    // hacer un request de approved
+    public function approvedApplication($request, Application $application){
+        $state = State::firstWhere('code', 'ACEPTADO');
+        $application->states()->attach($state);
+        $dependence= Dependence::find($request->input('dependece.id'));
+
         return "formulario aprobado";
+    }
+
+    //rechazar formularios solicitados
+    //hacer un request de refuse
+    public function refuseApplication($request, Application $application){
+        $state = State::firstWhere('code', 'RECHAZADO');
+        $application->states()->attach($state);
+        $dependence= Dependence::find($request->input('dependece.id'));
+
+        return "formulario aprobado";
+        // AGREGAR EL return estructurado
+    }
+
+    // asignar dependence
+    // consultar tabla dependecia y tabla usaurio
+    // crear la fk de carrera
+    public function  assignDependence($request, Dependence $dependence){
+        $user = User::find($request->input('user.id'));
+        $dependence->users()->attach($user);
+
+        return "dependecia asignada";
     }
 }

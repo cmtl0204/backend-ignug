@@ -148,12 +148,33 @@ class FormController extends Controller
                 ]
             ]);
     }
+    //agregar a las rutas
     // actualizar el estado del formulario si esta activo o inactivo
-    public function updateState(){
-        return "estado actualizado";
+    // activeFormRequest
+    public function activeForm(Form $form){
+        $form->state = true;
+        $form->save();
+        return (new FormResource($form))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Formulario activado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
-    // seleccionar empleador del formulario
-    public function selectEmployer(){
-        return "empleador";
+    // inactiveFormRequest
+    public function inactiveForm(Form $form){
+        $form->state = false;
+        $form->save();
+        return (new FormResource($form))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Formulario desactivado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
+
 }

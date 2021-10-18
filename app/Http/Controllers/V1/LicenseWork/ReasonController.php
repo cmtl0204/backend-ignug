@@ -148,4 +148,23 @@ class ReasonController extends Controller
                 ]
             ]);
     }
+    // seleccionar la razon por la cual se esta solicitando la licencia o permiso
+    public function indexReason(IndexReasonRequest $request){
+
+        $sorts = explode(',', $request->sort);
+        $reasons = Reason::customOrderBy($sorts)
+            ->name($request->input('name'))
+            ->descriptionOne($request->input('description_one'))
+            ->descriptionTwo($request->input('description_two'));
+
+
+        return (new ReasonCollection($reasons))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
 }

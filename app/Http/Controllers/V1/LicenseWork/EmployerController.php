@@ -144,6 +144,27 @@ class EmployerController extends Controller
                     'code' => '201'
                 ]
             ]);
+    }
 
-}
+    // devolver listado de empleadores
+
+    public function selectEmployer(IndexEmployerRequest $request){
+        $sorts = explode(',', $request->sort);
+
+        $employers = Employer::customOrderBy($sorts)
+            ->logo($request->input('logo'))
+            ->department($request->input('department'))
+            ->coordination($request->input('coordination'))
+            ->unit($request->input('unit'));
+
+
+        return (new EmployerCollection($employers))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
 }

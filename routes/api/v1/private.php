@@ -21,6 +21,7 @@ Route::apiResource('reasons', ReasonController::class);
 
 Route::prefix('reason')->group(function () {
     Route::patch('destroys', [ReasonController::class, 'destroys']);
+    Route::get('index-reason', [ReasonController::class, 'indexReason']);
 });
 
 Route::prefix('reason/{reason}')->group(function () {
@@ -42,8 +43,8 @@ Route::apiResource('forms', FormController::class);
 
 Route::prefix('form')->group(function () {
     Route::patch('destroys', [FormController::class, 'destroys']);
-    Route::patch('update-state', [StateController::class, 'updateState']);
-    Route::patch('select-employer', [StateController::class, 'selectEmployer']);
+    Route::patch('active-form', [FormController::class, 'activeForm']);
+    Route::patch('inactive-form', [FormController::class, 'inactiveForm']);
 });
 
 Route::prefix('academic-formation/{academic_formation}')->group(function () {
@@ -130,12 +131,7 @@ Route::apiResource('applications', ApplicationController::class);
 Route::prefix('application')->group(function () {
     Route::patch('destroys', [ApplicationController::class, 'destroys']);
     Route::post('store-application', [ApplicationController::class, 'storeApplication']);
-    Route::post('select-license-work', [ApplicationController::class, 'selectLicenseWork']);
-    Route::post('save-application', [ApplicationController::class, 'saveApplication']);
-    Route::post('upload-justification', [ApplicationController::class, 'uploadJustification']);
-    Route::get('generate-document', [ApplicationController::class, 'generateDocument']);
-    Route::patch('select-reason', [ApplicationController::class, 'selectReason']);
-    Route::post('upload-signed-document ', [ApplicationController::class, 'uploadSignedDocument']);
+    Route::patch('update-state-application', [ApplicationController::class, 'updateStateApplication']);
 });
 
 Route::prefix('application/{application}')->group(function () {
@@ -173,7 +169,9 @@ Route::apiResource('dependences',DependenceController ::class);
 
 Route::prefix('dependence')->group(function () {
     Route::patch('destroys', [DependenceController::class, 'destroys']);
-    Route::patch('approve-application', [DependenceController::class, 'approveApplication']);
+    Route::patch('approved-application', [DependenceController::class, 'approvedApplication']);
+    Route::patch('refuse-application', [DependenceController::class, 'refuseApplication']);
+    Route::patch('assign-dependence', [DependenceController::class, 'assignDependence']);
 });
 
 Route::prefix('dependence/{dependence}')->group(function () {
