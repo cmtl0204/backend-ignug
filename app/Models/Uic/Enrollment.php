@@ -36,6 +36,16 @@ class Enrollment extends Model implements Auditable
     protected $cascadeDeletes = ['files'];
 
     // Relationships
+    public function tutorShips()
+    {
+        return $this->hasMany(TutorShip::class);
+    }
+    
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
     public function modality()
     {
         return $this->belongsTo(Modality::class);

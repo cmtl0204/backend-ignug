@@ -34,6 +34,11 @@ class Modality extends Model implements Auditable
     protected $cascadeDeletes = ['files'];
 
     // Relationships
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    } 
+
     public function parent()
     {
         return $this->belongsTo(Modality::class);

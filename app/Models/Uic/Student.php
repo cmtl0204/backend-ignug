@@ -31,6 +31,11 @@ class Student extends Model implements Auditable
     protected $cascadeDeletes = ['files'];
 
     // Relationships
+    public function studentInformation()
+    {
+        return $this->hasOne(StudentInformation::class);
+    
+    }
     public function projectPlan()
     {
         return $this->belongsTo(ProjectPlan::class);

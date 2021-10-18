@@ -37,6 +37,16 @@ class Planning extends Model implements Auditable
     protected $cascadeDeletes = ['files'];
 
     // Relationships
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
     public function career()
     {
         return $this->belongsTo(Career::class);

@@ -33,6 +33,11 @@ class Example extends Model implements Auditable
 
     // Relationships
 
+    public function tutorShips()
+    {
+        return $this->hasMany(TutorShip::class);
+    }
+
     public function projectPlan()
     {
         return $this->belongsTo(ProjectPlan::class);

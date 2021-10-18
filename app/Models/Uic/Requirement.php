@@ -10,7 +10,6 @@ use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 
-
 /**
  * @property BigInteger id
  * @property string name
@@ -35,7 +34,11 @@ class Requirement extends Model implements Auditable
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-
+    public function requimentRequest()
+    {
+        return $this->hasOne(RequirementRequest::class);
+    }
+    
     public function career()
     {
         return $this->belongsTo(Career::class);

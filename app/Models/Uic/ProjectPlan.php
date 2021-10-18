@@ -40,6 +40,22 @@ class ProjectPlan extends Model implements Auditable
 
     protected $cascadeDeletes = ['files'];
 
+    //Relationships
+    public function project()
+    {
+        return $this->hasOne(Project::class);
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    public function tutor()
+    {
+        return $this->hasOne(Tutor::class);
+    }
+
     // Scopes
     public function scopeCustomOrderBy($query, $sorts)
     {

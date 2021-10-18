@@ -33,14 +33,18 @@ class MeshStudent extends Model implements Auditable
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function meshStudent()
+    public function enrollments()
     {
-        return $this->belongsTo(MeshStudent::class);
+        return $this->hasMany(Enrollment::class);
     }
-    
-    public function requirement()
+
+    public function students()
     {
-        return $this->belongsTo(Requirement::class);
+        return $this->hasMany(Student::class);
+    }
+    public function requirementRequests()
+    {
+        return $this->hasMany(RequirementRequests::class);
     }
 
     // Scopes
