@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Enrollments;
+namespace App\Http\Requests\V1\Uic\ProjectPlans;
 
 use App\Http\Requests\V1\Custom\CustomFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEnrollmentRequest extends FormRequest
+class StoreProjectPlanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,31 +25,23 @@ class UpdateEnrollmentRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'modality.id' => [
+            'title' => [
                 'required'
             ],
 
-            'schoolPeriod.id' => [
+            'description' => [
                 'required'
             ],
 
-            'meshStudent.id' => [
+            'actCode' => [
                 'required'
             ],
 
-            'status.id' => [
+            'approvedAt' => [
                 'required'
             ],
 
-            'planning.id' => [
-                'required'
-            ],
-
-            'registeredAt' => [
-                'required'
-            ],
-
-            'code' => [
+            'approved' => [
                 'required'
             ],
 
@@ -61,16 +53,14 @@ class UpdateEnrollmentRequest extends FormRequest
         return CustomFormRequest::rules($rules);
     }
 
-    public function attributes(): array
+    public function attributes()
     {
         $attributes = [
-            'modality.id' => 'Modalidad',
-            'schoolPeriod.id' => 'Periodo Académico',
-            'meshStudent' => 'Malla Estudiantil',
-            'status' => 'Estado',
-            'planning' => 'Planificación',
-            'registeredAt' => 'Fecha de registro',
-            'code' => 'Código',
+            'title' => 'Título del Plan',
+            'description' => 'Descripción',
+            'actCode' => 'Código del Acta',
+            'approvedAt' => 'Fecha de aprobación',
+            'approved' => 'Estado',
             'observations' => 'Observaciones',
         ];
 

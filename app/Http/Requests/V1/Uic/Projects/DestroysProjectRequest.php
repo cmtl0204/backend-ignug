@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Enrollments;
+namespace App\Http\Requests\V1\Uic\Projects;
 
 use App\Http\Requests\V1\Custom\CustomFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysEnrollmentRequest extends FormRequest
+class DestroysProjectRequest extends FormRequest
 {
     public function authorize()
     {

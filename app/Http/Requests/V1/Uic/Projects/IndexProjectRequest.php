@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Enrollments;
+namespace App\Http\Requests\V1\Uic\Projects;
 
 use App\Http\Requests\V1\Custom\CustomFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysEnrollmentRequest extends FormRequest
+class IndexProjectRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,7 +15,7 @@ class DestroysEnrollmentRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'ids' => ['required'],
+            'field_example' => ['required'],
         ];
 
         return CustomFormRequest::rules($rules);
@@ -24,7 +24,7 @@ class DestroysEnrollmentRequest extends FormRequest
     public function attributes(): array
     {
         $attributes = [
-            'ids' => 'IDs',
+            'field_example' => 'campo de ejemplo',
         ];
 
         return CustomFormRequest::attributes($attributes);

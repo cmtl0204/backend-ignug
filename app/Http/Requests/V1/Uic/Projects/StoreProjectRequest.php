@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Enrollments;
+namespace App\Http\Requests\V1\Uic\Projects;
 
 use App\Http\Requests\V1\Custom\CustomFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEnrollmentRequest extends FormRequest
+class StoreProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,31 +25,35 @@ class UpdateEnrollmentRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'modality.id' => [
+            'enrollment.id' => [
                 'required'
             ],
 
-            'schoolPeriod.id' => [
+            'projectPlan.id' => [
                 'required'
             ],
 
-            'meshStudent.id' => [
+            'title' => [
                 'required'
             ],
 
-            'status.id' => [
+            'description' => [
                 'required'
             ],
 
-            'planning.id' => [
+            'tutorAsigned' => [
                 'required'
             ],
 
-            'registeredAt' => [
+            'totalAdvance' => [
                 'required'
             ],
 
-            'code' => [
+            'score' => [
+                'required'
+            ],
+
+            'approved' => [
                 'required'
             ],
 
@@ -61,16 +65,17 @@ class UpdateEnrollmentRequest extends FormRequest
         return CustomFormRequest::rules($rules);
     }
 
-    public function attributes(): array
+    public function attributes()
     {
         $attributes = [
-            'modality.id' => 'Modalidad',
-            'schoolPeriod.id' => 'Periodo Académico',
-            'meshStudent' => 'Malla Estudiantil',
-            'status' => 'Estado',
-            'planning' => 'Planificación',
-            'registeredAt' => 'Fecha de registro',
-            'code' => 'Código',
+            'enrollment.id' => 'Inscripción',
+            'projectPlan.id' => 'Plan de Proyecto',
+            'title' => 'Titulo del Proyecto',
+            'description' => 'Descripción',
+            'tutorAsigned' => 'Tutor Asignado',
+            'totalAdvance' => 'Avance Total',
+            'score' => 'Puntaje',
+            'approved' => '¿Esta aprobado?',
             'observations' => 'Observaciones',
         ];
 

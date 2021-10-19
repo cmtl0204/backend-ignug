@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Enrollments;
+namespace App\Http\Requests\V1\Uic\MeshStudentRequeriments;
 
 use App\Http\Requests\V1\Custom\CustomFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEnrollmentRequest extends FormRequest
+class UpdateMeshStudentRequerimentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,31 +25,15 @@ class UpdateEnrollmentRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'modality.id' => [
-                'required'
-            ],
-
-            'schoolPeriod.id' => [
-                'required'
-            ],
-
             'meshStudent.id' => [
                 'required'
             ],
 
-            'status.id' => [
+            'requirement.id' => [
                 'required'
             ],
 
-            'planning.id' => [
-                'required'
-            ],
-
-            'registeredAt' => [
-                'required'
-            ],
-
-            'code' => [
+            'approved' => [
                 'required'
             ],
 
@@ -64,13 +48,9 @@ class UpdateEnrollmentRequest extends FormRequest
     public function attributes(): array
     {
         $attributes = [
-            'modality.id' => 'Modalidad',
-            'schoolPeriod.id' => 'Periodo Académico',
-            'meshStudent' => 'Malla Estudiantil',
-            'status' => 'Estado',
-            'planning' => 'Planificación',
-            'registeredAt' => 'Fecha de registro',
-            'code' => 'Código',
+            'meshStudent.id' => 'Malla Estudiantil',
+            'requirement.id' => 'Requerimiento',
+            'approved' => 'Estado',
             'observations' => 'Observaciones',
         ];
 

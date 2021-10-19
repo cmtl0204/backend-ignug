@@ -31,7 +31,7 @@ class CreateUicMeshStudentRequirementsTable extends Migration
                 ->nullable();
 
             $table->json('observations')
-                ->comment('Observaciones')
+                ->comment('Observaciónes')
                 ->nullable();
             
         });

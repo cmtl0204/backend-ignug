@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Enrollments;
+namespace App\Http\Requests\V1\Uic\Events;
 
 use App\Http\Requests\V1\Custom\CustomFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEnrollmentRequest extends FormRequest
+class UpdateEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,35 +25,19 @@ class UpdateEnrollmentRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'modality.id' => [
-                'required'
-            ],
-
-            'schoolPeriod.id' => [
-                'required'
-            ],
-
-            'meshStudent.id' => [
-                'required'
-            ],
-
-            'status.id' => [
-                'required'
-            ],
-
             'planning.id' => [
                 'required'
             ],
 
-            'registeredAt' => [
+            'name.id' => [
                 'required'
             ],
 
-            'code' => [
+            'startedAt' => [
                 'required'
             ],
 
-            'observations' => [
+            'endedAt' => [
                 'required'
             ],
         ];
@@ -64,14 +48,10 @@ class UpdateEnrollmentRequest extends FormRequest
     public function attributes(): array
     {
         $attributes = [
-            'modality.id' => 'Modalidad',
-            'schoolPeriod.id' => 'Periodo Académico',
-            'meshStudent' => 'Malla Estudiantil',
-            'status' => 'Estado',
-            'planning' => 'Planificación',
-            'registeredAt' => 'Fecha de registro',
-            'code' => 'Código',
-            'observations' => 'Observaciones',
+            'planning.id' => 'Planificación',
+            'name.id' => 'Nombre del Evento',
+            'startedAt' => 'Fecha de Inicio',
+            'endedAt' => 'Fecha de Fin',
         ];
 
         return CustomFormRequest::attributes($attributes);

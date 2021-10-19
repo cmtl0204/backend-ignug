@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Enrollments;
+namespace App\Http\Requests\V1\Uic\Plannings;
 
 use App\Http\Requests\V1\Custom\CustomFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-use function Ramsey\Uuid\v1;
-
-class StoreEnrollmentRequest extends FormRequest
+class StorePlanningRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,35 +25,23 @@ class StoreEnrollmentRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'modality.id' => [
+            'career.id' => [
                 'required'
             ],
 
-            'schoolPeriod.id' => [
+            'name' => [
                 'required'
             ],
 
-            'meshStudent.id' => [
+            'description' => [
                 'required'
             ],
 
-            'status.id' => [
+            'startedAt' => [
                 'required'
             ],
 
-            'planning.id' => [
-                'required'
-            ],
-
-            'registeredAt' => [
-                'required'
-            ],
-
-            'code' => [
-                'required'
-            ],
-
-            'observations' => [
+            'endedAt' => [
                 'required'
             ],
         ];
@@ -66,14 +52,11 @@ class StoreEnrollmentRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'modality.id' => 'Modalidad',
-            'schoolPeriod.id' => 'Periodo Académico',
-            'meshStudent' => 'Malla Estudiantil',
-            'status' => 'Estado',
-            'planning' => 'Planificación',
-            'registeredAt' => 'Fecha de registro',
-            'code' => 'Código',
-            'observations' => 'Observaciones',
+            'career.id' => 'Carrera',
+            'name' => 'Nombre de la Planificación',
+            'description' => 'Descripción',
+            'startedAt' => 'Fecha de Inicio',
+            'endedAt' => 'Fecha de fin',
         ];
 
         return CustomFormRequest::attributes($attributes);

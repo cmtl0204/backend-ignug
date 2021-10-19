@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Enrollments;
+namespace App\Http\Requests\V1\Uic\Modalities;
 
 use App\Http\Requests\V1\Custom\CustomFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEnrollmentRequest extends FormRequest
+class StoreModalityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +25,7 @@ class UpdateEnrollmentRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'modality.id' => [
-                'required'
-            ],
-
-            'schoolPeriod.id' => [
-                'required'
-            ],
-
-            'meshStudent.id' => [
+            'parent.id' => [
                 'required'
             ],
 
@@ -41,19 +33,15 @@ class UpdateEnrollmentRequest extends FormRequest
                 'required'
             ],
 
-            'planning.id' => [
+            'career.id' => [
                 'required'
             ],
 
-            'registeredAt' => [
+            'name' => [
                 'required'
             ],
 
-            'code' => [
-                'required'
-            ],
-
-            'observations' => [
+            'description' => [
                 'required'
             ],
         ];
@@ -61,17 +49,14 @@ class UpdateEnrollmentRequest extends FormRequest
         return CustomFormRequest::rules($rules);
     }
 
-    public function attributes(): array
+    public function attributes()
     {
         $attributes = [
-            'modality.id' => 'Modalidad',
-            'schoolPeriod.id' => 'Periodo Académico',
-            'meshStudent' => 'Malla Estudiantil',
-            'status' => 'Estado',
-            'planning' => 'Planificación',
-            'registeredAt' => 'Fecha de registro',
-            'code' => 'Código',
-            'observations' => 'Observaciones',
+            'parent.id' => 'Modalidad Padre',
+            'status.id' => 'Estado',
+            'career.id' => 'Carrera',
+            'name' => 'Nombre de la Modalidad',
+            'description' => 'Descripción',
         ];
 
         return CustomFormRequest::attributes($attributes);
