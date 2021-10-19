@@ -160,7 +160,7 @@ class DependenceController extends Controller
         return "formulario aprobado";
         // AGREGAR EL return estructurado
     }
-
+   
     // asignar dependence
     // consultar tabla dependecia y tabla usaurio
     // crear la fk de carrera
