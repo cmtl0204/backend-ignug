@@ -34,7 +34,9 @@ class Application extends Model
     ];
 
     function states(){
-        return $this->belongsToMany(State::class)->withPivot('dependence_user_id');
+        return $this->belongsToMany(State::class)
+            ->withPivot('dependence_user_id')
+            ->withTimestamps();
     }
     // RelationShip
     function employee(){

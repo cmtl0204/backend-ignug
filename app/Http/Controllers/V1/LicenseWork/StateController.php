@@ -50,6 +50,7 @@ class StateController extends Controller
         $state = new State();
 
         $state->name = $request->input('name');
+        $state->code = $request->input('code');
         $state->save();
 
         return (new StateResource($state))
@@ -91,6 +92,7 @@ class StateController extends Controller
     {
 
         $state->name = $request->input('name');
+        $state->code = $request->input('code');
         $state->save();
 
         return (new StateResource($state))

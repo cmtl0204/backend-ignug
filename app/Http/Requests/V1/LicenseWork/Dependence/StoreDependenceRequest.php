@@ -35,7 +35,7 @@ class StoreDependenceRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'user'=>'usuario',
+            'name'=>'nombre',
             'level'=>'nivel',
         ];
         return LicenseWorkFormRequest::attributes($attributes);

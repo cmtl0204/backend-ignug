@@ -15,7 +15,9 @@ class State extends Model
     ];
 
     function applications(){
-        return $this->belongsToMany(Application::class)->withPivot('dependence_user_id');
+        return $this->belongsToMany(Application::class)
+            ->withPivot('dependence_user_id')
+            ->withTimestamps();;
     }
 
     // Scopes

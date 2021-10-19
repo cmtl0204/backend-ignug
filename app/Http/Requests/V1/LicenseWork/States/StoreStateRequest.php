@@ -24,16 +24,15 @@ class StoreStateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'=>['required'],
             'name'=>['required'],
+            'code'=>['required'],
         ];
     }
     public function attributes()
     {
         $attributes = [
-            'id'=>'id del estado',
             'name'=>'nombre del estado',
-
+            'code'=>'nombre del estado',
         ];
         return $attributes;
     }

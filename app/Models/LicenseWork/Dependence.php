@@ -15,7 +15,10 @@ class Dependence extends Model
         'level',
     ];
     // Relationship
-    // falta la relacion entre las tablas pibotes
+
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
 
 // Scopes
     public function scopeName($query, $name)

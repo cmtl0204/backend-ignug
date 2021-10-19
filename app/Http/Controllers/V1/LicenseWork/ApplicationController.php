@@ -208,6 +208,9 @@ class ApplicationController extends Controller
         // hacer el borrador o enviar la solicitud
         $state = State::find($request->input('state.id'));
         $application->states()->attach($state);
+        $application->states()
+            ->attach($state->id,['dependence_user_id'=>$request
+                ->input('dependenceUser.id')]);
 
         return (new ApplicationResource($application))
             ->additional([

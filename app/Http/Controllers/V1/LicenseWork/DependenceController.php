@@ -52,6 +52,7 @@ class DependenceController extends Controller
         $dependence = new Dependence();
 
         $dependence->name = $request->input('name');
+        $dependence->code = $request->input('code');
         $dependence->save();
 
         return (new DependenceResource($dependence))
@@ -93,6 +94,7 @@ class DependenceController extends Controller
     {
 
         $dependence->name = $request->input('name');
+        $dependence->code = $request->input('code');
         $dependence->save();
 
         return (new DependenceResource($dependence))

@@ -22,7 +22,7 @@ class StateFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->randomElement(['aprobado-no','aprobado','pendiente'])
+            'name'=>$this->faker->randomElement(['NO-APPROVED','APPROVED','PRE-APPROVED','SAVED'])
         ];
     }
 }

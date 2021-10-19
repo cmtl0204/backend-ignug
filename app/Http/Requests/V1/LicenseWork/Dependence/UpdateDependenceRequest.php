@@ -35,7 +35,7 @@ class UpdateDependenceRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'user'=>'usuario',
+            'name'=>'nombre',
             'level'=>'nivel',
         ];
 
