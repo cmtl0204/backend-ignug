@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\V1\LicenseWork;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\LicenseWork\Dependence\ApprovedDependenceRequest;
+use App\Http\Requests\V1\LicenseWork\Dependence\AssignDependenceRequest;
 use App\Http\Requests\V1\LicenseWork\Dependence\DestroysDependenceRequest;
 use App\Http\Requests\V1\LicenseWork\Dependence\IndexDependenceRequest;
+use App\Http\Requests\V1\LicenseWork\Dependence\RefuseApplicationRequest;
 use App\Http\Requests\V1\LicenseWork\Dependence\StoreDependenceRequest;
 use App\Http\Requests\V1\LicenseWork\Dependence\UpdateDependenceRequest;
 use App\Http\Resources\V1\LicenseWork\DependenceCollection;
 use App\Http\Resources\V1\LicenseWork\DependenceResource;
+use App\Http\Resources\V1\LicenseWork\StateApplicationResource;
 use App\Models\Authentication\User;
 use App\Models\Core\State;
 use App\Models\LicenseWork\Application;
@@ -142,32 +146,53 @@ class DependenceController extends Controller
     }
     //aprobar formularios solicitados
     // hacer un request de approved
-    public function approvedApplication($request, Application $application){
-        $state = State::firstWhere('code', 'ACEPTADO');
+    public function approvedApplication(ApprovedDependenceRequest $request, Application $application){
+        $state = State::firstWhere('code', '001');
         $application->states()->attach($state);
-        $dependence= Dependence::find($request->input('dependece.id'));
+        $dependence= Dependence::find($request->input('dependence.id'));
 
-        return "formulario aprobado";
+        return (new StateApplicationResource($dependence))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Solicitud aprobada',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 
     //rechazar formularios solicitados
     //hacer un request de refuse
-    public function refuseApplication($request, Application $application){
-        $state = State::firstWhere('code', 'RECHAZADO');
+    public function refuseApplication(RefuseApplicationRequest $request, Application $application){
+        $state = State::firstWhere('code', '001');
         $application->states()->attach($state);
-        $dependence= Dependence::find($request->input('dependece.id'));
+        $dependence= Dependence::find($request->input('dependence.id'));
 
-        return "formulario aprobado";
+        return (new StateApplicationResource($dependence))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Solicitud rechazada',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
         // AGREGAR EL return estructurado
     }
-   
+
     // asignar dependence
     // consultar tabla dependecia y tabla usaurio
     // crear la fk de carrera
-    public function  assignDependence($request, Dependence $dependence){
+    public function  assignDependence(AssignDependenceRequest $request, Dependence $dependence){
         $user = User::find($request->input('user.id'));
         $dependence->users()->attach($user);
 
-        return "dependecia asignada";
+        return (new StateApplicationResource($dependence))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Departamento asignado',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }

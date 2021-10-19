@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\V1\LicenseWork\Dependence;
 
+use App\Http\Requests\V1\LicenseWork\LicenseWorkFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AprovedDependenceRequest extends FormRequest
+class AssignDependenceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +24,17 @@ class AprovedDependenceRequest extends FormRequest
      */
     public function rules()
     {
+        $rules =  [
+            'name.id'=>['required'],
+        ];
+
         return LicenseWorkFormRequest::rules($rules);
     }
-
 
     public function attributes()
     {
         $attributes = [
-            'user'=>'usuario',
-            'level'=>'nivel',
+            'user.id'=>'usuario',
         ];
         return LicenseWorkFormRequest::attributes($attributes);
 

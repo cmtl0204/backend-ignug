@@ -46,7 +46,7 @@ class LicenseWorkSeeder extends Seeder
             'name'=>'ADMINISTRATION',
             'level'=>2,
             ],[
-            'name'=>'RECTORATE ',
+            'name'=>'RECTORATE',
             'code'=>'003'
         ],
         ));
