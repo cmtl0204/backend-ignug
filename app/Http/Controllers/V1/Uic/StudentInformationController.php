@@ -1,0 +1,122 @@
+<?php
+
+namespace App\Http\Controllers\Uic;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Uic\StudentInformation\DeleteStudentInformationRequest;
+use App\Http\Requests\Uic\StudentInformation\IndexStudentInformationRequest;
+use App\Http\Requests\Uic\StudentInformation\StoreStudentInformationRequest;
+use App\Http\Requests\Uic\StudentInformation\UpdateStudentInformationRequest;
+use App\Models\Uic\Student;
+use App\Models\Uic\StudentInformation;
+
+// Models
+
+// FormRequest en el index store update
+
+class StudentInformationController extends Controller
+{
+    public function index(IndexStudentInformationRequest $request)
+    {
+
+        $informationStudent = StudentInformation::paginate($request->input('per_page'));
+
+        if ($informationStudent->count() === 0) {
+            return response()->json([
+                'data' => null,
+                'msg' => [
+                    'summary' => 'No se encontraron registros',
+                    'detail' => 'Intentelo de nuevo',
+                    'code' => '404'
+                ]
+            ], 404);
+        }
+        return response()->json($informationStudent, 200);
+    }
+
+    public function show($id)
+    {
+        $informationStudent = StudentInformation::where('student_id', '=', $id)->first();
+
+        if (!$informationStudent) {
+            return response()->json([
+                'data' => null,
+                'msg' => [
+                    'summary' => 'la información no existe',
+                    'detail' => 'Intente otra vez',
+                    'code' => '404'
+                ]
+            ], 404);
+        }
+        return response()->json([
+            'data' => $informationStudent,
+            'msg' => [
+                'summary' => '',
+                'detail' => '',
+                'code' => '200'
+            ]
+        ], 200);
+    }
+
+    public function store(StoreStudentInformationRequest $request)
+    {
+        $informationStudent = new StudentInformation;
+        $informationStudent->student_id = $request->input('studentInformation.student.id');
+        $informationStudent->company_work = $request->input('studentInformation.company_work');
+        $informationStudent->relation_laboral_career_id = $request->input('studentInformation.relation_laboral_career.id');
+        $informationStudent->company_area_id = $request->input('studentInformation.company_area.id');
+        $informationStudent->company_position_id = $request->input('studentInformation.company_position.id');
+        $informationStudent->save();
+        return response()->json([
+            'data' => $informationStudent->fresh(),
+            'msg' => [
+                'summary' => 'Información creada',
+                'detail' => 'la información fue creada',
+                'code' => '201'
+            ]
+        ], 201);
+    }
+
+    public function update(UpdateStudentInformationRequest $request, $id)
+    {
+        $informationStudent = StudentInformation::find($id);
+        if (!$informationStudent) {
+            return response()->json([
+                'data' => null,
+                'msg' => [
+                    'summary' => 'La información no existe',
+                    'detail' => 'Intente otra vez',
+                    'code' => '404'
+                ]
+            ], 400);
+        }
+        $informationStudent->student_id = $request->input('studentInformation.student.id');
+        $informationStudent->company_work = $request->input('studentInformation.company_work');
+        $informationStudent->relation_laboral_career_id = $request->input('studentInformation.relation_laboral_career.id');
+        $informationStudent->company_area_id = $request->input('studentInformation.company_area.id');
+        $informationStudent->company_position_id = $request->input('studentInformation.company_position.id');
+        $informationStudent->save();
+        return response()->json([
+            'data' => $informationStudent->fresh(),
+            'msg' => [
+                'summary' => 'Información actualizada',
+                'detail' => 'La información fue actualizada',
+                'code' => '201'
+            ]
+        ], 201);
+    }
+    function delete(DeleteStudentInformationRequest $request)
+    {
+        // Es una eliminación lógica
+        StudentInformation::destroy($request->input('ids'));
+
+        return response()->json([
+            'data' => null,
+            'msg' => [
+                'summary' => 'StudentInformation(es) eliminado(s)',
+                'detail' => 'Se eliminó correctamente',
+                'code' => '201'
+            ]
+        ], 201);
+    }
+}

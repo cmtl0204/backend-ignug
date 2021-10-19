@@ -92,7 +92,7 @@ return [
             'schema' => env('DB_SCHEMA_CORE', 'public'),
             'sslmode' => 'prefer',
         ],
-        'pgsql-custom' => [
+        'pgsql-uic' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
