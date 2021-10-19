@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\V1\LicenseWork;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\LicenseWork\Dependence\ApprovedDependenceRequest;
+use App\Http\Requests\V1\LicenseWork\Dependence\ApprovedApplicationRequest;
 use App\Http\Requests\V1\LicenseWork\Dependence\AssignDependenceRequest;
 use App\Http\Requests\V1\LicenseWork\Dependence\DestroysDependenceRequest;
 use App\Http\Requests\V1\LicenseWork\Dependence\IndexDependenceRequest;
@@ -129,7 +129,6 @@ class DependenceController extends Controller
                 ]
             ]);
     }
-
     public function destroys(DestroysDependenceRequest $request)
     {
         $dependence = Dependence::whereIn('id', $request->input('ids'))->get();
@@ -145,8 +144,7 @@ class DependenceController extends Controller
             ]);
     }
     //aprobar formularios solicitados
-    // hacer un request de approved
-    public function approvedApplication(ApprovedDependenceRequest $request, Application $application){
+    public function approvedApplication(ApprovedApplicationRequest $request, Application $application){
         $state = State::firstWhere('code', '001');
         $application->states()->attach($state);
         $dependence= Dependence::find($request->input('dependence.id'));
@@ -160,9 +158,7 @@ class DependenceController extends Controller
                 ]
             ]);
     }
-
     //rechazar formularios solicitados
-    //hacer un request de refuse
     public function refuseApplication(RefuseApplicationRequest $request, Application $application){
         $state = State::firstWhere('code', '001');
         $application->states()->attach($state);
@@ -176,12 +172,8 @@ class DependenceController extends Controller
                     'code' => '201'
                 ]
             ]);
-        // AGREGAR EL return estructurado
     }
-
-    // asignar dependence
-    // consultar tabla dependecia y tabla usaurio
-    // crear la fk de carrera
+    // Asignar dependence
     public function  assignDependence(AssignDependenceRequest $request, Dependence $dependence){
         $user = User::find($request->input('user.id'));
         $dependence->users()->attach($user);

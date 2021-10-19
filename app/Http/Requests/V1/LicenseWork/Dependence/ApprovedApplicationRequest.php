@@ -5,7 +5,7 @@ namespace App\Http\Requests\V1\LicenseWork\Dependence;
 use App\Http\Requests\V1\LicenseWork\LicenseWorkFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ApprovedDependenceRequest extends FormRequest
+class ApprovedApplicationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

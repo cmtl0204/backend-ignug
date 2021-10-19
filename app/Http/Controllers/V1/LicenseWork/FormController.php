@@ -148,9 +148,7 @@ class FormController extends Controller
                 ]
             ]);
     }
-    //agregar a las rutas
     // actualizar el estado del formulario si esta activo o inactivo
-    // activeFormRequest
     public function activeForm(Form $form){
         $form->state = true;
         $form->save();
@@ -163,7 +161,6 @@ class FormController extends Controller
                 ]
             ]);
     }
-    // inactiveFormRequest
     public function inactiveForm(Form $form){
         $form->state = false;
         $form->save();

@@ -145,9 +145,7 @@ class EmployerController extends Controller
                 ]
             ]);
     }
-
     // devolver listado de empleadores
-
     public function selectEmployer(IndexEmployerRequest $request){
         $sorts = explode(',', $request->sort);
 

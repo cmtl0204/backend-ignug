@@ -99,7 +99,7 @@ Route::prefix('academic-formation/{academic_formation}')->group(function () {
     });
 });
 /***********************************************************************************************************************
- * ROUTE EMPLOYER
+ * ROUTE EMPLOYEES
  **********************************************************************************************************************/
 
 Route::apiResource('employees', EmployeeController::class);
