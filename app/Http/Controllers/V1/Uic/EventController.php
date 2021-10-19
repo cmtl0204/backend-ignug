@@ -23,11 +23,11 @@ class EventController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $examples = Event::customSelect($request->fields)->customOrderBy($sorts)
+        $events = Event::customSelect($request->fields)->customOrderBy($sorts)
             ->fielEvent($request->input('fieldEvent'))
             ->paginate($request->input('per_page'));
 
-        return (new EventCollection($examples))
+        return (new EventCollection($events))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -39,21 +39,19 @@ class EventController extends Controller
 
     public function store(StoreEventRequest $request)
     {
+        $planning = Planning::find($request->input('planning.id'));
+        $name = Catalogue::find($request->input('name.id'));
+        
         $event = new Event;
-        $planning = Planning::findOrFail($request->input('event.planning.id'));
 
-
-        if (
-            $planning['start_date'] <= $request->input('event.start_date')
-            && $planning['end_date'] >= $request->input('event.end_date')
-        ) {
-            $event->planning_id = $request->input('event.planning.id');
-            $event->name_id = $request->input('event.name.id');
-            $event->start_date = $request->input('event.start_date');
-            $event->end_date = $request->input('event.end_date');
-            $event->save();
+        $event->planning()->associate($planning);
+        $event->name()->associate($name);
+        
+        $event->started_at = $request->input('startedAt');
+        $event->ended_at = $request->input('endedAt');
+        $event->save();
             
-            return (new EventResource($event))
+        return (new EventResource($event))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Actualizado',
@@ -76,28 +74,19 @@ class EventController extends Controller
             ]);
     }
 
-    public function update(UpdateEventRequest $request, $id)
+    public function update(UpdateEventRequest $request, Event $event)
     {
-        $event = Event::find($id);
-        if (!$event) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'El evento no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-        $planning = Planning::findOrFail($request->input('event.planning.id'));
-        if ($planning['start_date'] <= $request->input('event.start_date') && $planning['end_date'] >= $request->input('event.end_date')) {
-            $event->planning_id = $request->input('event.planning.id');
-            $event->name_id = $request->input('event.name.id');
-            $event->start_date = $request->input('event.start_date');
-            $event->end_date = $request->input('event.end_date');
-            $event->save();
+        $planning = Planning::find($request->input('planning.id'));
+        $name = Catalogue::find($request->input('name.id'));
+
+        $event->planning()->associate($planning);
+        $event->name()->associate($name);
+        
+        $event->started_at = $request->input('startedAt');
+        $event->ended_at = $request->input('endedAt');
+        $event->save();
             
-            return (new EventResource($event))
+        return (new EventResource($event))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Actualizado',
@@ -105,7 +94,6 @@ class EventController extends Controller
                     'code' => '200'
                 ]
             ]);
-        }
     }
 
     public function destroy(Event $event)
