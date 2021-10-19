@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\V1\Uic\Enrollments;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 use function Ramsey\Uuid\v1;
@@ -39,7 +39,7 @@ class StoreEnrollmentRequest extends FormRequest
                 'required'
             ],
 
-            'status.id' => [
+            'state.id' => [
                 'required'
             ],
 
@@ -60,22 +60,22 @@ class StoreEnrollmentRequest extends FormRequest
             ],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes()
     {
         $attributes = [
-            'modality.id' => 'Modalidad',
+            'modality.id' => 'Modalidad padre',
             'schoolPeriod.id' => 'Periodo Académico',
-            'meshStudent' => 'Malla Estudiantil',
-            'status' => 'Estado',
-            'planning' => 'Planificación',
+            'meshStudent.id' => 'Malla Estudiantil',
+            'state.id' => 'Estado de la modalidad',
+            'planning.id' => 'Planificación',
             'registeredAt' => 'Fecha de registro',
             'code' => 'Código',
             'observations' => 'Observaciones',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

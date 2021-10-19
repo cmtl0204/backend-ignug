@@ -45,7 +45,7 @@ class UpdateEnrollmentRequest extends FormRequest
                 'required'
             ],
 
-            'registeredAt' => [
+            'registered_att' => [
                 'required'
             ],
 
@@ -58,13 +58,13 @@ class UpdateEnrollmentRequest extends FormRequest
             ],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes(): array
     {
         $attributes = [
-            'modality.id' => 'Modalidad',
+            'modality.id' => 'Modalidad padre',
             'schoolPeriod.id' => 'Periodo Académico',
             'meshStudent' => 'Malla Estudiantil',
             'status' => 'Estado',
@@ -74,6 +74,6 @@ class UpdateEnrollmentRequest extends FormRequest
             'observations' => 'Observaciones',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }
