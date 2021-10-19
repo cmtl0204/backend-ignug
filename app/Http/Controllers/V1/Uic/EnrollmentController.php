@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Uic;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Uic\Enrollment\DeleteEnrollmentRequest;
+use App\Http\Requests\Uic\Enrollment\DestroyEnrollmentRequest;
+use App\Http\Requests\Uic\Enrollment\DestroysEnrollmentRequest;
 use App\Http\Requests\Uic\Enrollment\IndexEnrollmentRequest;
 use App\Http\Requests\Uic\Enrollment\StoreEnrollmentRequest;
 use App\Http\Requests\Uic\Enrollment\UpdateEnrollmentRequest;
@@ -37,28 +38,6 @@ class EnrollmentController extends Controller
         return response()->json($enrollments, 200);
     }
 
-    public function show(Enrollment $enrollment)
-    {
-        if (!$enrollment) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'La inscripción no existe',
-                    'detail' => 'Intente con otra inscripción',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $enrollment,
-            'msg' => [
-                'summary' => 'La inscripción no existe',
-                'detail' => 'Intente con otra inscripción',
-                'code' => '404'
-            ]
-        ], 200);
-    }
-
     public function store(StoreEnrollmentRequest $request)
     {
         $enrollment = new Enrollment;
@@ -79,6 +58,28 @@ class EnrollmentController extends Controller
                 'code' => '201'
             ]
         ], 201);
+    }
+
+    public function show(Enrollment $enrollment)
+    {
+        if (!$enrollment) {
+            return response()->json([
+                'data' => null,
+                'msg' => [
+                    'summary' => 'La inscripción no existe',
+                    'detail' => 'Intente con otra inscripción',
+                    'code' => '404'
+                ]
+            ], 404);
+        }
+        return response()->json([
+            'data' => $enrollment,
+            'msg' => [
+                'summary' => 'La inscripción no existe',
+                'detail' => 'Intente con otra inscripción',
+                'code' => '404'
+            ]
+        ], 200);
     }
 
     public function update(UpdateEnrollmentRequest $request, $id)
@@ -112,7 +113,8 @@ class EnrollmentController extends Controller
             ]
         ], 201);
     }
-    function delete(DeleteEnrollmentRequest $request)
+
+    function destroy(DestroyEnrollmentRequest $request)
     {
         // Es una eliminación lógica
         Enrollment::destroy($request->input('ids'));
@@ -125,5 +127,20 @@ class EnrollmentController extends Controller
                 'code' => '201'
             ]
         ], 201);
+    }
+
+    public function destroys(DestroysEnrollmentRequest $request)
+    {
+        $request = Enrollment::whereIn('id', $request->input('ids'))->get();
+        Enrollment::destroy($request->input('ids'));
+
+        return (new EnrollmentCollection($request))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }

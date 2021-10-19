@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Uic;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Uic\Event\DeleteEventRequest;
+use App\Http\Requests\Uic\Event\DestroyEventRequest;
+use App\Http\Requests\Uic\Event\DestroysEventRequest;
 use App\Http\Requests\Uic\Event\IndexEventRequest;
 use App\Http\Requests\Uic\Event\StoreEventRequest;
 use App\Http\Requests\Uic\Event\UpdateEventRequest;
@@ -41,29 +42,6 @@ class EventController extends Controller
         return response()->json($events, 200);
     }
 
-
-    public function show(Event $event)
-    {
-        if (!$event) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'El evento no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $event->fresh(),
-            'msg' => [
-                'summary' => 'El evento no existe',
-                'detail' => 'Intente otra vez',
-                'code' => '404'
-            ]
-        ], 200);
-    }
-
     public function store(StoreEventRequest $request)
     {
         $event = new Event;
@@ -88,6 +66,28 @@ class EventController extends Controller
                 ]
             ], 201);
         }
+    }
+
+    public function show(Event $event)
+    {
+        if (!$event) {
+            return response()->json([
+                'data' => null,
+                'msg' => [
+                    'summary' => 'El evento no existe',
+                    'detail' => 'Intente otra vez',
+                    'code' => '404'
+                ]
+            ], 404);
+        }
+        return response()->json([
+            'data' => $event->fresh(),
+            'msg' => [
+                'summary' => 'El evento no existe',
+                'detail' => 'Intente otra vez',
+                'code' => '404'
+            ]
+        ], 200);
     }
 
     public function update(UpdateEventRequest $request, $id)
@@ -128,7 +128,8 @@ class EventController extends Controller
             ]
         ], 404);
     }
-    function delete(DeleteEventRequest $request)
+
+    function destroy(DestroyEventRequest $request)
     {
         // Es una eliminación lógica
         Event::destroy($request->input('ids'));
@@ -141,5 +142,20 @@ class EventController extends Controller
                 'code' => '201'
             ]
         ], 201);
+    }
+
+    public function destroys(DestroysEventRequest $request)
+    {
+        $request = Event::whereIn('id', $request->input('ids'))->get();
+        Event::destroy($request->input('ids'));
+
+        return (new EventCollection($request))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }
