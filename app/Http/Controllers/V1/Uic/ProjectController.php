@@ -22,23 +22,20 @@ class ProjectController extends Controller
      */
     public function index(IndexProjectRequest $request)
     {
-        if ($request->has('search')) {
-            $projects = Project::title($request->input('search'))
-                ->description($request->input('search'))->paginate($request->input('per_page'));
-        } else {
-            $projects = Project::orderBy('id','asc')->get();
-        }
-        if ($projects->count() == 0) {
-            return response()->json([
-                'data' => null,
+        $sorts = explode(',', $request->sort);
+
+        $project = Project::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldExample'))
+            ->paginate($request->input('per_page'));
+
+        return (new ProjectCollection($project))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron proyectos',
-                    'detail' => 'Intentalo de nuevo',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json($projects, 200);
+            ]);
     }
 
     public function showById($id){
@@ -49,19 +46,14 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
-        if (!$project) {
-            return response()->json([
-                'data' => null,
+        return (new ProjectResource($project))
+            ->additional([
                 'msg' => [
-                    'summary' => 'El proyecto no existe',
-                    'detail' => 'Intente con otro proyecto',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
                 ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $project
-        ], 200);
+            ]);
     }
 
     public function store(StoreProjectRequest $request)
@@ -81,14 +73,15 @@ class ProjectController extends Controller
         $project->tutor_asigned = $request->input('tutor_asigned');
         $project->observations = $request->input('observations');
         $project->save();
-        return response()->json([
-            'data' => $project->fresh(),
-            'msg' => [
-                'summary' => 'Proyecto creado',
-                'detail' => 'El proyecto fue creado con exito',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new ProjectResource($project))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function update(Request $request, $id)
@@ -116,27 +109,42 @@ class ProjectController extends Controller
         $project->tutor_asigned = $request->input('tutor_asigned');
         $project->observations = $request->input('observations');
         $project->save();
-        return response()->json([
-            'data' => $project->fresh(),
-            'msg' => [
-                'summary' => 'Proyecto actualizado',
-                'detail' => 'El proyecto fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new ProjectResource($project))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function delete(DeleteProjectRequest $request)
+    public function destroy(Project $project)
     {
+        $project->delete();
+        return (new ProjectResource($project))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysProjectRequest $request)
+    {
+        $project = Project::whereIn('id', $request->input('ids'))->get();
         Project::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Proyectos eliminados',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new ProjectCollection($project))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }

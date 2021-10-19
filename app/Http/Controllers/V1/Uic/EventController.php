@@ -21,25 +21,20 @@ class EventController extends Controller
 {
     public function index(IndexEventRequest $request)
     {
-        if ($request->has('search')) {
-            $events = Event::date()->name($request->input('search'))
-                ->planning($request->input('search'))
-                ->paginate($request->input('per_page'));
-        } else {
-            $events = Event::date()->orderBy('end_date')->paginate($request->input('per_page')); //Where date se
-        }
+        $sorts = explode(',', $request->sort);
 
-        if ($events->count() === 0) {
-            return response()->json([
-                'data' => null,
+        $examples = Event::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielEvent($request->input('fieldEvent'))
+            ->paginate($request->input('per_page'));
+
+        return (new EventCollection($examples))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron eventos',
-                    'detail' => 'Intentelo de nuevo',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json($events, 200);
+            ]);
     }
 
     public function store(StoreEventRequest $request)
@@ -57,37 +52,28 @@ class EventController extends Controller
             $event->start_date = $request->input('event.start_date');
             $event->end_date = $request->input('event.end_date');
             $event->save();
-            return response()->json([
-                'data' => $event->fresh(),
+            
+            return (new EventResource($event))
+            ->additional([
                 'msg' => [
-                    'summary' => 'Evento creado',
-                    'detail' => 'El evento fue creado',
-                    'code' => '201'
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 201);
+            ]);
         }
     }
 
     public function show(Event $event)
     {
-        if (!$event) {
-            return response()->json([
-                'data' => null,
+        return (new EventResource($event))
+            ->additional([
                 'msg' => [
-                    'summary' => 'El evento no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
                 ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $event->fresh(),
-            'msg' => [
-                'summary' => 'El evento no existe',
-                'detail' => 'Intente otra vez',
-                'code' => '404'
-            ]
-        ], 200);
+            ]);
     }
 
     public function update(UpdateEventRequest $request, $id)
@@ -110,46 +96,37 @@ class EventController extends Controller
             $event->start_date = $request->input('event.start_date');
             $event->end_date = $request->input('event.end_date');
             $event->save();
-            return response()->json([
-                'data' => $event,
+            
+            return (new EventResource($event))
+            ->additional([
                 'msg' => [
-                    'summary' => 'Evento actualizado',
-                    'detail' => 'El evento fue actualizado',
-                    'code' => '201'
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 201);
+            ]);
         }
-        return response()->json([
-            'data' => '',
-            'msg' => [
-                'summary' => 'Las fechas deben estar dentro del rango de fechas de la Convocatoria',
-                'detail' => 'Intente otra vez',
-                'code' => '404'
-            ]
-        ], 404);
     }
 
-    function destroy(DestroyEventRequest $request)
+    public function destroy(Event $event)
     {
-        // Es una eliminación lógica
-        Event::destroy($request->input('ids'));
-
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'evento(es) eliminada(s)',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        $event->delete();
+        return (new EventResource($event))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function destroys(DestroysEventRequest $request)
     {
-        $request = Event::whereIn('id', $request->input('ids'))->get();
+        $event = Event::whereIn('id', $request->input('ids'))->get();
         Event::destroy($request->input('ids'));
 
-        return (new EventCollection($request))
+        return (new EventCollection($event))
             ->additional([
                 'msg' => [
                     'summary' => 'Registros Eliminados',

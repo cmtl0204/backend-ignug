@@ -27,23 +27,20 @@ class ProjectPlanController extends Controller
      */
     public function index(IndexProjectPlanRequest $request)
     {
-        if ($request->has('search')) {
-            $projectPlans = ProjectPlan::title($request->input('search'))
-                ->description($request->input('search'))->paginate($request->input('per_page'));
-        } else {
-            $projectPlans = ProjectPlan::with(['tutors', 'students'])->paginate($request->input('per_page'));
-        }
-        if ($projectPlans->count() == 0) {
-            return response()->json([
-                'data' => null,
+        $sorts = explode(',', $request->sort);
+
+        $projectPlan = ProjectPlan::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldExample'))
+            ->paginate($request->input('per_page'));
+
+        return (new ProjectPlanCollection($projectPlan))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron actas de aprobación del anteproyecto',
-                    'detail' => 'Intentalo de nuevo',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json($projectPlans, 200);
+            ]);
     }
 
     public function getTeachers(Request $request)
@@ -74,25 +71,14 @@ class ProjectPlanController extends Controller
 
     public function show(ProjectPlan $projectPlan)
     {
-        if (!$projectPlan) {
-            return response()->json([
-                'data' => null,
+        return (new ProjectPlanResource($projectPlan))
+            ->additional([
                 'msg' => [
-                    'summary' => 'El acta de aprobación del anteproyecto no existe',
-                    'detail' => 'Intente con otro acta de aprobación del anteproyecto',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
                 ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $projectPlan,
-            'msg' => [
-                'summary' => '',
-                'detail' => '',
-                'code' => '200'
-            ]
-
-        ], 200);
+            ]);
     }
 
     public function store(StoreProjectPlanRequest $request)
@@ -133,14 +119,14 @@ class ProjectPlanController extends Controller
                 $tutor->save();
             }
         }
-        return response()->json([
-            'data' => $projectPlan->fresh(),
-            'msg' => [
-                'summary' => 'Acta creado',
-                'detail' => 'El acta de aprobación del anteproyecto fue creado con exito',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new ProjectPlanResource($projectPlan))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function update(UpdateProjectPlanRequest $request, $id)
@@ -163,56 +149,45 @@ class ProjectPlanController extends Controller
         $projectPlan->is_approved = $request->input('projectPlan.is_approved');
         $projectPlan->observations = $request->input('projectPlan.observations');
         $projectPlan->save();
-        return response()->json([
-            'data' => $projectPlan->fresh(),
-            'msg' => [
-                'summary' => 'Acta actualizado',
-                'detail' => 'El acta de aprobación del anteproyecto fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+       
+        return (new ProjectPlanResource($projectPlan))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function delete(DeleteProjectPlanRequest $request)
+    public function destroy(ProjectPlan $projectPlan)
     {
-        // $projectPlans = $request->input('ids');
+        $projectPlan->delete();
+        return (new ProjectPlanResource($projectPlan))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
 
-        // for ($i = 0; $i < count($projectPlans); $i++) {
-        //     $projectPlan = ProjectPlan::findOrFail($projectPlans[$i]);
-        //     $students = $projectPlan->students;
-
-
-        //     for ($s = 0; $s < count($students); $s++) {
-        //         $id = $students[$s]['id'];
-        //         $student = Student::findOrFail($id);
-        //         $student->project_plan_id = null;
-
-        //         $student->save();
-        //         $student->fresh();
-        //     }
-
-        //     $tutors = $projectPlan->tutors;
-
-        //     for ($t = 0; $t < count($tutors); $t++) {
-        //         $idT = $tutors[$t]['id'];
-        //         $tutor = Tutor::findOrFail($idT);
-        //         $tutor->project_plan_id = null;
-        //         $tutor->save();
-        //         $tutor->fresh();
-        //     }
-        // }
-
+    public function destroys(DestroysProjectPlanRequest $request)
+    {
+        $projectPlan = EProjectPlan::whereIn('id', $request->input('ids'))->get();
         ProjectPlan::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Actas eliminados',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new ProjectPlanCollection($projectPlan))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
+
 
     function uploadFile(UploadFileRequest $request)
     {
