@@ -23,45 +23,32 @@ class RequirementRequestRequestController extends Controller
      */
     public function index(IndexRequirementRequestRequest $request)
     {
-        if ($request->has('search')) {
-            $requirementRequests = RequirementRequest::name(($request->input('search')))->paginate($request->input('per_page'));
-        } else {
-            $requirementRequests = RequirementRequest::paginate($request->input('per_page'));
-        }
-        if ($requirementRequests->count() == 0) {
-            return response()->json([
-                'data' => null,
+        $sorts = explode(',', $request->sort);
+
+        $examples = RequirementRequest::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldExample'))
+            ->paginate($request->input('per_page'));
+
+        return (new RequirementRequestCollection($requirement))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron requerimientos',
-                    'detail' => 'Intentalo de nuevo',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json($requirementRequests);
+            ]);
     }
 
     public function show(RequirementRequest $requirement)
     {
-        if (!$requirement) {
-            return response()->json([
-                'data' => null,
+        return (new Requirement($requirement))
+            ->additional([
                 'msg' => [
-                    'summary' => 'El requerimiento no existe',
-                    'detail' => 'Intente con otro requerimiento',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
                 ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $requirement,
-            'msg' => [
-                'summary' => '',
-                'detail' => '',
-                'code' => '200'
-            ]
-
-        ], 200);
+            ]);
     }
 
     public function store(StoreRequirementRequestRequest $request)
@@ -72,14 +59,15 @@ class RequirementRequestRequestController extends Controller
         $requirement->date = $request->input('requirementRequest.date');
         $requirement->is_approved = $request->input('requirementRequest.is_approved');
         $requirement->save();
-        return response()->json([
-            'data' => $requirement->fresh(),
-            'msg' => [
-                'summary' => 'Requerimiento creado',
-                'detail' => 'El requerimiento fue creado con exito',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new RequirementRequestResource($requirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function update(UpdateRequirementRequestRequest $request, $id)
@@ -100,27 +88,42 @@ class RequirementRequestRequestController extends Controller
         $requirement->date = $request->input('requirementRequest.date');
         $requirement->is_approved = $request->input('requirementRequest.is_approved');
         $requirement->save();
-        return response()->json([
-            'data' => $requirement->fresh(),
-            'msg' => [
-                'summary' => 'Requerimiento actualizado',
-                'detail' => 'El requerimiento fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new RequirementRequestResource($requirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function delete(DeleteRequirementRequestRequest $request)
+    public function destroy(RequirementRequest $requirement)
     {
+        $requirement->delete();
+        return (new RequirementRequestResource($requirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysCustomRequest $request)
+    {
+        $requirement = RequirementRequest::whereIn('id', $request->input('ids'))->get();
         RequirementRequest::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Requerimiento eliminados',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new RequirementRequestCollection($requirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }

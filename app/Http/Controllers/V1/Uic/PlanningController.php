@@ -20,47 +20,20 @@ class PlanningController extends Controller
 {
     public function index(IndexPlanningRequest $request)
     {
-        if ($request->has('search')) {
-            $plannings = Planning::date()->name($request->input('search'))
-                ->description($request->input('search'))
-                ->paginate($request->input('per_page'));
-        } else   {
-            $plannings = Planning::OrderBy('id', 'asc')->get();
-        }
+        $sorts = explode(',', $request->sort);
 
-        if ($plannings->count() === 0) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'No se encontraron convocatorias',
-                    'detail' => 'Intentelo de nuevo',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-        return response()->json($plannings);
-    }
+        $planning = Planning::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldExample'))
+            ->paginate($request->input('per_page'));
 
-    public function show(Planning $planning) //cambiar
-    {
-        if (!$planning) {
-            return response()->json([
-                'data' => null,
+        return (new PlanningCollection($planning))
+            ->additional([
                 'msg' => [
-                    'summary' => 'La convocatoria no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $planning,
-            'msg' => [
-                'summary' => '',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ], 200);
+            ]);
     }
 
     public function store(StorePlanningRequest $request)
@@ -76,24 +49,28 @@ class PlanningController extends Controller
             $planning->end_date = $request->input('planning.end_date');
             $planning->description = $request->input('planning.description');
             $planning->save();
-            return response()->json([
-                'data' => $planning->fresh(), //revisar el fresh -> id
+            
+            return (new PlanningResource($planning))
+            ->additional([
                 'msg' => [
-                    'summary' => 'Convocatoria creada',
-                    'detail' => 'La planificacion fue creado',
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+        }
+    }
+
+    public function show(Planning $planning) //cambiar
+    {
+        return (new PlanningResource($planning))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
                     'code' => '201'
                 ]
-            ], 201);
-        }
-
-        return response()->json([
-            'data' => '',
-            'msg' => [
-                'summary' => 'La fecha debe ser mayor a la fecha actual',
-                'detail' => 'Intente otra vez',
-                'code' => '404'
-            ]
-        ], 404);
+            ]);
     }
 
     public function update(UpdatePlanningRequest $request, Planning $planning)
@@ -120,37 +97,42 @@ class PlanningController extends Controller
             $planning->description = $request->input('planning.description');
             $planning->save();
 
-            return response()->json([
-                'data' => $planning->fresh(),
+            return (new PlanningResource($planning))
+            ->additional([
                 'msg' => [
-                    'summary' => 'Convocatoria actualizada',
-                    'detail' => 'La convocatoria fue actualizado',
-                    'code' => '201'
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 201);
+            ]);
         }
-
-        return response()->json([
-            'data' => '',
-            'msg' => [
-                'summary' => 'La fecha debe ser mayor a la fecha actual',
-                'detail' => 'Intente otra vez',
-                'code' => '404'
-            ]
-        ], 201);
     }
-    function delete(DeletePlanningRequest $request)
+    
+    public function destroy(Planning $planning)
     {
-        // Es una eliminación lógica
+        $planning->delete();
+        return (new PlanningResource($planning))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysPlanningRequest $request)
+    {
+        $planning = Planning::whereIn('id', $request->input('ids'))->get();
         Planning::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Convocatorias eliminados',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new PlanningCollection($planning))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }

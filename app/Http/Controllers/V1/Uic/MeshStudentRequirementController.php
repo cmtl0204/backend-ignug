@@ -25,44 +25,20 @@ class MeshStudentRequirementController extends Controller
      */
     public function index(IndexMeshStudentRequirementRequest $request)
     {
-        if ($request->has('student_id')) {
-            $meshStudentRequirements = MeshStudentRequirement::student($request->input('student_id'))->get();
-        } else {
-            $meshStudentRequirements = MeshStudentRequirement::paginate($request->input('per_page'));
-        }
-        if ($meshStudentRequirements->count() == 0) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'No se encontraron requerimientos',
-                    'detail' => 'Intentalo de nuevo',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-        return response()->json($meshStudentRequirements, 200);
-    }
+        $sorts = explode(',', $request->sort);
 
-    public function show(MeshStudentRequirement $meshStudentRequirement)
-    {
-        if (!$meshStudentRequirement) {
-            return response()->json([
-                'data' => null,
+        $meshStudentRequirement = MeshStudentRequirement::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldExample'))
+            ->paginate($request->input('per_page'));
+
+        return (new MeshStudentRequirementCollection($meshStudentRequirement))
+            ->additional([
                 'msg' => [
-                    'summary' => 'El requerimiento no existe',
-                    'detail' => 'Intente con otro registro',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $meshStudentRequirement->fresh(),
-            'msg' => [
-                'summary' => 'El requerimiento no existe',
-                'detail' => 'Intente con otro registro',
-                'code' => '404'
-            ]
-        ], 200);
+            ]);
     }
 
     public function store(Request $request)
@@ -73,9 +49,27 @@ class MeshStudentRequirementController extends Controller
         $meshStudentRequirement->is_approved = $request->input('is_approved');
         $meshStudentRequirement->observations = $request->input('observations');
         $meshStudentRequirement->save();
-        return response()->json([
-            'data' => $meshStudentRequirement->fresh()
-        ], 201);
+        
+        return (new MeshStudentRequirementResource($meshStudentRequirement))
+        ->additional([
+            'msg' => [
+                'summary' => 'Registro Actualizado',
+                'detail' => '',
+                'code' => '200'
+            ]
+        ]);
+    }
+
+    public function show(MeshStudentRequirement $meshStudentRequirement)
+    {
+        return (new EMeshStudentRequirementResource($meshStudentRequirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 
     public function update(UpdateMeshStudentRequirementRequest $request, $id)
@@ -96,14 +90,15 @@ class MeshStudentRequirementController extends Controller
         $meshStudentRequirement->is_approved = $request->input('meshStudentRequirement.is_approved');
         $meshStudentRequirement->observations = $request->input('meshStudentRequirement.observations');
         $meshStudentRequirement->save();
-        return response()->json([
-            'data' => $meshStudentRequirement,
-            'msg' => [
-                'summary' => 'Requerimiento actualizado',
-                'detail' => 'El registro fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new ExampleResource($example))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function approve(MeshStudentRequirement $meshStudentRequirement)
@@ -155,18 +150,32 @@ class MeshStudentRequirementController extends Controller
         ], 201);
     }
 
-    function delete(DeleteMeshStudentRequirementRequest $request)
+    public function destroy(MeshStudentRequirement $meshStudentRequirement)
     {
+        $meshStudentRequirement->delete();
+        return (new MeshStudentRequirementResource($meshStudentRequirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysMeshStudentRequirementRequest $request)
+    {
+        $meshStudentRequirement = MeshStudentRequirement::whereIn('id', $request->input('ids'))->get();
         MeshStudentRequirement::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Requerimiento eliminado',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new ExampleCollection($meshStudentRequirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 
     function uploadFile(UploadFileRequest $request)

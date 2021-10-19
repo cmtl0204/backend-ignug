@@ -18,24 +18,20 @@ class EnrollmentController extends Controller
     public function index(IndexEnrollmentRequest $request)
     {
 
-        if ($request->has('search')) {
-            $enrollments = Enrollment::date($request->input('search'))->code($request->input('search'))
-                ->paginate($request->input('per_page'));
-        } else {
-            $enrollments = Enrollment::paginate($request->input('per_page'));
-        }
+        $sorts = explode(',', $request->sort);
 
-        if ($enrollments->count() === 0) {
-            return response()->json([
-                'data' => null,
+        $enrollment = Enrollment::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldEnrollment'))
+            ->paginate($request->input('per_page'));
+
+        return (new EnrollmentCollection($enrollment))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron inscripciones',
-                    'detail' => 'Intentelo de nuevo',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json($enrollments, 200);
+            ]);
     }
 
     public function store(StoreEnrollmentRequest $request)
@@ -50,36 +46,27 @@ class EnrollmentController extends Controller
         $enrollment->status_id = $request->input('enrollment.status.id');
         $enrollment->observations = $request->input('enrollment.observations');
         $enrollment->save();
-        return response()->json([
-            'data' => $enrollment->fresh(),
-            'msg' => [
-                'summary' => 'Inscripción creada',
-                'detail' => 'El registro fue creado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new EnrollmentResource($enrollment))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function show(Enrollment $enrollment)
     {
-        if (!$enrollment) {
-            return response()->json([
-                'data' => null,
+        return (new EnrollmentResource($enrollment))
+            ->additional([
                 'msg' => [
-                    'summary' => 'La inscripción no existe',
-                    'detail' => 'Intente con otra inscripción',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
                 ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $enrollment,
-            'msg' => [
-                'summary' => 'La inscripción no existe',
-                'detail' => 'Intente con otra inscripción',
-                'code' => '404'
-            ]
-        ], 200);
+            ]);
     }
 
     public function update(UpdateEnrollmentRequest $request, $id)
@@ -104,37 +91,35 @@ class EnrollmentController extends Controller
         $enrollment->status_id = $request->input('enrollment.status.id');
         $enrollment->observations = $request->input('enrollment.observations');
         $enrollment->save();
-        return response()->json([
-            'data' => $enrollment->fresh(),
-            'msg' => [
-                'summary' => 'Inscripción actualizada',
-                'detail' => 'La inscripción fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new EnrollmentResource($enrollment))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    function destroy(DestroyEnrollmentRequest $request)
+    public function destroy(Enrollment $enrollment)
     {
-        // Es una eliminación lógica
-        Enrollment::destroy($request->input('ids'));
-
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Inscripción(es) eliminada(s)',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        $enrollment->delete();
+        return (new EnrollmentResource($enrollment))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
-
     public function destroys(DestroysEnrollmentRequest $request)
     {
-        $request = Enrollment::whereIn('id', $request->input('ids'))->get();
+        $enrollment = Enrollment::whereIn('id', $request->input('ids'))->get();
         Enrollment::destroy($request->input('ids'));
 
-        return (new EnrollmentCollection($request))
+        return (new EnrollmentCollection($enrollment))
             ->additional([
                 'msg' => [
                     'summary' => 'Registros Eliminados',

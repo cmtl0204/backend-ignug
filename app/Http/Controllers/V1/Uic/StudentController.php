@@ -16,36 +16,32 @@ class StudentController extends Controller
 {
     public function index(IndexStudentRequest $request)
     {
-        if ($request->has('per_page')) {
-            $student = Student::paginate($request->input('per_page'));
-        } else {
-            $student = Student::project()->get();
-        }
+        $sorts = explode(',', $request->sort);
 
+        $student = Student::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldExample'))
+            ->paginate($request->input('per_page'));
 
-        return response()->json($student, 200);
+        return (new StudentCollection($student))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function show(Student $student) //cambiar
     {
-        if (!$student) {
-            return response()->json([
-                'data' => null,
+        return (new StudentResource($student))
+            ->additional([
                 'msg' => [
-                    'summary' => 'El estudiante no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
                 ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $student,
-            'msg' => [
-                'summary' => '',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ], 200);
+            ]);
     }
 
     public function store(StoreStudentRequest $request)
@@ -55,23 +51,15 @@ class StudentController extends Controller
         $student->mesh_student_id = $request->input('student.mesh_student.id');
         $student->observations = $request->input('student.observations');
         $student->save();
-        return response()->json([
-            'data' => $student->fresh(),
-            'msg' => [
-                'summary' => 'estudiante creado',
-                'detail' => 'El estudiante fue creado',
-                'code' => '201'
-            ]
-        ], 201);
-
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'No se encuentra el estudiante',
-                'detail' => 'Intente otra vez',
-                'code' => '404'
-            ]
-        ], 404);
+        
+        return (new StudentResource($student))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function update(UpdateStudentRequest $request, Student $student)
@@ -90,13 +78,42 @@ class StudentController extends Controller
         $student->mesh_student_id = $request->input('student.mesh_student.id');
         $student->observations = $request->input('student.observations');
         $student->save();
-        return response()->json([
-            'data' => $student->fresh(),
-            'msg' => [
-                'summary' => 'Estudiante actualizado',
-                'detail' => 'El estudiante fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new StudentResource($student))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function destroy(Example $example)
+    {
+        $example->delete();
+        return (new ExampleResource($example))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysCustomRequest $request)
+    {
+        $examples = Example::whereIn('id', $request->input('ids'))->get();
+        Example::destroy($request->input('ids'));
+
+        return (new ExampleCollection($examples))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }

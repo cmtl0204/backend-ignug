@@ -21,67 +21,20 @@ class ModalityController extends Controller
     //Obtener modalidades
     public function index(IndexModalityRequest $request)
     {
-        if ($request->has('search')) {
-            $modalities = Modality::name($request->input('search'))->description($request->input('search'))
-                ->paginate($request->input('per_page'));
-        } else {
-            $modalities = Modality::paginate($request->input('per_page'));
-        }
-        if ($modalities->count() === 0) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'No se encontraron modalidades',
-                    'detail' => 'Intentelo de nuevo',
-                    'code' => '404'
-                ]
-            ], 404);
-        }
-        return response()->json($modalities, 200);
-    }
+        $sorts = explode(',', $request->sort);
 
-    public function show(Modality $modality)
-    {
-        if (!$modality) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'La modalidad no existe',
-                    'detail' => 'Intente con otra modalidad',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-        return response()->json([
-            "data" => $modality->fresh(),
-            'msg' => [
-                'summary' => 'La modalidad no existe',
-                'detail' => 'Intente con otra modalidad',
-                'code' => '404'
-            ]
-        ], 200);
-    }
+        $modality = Modality::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldExample'))
+            ->paginate($request->input('per_page'));
 
-    public function showModalities(Modality $modality)
-    {
-        if (!$modality) {
-            return response()->json([
-                'data' => null,
+        return (new ModalityCollection($modality))
+            ->additional([
                 'msg' => [
-                    'summary' => 'La modalidad no existe',
-                    'detail' => 'Intente con otra modalidad',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 400);
-        }
-        return response()->json([
-            "data" => $modality->modalities,
-            'msg' => [
-                'summary' => 'La modalidad no existe',
-                'detail' => 'Intente con otra modalidad',
-                'code' => '404'
-            ]
-        ], 200);
+            ]);
     }
 
     public function store(StoreModalityRequest $request)
@@ -93,14 +46,27 @@ class ModalityController extends Controller
         $modality->description = ($request->input('modality.description'));
         $modality->status_id = $request->input('modality.status_id');
         $modality->save();
-        return response()->json([
-            'data' => $modality->fresh(),
-            'msg' => [
-                'summary' => 'Modalidad creada',
-                'detail' => 'El registro fue creado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new ModalityResource($modality))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function showModalities(Modality $modality)
+    {
+        return (new ModalityResource($modality))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 
     public function update(UpdateModalityRequest $request, $modality)
@@ -122,27 +88,43 @@ class ModalityController extends Controller
         $modality->description = $request->input('modality.description');
         $modality->status_id = $request->input('modality.status_id');
         $modality->save();
-        return response()->json([
-            'data' => $modality->fresh(),
-            'msg' => [
-                'summary' => 'Modalidad actualizada',
-                'detail' => 'El registro fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new ModalityResource($modality))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+
     }
-    function delete(DeleteModalityRequest $request)
+
+    public function destroy(Modality $modality)
     {
-        // Es una eliminación lógica
+        $modality->delete();
+        return (new ModalityResource($modality))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysModalityRequest $request)
+    {
+        $modality = Modality::whereIn('id', $request->input('ids'))->get();
         Modality::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Modalidad(es) eliminada(s)',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new ModalityCollection($modality))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }
