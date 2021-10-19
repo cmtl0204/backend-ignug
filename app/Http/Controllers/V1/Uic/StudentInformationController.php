@@ -19,43 +19,32 @@ class StudentInformationController extends Controller
     public function index(IndexStudentInformationRequest $request)
     {
 
-        $informationStudent = StudentInformation::paginate($request->input('per_page'));
+        $sorts = explode(',', $request->sort);
 
-        if ($informationStudent->count() === 0) {
-            return response()->json([
-                'data' => null,
+        $examples = StudentInformation::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldExample'))
+            ->paginate($request->input('per_page'));
+
+        return (new StudentInformationCollection($examples))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron registros',
-                    'detail' => 'Intentelo de nuevo',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json($informationStudent, 200);
+            ]);
     }
 
     public function show($id)
     {
-        $informationStudent = StudentInformation::where('student_id', '=', $id)->first();
-
-        if (!$informationStudent) {
-            return response()->json([
-                'data' => null,
+        return (new StudentInformationResource($example))
+            ->additional([
                 'msg' => [
-                    'summary' => 'la información no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
                 ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $informationStudent,
-            'msg' => [
-                'summary' => '',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ], 200);
+            ]);
     }
 
     public function store(StoreStudentInformationRequest $request)
@@ -67,14 +56,15 @@ class StudentInformationController extends Controller
         $informationStudent->company_area_id = $request->input('studentInformation.company_area.id');
         $informationStudent->company_position_id = $request->input('studentInformation.company_position.id');
         $informationStudent->save();
-        return response()->json([
-            'data' => $informationStudent->fresh(),
-            'msg' => [
-                'summary' => 'Información creada',
-                'detail' => 'la información fue creada',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new StudentInformationResource($example))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function update(UpdateStudentInformationRequest $request, $id)
@@ -96,27 +86,42 @@ class StudentInformationController extends Controller
         $informationStudent->company_area_id = $request->input('studentInformation.company_area.id');
         $informationStudent->company_position_id = $request->input('studentInformation.company_position.id');
         $informationStudent->save();
-        return response()->json([
-            'data' => $informationStudent->fresh(),
-            'msg' => [
-                'summary' => 'Información actualizada',
-                'detail' => 'La información fue actualizada',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new ExampleResource($example))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
-    function delete(DeleteStudentInformationRequest $request)
+    }
+    public function destroy(Example $example)
     {
-        // Es una eliminación lógica
-        StudentInformation::destroy($request->input('ids'));
+        $example->delete();
+        return (new ExampleResource($example))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'StudentInformation(es) eliminado(s)',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+    public function destroys(DestroysCustomRequest $request)
+    {
+        $examples = Example::whereIn('id', $request->input('ids'))->get();
+        Example::destroy($request->input('ids'));
+
+        return (new ExampleCollection($examples))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }

@@ -89,10 +89,10 @@ class StudentController extends Controller
             ]);
     }
 
-    public function destroy(Example $example)
+    public function destroy(Student $student)
     {
-        $example->delete();
-        return (new ExampleResource($example))
+        $student->delete();
+        return (new StudentResource($student))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Eliminado',
@@ -104,10 +104,10 @@ class StudentController extends Controller
 
     public function destroys(DestroysCustomRequest $request)
     {
-        $examples = Example::whereIn('id', $request->input('ids'))->get();
-        Example::destroy($request->input('ids'));
+        $student = Student::whereIn('id', $request->input('ids'))->get();
+        Student::destroy($request->input('ids'));
 
-        return (new ExampleCollection($examples))
+        return (new StudentCollection($student))
             ->additional([
                 'msg' => [
                     'summary' => 'Registros Eliminados',
