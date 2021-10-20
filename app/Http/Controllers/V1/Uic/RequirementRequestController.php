@@ -25,11 +25,11 @@ class RequirementRequestRequestController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $examples = RequirementRequest::customSelect($request->fields)->customOrderBy($sorts)
+        $requirements = RequirementRequest::customSelect($request->fields)->customOrderBy($sorts)
             ->fielExample($request->input('fieldExample'))
             ->paginate($request->input('per_page'));
 
-        return (new RequirementRequestCollection($requirement))
+        return (new RequirementRequestCollection($requirements))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -53,11 +53,18 @@ class RequirementRequestRequestController extends Controller
 
     public function store(StoreRequirementRequestRequest $request)
     {
+
+        $requirement = Requirement::find($request->input('requirement.id'));
+        $meshStudent = meshStudent::find($request->input('mesh_student.id'));
+
         $requirement = new RequirementRequest;
-        $requirement->requirement_id = $request->input('requirementRequest.requirement.id');
-        $requirement->mesh_student_id = $request->input('requirementRequest.mesh_student.id');
-        $requirement->date = $request->input('requirementRequest.date');
-        $requirement->is_approved = $request->input('requirementRequest.is_approved');
+
+        $requirement->requirement()->associate($requirement);
+        $requirement->meshStudent()->associate($meshStudent);
+
+        $requirement->registered_at = $request->input('registeredAt');
+        $requirement->approved = $request->input('approved');
+        $requirement->observations = $request->input('observations');
         $requirement->save();
         
         return (new RequirementRequestResource($requirement))
@@ -70,23 +77,17 @@ class RequirementRequestRequestController extends Controller
             ]);
     }
 
-    public function update(UpdateRequirementRequestRequest $request, $id)
+    public function update(UpdateRequirementRequestRequest $request,  Requirement $requirement)
     {
-        $requirement = RequirementRequest::find($id);
-        if (!$requirement) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'El requerimiento no existe',
-                    'detail' => 'Intente con otro requerimiento',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-        $requirement->requirement_id = $request->input('requirementRequest.requirement.id');
-        $requirement->mesh_student_id = $request->input('requirementRequest.mesh_student.id');
-        $requirement->date = $request->input('requirementRequest.date');
-        $requirement->is_approved = $request->input('requirementRequest.is_approved');
+        $requirement = Requirement::find($request->input('requirement.id'));
+        $meshStudent = meshStudent::find($request->input('mesh_student.id'));
+
+        $requirement->requirement()->associate($requirement);
+        $requirement->meshStudent()->associate($meshStudent);
+
+        $requirement->registered_at = $request->input('registeredAt');
+        $requirement->approved = $request->input('approved');
+        $requirement->observations = $request->input('observations');
         $requirement->save();
         
         return (new RequirementRequestResource($requirement))

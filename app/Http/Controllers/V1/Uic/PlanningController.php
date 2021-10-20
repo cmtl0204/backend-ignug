@@ -22,11 +22,11 @@ class PlanningController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $planning = Planning::customSelect($request->fields)->customOrderBy($sorts)
+        $plannings = Planning::customSelect($request->fields)->customOrderBy($sorts)
             ->fielExample($request->input('fieldExample'))
             ->paginate($request->input('per_page'));
 
-        return (new PlanningCollection($planning))
+        return (new PlanningCollection($plannings))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -38,17 +38,17 @@ class PlanningController extends Controller
 
     public function store(StorePlanningRequest $request)
     {
-        $date = Carbon::now();
-        $date = $date->toDateString();
+        $career = Career::find($request->input('career.id'));
+        
+        $planning = new Planning();
 
-        if ($request->input('planning.end_date') >= $date && $request->input('planning.start_date') >= $date) {
-            $planning = new Planning;
-            $planning->career_id = $request->input('planning.career.id');
-            $planning->name = $request->input('planning.name');
-            $planning->start_date = $request->input('planning.start_date');
-            $planning->end_date = $request->input('planning.end_date');
-            $planning->description = $request->input('planning.description');
-            $planning->save();
+        $planning->career()->associate($career);
+        
+        $planning->name = $request->input('name');
+        $planning->description = $request->input('description');
+        $planning->started_at = $request->input('startedAt');
+        $planning->ended_at = $request->input('endedAt');
+        $planning->save();
             
             return (new PlanningResource($planning))
             ->additional([
@@ -59,7 +59,6 @@ class PlanningController extends Controller
                 ]
             ]);
         }
-    }
 
     public function show(Planning $planning) //cambiar
     {
@@ -75,27 +74,15 @@ class PlanningController extends Controller
 
     public function update(UpdatePlanningRequest $request, Planning $planning)
     {
-        if (!$planning) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'La convocatoria no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
+        $career = Career::find($request->input('career.id'));
 
-        $date = Carbon::now();
-        $date = $date->toDateString();
-
-        if ($request->input('planning.end_date') >= $date && $request->input('planning.start_date') >= $date) {
-            $planning->career_id = $request->input('planning.career.id');
-            $planning->name = $request->input('planning.name');
-            $planning->start_date = $request->input('planning.start_date');
-            $planning->end_date = $request->input('planning.end_date');
-            $planning->description = $request->input('planning.description');
-            $planning->save();
+        $planning->career()->associate($career);
+        
+        $planning->name = $request->input('name');
+        $planning->description = $request->input('description');
+        $planning->started_at = $request->input('startedAt');
+        $planning->ended_at = $request->input('endedAt');
+        $planning->save();
 
             return (new PlanningResource($planning))
             ->additional([
@@ -106,7 +93,6 @@ class PlanningController extends Controller
                 ]
             ]);
         }
-    }
     
     public function destroy(Planning $planning)
     {

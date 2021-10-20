@@ -20,11 +20,11 @@ class EnrollmentController extends Controller
 
         $sorts = explode(',', $request->sort);
 
-        $enrollment = Enrollment::customSelect($request->fields)->customOrderBy($sorts)
+        $enrollments = Enrollment::customSelect($request->fields)->customOrderBy($sorts)
             ->fielExample($request->input('fieldEnrollment'))
             ->paginate($request->input('per_page'));
 
-        return (new EnrollmentCollection($enrollment))
+        return (new EnrollmentCollection($enrollments))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -35,16 +35,24 @@ class EnrollmentController extends Controller
     }
 
     public function store(StoreEnrollmentRequest $request)
-    {
+    {   
+        $modality = Modality::find($request->input('modality.id'));
+        $schoolPeriod = SchoolPeriod::find($request->input('schoolPeriod.id'));
+        $meshStudent = MeshStudent::find($request->input('meshStudent.id'));
+        $status = Status::find($request->input('status.id'));
+        $planning = Planning::find($request->input('planning.id'));
+
         $enrollment = new Enrollment;
-        $enrollment->modality_id = $request->input('enrollment.modality.id');
-        $enrollment->school_period_id = $request->input('enrollment.schoolPeriod.id');
-        $enrollment->planning_id = $request->input('enrollment.planning.id');
-        $enrollment->mesh_student_id = $request->input('enrollmentMeshStudent.id');
-        $enrollment->date = $request->input('enrollment.date');
-        $enrollment->code = $request->input('enrollment.code');
-        $enrollment->status_id = $request->input('enrollment.status.id');
-        $enrollment->observations = $request->input('enrollment.observations');
+
+        $enrollment->modality()->associate($modality);
+        $enrollment->schoolPeriod()->associate($schoolPeriod);
+        $enrollment->meshStudent()->associate($meshStudent);
+        $enrollment->status()->associate($status);
+        $enrollment->planning()->associate($planning);
+
+        $enrollment->registered_at = $request->input('registeredAt');
+        $enrollment->code = $request->input('code');
+        $enrollment->observations = $request->input('observations');
         $enrollment->save();
         
         return (new EnrollmentResource($enrollment))
@@ -69,27 +77,23 @@ class EnrollmentController extends Controller
             ]);
     }
 
-    public function update(UpdateEnrollmentRequest $request, $id)
+    public function update(UpdateEnrollmentRequest $request, Enrollment $enrollment)
     {
-        $enrollment = Enrollment::find($id);
-        if (!$enrollment) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'La inscripción no existe',
-                    'detail' => 'Intente con otra inscripción',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-        $enrollment->modality_id = $request->input('enrollment.modality.id');
-        $enrollment->school_period_id = $request->input('enrollment.schoolPeriod.id');
-        $enrollment->planning_id = $request->input('enrollment.planning.id');
-        $enrollment->mesh_student_id = $request->input('enrollmentMeshStudent.id');
-        $enrollment->date = $request->input('enrollment.date');
-        $enrollment->code = $request->input('enrollment.code');
-        $enrollment->status_id = $request->input('enrollment.status.id');
-        $enrollment->observations = $request->input('enrollment.observations');
+        $modality = Modality::find($request->input('modality.id'));
+        $schoolPeriod = SchoolPeriod::find($request->input('schoolPeriod.id'));
+        $meshStudent = MeshStudent::find($request->input('meshStudent.id'));
+        $status = Status::find($request->input('status.id'));
+        $planning = Planning::find($request->input('planning.id'));
+
+        $enrollment->modality()->associate($modality);
+        $enrollment->schoolPeriod()->associate($schoolPeriod);
+        $enrollment->meshStudent()->associate($meshStudent);
+        $enrollment->status()->associate($status);
+        $enrollment->planning()->associate($planning);
+
+        $enrollment->registered_at = $request->input('registeredAt');
+        $enrollment->code = $request->input('code');
+        $enrollment->observations = $request->input('observations');
         $enrollment->save();
         
         return (new EnrollmentResource($enrollment))

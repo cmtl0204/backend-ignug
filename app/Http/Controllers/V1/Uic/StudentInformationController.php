@@ -21,11 +21,11 @@ class StudentInformationController extends Controller
 
         $sorts = explode(',', $request->sort);
 
-        $examples = StudentInformation::customSelect($request->fields)->customOrderBy($sorts)
+        $studentInformations = StudentInformation::customSelect($request->fields)->customOrderBy($sorts)
             ->fielExample($request->input('fieldExample'))
             ->paginate($request->input('per_page'));
 
-        return (new StudentInformationCollection($examples))
+        return (new StudentInformationCollection($studentInformations))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -49,12 +49,20 @@ class StudentInformationController extends Controller
 
     public function store(StoreStudentInformationRequest $request)
     {
+
+        $student = Student::find($request->input('student.id'));
+        $relationLaboralCareer = Catalogue::find($request->input('relation_laboral_career.id'));
+        $companyArea= Catalogue::find($request->input('company_area.id'));
+        $companyPosition = Catalogue::find($request->input('company_position.id'));
+
         $informationStudent = new StudentInformation;
-        $informationStudent->student_id = $request->input('studentInformation.student.id');
-        $informationStudent->company_work = $request->input('studentInformation.company_work');
-        $informationStudent->relation_laboral_career_id = $request->input('studentInformation.relation_laboral_career.id');
-        $informationStudent->company_area_id = $request->input('studentInformation.company_area.id');
-        $informationStudent->company_position_id = $request->input('studentInformation.company_position.id');
+
+        $informationStudent->student()->associate($student);
+        $informationStudent->relationLaboralCareer()->associate($relationLaboralCareer);
+        $informationStudent->companyArea()->associate($companyArea);
+        $informationStudent->companyPosition()->associate($companyPosition);
+
+        $informationStudent->company_work = $request->input('company_work');
         $informationStudent->save();
         
         return (new StudentInformationResource($informationStudent))
@@ -67,24 +75,19 @@ class StudentInformationController extends Controller
             ]);
     }
 
-    public function update(UpdateStudentInformationRequest $request, $id)
+    public function update(UpdateStudentInformationRequest $request,  StudentInformation $informationStudent)
     {
-        $informationStudent = StudentInformation::find($id);
-        if (!$informationStudent) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'La información no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-        $informationStudent->student_id = $request->input('studentInformation.student.id');
-        $informationStudent->company_work = $request->input('studentInformation.company_work');
-        $informationStudent->relation_laboral_career_id = $request->input('studentInformation.relation_laboral_career.id');
-        $informationStudent->company_area_id = $request->input('studentInformation.company_area.id');
-        $informationStudent->company_position_id = $request->input('studentInformation.company_position.id');
+        $student = Student::find($request->input('student.id'));
+        $relationLaboralCareer = Catalogue::find($request->input('relation_laboral_career.id'));
+        $companyArea= Catalogue::find($request->input('company_area.id'));
+        $companyPosition = Catalogue::find($request->input('company_position.id'));
+
+        $informationStudent->student()->associate($student);
+        $informationStudent->relationLaboralCareer()->associate($relationLaboralCareer);
+        $informationStudent->companyArea()->associate($companyArea);
+        $informationStudent->companyPosition()->associate($companyPosition);
+
+        $informationStudent->company_work = $request->input('company_work');
         $informationStudent->save();
         
         return (new StudentInformationResource($informationStudent))

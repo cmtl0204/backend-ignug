@@ -18,11 +18,11 @@ class StudentController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $student = Student::customSelect($request->fields)->customOrderBy($sorts)
+        $students = Student::customSelect($request->fields)->customOrderBy($sorts)
             ->fielExample($request->input('fieldExample'))
             ->paginate($request->input('per_page'));
 
-        return (new StudentCollection($student))
+        return (new StudentCollection($students))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -46,10 +46,15 @@ class StudentController extends Controller
 
     public function store(StoreStudentRequest $request)
     {
+        $projectPlan = ProjectPlan::find($request->input('project_plan.id'));
+        $meshStudent = meshStudent::find($request->input('mesh_student.id'));
+
         $student = new Student;
-        $student->project_plan_id = $request->input('student.project_plan.id');
-        $student->mesh_student_id = $request->input('student.mesh_student.id');
-        $student->observations = $request->input('student.observations');
+
+        $student->projectPlan()->associate($projectPlan);
+        $student->meshStudent()->associate($meshStudent);
+
+        $student->observations = $request->input('observations');
         $student->save();
         
         return (new StudentResource($student))
@@ -64,19 +69,13 @@ class StudentController extends Controller
 
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        if (!$student) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'El estudiante no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-        $student->project_plan_id = $request->input('student.project_plan.id');
-        $student->mesh_student_id = $request->input('student.mesh_student.id');
-        $student->observations = $request->input('student.observations');
+        $projectPlan = ProjectPlan::find($request->input('project_plan.id'));
+        $meshStudent = meshStudent::find($request->input('mesh_student.id'));
+
+        $student->projectPlan()->associate($projectPlan);
+        $student->meshStudent()->associate($meshStudent);
+
+        $student->observations = $request->input('observations');
         $student->save();
         
         return (new StudentResource($student))
