@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Uic;
 //Models
 use App\Models\Uic\Event;
 use App\Models\Uic\Planning;
+use App\Models\Uic\Catalogue;
 
 //Controllers
 use App\Http\Controllers\Controller;
@@ -43,6 +44,12 @@ class EventController extends Controller
             ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreEvenRequest $request
+     * @return EvenResource
+     */
     public function store(StoreEventRequest $request)
     {
         $planning = Planning::find($request->input('planning.id'));
@@ -65,8 +72,14 @@ class EventController extends Controller
                     'code' => '200'
                 ]
             ]);
-        }
+    }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  Event $event
+     * @return EventResource
+     */
     public function show(Event $event)
     {
         return (new EventResource($event))
@@ -108,6 +121,12 @@ class EventController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Event $event
+     * @return EventResource
+     */
     public function destroy(Event $event)
     {
         $event->delete();
@@ -121,6 +140,12 @@ class EventController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysEventRequest $request
+     * @return EventCollection
+     */
     public function destroys(DestroysEventRequest $request)
     {
         $event = Event::whereIn('id', $request->input('ids'))->get();

@@ -2,19 +2,33 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Uic\Enrollment\DestroyEnrollmentRequest;
-use App\Http\Requests\Uic\Enrollment\DestroysEnrollmentRequest;
-use App\Http\Requests\Uic\Enrollment\IndexEnrollmentRequest;
-use App\Http\Requests\Uic\Enrollment\StoreEnrollmentRequest;
-use App\Http\Requests\Uic\Enrollment\UpdateEnrollmentRequest;
+//Models
 use App\Models\Uic\Enrollment;
-// Models
+use App\Models\Uic\Modality;
+use App\Models\Uic\SchoolPeriod;
+use App\Models\Uic\MeshStudent;
+use App\Models\Uic\Status;
+use App\Models\Uic\Planning;
 
-// FormRequest en el index store update
+// Controllers
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Uic\Enrollments\DestroysEnrollmentRequest;
+use App\Http\Requests\V1\Uic\Enrollments\IndexEnrollmentRequest;
+use App\Http\Requests\V1\Uic\Enrollments\StoreEnrollmentRequest;
+use App\Http\Requests\V1\Uic\Enrollments\UpdateEnrollmentRequest;
+
+//Resources
+use App\Http\Resources\V1\Uic\EnrollmentCollection;
+use App\Http\Resources\V1\Uic\EnrollmentResource;
 
 class EnrollmentController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  IndexEnrollmentRequest $request
+     * @return EnrollmentCollection
+     */
     public function index(IndexEnrollmentRequest $request)
     {
 
@@ -34,6 +48,12 @@ class EnrollmentController extends Controller
             ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreEnrollmentRequest $request
+     * @return EnrollmentResource
+     */
     public function store(StoreEnrollmentRequest $request)
     {   
         $modality = Modality::find($request->input('modality.id'));
@@ -65,6 +85,12 @@ class EnrollmentController extends Controller
             ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  Enrollment $enrollment
+     * @return EnrollmentResource
+     */
     public function show(Enrollment $enrollment)
     {
         return (new EnrollmentResource($enrollment))
@@ -77,6 +103,12 @@ class EnrollmentController extends Controller
             ]);
     }
 
+    /**
+     * Display the specified resource.
+     * @param  UpdateEnrollmentRequest $request
+     * @param  Enrollment $enrollment
+     * @return EnrollmentResource
+     */
     public function update(UpdateEnrollmentRequest $request, Enrollment $enrollment)
     {
         $modality = Modality::find($request->input('modality.id'));
@@ -106,6 +138,12 @@ class EnrollmentController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Enrollment $enrollment
+     * @return EnrollmentResource
+     */
     public function destroy(Enrollment $enrollment)
     {
         $enrollment->delete();
@@ -118,6 +156,13 @@ class EnrollmentController extends Controller
                 ]
             ]);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysEnrollmenRequest $request
+     * @return EnrollmenCollection
+     */
     public function destroys(DestroysEnrollmentRequest $request)
     {
         $enrollment = Enrollment::whereIn('id', $request->input('ids'))->get();

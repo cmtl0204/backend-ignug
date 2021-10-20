@@ -2,26 +2,33 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\App\FileController;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\App\File\IndexFileRequest;
-use App\Http\Requests\App\File\UpdateFileRequest;
-use App\Http\Requests\App\File\UploadFileRequest;
-use App\Http\Requests\Uic\MeshStudentRequirement\DeleteMeshStudentRequirementRequest;
-use App\Http\Requests\Uic\MeshStudentRequirement\DisapprovedMeshStudentRequirementRequest;
-use App\Http\Requests\Uic\MeshStudentRequirement\StoreMeshStudentRequirementRequest;
-use App\Http\Requests\Uic\MeshStudentRequirement\UpdateMeshStudentRequirementRequest;
-use App\Http\Requests\Uic\MeshStudentRequirement\IndexMeshStudentRequirementRequest;
+//Models
 use App\Models\Uic\MeshStudentRequirement;
 use App\Models\Uic\Requirement;
+
+//Controllers
+use App\Http\Controllers\App\FileController;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Uic\MeshStudentRequirements\IndexFileRequest;
+use App\Http\Requests\V1\Uic\MeshStudentRequirements\UpdateFileRequest;
+use App\Http\Requests\V1\Uic\MeshStudentRequirements\UploadFileRequest;
+use App\Http\Requests\V1\Uic\MeshStudentRequirements\DisapprovedMeshStudentRequirementRequest;
+use App\Http\Requests\V1\Uic\MeshStudentRequirements\StoreMeshStudentRequirementRequest;
+use App\Http\Requests\V1\Uic\MeshStudentRequirements\UpdateMeshStudentRequirementRequest;
+use App\Http\Requests\V1\Uic\MeshStudentRequirements\IndexMeshStudentRequirementRequest;
+
+//Resources
+
 use Illuminate\Http\Request;
 
 class MeshStudentRequirementController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  IndexEventRequest $request
+     * @return EventCollection
      */
     public function index(IndexMeshStudentRequirementRequest $request)
     {
