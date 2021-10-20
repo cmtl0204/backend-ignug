@@ -122,12 +122,12 @@ Route::prefix('mesh-student-requirement')->group(function () {
 Route::prefix('mesh-student-requirement/{meshStudentRequirement}')->group(function () {
     Route::prefix('file')->group(function () {
         Route::get('{file}/download', [MeshStudentRequirementController::class, 'downloadFile']);
-        Route::get('', [UserController::class, 'indexFiles']);
-        Route::get('{file}', [UserController::class, 'showFile']);
-        Route::post('', [UserController::class, 'uploadFile']);
-        Route::put('{file}', [UserController::class, 'updateFile']);
-        Route::delete('{file}', [UserController::class, 'destroyFile']);
-        Route::patch('', [UserController::class, 'destroyFiles']);
+        Route::get('', [MeshStudentRequirementController::class, 'indexFiles']);
+        Route::get('{file}', [MeshStudentRequirementControllerserController::class, 'showFile']);
+        Route::post('', [MeshStudentRequirementControllerserController::class, 'uploadFile']);
+        Route::put('{file}', [MeshStudentRequirementControllerserController::class, 'updateFile']);
+        Route::delete('{file}', [MeshStudentRequirementControllerserController::class, 'destroyFile']);
+        Route::patch('', [MeshStudentRequirementControllerserController::class, 'destroyFiles']);
     });
 });
 
@@ -184,6 +184,13 @@ Route::prefix('project-plan')->group(function () {
 
 Route::prefix('project-plan/{projectPlan}')->group(function () {
     Route::prefix('file')->group(function () {
+        Route::get('{file}/download', [ProjectPlanController::class, 'downloadFile']);
+        Route::get('', [ProjectPlanController::class, 'indexFiles']);
+        Route::get('{file}', [ProjectPlanControllerserController::class, 'showFile']);
+        Route::post('', [ProjectPlanControllerserController::class, 'uploadFile']);
+        Route::put('{file}', [ProjectPlanControllerserController::class, 'updateFile']);
+        Route::delete('{file}', [ProjectPlanControllerserController::class, 'destroyFile']);
+        Route::patch('', [ProjectPlanControllerserController::class, 'destroyFiles']);
         
     });
 });
@@ -205,13 +212,13 @@ Route::prefix('requirement/{requirement}')->group(function () {
 /***********************************************************************************************************************
  * REQUIREMENT REQUESTS
  **********************************************************************************************************************/
-Route::apiResource('requirementrequests', RequirementRequestController::class);
+Route::apiResource('requirement-requests', RequirementRequestController::class);
 
-Route::prefix('requirementrequest')->group(function () {
+Route::prefix('requirement-request')->group(function () {
     Route::patch('destroys', [RequirementRequestController::class, 'destroys']);
 });
 
-Route::prefix('requirementrequest/{requirementrequest}')->group(function () {
+Route::prefix('requirement-request/{requirementRequest}')->group(function () {
     Route::prefix('file')->group(function () {
     });
 });
@@ -231,15 +238,15 @@ Route::prefix('student/{student}')->group(function () {
 });
 
 /***********************************************************************************************************************
- * STUDENTINFORMATIONS
+ * STUDENT INFORMATIONS
  **********************************************************************************************************************/
-Route::apiResource('studentinformations', StudentInformationController::class);
+Route::apiResource('student-informations', StudentInformationController::class);
 
-Route::prefix('studentinformation')->group(function () {
+Route::prefix('student-information')->group(function () {
     Route::patch('destroys', [StudentInformationController::class, 'destroys']);
 });
 
-Route::prefix('studentinformation/{studentinformation}')->group(function () {
+Route::prefix('student-information/{studentInformation}')->group(function () {
     Route::prefix('file')->group(function () {
     });
 });
