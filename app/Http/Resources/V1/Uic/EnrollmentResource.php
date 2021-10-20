@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\V1\Custom;
+namespace App\Http\Resources\V1\Uic;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ExampleResource extends JsonResource
+class EnrollmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +15,8 @@ class ExampleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'field_example'=>$this->field_example
+            'type' => ModalityResource::make($this->modalities),
+            'modality'=>$this->modality,
         ];
     }
 }

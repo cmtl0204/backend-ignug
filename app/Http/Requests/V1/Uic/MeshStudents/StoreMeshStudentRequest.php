@@ -3,7 +3,7 @@
 
 namespace App\Http\Requests\V1\Uic\MeshStudents;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreMeshStudentRequest extends FormRequest
@@ -26,18 +26,40 @@ class StoreMeshStudentRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'field_example' => ['required']
+            'student.id' => [
+                'required'
+            ],
+
+            'mesh.id' => [
+                'required'
+            ],
+
+            'startCohort' => [
+                'required'
+            ],
+
+            'endCohort' => [
+                'required'
+            ],
+
+            'isGraduated' => [
+                'required'
+            ],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes()
     {
         $attributes = [
-            'field_example' => 'campo de ejemplo',
+            'student.id' => 'Estudiante',
+            'mesh.id' => 'Malla curricular',
+            'startCohort' => 'Inicio del Grupo',
+            'endCohort' => 'Fin del grupo',
+            'isGraduated' => '¿Esta graduado?',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }
