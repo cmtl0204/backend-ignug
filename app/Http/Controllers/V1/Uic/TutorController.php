@@ -7,6 +7,7 @@ use App\Http\Requests\Uic\Tutor\DeleteTutorRequest;
 use App\Http\Requests\Uic\Tutor\IndexTutorRequest;
 use App\Http\Requests\Uic\Tutor\StoreTutorRequest;
 use App\Http\Requests\Uic\Tutor\UpdateTutorRequest;
+use App\Models\App\Catalogue;
 use App\Models\Uic\Tutor;
 use App\Models\Uic\Teacher;
 use Illuminate\Http\Request;
@@ -50,10 +51,16 @@ class TutorController extends Controller
 
     public function store(Request $request)
     {
+        $projectPlan = ProjectPlan::find($request->input('project_plan.id'));
+        $teacher = Teacher::find($request->input('teacher.id'));
+        $type = Catalogue::find($request->input('type.id'));
+
         $tutor = new Tutor();
-        $tutor->project_plan_id = $request->input('project_plan_id');
-        $tutor->teacher_id = $request->input('teacher_id');
-        $tutor->type_id = $request->input('type_id');
+
+        $tutor->projectPlan()->associate($projectPlan);
+        $tutor->teacher()->associate($teacher);
+        $tutor->type()->associate($type);
+        
         $tutor->observations = $request->input('observations');
         $tutor->save();
         
@@ -67,23 +74,17 @@ class TutorController extends Controller
             ]);
     }
 
-    public function update(UpdateTutorRequest $request, $id)
+    public function update(UpdateTutorRequest $request,  Tutor $tutor)
     {
-        $tutor = Tutor::find($id);
-        if (!$tutor) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'El tutor no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-        $tutor->project_plan_id = $request->input('tutor.project_plan.id');
-        $tutor->teacher_id = $request->input('tutor.teacher.id');
-        $tutor->type_id = $request->input('tutor.type.id');
-        $tutor->observations = $request->input('tutor.observations');
+        $projectPlan = ProjectPlan::find($request->input('project_plan.id'));
+        $teacher = Teacher::find($request->input('teacher.id'));
+        $type = Catalogue::find($request->input('type.id'));
+
+        $tutor->projectPlan()->associate($projectPlan);
+        $tutor->teacher()->associate($teacher);
+        $tutor->type()->associate($type);
+        
+        $tutor->observations = $request->input('observations');
         $tutor->save();
         
         return (new TutorResource($tutor))

@@ -43,21 +43,27 @@ class MeshStudentRequirementController extends Controller
 
     public function store(Request $request)
     {
-        $meshStudentRequirement = new MeshStudentRequirement;
-        $meshStudentRequirement->mesh_student_id = 1;
-        $meshStudentRequirement->requirement_id = $request->input('requirement_id',);
-        $meshStudentRequirement->is_approved = $request->input('is_approved');
-        $meshStudentRequirement->observations = $request->input('observations');
-        $meshStudentRequirement->save();
-        
-        return (new MeshStudentRequirementResource($meshStudentRequirement))
-        ->additional([
-            'msg' => [
-                'summary' => 'Registro Actualizado',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
+
+        $meshStudent = MeshStudent::find($request->input('meshStudent.id'));
+        $requirement = Requirement::find($request->input('requirement.id'));
+
+        $MeshStudent = new MeshStudent();
+
+        $MeshStudent->meshStudent()->associate($meshStudent);
+        $MeshStudent->requirement()->associate($requirement);
+
+        $MeshStudent->approved = $request->input('approved');
+        $MeshStudent->observations = $request->input('observations');
+        $MeshStudent->save();
+
+        return (new MeshStudentResource($MeshStudent))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function show(MeshStudentRequirement $meshStudentRequirement)
@@ -72,24 +78,18 @@ class MeshStudentRequirementController extends Controller
             ]);
     }
 
-    public function update(UpdateMeshStudentRequirementRequest $request, $id)
+    public function update(UpdateMeshStudentRequirementRequest $request,  MeshStudent $MeshStudent)
     {
-        $meshStudentRequirement = MeshStudentRequirement::find($id);
-        if (!$meshStudentRequirement) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'El requerimiento no existe',
-                    'detail' => 'Intente con otro registro',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-        $meshStudentRequirement->mesh_student_id = 1;
-        $meshStudentRequirement->requirement_id = $request->input('meshStudentRequirement.requirement.id');
-        $meshStudentRequirement->is_approved = $request->input('meshStudentRequirement.is_approved');
-        $meshStudentRequirement->observations = $request->input('meshStudentRequirement.observations');
-        $meshStudentRequirement->save();
+        
+        $meshStudent = MeshStudent::find($request->input('meshStudent.id'));
+        $requirement = Requirement::find($request->input('requirement.id'));
+
+        $MeshStudent->meshStudent()->associate($meshStudent);
+        $MeshStudent->requirement()->associate($requirement);
+
+        $MeshStudent->approved = $request->input('approved');
+        $MeshStudent->observations = $request->input('observations');
+        $MeshStudent->save();
         
         return (new ExampleResource($example))
             ->additional([

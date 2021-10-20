@@ -15,11 +15,11 @@ class TutorShipController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $tutorShip = TutorShip::customSelect($request->fields)->customOrderBy($sorts)
+        $tutorShips = TutorShip::customSelect($request->fields)->customOrderBy($sorts)
             ->fielExample($request->input('fieldExample'))
             ->paginate($request->input('per_page'));
 
-        return (new TutorShipCollection($tutorship))
+        return (new TutorShipCollection($tutorShips))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -41,20 +41,22 @@ class TutorShipController extends Controller
             ]);
     }
 
-    public function store(Request $request){
-        $tutor = Tutor::find($request->input('tutor_id'));
-        $enrollment = Enrollment::find($request->input('enrollment_id'));
+    public function store(Request $request)
+    {
+        $tutor = Tutor::find($request->input('tutor.id'));
+        $enrollment = Enrollment::find($request->input('enrollment.id'));
+
         $tutorship = new TutorShip();
-        //$tutorship->tutor_id = $request->input('tutor_id');
-        //$tutorship->enrollment_id = $request->input('enrollment_id');
+     
         $tutorship->tutor()->associate($tutor);
         $tutorship->enrollment()->associate($enrollment);
+
         $tutorship->topics = $request->input('topics');
-        $tutorship->date = $request->input('date');
-        $tutorship->start_hour = $request->input('start_hour');
-        $tutorship->end_hour = $request->input('end_hour');
+        $tutorship->started_at = $request->input('startedAt');
+        $tutorship->time_started_at = $request->input('timeStartedAt');
+        $tutorship->time_ended_at = $request->input('timeEndedAt');
         $tutorship->duration = $request->input('duration');
-        $tutorship->percentage_advance = $request->input('percentage_advance');
+        $tutorship->percentage_advance = $request->input('percentageAdvance');
         $tutorship->save();
         
         return (new TutorShipResource($tutorship))
@@ -67,34 +69,22 @@ class TutorShipController extends Controller
             ]);
     }
 
-    public function update(Request $request, $id){
-        $tutor = Tutor::find($request->input('tutor_id'));
-        $enrollment = Enrollment::find($request->input('enrollment_id'));
-        $project = $enrollment->projects()->first();
-        $tutorship = TutorShip::find($id);
-        if (!$tutorship) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'El tutor no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-       // $tutorship->tutor_id = $request->input('tutor_id');
-      //  $tutorship->enrollment_id = $request->input('enrollment_id');
+    public function update(Request $request,  Tutorship $tutorship)
+    {
+        
+        $tutor = Tutor::find($request->input('tutor.id'));
+        $enrollment = Enrollment::find($request->input('enrollment.id'));
+     
         $tutorship->tutor()->associate($tutor);
         $tutorship->enrollment()->associate($enrollment);
+
         $tutorship->topics = $request->input('topics');
-        $tutorship->date = $request->input('date');
-        $tutorship->start_hour = $request->input('start_hour');
-        $tutorship->end_hour = $request->input('end_hour');
+        $tutorship->started_at = $request->input('startedAt');
+        $tutorship->time_started_at = $request->input('timeStartedAt');
+        $tutorship->time_ended_at = $request->input('timeEndedAt');
         $tutorship->duration = $request->input('duration');
-        $tutorship->percentage_advance = $request->input('percentage_advance');
+        $tutorship->percentage_advance = $request->input('percentageAdvance');
         $tutorship->save();
-        $project->total_advance=$project->total_advance + $request->input('percentage_advance');
-        $project->save();
         
         return (new TutorShipResource($tutorship))
             ->additional([

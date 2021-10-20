@@ -24,11 +24,11 @@ class ProjectController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $project = Project::customSelect($request->fields)->customOrderBy($sorts)
+        $projects = Project::customSelect($request->fields)->customOrderBy($sorts)
             ->fielExample($request->input('fieldExample'))
             ->paginate($request->input('per_page'));
 
-        return (new ProjectCollection($project))
+        return (new ProjectCollection($projects))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -44,33 +44,22 @@ class ProjectController extends Controller
             ], 200);  
     }
 
-    public function show(Project $project)
-    {
-        return (new ProjectResource($project))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '201'
-                ]
-            ]);
-    }
-
     public function store(StoreProjectRequest $request)
     {
-        $enrollment = Enrollment :: find($request->input('enrollment_id'));
-        $projectPlan = ProjectPlan :: find($request->input('project_plan_id'));
+        $enrollment = Enrollment :: find($request->input('enrollment.id'));
+        $projectPlan = ProjectPlan :: find($request->input('project_plan.id'));
+
         $project = new Project;
-        //$project->project_plan_id = $request->input('project.projectPlan.id');
-       // $project->enrollment_id = $request->input('project.enrollment.id');
+        
         $project->projectPlan()->associate($projectPlan);
         $project->enrollment()->associate($enrollment);
+
         $project->title = $request->input('title');
         $project->description = $request->input('description');
+        $project->tutor_asigned = $request->input('tutorAsigned');
+        $project->total_advance = $request->input('totalAdvance');
         $project->score = $request->input('score');
         $project->approved = $request->input('approved');
-        $project->total_advance = $request->input('total_advance');
-        $project->tutor_asigned = $request->input('tutor_asigned');
         $project->observations = $request->input('observations');
         $project->save();
         
@@ -84,29 +73,34 @@ class ProjectController extends Controller
             ]);
     }
 
-    public function update(Request $request, $id)
+    public function show(Project $project)
     {
-        $enrollment = Enrollment :: find($request->input('enrollment_id'));
-        $projectPlan = ProjectPlan :: find($request->input('project_plan_id'));        
-        $project = Project::find($id);
-        if (!$project) {
-            return response()->json([
-                'data' => null,
+        return (new ProjectResource($project))
+            ->additional([
                 'msg' => [
-                    'summary' => 'El proyecto no existe',
-                    'detail' => 'Intente con otro proyecto',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
                 ]
-            ], 400);
-        }
+            ]);
+    }
+
+    public function update(Request $request, Project $project)
+    {
+        $enrollment = Enrollment :: find($request->input('enrollment.id'));
+        $projectPlan = ProjectPlan :: find($request->input('project_plan.id'));
+
+        $project = new Project;
+        
         $project->projectPlan()->associate($projectPlan);
         $project->enrollment()->associate($enrollment);
+
         $project->title = $request->input('title');
         $project->description = $request->input('description');
+        $project->tutor_asigned = $request->input('tutorAsigned');
+        $project->total_advance = $request->input('totalAdvance');
         $project->score = $request->input('score');
         $project->approved = $request->input('approved');
-        $project->total_advance = $request->input('total_advance');
-        $project->tutor_asigned = $request->input('tutor_asigned');
         $project->observations = $request->input('observations');
         $project->save();
         

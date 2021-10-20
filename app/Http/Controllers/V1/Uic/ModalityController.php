@@ -23,11 +23,11 @@ class ModalityController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $modality = Modality::customSelect($request->fields)->customOrderBy($sorts)
+        $modalitys = Modality::customSelect($request->fields)->customOrderBy($sorts)
             ->fielExample($request->input('fieldExample'))
             ->paginate($request->input('per_page'));
 
-        return (new ModalityCollection($modality))
+        return (new ModalityCollection($modalitys))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -39,12 +39,18 @@ class ModalityController extends Controller
 
     public function store(StoreModalityRequest $request)
     {
+        $parent = Modality::find($request->input('parent.id'));
+        $status = Status::find($request->input('status.id'));
+        $career = Career::find($request->input('career.id'));
+
         $modality = new Modality;
-        $modality->parent_id = $request->input('modality.parent_id');
-        $modality->career_id = $request->input('modality.career_id');
-        $modality->name = $request->input('modality.name');
-        $modality->description = ($request->input('modality.description'));
-        $modality->status_id = $request->input('modality.status_id');
+
+        $modality->parent()->associate($parent);
+        $modality->status()->associate($status);
+        $modality->career()->associate($career);
+
+        $modality->name = $request->input('name');
+        $modality->description = $request->input('description');
         $modality->save();
         
         return (new ModalityResource($modality))
@@ -69,24 +75,18 @@ class ModalityController extends Controller
             ]);
     }
 
-    public function update(UpdateModalityRequest $request, $modality)
+    public function update(UpdateModalityRequest $request, Modality $modality)
     {
-        $modality = Modality::find($modality);
-        if (!$modality) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'La modalidad no existe',
-                    'detail' => 'Intente con otra modalidad',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-        $modality->parent_id = $request->input('modality.parent_id');
-        $modality->career_id = $request->input('modality.career_id');
-        $modality->name = $request->input('modality.name');
-        $modality->description = $request->input('modality.description');
-        $modality->status_id = $request->input('modality.status_id');
+        $parent = Modality::find($request->input('parent.id'));
+        $status = Status::find($request->input('status.id'));
+        $career = Career::find($request->input('career.id'));
+
+        $modality->parent()->associate($parent);
+        $modality->status()->associate($status);
+        $modality->career()->associate($career);
+
+        $modality->name = $request->input('name');
+        $modality->description = $request->input('description');
         $modality->save();
         
         return (new ModalityResource($modality))

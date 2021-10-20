@@ -29,11 +29,11 @@ class ProjectPlanController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $projectPlan = ProjectPlan::customSelect($request->fields)->customOrderBy($sorts)
+        $projectPlans = ProjectPlan::customSelect($request->fields)->customOrderBy($sorts)
             ->fielExample($request->input('fieldExample'))
             ->paginate($request->input('per_page'));
 
-        return (new ProjectPlanCollection($projectPlan))
+        return (new ProjectPlanCollection($projectPlans))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -85,40 +85,15 @@ class ProjectPlanController extends Controller
     {
 
         $projectPlan = new ProjectPlan;
-        $projectPlan->title = $request->input('projectPlan.title');
-        $projectPlan->description = $request->input('projectPlan.description');
-        $projectPlan->act_code = $request->input('projectPlan.act_code');
-        $projectPlan->approval_date = $request->input('projectPlan.approval_date');
-        $projectPlan->is_approved = $request->input('projectPlan.is_approved');
-        $projectPlan->observations = $request->input('projectPlan.observations');
+
+        $projectPlan->title = $request->input('title');
+        $projectPlan->description = $request->input('description');
+        $projectPlan->act_code = $request->input('act_code');
+        $projectPlan->approved_at = $request->input('approvedAt');
+        $projectPlan->approved = $request->input('approved');
+        $projectPlan->observations = $request->input('observations');
         $projectPlan->save();
 
-        $students = $request->input('projectPlan.students');
-        for ($i = 0; $i < count($students); $i++) {
-            $id = $students[$i]['id'];
-            $student = Student::findOrFail($id);
-            $student->project_plan_id = $projectPlan->id;
-            $student->save();
-        }
-
-        $teachers = $request->input('projectPlan.teachers');
-        for ($i = 0; $i < count($teachers); $i++) {
-            $tutor = Tutor::where('teacher_id', '=', $teachers[$i]['id'])->where('project_plan_id', '=', $projectPlan->id)->first();
-            if (!$tutor) {
-                // $tutor = new Tutor();
-                // $tutor->type_id = 1;
-                // $tutor->projectPlan()->associate($projectPlan);
-                // $tutor->teacher()->associate($teachers[$i]);
-                // $tutor->save();
-
-                $tutor = new Tutor();
-                $id = $teachers[$i]['id'];
-                $tutor->type_id = 1;
-                $tutor->project_plan_id = $projectPlan->id;
-                $tutor->teacher_id = $id;
-                $tutor->save();
-            }
-        }
         return (new ProjectPlanResource($projectPlan))
             ->additional([
                 'msg' => [
@@ -127,27 +102,18 @@ class ProjectPlanController extends Controller
                     'code' => '200'
                 ]
             ]);
-    }
 
-    public function update(UpdateProjectPlanRequest $request, $id)
-    {
-        $projectPlan = ProjectPlan::find($id);
-        if (!$projectPlan) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'El acta de aprobación del anteproyecto no existe',
-                    'detail' => 'Intente con otro acta',
-                    'code' => '404'
-                ]
-            ], 400);
         }
-        $projectPlan->title = $request->input('projectPlan.title');
-        $projectPlan->description = $request->input('projectPlan.description');
-        $projectPlan->act_code = $request->input('projectPlan.act_code');
-        $projectPlan->approval_date = $request->input('projectPlan.approval_date');
-        $projectPlan->is_approved = $request->input('projectPlan.is_approved');
-        $projectPlan->observations = $request->input('projectPlan.observations');
+    
+
+    public function update(UpdateProjectPlanRequest $request, ProjectPlan $projectPlan)
+    {
+        $projectPlan->title = $request->input('title');
+        $projectPlan->description = $request->input('description');
+        $projectPlan->act_code = $request->input('act_code');
+        $projectPlan->approved_at = $request->input('approvedAt');
+        $projectPlan->approved = $request->input('approved');
+        $projectPlan->observations = $request->input('observations');
         $projectPlan->save();
        
         return (new ProjectPlanResource($projectPlan))

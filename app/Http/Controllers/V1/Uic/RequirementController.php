@@ -25,11 +25,11 @@ class RequirementController extends Controller
     {
         $sorts = explode(',', $request->sort);
 
-        $examples = Requirement::customSelect($request->fields)->customOrderBy($sorts)
+        $requirements = Requirement::customSelect($request->fields)->customOrderBy($sorts)
             ->fielExample($request->input('fieldRequirement'))
             ->paginate($request->input('per_page'));
 
-        return (new RequirementCollection($examples))
+        return (new RequirementCollection($requirements))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -53,11 +53,15 @@ class RequirementController extends Controller
 
     public function store(StoreRequirementRequest $request)
     {
+        $career = Career::find($request->input('career.id'));
+
         $requirement = new Requirement;
-        $requirement->career_id = $request->input('requirement.career.id');
-        $requirement->name = $request->input('requirement.name');
-        $requirement->is_required = $request->input('requirement.is_required');
-        $requirement->is_solicitable = $request->input('requirement.is_solicitable');
+
+        $requirement->career()->associate($career);
+
+        $requirement->name = $request->input('name');
+        $requirement->required = $request->input('required');
+        $requirement->solicited = $request->input('solicited');
         $requirement->save();
         
         return (new RequirementResource($requirement))
@@ -70,23 +74,15 @@ class RequirementController extends Controller
             ]);
     }
 
-    public function update(UpdateRequirementRequest $request, $id)
+    public function update(UpdateRequirementRequest $request, Requirement $requirement)
     {
-        $requirement = Requirement::find($id);
-        if (!$requirement) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'El requerimiento no existe',
-                    'detail' => 'Intente con otro requerimiento',
-                    'code' => '404'
-                ]
-            ], 400);
-        }
-        $requirement->career_id = $request->input('requirement.career.id');
-        $requirement->name = $request->input('requirement.name');
-        $requirement->is_required = $request->input('requirement.is_required');
-        $requirement->is_solicitable = $request->input('requirement.is_solicitable');
+        $career = Career::find($request->input('career.id'));
+
+        $requirement->career()->associate($career);
+
+        $requirement->name = $request->input('name');
+        $requirement->required = $request->input('required');
+        $requirement->solicited = $request->input('solicited');
         $requirement->save();
         
         return (new RequirementResource($requirement))

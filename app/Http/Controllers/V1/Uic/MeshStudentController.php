@@ -39,8 +39,18 @@ class MeshStudentController extends Controller
 
     public function store(StoreMeshStudentRequest $request)
     {
+
+        $student = Student::find($request->input('student.id'));
+        $mesh = mesh::find($request->input('mesh.id'));
+
         $MeshStudent = new MeshStudent();
-        $MeshStudent->field_MeshStudent = $request->input('fieldExample');
+
+        $MeshStudent->student()->associate($student);
+        $MeshStudent->mesh()->associate($mesh);
+
+        $MeshStudent->startCohort = $request->input('startCohort');
+        $MeshStudent->endCohort = $request->input('endCohort');
+        $MeshStudent->isGraduated = $request->input('isGraduated');
         $MeshStudent->save();
 
         return (new MeshStudentResource($MeshStudent))
@@ -67,7 +77,15 @@ class MeshStudentController extends Controller
 
     public function update(UpdateMeshStudentRequest $request, MeshStudent $MeshStudent)
     {
-        $MeshStudent->field_MeshStudent = $request->input('fieldExample');
+        $student = Student::find($request->input('student.id'));
+        $mesh = mesh::find($request->input('mesh.id'));
+
+        $MeshStudent->student()->associate($student);
+        $MeshStudent->mesh()->associate($mesh);
+
+        $MeshStudent->startCohort = $request->input('startCohort');
+        $MeshStudent->endCohort = $request->input('endCohort');
+        $MeshStudent->isGraduated = $request->input('isGraduated');
         $MeshStudent->save();
 
         return (new MeshStudentResource($request))
@@ -98,7 +116,7 @@ class MeshStudentController extends Controller
         $MeshStudent = MeshStudent::whereIn('id', $request->input('ids'))->get();
         MeshStudent::destroy($request->input('ids'));
 
-        return (new MeshStudentCollection($MeshStudent))
+        return (new MeshStudentCollection($meshStudent))
             ->additional([
                 'msg' => [
                     'summary' => 'Registros Eliminados',
