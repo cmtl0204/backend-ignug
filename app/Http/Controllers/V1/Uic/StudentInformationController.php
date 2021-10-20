@@ -57,7 +57,7 @@ class StudentInformationController extends Controller
         $informationStudent->company_position_id = $request->input('studentInformation.company_position.id');
         $informationStudent->save();
         
-        return (new StudentInformationResource($example))
+        return (new StudentInformationResource($informationStudent))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Actualizado',
@@ -87,7 +87,7 @@ class StudentInformationController extends Controller
         $informationStudent->company_position_id = $request->input('studentInformation.company_position.id');
         $informationStudent->save();
         
-        return (new ExampleResource($example))
+        return (new StudentInformationResource($informationStudent))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Actualizado',
@@ -96,11 +96,11 @@ class StudentInformationController extends Controller
                 ]
             ]);
     }
-    }
-    public function destroy(Example $example)
+    
+    public function destroy(StudentInformation $informationStudent)
     {
-        $example->delete();
-        return (new ExampleResource($example))
+        $informationStudent->delete();
+        return (new StudentInformationResource($informationStudent))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Eliminado',
@@ -112,10 +112,10 @@ class StudentInformationController extends Controller
 
     public function destroys(DestroysCustomRequest $request)
     {
-        $examples = Example::whereIn('id', $request->input('ids'))->get();
-        Example::destroy($request->input('ids'));
+        $informationStudent = StudentInformation::whereIn('id', $request->input('ids'))->get();
+        StudentInformation::destroy($request->input('ids'));
 
-        return (new ExampleCollection($examples))
+        return (new StudentInformatiomCollection($informationStudent))
             ->additional([
                 'msg' => [
                     'summary' => 'Registros Eliminados',

@@ -11,15 +11,34 @@ use App\Models\Authentication\User;
 
 class TutorShipController extends Controller
 {
-    public function index(){
-        $tutor = TutorShip::orderBy('id', 'asc')->get();
-        return response()->json($tutor);
+    public function index(IndexTutorShipRequest $request)
+    {
+        $sorts = explode(',', $request->sort);
+
+        $tutorShip = TutorShip::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldExample'))
+            ->paginate($request->input('per_page'));
+
+        return (new TutorShipCollection($tutorship))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    public function show($id){
-        $tutors = TutorShip::findOrFail($id);
-            return response()->json([ $tutors
-            ], 200);  
+    public function show(TutorShip $tutorship)
+    {
+        return (new TutorShipResource($tutorship))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 
     public function store(Request $request){
@@ -37,14 +56,15 @@ class TutorShipController extends Controller
         $tutorship->duration = $request->input('duration');
         $tutorship->percentage_advance = $request->input('percentage_advance');
         $tutorship->save();
-        return response()->json([
-            'data' => $tutorship->fresh(),
-            'msg' => [
-                'summary' => 'tutoria creada',
-                'detail' => 'La tutoria fue creado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new TutorShipResource($tutorship))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function update(Request $request, $id){
@@ -75,28 +95,43 @@ class TutorShipController extends Controller
         $tutorship->save();
         $project->total_advance=$project->total_advance + $request->input('percentage_advance');
         $project->save();
-        return response()->json([
-            'data' => $tutorship->fresh(),
-            'msg' => [
-                'summary' => 'tutoria actualizada',
-                'detail' => 'La tutoria fue actualizada',
-                'code' => '201'
-            ]
-        ], 201);
         
+        return (new TutorShipResource($tutorship))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);  
     }
 
-    public function destroy($id){
-        $tutorship = TutorShip::findOrFail($id);
-        $tutorship->delete();
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Tutorias eliminado(s)',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+    public function destroy(TutorShip $tutorShip)
+    {
+        $tutorShip->delete();
+        return (new TutorShipResource($tutorShip))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysTutorShipRequest $tutorShip)
+    {
+        $tutorShip = TutorShip::whereIn('id', $request->input('ids'))->get();
+        TutorShip::destroy($request->input('ids'));
+
+        return (new TutorShipCollection($tutorShip))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 //For the Moment
     public function Teachers(){

@@ -18,47 +18,34 @@ class TutorController extends Controller
 {
     public function index(IndexTutorRequest $request)
     {
-        if ($request->has('per_page')) {
-            $tutor = Tutor::paginate($request->input('per_page'));
-        } else {
-            $tutor = Tutor::orderBy('id','asc')->get();
-        }
+        $sorts = explode(',', $request->sort);
 
-        if ($tutor->count() === 0) {
-            return response()->json([
-                'data' => null,
+        $tutors = Tutor::customSelect($request->fields)->customOrderBy($sorts)
+            ->fielExample($request->input('fieldExample'))
+            ->paginate($request->input('per_page'));
+
+        return (new TutorCollection($tutors))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron tutores',
-                    'detail' => 'Intentelo de nuevo',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json($tutor, 200);
+            ]);
     }
 
 	
 	
     public function show(Tutor $tutor)
     {
-        if (!$tutor) {
-            return response()->json([
-                'data' => null,
+        return (new TutorResource($tutor))
+            ->additional([
                 'msg' => [
-                    'summary' => 'El tutor no existe',
-                    'detail' => 'Intente otra vez',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
                 ]
-            ], 404);
-        }
-        return response()->json([
-            'data' => $tutor,
-            'msg' => [
-                'summary' => '',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ], 200);
+            ]);
     }
 
     public function store(Request $request)
@@ -69,14 +56,15 @@ class TutorController extends Controller
         $tutor->type_id = $request->input('type_id');
         $tutor->observations = $request->input('observations');
         $tutor->save();
-        return response()->json([
-            'data' => $tutor->fresh(),
-            'msg' => [
-                'summary' => 'Tutor creado',
-                'detail' => 'El tutor fue creado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new TutorResource($tutor))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function update(UpdateTutorRequest $request, $id)
@@ -97,27 +85,42 @@ class TutorController extends Controller
         $tutor->type_id = $request->input('tutor.type.id');
         $tutor->observations = $request->input('tutor.observations');
         $tutor->save();
-        return response()->json([
-            'data' => $tutor->fresh(),
-            'msg' => [
-                'summary' => 'Tutor actualizado',
-                'detail' => 'El tutor fue actualizado',
-                'code' => '201'
-            ]
-        ], 201);
+        
+        return (new TutorResource($tutor))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
-    function delete(DeleteTutorRequest $request)
+    
+    public function destroy(Tutor $tutor)
     {
-        // Es una eliminación lógica
+        $tutor->delete();
+        return (new TutorResource($tutor))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function destroys(DestroysCustomRequest $request)
+    {
+        $tutor = Tutor::whereIn('id', $request->input('ids'))->get();
         Tutor::destroy($request->input('ids'));
 
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Tutor(es) eliminado(s)',
-                'detail' => 'Se eliminó correctamente',
-                'code' => '201'
-            ]
-        ], 201);
+        return (new TutorCollection($tutor))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
     }
 }
