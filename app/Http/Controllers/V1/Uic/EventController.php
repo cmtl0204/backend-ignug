@@ -2,23 +2,29 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Uic\Event\DestroyEventRequest;
-use App\Http\Requests\Uic\Event\DestroysEventRequest;
-use App\Http\Requests\Uic\Event\IndexEventRequest;
-use App\Http\Requests\Uic\Event\StoreEventRequest;
-use App\Http\Requests\Uic\Event\UpdateEventRequest;
+//Models
 use App\Models\Uic\Event;
 use App\Models\Uic\Planning;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
-// Models
+//Controllers
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Uic\Events\DestroysEventRequest;
+use App\Http\Requests\V1\Uic\Events\IndexEventRequest;
+use App\Http\Requests\V1\Uic\Events\StoreEventRequest;
+use App\Http\Requests\V1\Uic\Events\UpdateEventRequest;
 
-// FormRequest en el index store update
+//Resources
+use App\Http\Resources\V1\Uic\EventCollection;
+use App\Http\Resources\V1\Uic\EventResource;
 
 class EventController extends Controller
-{
+{   
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  IndexEventRequest $request
+     * @return EventCollection
+     */
     public function index(IndexEventRequest $request)
     {
         $sorts = explode(',', $request->sort);
@@ -73,6 +79,13 @@ class EventController extends Controller
             ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  UpdateEventRequest $request
+     * @param  Event $event
+     * @return EventResource
+     */
     public function update(UpdateEventRequest $request, Event $event)
     {
         $planning = Planning::find($request->input('planning.id'));
