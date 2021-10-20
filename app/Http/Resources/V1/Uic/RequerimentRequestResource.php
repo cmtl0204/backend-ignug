@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1\Uic;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProjectResource extends JsonResource
+class RequerimentRequestResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,13 +16,9 @@ class ProjectResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'enrollment' => EnrollmentResource::make($this->enrollment),
-            'projectPlan' => ProjectPlanResource::make($this->project_plan),
-            'title' =>$this->title,
-            'description' =>$this->description,
-            'tutorAsigned' =>$this->tutor_asigned,
-            'totalAdvance' =>$this->total_advance,
-            'score' =>$this->score,
+            'requirement' => RequirementResource::make($this->requirement),
+            'meshStudent' => MeshStudentResource::make($this->mesh_student),
+            'registeredAt' =>$this->registered_at,
             'approved' =>$this->approved,
             'observations' =>$this->observations,
         ];

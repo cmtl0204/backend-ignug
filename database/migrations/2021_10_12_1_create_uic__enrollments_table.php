@@ -38,11 +38,11 @@ class CreateUicEnrollmentsTable extends Migration
                 ->comment('Fecha matrícula');
 
             $table->string('code')
-                ->comment('');
+                ->comment('Codigo');
 
             $table->json('observations')
                 ->nullable()
-                ->comment('');
+                ->comment('Observaciones');
         });
     }
 

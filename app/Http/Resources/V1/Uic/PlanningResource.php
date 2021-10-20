@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1\Uic;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EventResource extends JsonResource
+class PlanningResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,9 @@ class EventResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'planning' =>  PlanningResource::make($this->planning),
-            'name' =>  CatalogueResource::make($this->name),
+            'career' => CareerResource::make($this->career),
+            'name' =>$this->name,
+            'description' =>$this->description,
             'startedAt' =>$this->started_at,
             'endedAt' =>$this->ended_at,
         ];

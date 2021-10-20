@@ -20,8 +20,8 @@ class CreateUicModalitiesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             
-            $table->foreignId('status_id')
-                ->comment('FK de status: saber vigencia')
+            $table->foreignId('state_id')
+                ->comment('FK de state: saber vigencia')
                 ->constrained('app.status');
             
             $table->foreignId('career_id')

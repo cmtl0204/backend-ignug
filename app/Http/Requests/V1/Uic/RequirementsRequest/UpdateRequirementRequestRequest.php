@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Requeriments;
+namespace App\Http\Requests\V1\Uic\RequirementsRequest;
 
 use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequerimentRequest extends FormRequest
+class UpdateRequirementRequestmRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,19 +25,23 @@ class UpdateRequerimentRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'career.id' => [
+            'requirement.id' => [
                 'required'
             ],
 
-            'name' => [
+            'meshStudent.id' => [
                 'required'
             ],
 
-            'required' => [
+            'registeredAt' => [
                 'required'
             ],
 
-            'solicited' => [
+            'approved' => [
+                'required'
+            ],
+
+            'observations' => [
                 'required'
             ],
         ];
@@ -48,10 +52,11 @@ class UpdateRequerimentRequest extends FormRequest
     public function attributes(): array
     {
         $attributes = [
-            'career.id' => 'Carrera',
-            'name' => 'Nombre del Requerimiento',
-            'required' => '¿Es requerido?',
-            'solicited' => 'Solicitar requerimiento',
+            'requirement.id' => '¿Es requerido?',
+            'meshStudent.id' => 'Malla Estudiantil',
+            'registeredAt' => 'Fecha de Registro',
+            'approved' => '¿Esta aprobado?',
+            'observations' => 'Observaciones',
         ];
 
         return UicFormRequest::attributes($attributes);

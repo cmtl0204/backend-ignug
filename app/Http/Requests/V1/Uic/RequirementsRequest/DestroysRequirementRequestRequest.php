@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Requeriments;
+namespace App\Http\Requests\V1\Uic\RequirementsRequest;
 
 use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysRequerimentRequest extends FormRequest
+class DestroysRequirementRequestRequest extends FormRequest
 {
     public function authorize()
     {

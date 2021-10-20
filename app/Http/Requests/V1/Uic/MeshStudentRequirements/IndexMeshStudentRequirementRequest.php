@@ -1,11 +1,11 @@
 <?php
 
-namespace  App\Http\Requests\V1\Uic\RequerimentsRequest;
+namespace App\Http\Requests\V1\Uic\MeshStudentRequirements;
 
 use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexRequerimentRequestRequest extends FormRequest
+class IndexMeshStudentRequirementRequest extends FormRequest
 {
     public function authorize()
     {

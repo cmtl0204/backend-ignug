@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\RequerimentsRequest;
+namespace App\Http\Requests\V1\Uic\MeshStudentRequirements;
 
 use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequerimentRequestmRequest extends FormRequest
+class StoreMeshStudentRequirementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +25,11 @@ class UpdateRequerimentRequestmRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'requirement.id' => [
-                'required'
-            ],
-
             'meshStudent.id' => [
                 'required'
             ],
 
-            'registeredAt' => [
+            'requirement.id' => [
                 'required'
             ],
 
@@ -49,13 +45,12 @@ class UpdateRequerimentRequestmRequest extends FormRequest
         return UicFormRequest::rules($rules);
     }
 
-    public function attributes(): array
+    public function attributes()
     {
         $attributes = [
-            'requirement.id' => '¿Es requerido?',
             'meshStudent.id' => 'Malla Estudiantil',
-            'registeredAt' => 'Fecha de Registro',
-            'approved' => '¿Esta aprobado?',
+            'requirement.id' => 'Requerimiento',
+            'approved' => '¿Usted ha aprobado?',
             'observations' => 'Observaciones',
         ];
 

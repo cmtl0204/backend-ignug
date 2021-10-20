@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Requeriments;
+namespace App\Http\Requests\V1\Uic\Requirements;
 
 use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequerimentRequest extends FormRequest
+class StoreRequirementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

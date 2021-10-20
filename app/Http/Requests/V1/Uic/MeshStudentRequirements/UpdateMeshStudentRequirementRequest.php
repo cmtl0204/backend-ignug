@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\MeshStudentRequeriments;
+namespace App\Http\Requests\V1\Uic\MeshStudentRequirements;
 
 use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMeshStudentRequerimentRequest extends FormRequest
+class UpdateMeshStudentRequirementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

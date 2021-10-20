@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\MeshStudentRequeriments;
+namespace  App\Http\Requests\V1\Uic\RequirementsRequest;
 
 use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysMeshStudentRequerimentRequest extends FormRequest
+class IndexRequirementRequestRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,7 +15,7 @@ class DestroysMeshStudentRequerimentRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'ids' => ['required'],
+            'field_example' => ['required'],
         ];
 
         return UicFormRequest::rules($rules);
@@ -24,7 +24,7 @@ class DestroysMeshStudentRequerimentRequest extends FormRequest
     public function attributes(): array
     {
         $attributes = [
-            'ids' => 'IDs',
+            'field_example' => 'campo de ejemplo',
         ];
 
         return UicFormRequest::attributes($attributes);

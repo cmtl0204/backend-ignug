@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\V1\Custom;
+namespace App\Http\Resources\V1\Uic;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ExampleCollection extends ResourceCollection
+class RequerimentCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

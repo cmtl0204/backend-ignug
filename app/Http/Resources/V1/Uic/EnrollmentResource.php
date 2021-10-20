@@ -15,8 +15,15 @@ class EnrollmentResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'type' => ModalityResource::make($this->modalities),
-            'modality'=>$this->modality,
+            'id' => $this->id,
+            'modality' =>  ModalityResource::make($this->modality),
+            'schoolPeriod' =>  SchoolPeriodResource::make($this->school_period),
+            'meshStudent' =>  MeshStudentResource::make($this->mesh_student),
+            'state' =>  StateResource::make($this->state),
+            'planning' =>  PlanningResource::make($this->planning),
+            'registeredAt' => $this->registered_at,
+            'code' => $this->code,
+            'observations' => $this->observations,
         ];
     }
 }

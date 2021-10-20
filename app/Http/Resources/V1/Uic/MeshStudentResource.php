@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1\Uic;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EventResource extends JsonResource
+class MeshStudentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,11 @@ class EventResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'planning' =>  PlanningResource::make($this->planning),
-            'name' =>  CatalogueResource::make($this->name),
-            'startedAt' =>$this->started_at,
-            'endedAt' =>$this->ended_at,
+            'student' =>  StudentResource::make($this->student),
+            'mesh' =>  MeshResource::make($this->mesh),
+            'startCohort' =>$this->start_cohort,
+            'isGraduated' =>$this->is_graduated,
+            'endCohort' =>$this->end_cohort,
         ];
     }
 }

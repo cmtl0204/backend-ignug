@@ -41,7 +41,7 @@ class CreateUicTutorShipsTable extends Migration
             $table->time('duration')
                 ->comment('Tiempo de duración de la tutoría');
 
-            $table->integer('percentage_advance')
+            $table->integer('duration')
                 ->nullable()
                 ->comment('Porcentaje de avance de los temas tratados');
         });
