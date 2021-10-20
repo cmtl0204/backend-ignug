@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Core\UserController;
 use App\Http\Controllers\V1\Core\FileController;
 use App\Http\Controllers\V1\Core\CatalogueController;
+//Uic Controllers
 use App\Http\Controllers\V1\Uic\EnrollmentController;
 use App\Http\Controllers\V1\Uic\EventController;
 use App\Http\Controllers\V1\Uic\MeshStudentController;
@@ -96,7 +97,7 @@ Route::prefix('event/{event}')->group(function () {
 });
 
 /***********************************************************************************************************************
- * MESHS-TUDENTS
+ * MESHS STUDENTS
  **********************************************************************************************************************/
 Route::apiResource('mesh-students', MeshStudentController::class);
 
@@ -104,13 +105,13 @@ Route::prefix('mesh-student')->group(function () {
     Route::patch('destroys', [MeshStudentController::class, 'destroys']);
 });
 
-Route::prefix('mesh-students/{mesh-students}')->group(function () {
+Route::prefix('mesh-student/{meshStudent}')->group(function () {
     Route::prefix('file')->group(function () {
     });
 });
 
 /***********************************************************************************************************************
- * MESHSTUDENTREQUIREMENTS
+ * MESH STUDENT REQUIREMENTS
  **********************************************************************************************************************/
 Route::apiResource('mesh-student-requirements', MeshStudentRequirementController::class);
 
@@ -118,15 +119,22 @@ Route::prefix('mesh-student-requirement')->group(function () {
     Route::patch('destroys', [MeshStudentRequirementController::class, 'destroys']);
 });
 
-Route::prefix('meshstudentrequirement/{meshstudentrequirement}')->group(function () {
+Route::prefix('mesh-student-requirement/{meshStudentRequirement}')->group(function () {
     Route::prefix('file')->group(function () {
+        Route::get('{file}/download', [MeshStudentRequirementController::class, 'downloadFile']);
+        Route::get('', [UserController::class, 'indexFiles']);
+        Route::get('{file}', [UserController::class, 'showFile']);
+        Route::post('', [UserController::class, 'uploadFile']);
+        Route::put('{file}', [UserController::class, 'updateFile']);
+        Route::delete('{file}', [UserController::class, 'destroyFile']);
+        Route::patch('', [UserController::class, 'destroyFiles']);
     });
 });
 
 /***********************************************************************************************************************
- * MODALITYS
+ * MODALITIES
  **********************************************************************************************************************/
-Route::apiResource('modalitys', ModalityController::class);
+Route::apiResource('modalities', ModalityController::class);
 
 Route::prefix('modality')->group(function () {
     Route::patch('destroys', [ModalityController::class, 'destroys']);
@@ -166,16 +174,17 @@ Route::prefix('project/{project}')->group(function () {
 });
 
 /***********************************************************************************************************************
- * PROJECTPLANS
+ * PROJECT PLANS
  **********************************************************************************************************************/
-Route::apiResource('projectplans', ProjectPlanController::class);
+Route::apiResource('project-plans', ProjectPlanController::class);
 
-Route::prefix('projectplan')->group(function () {
+Route::prefix('project-plan')->group(function () {
     Route::patch('destroys', [ProjectPlanController::class, 'destroys']);
 });
 
-Route::prefix('projectplan/{projectplan}')->group(function () {
+Route::prefix('project-plan/{projectPlan}')->group(function () {
     Route::prefix('file')->group(function () {
+        
     });
 });
 
@@ -194,7 +203,7 @@ Route::prefix('requirement/{requirement}')->group(function () {
 });
 
 /***********************************************************************************************************************
- * REQUIREMENTREQUESTS
+ * REQUIREMENT REQUESTS
  **********************************************************************************************************************/
 Route::apiResource('requirementrequests', RequirementRequestController::class);
 
@@ -250,15 +259,15 @@ Route::prefix('tutor/{tutor}')->group(function () {
 });
 
 /***********************************************************************************************************************
- * TUTORSHIPS
+ * TUTOR SHIPS
  **********************************************************************************************************************/
-Route::apiResource('tutorships', TutorShipController::class);
+Route::apiResource('tutor-ships', TutorShipController::class);
 
-Route::prefix('tutorship')->group(function () {
+Route::prefix('tutor-ship')->group(function () {
     Route::patch('destroys', [TutorShipController::class, 'destroys']);
 });
 
-Route::prefix('tutorship/{tutorship}')->group(function () {
+Route::prefix('tutor-ship/{tutorShip}')->group(function () {
     Route::prefix('file')->group(function () {
     });
 });
