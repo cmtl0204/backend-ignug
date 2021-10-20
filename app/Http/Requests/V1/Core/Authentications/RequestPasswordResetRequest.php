@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Core\Authentications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PasswordForgotAuthRequest extends FormRequest
+class RequestPasswordResetRequest extends FormRequest
 {
 
     public function authorize()

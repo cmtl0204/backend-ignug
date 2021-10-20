@@ -6,6 +6,7 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 
 //Models
+use App\Http\Requests\V1\JobBoard\Professional\RegistrationProfessionalRequest;
 use App\Http\Requests\V1\JobBoard\Professional\UpdateProfileRequest;
 use App\Http\Resources\V1\JobBoard\ProfileResource;
 use App\Models\Authentication\User;
@@ -97,6 +98,7 @@ class ProfessionalController extends Controller
         $user->name = $request->input('user.name');
         $user->lastname = $request->input('user.lastname');
         $user->phone = $request->input('user.phone');
+        $user->birthdate = $request->input('user.birthdate');
         //        $user->address()->associate($address);
 
         $user->identificationType()->associate($identificationType);
@@ -123,5 +125,71 @@ class ProfessionalController extends Controller
                     'code' => '201'
                 ]
             ]);
+    }
+
+    function registration(RegistrationProfessionalRequest $request)
+    {
+//        $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
+        $user = new User();
+//        $address = $user->address()->first() ? $user->address()->first() : new Address();
+//        $location = Location::find($request->input('professional.user.address.location.id'));
+//        $sector = Catalogue::find($request->input('professional.user.address.sector.id'));
+//        $address->main_street = $request->input('professional.user.address.main_street');
+//        $address->secondary_street = $request->input('professional.user.address.secondary_street');
+//        $address->number = $request->input('professional.user.address.number');
+//        $address->post_code = $request->input('professional.user.address.post_code');
+//        $address->reference = $request->input('professional.user.address.reference');
+//        $address->longitude = $request->input('professional.user.address.longitude');
+//        $address->latitude = $request->input('professional.user.address.latitude');
+//        $address->location()->associate($location);
+//        $address->sector()->associate($sector);
+//        $address->save();
+
+        $identificationType = Catalogue::find($request->input('user.identificationType.id'));
+        $sex = Catalogue::find($request->input('user.sex.id'));
+        $gender = Catalogue::find($request->input('user.gender.id'));
+        $bloodType = Catalogue::find($request->input('user.bloodType.id'));
+        $ethnicOrigin = Catalogue::find($request->input('user.ethnicOrigin.id'));
+
+        $user->username = $request->input('user.username');
+        $user->password = $request->input('user.password');
+        $user->email = $request->input('user.email');
+        $user->name = $request->input('user.name');
+        $user->lastname = $request->input('user.lastname');
+        $user->phone = $request->input('user.phone');
+        $user->birthdate = $request->input('user.birthdate');
+        //        $user->address()->associate($address);
+
+        $user->identificationType()->associate($identificationType);
+        $user->sex()->associate($sex);
+        $user->gender()->associate($gender);
+        $user->bloodType()->associate($bloodType);
+        $user->ethnicOrigin()->associate($ethnicOrigin);
+        $user->save();
+
+        $professional = new Professional();
+        $professional->user()->associate($user);
+        $professional->traveled = $request->input('traveled');
+        $professional->disabled = $request->input('disabled');
+        $professional->familiar_disabled = $request->input('familiarDisabled');
+        $professional->identification_familiar_disabled = $request->input('identificationFamiliarDisabled');
+        $professional->catastrophic_diseased = $request->input('catastrophicDiseased');
+        $professional->familiar_catastrophic_diseased = $request->input('familiarCatastrophicDiseased');
+        $professional->about_me = $request->input('aboutMe');
+        $professional->save();
+
+        return (new ProfileResource($professional))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro creado',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
+    }
+
+    function getCertificate(Professional $professional)
+    {
+
     }
 }

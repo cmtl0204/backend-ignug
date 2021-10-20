@@ -6,7 +6,7 @@ use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\Cedula;
 
-class UpdateProfileRequest extends FormRequest
+class RegistrationProfessionalRequest extends FormRequest
 {
     public function authorize()
     {
@@ -35,6 +35,14 @@ class UpdateProfileRequest extends FormRequest
                 'required',
                 'min:9',
                 'max:20',
+            ],
+            'user.password' => [
+                'required',
+                'min:6',
+                'max:16',
+            ],
+            'password_confirmation' => [
+                'same:password'
             ],
             'user.name' => [
                 'required',
@@ -67,8 +75,7 @@ class UpdateProfileRequest extends FormRequest
                 'boolean',
             ],
             'identificationFamiliarDisabled' => [
-                'required_if:familiarDisabled,==,true',
-                'string',
+                'required_if:familiarDisabled,==,true'
             ],
             'catastrophicDiseased' => [
                 'required',

@@ -52,6 +52,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         'name',
         'lastname',
         'email',
+        'phone',
         'email_verified_at',
         'password_changed',
         'max_attempts',
@@ -133,11 +134,6 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make($value);
-    }
-
     // Scopes
     public function scopeUsername($query, $username)
     {
@@ -189,5 +185,36 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
             array_unshift($fields, 'id');
             return $query->select($fields);
         }
+    }
+
+    // Mutators
+    public function setUsernameAttribute($value)
+    {
+        $this->attributes['username'] = trim($value);
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = trim(strtoupper($value));
+    }
+
+    public function setLastnameAttribute($value)
+    {
+        $this->attributes['lastname'] = trim(strtoupper($value));
+    }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = trim(strtolower($value));
+    }
+
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = trim($value);
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }

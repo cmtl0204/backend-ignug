@@ -129,10 +129,14 @@
             "other": "OTHER",
             "not_say": "NOT_SAY"
         },
-        "identification_type": {
-            "type": "IDENTIFICATION_TYPE",
+        "identification_professional_type": {
+            "type": "IDENTIFICATION_PROFESSIONAL_TYPE",
             "cc": "CC",
-            "passport": "PASSPORT",
+            "passport": "PASSPORT"
+        },
+        "identification_company_type": {
+            "type": "IDENTIFICATION_COMPANY_TYPE",
+            "cc": "CC",
             "ruc": "RUC"
         },
         "ethnic_origin": {

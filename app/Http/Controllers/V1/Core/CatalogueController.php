@@ -42,4 +42,20 @@ class CatalogueController extends Controller
                 ]
             ]);
     }
+
+    public function all(IndexCatalogueRequest $request)
+    {
+        $catalogues = Catalogue::orderBy('name')
+            ->type($request->input('type'))
+            ->get();
+
+        return (new CatalogueCollection($catalogues))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
 }

@@ -6,19 +6,21 @@ use App\Exceptions\ModelNotFound;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Core\Authentications\ChangePasswordAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\GenerateTransactionalCodeAuthRequest;
-use App\Http\Requests\V1\Core\Authentications\PasswordForgotAuthRequest;
+use App\Http\Requests\V1\Core\Authentications\RequestPasswordResetRequest;
 use App\Http\Requests\V1\Core\Authentications\ResetPasswordAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\UnlockAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\UserUnlockAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\LoginAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\VerifyTransactionalCodeAuthRequest;
 use App\Http\Resources\V1\Core\Authentications\AuthResource;
+use App\Mail\Authentication\RequestPasswordResetMailable;
 use App\Models\Authentication\TransactionalCode;
 use App\Models\Authentication\PasswordReset;
 use App\Models\Authentication\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -57,7 +59,7 @@ class AuthController extends Controller
         $request->user()->currentAccessToken()->delete();
         return response()->json([
             'msg' => [
-                'summary' => 'logout',
+                'summary' => 'Su sesión ha sido cerrada correctamente',
                 'detail' => '',
                 'code' => '200'
             ]
@@ -208,7 +210,7 @@ class AuthController extends Controller
             ]], 201);
     }
 
-    public function passwordForgot(PasswordForgotAuthRequest $request)
+    public function requestPasswordReset(RequestPasswordResetRequest $request)
     {
         $user = User::where('username', $request->input('username'))
             ->orWhere('email', $request->input('username'))
@@ -231,13 +233,11 @@ class AuthController extends Controller
             'token' => $token
         ]);
 
-//        Mail::to($user->email)
-//            ->send(new PasswordForgotMailable(
-//                'Notificación de restablecimiento de contraseña',
-//                json_encode(['user' => $user, 'token' => $token]),
-//                null,
-//                $request->input('system')
-//            ));
+        Mail::to($user->email)
+            ->send(new RequestPasswordResetMailable(
+                'Notificación de restablecimiento de contraseña',
+                json_encode(['user' => $user, 'token' => $token])
+            ));
 
         return response()->json([
             'data' => null,
@@ -306,7 +306,7 @@ class AuthController extends Controller
             ]], 201);
     }
 
-    public function userUnlock(UserUnlockAuthRequest $request)
+    public function requestUserUnlock(UserUnlockAuthRequest $request)
     {
         $user = User::where('username', $request->input('username'))
             ->orWhere('email', $request->input('username'))

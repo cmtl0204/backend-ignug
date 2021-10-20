@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Authentication\System;
 use App\Models\Core\Catalogue;
 use App\Models\Core\Email;
 use App\Models\Core\Location;
@@ -25,6 +26,7 @@ class AuthenticationSeeder extends Seeder
     public function run()
     {
         $this->createMenus();
+        $this->createSystem();
 
         $this->createLocationCatalogues();
         $this->createIdentificationTypeCatalogues();
@@ -47,7 +49,20 @@ class AuthenticationSeeder extends Seeder
 
         $this->createStates();
     }
+    private function createSystem()
+    {
+        $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
 
+        System::factory()->create([
+            'code' => $catalogues['system']['code'],
+            'name' => 'Sistema de Gestión Académico - Administrativo',
+            'acronym' => 'IGNUG',
+            'version' => '1.2.3',
+            'redirect' => 'http://localhost:4200',
+            'date' => '2021-03-10',
+            'state' => true
+        ]);
+    }
     private function createMenus()
     {
         $menus = Menu::factory(4)->create(['router_link' => null]);
@@ -58,7 +73,7 @@ class AuthenticationSeeder extends Seeder
 
     private function createUsers()
     {
-        $identificationTypes = Catalogue::where('type', 'IDENTIFICATION_TYPE')->get();
+        $identificationTypes = Catalogue::where('type', 'IDENTIFICATION_PROFESSIONAL_TYPE')->get();
         $sexes = Catalogue::where('type', 'SEX_TYPE')->get();
         $genders = Catalogue::where('type', 'GENDER_TYPE')->get();
         $ethnicOrigin = Catalogue::where('type', 'ETHNIC_ORIGIN_TYPE')->get();
@@ -664,19 +679,15 @@ class AuthenticationSeeder extends Seeder
     private function createIdentificationTypeCatalogues()
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
-        Catalogue::factory(3)->sequence(
+        Catalogue::factory(2)->sequence(
             [
-                'code' => $catalogues['catalogue']['identification_type']['cc'],
+                'code' => $catalogues['catalogue']['identification_professional_type']['cc'],
                 'name' => 'CEDULA',
-                'type' => $catalogues['catalogue']['identification_type']['type'],
+                'type' => $catalogues['catalogue']['identification_professional_type']['type'],
             ],
             [
-                'code' => $catalogues['catalogue']['identification_type']['passport'],
-                'name' => 'PASAPORTE', 'type' => $catalogues['catalogue']['identification_type']['type']
-            ],
-            [
-                'code' => $catalogues['catalogue']['identification_type']['ruc'],
-                'name' => 'RUC', 'type' => $catalogues['catalogue']['identification_type']['type']
+                'code' => $catalogues['catalogue']['identification_professional_type']['passport'],
+                'name' => 'PASAPORTE', 'type' => $catalogues['catalogue']['identification_professional_type']['type']
             ],
         )->create();
     }
