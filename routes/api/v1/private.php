@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Core\UserController;
 use App\Http\Controllers\V1\Core\FileController;
 use App\Http\Controllers\V1\Core\CatalogueController;
+use App\Http\Controllers\V1\Uic\EnrollmentController;
 
 /***********************************************************************************************************************
  * CATALOGUES
@@ -51,4 +52,32 @@ Route::prefix('file')->group(function () {
 
 Route::prefix('file/{file}')->group(function () {
     Route::get('download', [FileController::class, 'download']);
+});
+
+/***********************************************************************************************************************
+ * ENROLLMENTS
+ **********************************************************************************************************************/
+Route::apiResource('enrollments', EnrollmentController::class);
+
+Route::prefix('enrollment')->group(function () {
+    Route::patch('destroys', [EnrollmentController::class, 'destroys']);
+});
+
+Route::prefix('enrollment/{enrollment}')->group(function () {
+    Route::prefix('file')->group(function () {
+    });
+});
+
+/***********************************************************************************************************************
+ * EVENTS
+ **********************************************************************************************************************/
+Route::apiResource('enrollments', EnrollmentController::class);
+
+Route::prefix('enrollment')->group(function () {
+    Route::patch('destroys', [EnrollmentController::class, 'destroys']);
+});
+
+Route::prefix('enrollment/{enrollment}')->group(function () {
+    Route::prefix('file')->group(function () {
+    });
 });
