@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Uic\Modality\DeleteModalityRequest;
-use App\Http\Requests\Uic\Modality\IndexModalityRequest;
-use App\Http\Requests\Uic\Modality\StoreModalityRequest;
-use App\Http\Requests\Uic\Modality\UpdateModalityRequest;
+//Models
 use App\Models\App\Career;
-use App\Models\App\Catalogue;
 use App\Models\Uic\Modality;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-// Models
+use App\Models\Uic\Status;
 
-// FormRequest en el index store update
+//Controllers
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Uic\Modalitys\IndexModalityRequest;
+use App\Http\Requests\V1\Uic\Modalitys\StoreModalityRequest;
+use App\Http\Requests\V1\Uic\Modalitys\UpdateModalityRequest;
+use App\Http\Requests\V1\Uic\Modalitys\DestroysModalityRequest;
+
+//Resources
+use App\Http\Resources\V1\Uic\ModalityCollection;
+use App\Http\Resources\V1\Uic\ModalityResource;
 
 class ModalityController extends Controller
 {
-    //Obtener modalidades
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  IndexModalityRequest $request
+     * @return ModalityCollection
+     */
     public function index(IndexModalityRequest $request)
     {
         $sorts = explode(',', $request->sort);
@@ -37,6 +45,12 @@ class ModalityController extends Controller
             ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreModalityRequest $request
+     * @return ModalityResource
+     */
     public function store(StoreModalityRequest $request)
     {
         $parent = Modality::find($request->input('parent.id'));
@@ -63,6 +77,12 @@ class ModalityController extends Controller
             ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  Modality $modality
+     * @return ModalityResource
+     */
     public function showModalities(Modality $modality)
     {
         return (new ModalityResource($modality))
@@ -75,6 +95,13 @@ class ModalityController extends Controller
             ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  UpdateModalityRequest $request
+     * @param  Modality $modality
+     * @return ModalityResource
+     */
     public function update(UpdateModalityRequest $request, Modality $modality)
     {
         $parent = Modality::find($request->input('parent.id'));
@@ -100,6 +127,12 @@ class ModalityController extends Controller
 
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Modality $modality
+     * @return ModalityResource
+     */
     public function destroy(Modality $modality)
     {
         $modality->delete();
@@ -113,6 +146,12 @@ class ModalityController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysModalityRequest $request
+     * @return ModalityCollection
+     */
     public function destroys(DestroysModalityRequest $request)
     {
         $modality = Modality::whereIn('id', $request->input('ids'))->get();

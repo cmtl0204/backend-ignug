@@ -2,20 +2,30 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Uic\StudentInformation\DeleteStudentInformationRequest;
-use App\Http\Requests\Uic\StudentInformation\IndexStudentInformationRequest;
-use App\Http\Requests\Uic\StudentInformation\StoreStudentInformationRequest;
-use App\Http\Requests\Uic\StudentInformation\UpdateStudentInformationRequest;
+//Models
 use App\Models\Uic\Student;
+use App\Models\Uic\Catalogue;
 use App\Models\Uic\StudentInformation;
 
-// Models
+//Controllers
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Uic\StudentsInformation\IndexStudentInformationRequest;
+use App\Http\Requests\V1\Uic\StudentsInformation\StoreStudentInformationRequest;
+use App\Http\Requests\V1\Uic\StudentsInformation\UpdateStudentInformationRequest;
+use App\Http\Requests\V1\Uic\StudentsInformation\DestroysStudentInformationRequest;
 
-// FormRequest en el index store update
+//Resources
+use App\Http\Resources\V1\Uic\StudentInformationCollection;
+use App\Http\Resources\V1\Uic\StudentInformationResource;
 
 class StudentInformationController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  IndexStudentInformationRequest $request
+     * @return StudentInformationCollection
+     */
     public function index(IndexStudentInformationRequest $request)
     {
 
@@ -35,9 +45,15 @@ class StudentInformationController extends Controller
             ]);
     }
 
-    public function show($id)
+    /**
+     * Display the specified resource.
+     *
+     * @param  StudentInformation $studentInformation
+     * @return StudentInformationResource
+     */
+    public function show(StudentInformation $studentInformation)
     {
-        return (new StudentInformationResource($example))
+        return (new StudentInformationResource($studentInformation))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -47,6 +63,12 @@ class StudentInformationController extends Controller
             ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreStudentInformationRequest $request
+     * @return StudentInformationResource
+     */
     public function store(StoreStudentInformationRequest $request)
     {
 
@@ -75,6 +97,13 @@ class StudentInformationController extends Controller
             ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  UpdateStudentInformationRequest $request
+     * @param  StudentInformation $informationStudent
+     * @return StudentInformationResource
+     */
     public function update(UpdateStudentInformationRequest $request,  StudentInformation $informationStudent)
     {
         $student = Student::find($request->input('student.id'));
@@ -100,6 +129,12 @@ class StudentInformationController extends Controller
             ]);
     }
     
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  StudentInformation $informationStudent
+     * @return StudentInformationResource
+     */
     public function destroy(StudentInformation $informationStudent)
     {
         $informationStudent->delete();
@@ -113,12 +148,18 @@ class StudentInformationController extends Controller
             ]);
     }
 
-    public function destroys(DestroysCustomRequest $request)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysStudentInformationRequest $request
+     * @return StudentInformationCollection
+     */
+    public function destroys(DestroysStudentInformationRequest $request)
     {
         $informationStudent = StudentInformation::whereIn('id', $request->input('ids'))->get();
         StudentInformation::destroy($request->input('ids'));
 
-        return (new StudentInformatiomCollection($informationStudent))
+        return (new StudentInformationCollection($informationStudent))
             ->additional([
                 'msg' => [
                     'summary' => 'Registros Eliminados',

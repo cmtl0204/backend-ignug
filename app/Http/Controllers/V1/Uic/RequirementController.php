@@ -2,24 +2,29 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\App\FileController;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\App\File\IndexFileRequest;
-use App\Http\Requests\App\File\UpdateFileRequest;
-use App\Http\Requests\App\File\UploadFileRequest;
-use App\Http\Requests\Uic\Requirement\IndexRequirementRequest;
-use App\Http\Requests\Uic\Requirement\DeleteRequirementRequest;
-use App\Http\Requests\Uic\Requirement\StoreRequirementRequest;
-use App\Http\Requests\Uic\Requirement\UpdateRequirementRequest;
-
+//Models
 use App\Models\Uic\Requirement;
+use App\Models\Uic\Career;
+
+//Controllers
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Uic\Requirements\IndexRequirementRequest;
+use App\Http\Requests\V1\Uic\Requirements\StoreRequirementRequest;
+use App\Http\Requests\V1\Uic\Requirements\UpdateRequirementRequest;
+
+//Resources
+
+use App\Http\Resources\V1\Uic\RequirementCollection;
+use App\Http\Resources\V1\Uic\RequirementResource;
+
 
 class RequirementController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  IndexRequirementRequest $request
+     * @return RequirementCollection
      */
     public function index(IndexRequirementRequest $request)
     {
@@ -39,18 +44,12 @@ class RequirementController extends Controller
             ]);
     }
 
-    public function show(Requirement $requirement)
-    {
-        return (new RequirementResource($requirement))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '201'
-                ]
-            ]);
-    }
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreRequirementRequest $request
+     * @return RequirementResource
+     */
     public function store(StoreRequirementRequest $request)
     {
         $career = Career::find($request->input('career.id'));
@@ -74,6 +73,31 @@ class RequirementController extends Controller
             ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  Requirement $requirement
+     * @return RequirementResource
+     */
+    public function show(Requirement $requirement)
+    {
+        return (new RequirementResource($requirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  UpdateRequirementRequest $request
+     * @param  Requirement $requirement
+     * @return RequirementResource
+     */
     public function update(UpdateRequirementRequest $request, Requirement $requirement)
     {
         $career = Career::find($request->input('career.id'));
@@ -95,6 +119,12 @@ class RequirementController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Requirement $requirement
+     * @return RequirementResource
+     */
     public function destroy(Requirement $requirement)
     {
         $requirement->delete();
@@ -108,7 +138,13 @@ class RequirementController extends Controller
             ]);
     }
 
-    public function destroys(DestroysCustomRequest $request)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysRequirementRequest $request
+     * @return RequirementCollection
+     */
+    public function destroys(DestroysRequirementRequest $request)
     {
         $requirement = Requirement::whereIn('id', $request->input('ids'))->get();
         Requirement::destroy($request->input('ids'));

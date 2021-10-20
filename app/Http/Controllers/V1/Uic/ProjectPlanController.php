@@ -2,28 +2,35 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Uic\ProjectPlan\DeleteProjectPlanRequest;
-use App\Http\Requests\Uic\ProjectPlan\IndexProjectPlanRequest;
-use App\Http\Requests\Uic\ProjectPlan\StoreProjectPlanRequest;
-use App\Http\Requests\Uic\ProjectPlan\UpdateProjectPlanRequest;
-use App\Models\Uic\ProjectPlan;
-use Illuminate\Http\Request;
+//Models
+use App\Models\Uic\Student;
+use App\Models\Uic\Tutor;
 use App\Models\Uic\Requirement;
 use App\Models\App\Teacher;
+use App\Models\Uic\ProjectPlan;
+
+//Controllers
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\App\FileController;
+use App\Http\Requests\V1\Uic\ProjectPlans\IndexProjectPlanRequest;
+use App\Http\Requests\V1\Uic\ProjectPlans\StoreProjectPlanRequest;
+use App\Http\Requests\V1\Uic\ProjectPlans\UpdateProjectPlanRequest;
 use App\Http\Requests\App\File\IndexFileRequest;
 use App\Http\Requests\App\File\UpdateFileRequest;
 use App\Http\Requests\App\File\UploadFileRequest;
-use App\Models\Uic\Student;
-use App\Models\Uic\Tutor;
+use Illuminate\Http\Request;
+
+//Resources
+use App\Http\Resources\V1\Uic\ProjectPlanCollection;
+use App\Http\Resources\V1\Uic\ProjectPlanResource;
 
 class ProjectPlanController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  IndexProjectPlanRequest $request
+     * @return ProjectPlanCollection
      */
     public function index(IndexProjectPlanRequest $request)
     {
@@ -69,18 +76,12 @@ class ProjectPlanController extends Controller
         );
     }
 
-    public function show(ProjectPlan $projectPlan)
-    {
-        return (new ProjectPlanResource($projectPlan))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '201'
-                ]
-            ]);
-    }
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreProjectPlanRequest $request
+     * @return ProjectPlanResource
+     */
     public function store(StoreProjectPlanRequest $request)
     {
 
@@ -103,9 +104,33 @@ class ProjectPlanController extends Controller
                 ]
             ]);
 
-        }
-    
+    }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  ProjectPlan $projectPlan
+     * @return ProjectPlanResource
+     */
+    public function show(ProjectPlan $projectPlan)
+    {
+        return (new ProjectPlanResource($projectPlan))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  UpdateProjectPlanRequest $request
+     * @param  ProjectPlan $projectPlan
+     * @return ProjectPlanResource
+     */
     public function update(UpdateProjectPlanRequest $request, ProjectPlan $projectPlan)
     {
         $projectPlan->title = $request->input('title');
@@ -126,6 +151,12 @@ class ProjectPlanController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  ProjectPlan $projectPlan
+     * @return ProjectPlanResource
+     */
     public function destroy(ProjectPlan $projectPlan)
     {
         $projectPlan->delete();
@@ -139,9 +170,15 @@ class ProjectPlanController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysProjectPlanRequest $request
+     * @return ProjectPlanCollection
+     */
     public function destroys(DestroysProjectPlanRequest $request)
     {
-        $projectPlan = EProjectPlan::whereIn('id', $request->input('ids'))->get();
+        $projectPlan = ProjectPlan::whereIn('id', $request->input('ids'))->get();
         ProjectPlan::destroy($request->input('ids'));
 
         return (new ProjectPlanCollection($projectPlan))

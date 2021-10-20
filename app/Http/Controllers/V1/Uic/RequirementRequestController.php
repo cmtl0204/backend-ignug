@@ -2,43 +2,85 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\App\FileController;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\App\File\IndexFileRequest;
-use App\Http\Requests\App\File\UpdateFileRequest;
-use App\Http\Requests\App\File\UploadFileRequest;
-use App\Http\Requests\Uic\RequirementRequest\IndexRequirementRequestRequest;
-use App\Http\Requests\Uic\RequirementRequest\DeleteRequirementRequestRequest;
-use App\Http\Requests\Uic\RequirementRequest\StoreRequirementRequestRequest;
-use App\Http\Requests\Uic\RequirementRequest\UpdateRequirementRequestRequest;
-
+//Models
 use App\Models\Uic\RequirementRequest;
+use App\Models\Uic\meshStudent;
+
+//Controllers
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Uic\RequirementRequests\IndexRequirementRequestRequest;
+use App\Http\Requests\V1\Uic\RequirementRequests\StoreRequirementRequestRequest;
+use App\Http\Requests\V1\Uic\RequirementRequests\UpdateRequirementRequestRequest;
+use App\Http\Requests\V1\Uic\RequirementRequests\DestroysRequirementRequestRequest;
+
+//Resources
+use App\Http\Resources\V1\Uic\RequirementRequestCollection;
+use App\Http\Resources\V1\Uic\RequirementRequestResource;
 
 class RequirementRequestRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  IndexRequirementRequestRequest $request
+     * @return RequirementRequestCollection
      */
     public function index(IndexRequirementRequestRequest $request)
     {
         $sorts = explode(',', $request->sort);
-
+        
         $requirements = RequirementRequest::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielExample($request->input('fieldExample'))
-            ->paginate($request->input('per_page'));
-
+        ->fielExample($request->input('fieldExample'))
+        ->paginate($request->input('per_page'));
+        
         return (new RequirementRequestCollection($requirements))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
+        ->additional([
+            'msg' => [
+                'summary' => 'success',
+                'detail' => '',
+                'code' => '200'
                 ]
             ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreRequirementRequestRequest $request
+     * @return RequirementRequestResource
+     */
+    public function store(StoreRequirementRequestRequest $request)
+        {
+    
+        $requirement = Requirement::find($request->input('requirement.id'));
+        $meshStudent = meshStudent::find($request->input('mesh_student.id'));
+
+        $requirement = new RequirementRequest;
+
+        $requirement->requirement()->associate($requirement);
+        $requirement->meshStudent()->associate($meshStudent);
+
+        $requirement->registered_at = $request->input('registeredAt');
+        $requirement->approved = $request->input('approved');
+            $requirement->observations = $request->input('observations');
+            $requirement->save();
+            
+            return (new RequirementRequestResource($requirement))
+                ->additional([
+                    'msg' => [
+                        'summary' => 'Registro Actualizado',
+                        'detail' => '',
+                        'code' => '200'
+                    ]
+                ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  RequirementRequest $requirement
+     * @return Requirement
+     */
     public function show(RequirementRequest $requirement)
     {
         return (new Requirement($requirement))
@@ -51,32 +93,13 @@ class RequirementRequestRequestController extends Controller
             ]);
     }
 
-    public function store(StoreRequirementRequestRequest $request)
-    {
-
-        $requirement = Requirement::find($request->input('requirement.id'));
-        $meshStudent = meshStudent::find($request->input('mesh_student.id'));
-
-        $requirement = new RequirementRequest;
-
-        $requirement->requirement()->associate($requirement);
-        $requirement->meshStudent()->associate($meshStudent);
-
-        $requirement->registered_at = $request->input('registeredAt');
-        $requirement->approved = $request->input('approved');
-        $requirement->observations = $request->input('observations');
-        $requirement->save();
-        
-        return (new RequirementRequestResource($requirement))
-            ->additional([
-                'msg' => [
-                    'summary' => 'Registro Actualizado',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  UpdateRequirementRequestRequest $request
+     * @param  Requirement $requirement
+     * @return RequirementRequestResource
+     */
     public function update(UpdateRequirementRequestRequest $request,  Requirement $requirement)
     {
         $requirement = Requirement::find($request->input('requirement.id'));
@@ -100,6 +123,12 @@ class RequirementRequestRequestController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  RequirementRequest $requirement
+     * @return RequirementRequestResource
+     */
     public function destroy(RequirementRequest $requirement)
     {
         $requirement->delete();
@@ -113,7 +142,13 @@ class RequirementRequestRequestController extends Controller
             ]);
     }
 
-    public function destroys(DestroysCustomRequest $request)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysRequirementRequestRequest $request
+     * @return RequirementRequestCollection
+     */
+    public function destroys(DestroysRequirementRequestRequest $request)
     {
         $requirement = RequirementRequest::whereIn('id', $request->input('ids'))->get();
         RequirementRequest::destroy($request->input('ids'));

@@ -18,17 +18,18 @@ use App\Http\Requests\V1\Uic\MeshStudentRequirements\UpdateMeshStudentRequiremen
 use App\Http\Requests\V1\Uic\MeshStudentRequirements\IndexMeshStudentRequirementRequest;
 
 //Resources
-
+use App\Http\Resources\V1\Uic\MeshStudentRequirementCollection;
+use App\Http\Resources\V1\Uic\MeshStudentRequirementResource;
 use Illuminate\Http\Request;
 
 class MeshStudentRequirementController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexEventRequest $request
-     * @return EventCollection
+     * @param  IndexMeshStudentRequirementRequest $request
+     * @return MeshStudentRequirementCollection
      */
     public function index(IndexMeshStudentRequirementRequest $request)
     {
@@ -48,6 +49,12 @@ class MeshStudentRequirementController extends Controller
             ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request $request
+     * @return MeshStudentResource
+     */
     public function store(Request $request)
     {
 
@@ -73,9 +80,15 @@ class MeshStudentRequirementController extends Controller
             ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  MeshStudentRequirement $meshStudentRequirement
+     * @return MeshStudentRequirementResource
+     */
     public function show(MeshStudentRequirement $meshStudentRequirement)
     {
-        return (new EMeshStudentRequirementResource($meshStudentRequirement))
+        return (new MeshStudentRequirementResource($meshStudentRequirement))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -85,6 +98,13 @@ class MeshStudentRequirementController extends Controller
             ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  UpdateMeshStudentRequirementRequest $request
+     * @param  MeshStudent $MeshStudent
+     * @return MeshStudentResource
+     */
     public function update(UpdateMeshStudentRequirementRequest $request,  MeshStudent $MeshStudent)
     {
         
@@ -98,7 +118,7 @@ class MeshStudentRequirementController extends Controller
         $MeshStudent->observations = $request->input('observations');
         $MeshStudent->save();
         
-        return (new ExampleResource($example))
+        return (new MeshStudentResource($example))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Actualizado',
@@ -157,6 +177,12 @@ class MeshStudentRequirementController extends Controller
         ], 201);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  MeshStudentRequirement $meshStudentRequirement
+     * @return MeshStudentRequirementResource
+     */
     public function destroy(MeshStudentRequirement $meshStudentRequirement)
     {
         $meshStudentRequirement->delete();
@@ -170,12 +196,18 @@ class MeshStudentRequirementController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysMeshStudentRequirementRequest $request
+     * @return MeshStudentRequirementCollection
+     */
     public function destroys(DestroysMeshStudentRequirementRequest $request)
     {
         $meshStudentRequirement = MeshStudentRequirement::whereIn('id', $request->input('ids'))->get();
         MeshStudentRequirement::destroy($request->input('ids'));
 
-        return (new ExampleCollection($meshStudentRequirement))
+        return (new MeshStudentRequirementCollection($meshStudentRequirement))
             ->additional([
                 'msg' => [
                     'summary' => 'Registros Eliminados',

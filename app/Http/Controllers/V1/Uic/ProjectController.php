@@ -2,23 +2,30 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Uic\Project\DeleteProjectRequest;
-use App\Http\Requests\Uic\Project\IndexProjectRequest;
-use App\Http\Requests\Uic\Project\StoreProjectRequest;
-use App\Http\Requests\Uic\Project\UpdateProjectRequest;
-use App\Models\Uic\Project;
-use Illuminate\Http\Request;
+//Models
 use App\Models\Uic\Requirement;
 use App\Models\Uic\Enrollment;
 use App\Models\Uic\ProjectPlan;
+
+//Controllers
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Uic\Projects\IndexProjectRequest;
+use App\Http\Requests\V1\Uic\Projects\StoreProjectRequest;
+use App\Http\Requests\V1\Uic\Projects\UpdateProjectRequest;
+use App\Models\Uic\Project;
+use Illuminate\Http\Request;
+
+//Resources
+use App\Http\Resources\V1\Uic\ProjectCollection;
+use App\Http\Resources\V1\Uic\ProjectResource;
 
 class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  IndexProjectRequest $request
+     * @return ProjectCollection
      */
     public function index(IndexProjectRequest $request)
     {
@@ -44,6 +51,12 @@ class ProjectController extends Controller
             ], 200);  
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreProjectRequest $request
+     * @return ProjectResource
+     */
     public function store(StoreProjectRequest $request)
     {
         $enrollment = Enrollment :: find($request->input('enrollment.id'));
@@ -73,6 +86,12 @@ class ProjectController extends Controller
             ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  Project $project
+     * @return ProjectResource
+     */
     public function show(Project $project)
     {
         return (new ProjectResource($project))
@@ -85,6 +104,13 @@ class ProjectController extends Controller
             ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request $request
+     * @param  Project $project
+     * @return ProjectResource
+     */
     public function update(Request $request, Project $project)
     {
         $enrollment = Enrollment :: find($request->input('enrollment.id'));
@@ -113,7 +139,13 @@ class ProjectController extends Controller
                 ]
             ]);
     }
-
+    
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Project $project
+     * @return ProjectResource
+     */
     public function destroy(Project $project)
     {
         $project->delete();
@@ -127,6 +159,12 @@ class ProjectController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysProjectRequest $request
+     * @return ProjectCollection
+     */
     public function destroys(DestroysProjectRequest $request)
     {
         $project = Project::whereIn('id', $request->input('ids'))->get();

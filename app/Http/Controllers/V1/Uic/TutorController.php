@@ -2,21 +2,32 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Uic\Tutor\DeleteTutorRequest;
-use App\Http\Requests\Uic\Tutor\IndexTutorRequest;
-use App\Http\Requests\Uic\Tutor\StoreTutorRequest;
-use App\Http\Requests\Uic\Tutor\UpdateTutorRequest;
-use App\Models\App\Catalogue;
+//Models
 use App\Models\Uic\Tutor;
 use App\Models\Uic\Teacher;
-use Illuminate\Http\Request;
-// Models
+use App\Models\Uic\ProjectPlan;
+use App\Models\App\Catalogue;
 
-// FormRequest en el index store update
+//Controllers
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Uic\Tutors\IndexTutorRequest;
+use App\Http\Requests\V1\Uic\Tutors\DestroysTutorRequest;
+use App\Http\Requests\V1\Uic\Tutors\UpdateTutorRequest;
+use Illuminate\Http\Request;
+
+//Resources
+use App\Http\Resources\V1\Uic\TutorCollection;
+use App\Http\Resources\V1\Uic\TutorResource;
 
 class TutorController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  IndexTutorRequest $request
+     * @return TutorCollection
+     */
     public function index(IndexTutorRequest $request)
     {
         $sorts = explode(',', $request->sort);
@@ -35,8 +46,6 @@ class TutorController extends Controller
             ]);
     }
 
-	
-	
     public function show(Tutor $tutor)
     {
         return (new TutorResource($tutor))
@@ -49,6 +58,12 @@ class TutorController extends Controller
             ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  Request $request
+     * @return TutorResource
+     */
     public function store(Request $request)
     {
         $projectPlan = ProjectPlan::find($request->input('project_plan.id'));
@@ -74,6 +89,13 @@ class TutorController extends Controller
             ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  UpdateTutorRequest $request
+     * @param  Tutor $tutor
+     * @return TutorResource
+     */
     public function update(UpdateTutorRequest $request,  Tutor $tutor)
     {
         $projectPlan = ProjectPlan::find($request->input('project_plan.id'));
@@ -97,6 +119,12 @@ class TutorController extends Controller
             ]);
     }
     
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Tutor $tutor
+     * @return TutorResource
+     */
     public function destroy(Tutor $tutor)
     {
         $tutor->delete();
@@ -110,7 +138,13 @@ class TutorController extends Controller
             ]);
     }
 
-    public function destroys(DestroysCustomRequest $request)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysTutorRequest $request
+     * @return TutorCollection
+     */
+    public function destroys(DestroysTutorRequest $request)
     {
         $tutor = Tutor::whereIn('id', $request->input('ids'))->get();
         Tutor::destroy($request->input('ids'));

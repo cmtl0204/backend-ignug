@@ -2,18 +2,31 @@
 
 namespace App\Http\Controllers\Uic;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Uic\Student\IndexStudentRequest;
-use App\Http\Requests\Uic\Student\StoreStudentRequest;
-use App\Http\Requests\Uic\Student\UpdateStudentRequest;
+//Models
 use App\Models\Uic\Student;
+use App\Models\Uic\ProjectPlan;
+use App\Models\Uic\meshStudent;
 
-// Models
+//Controllers
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Uic\Students\IndexStudentRequest;
+use App\Http\Requests\V1\Uic\Students\StoreStudentRequest;
+use App\Http\Requests\V1\Uic\Students\UpdateStudentRequest;
+use App\Http\Requests\V1\Uic\Students\DestroysStudentRequest;
 
-// FormRequest en el index store update
+//Resources
+use App\Http\Resources\V1\Uic\StudentCollection;
+use App\Http\Resources\V1\Uic\StudentResource;
 
 class StudentController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  IndexStudentRequest $request
+     * @return StudentCollection
+     */
     public function index(IndexStudentRequest $request)
     {
         $sorts = explode(',', $request->sort);
@@ -32,6 +45,12 @@ class StudentController extends Controller
             ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  Student $student
+     * @return StudentResource
+     */
     public function show(Student $student) //cambiar
     {
         return (new StudentResource($student))
@@ -44,6 +63,12 @@ class StudentController extends Controller
             ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreStudentRequest $request
+     * @return StudentResource
+     */
     public function store(StoreStudentRequest $request)
     {
         $projectPlan = ProjectPlan::find($request->input('project_plan.id'));
@@ -67,6 +92,13 @@ class StudentController extends Controller
             ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  UpdateStudentRequest $request
+     * @param  Student $student
+     * @return StudentResource
+     */
     public function update(UpdateStudentRequest $request, Student $student)
     {
         $projectPlan = ProjectPlan::find($request->input('project_plan.id'));
@@ -88,6 +120,12 @@ class StudentController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Student $student
+     * @return StudentResource
+     */
     public function destroy(Student $student)
     {
         $student->delete();
@@ -101,7 +139,13 @@ class StudentController extends Controller
             ]);
     }
 
-    public function destroys(DestroysCustomRequest $request)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysStudentRequest $request
+     * @return StudentCollection
+     */
+    public function destroys(DestroysStudentRequest $request)
     {
         $student = Student::whereIn('id', $request->input('ids'))->get();
         Student::destroy($request->input('ids'));

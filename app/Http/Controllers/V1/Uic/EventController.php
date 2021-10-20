@@ -1,4 +1,8 @@
 <?php
+//Models
+//Controllers
+//Resources
+
 
 namespace App\Http\Controllers\Uic;
 

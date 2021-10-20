@@ -1,16 +1,35 @@
 <?php
 
 namespace App\Http\Controllers\Uic;
-use App\Http\Controllers\Controller;
-use App\Models\Uic\TutorShip;
-use Illuminate\Http\Request;
+
+//Models
 use App\Models\Uic\Tutor;
 use App\Models\Uic\Enrollment;
 use App\Models\App\Teacher;
 use App\Models\Authentication\User;
 
+//Controllers
+use App\Http\Requests\V1\Uic\TutorShip\DestroysTutorShipRequest;
+use App\Http\Requests\V1\Uic\TutorShip\IndexTutorShipRequest;
+use App\Http\Requests\V1\Uic\TutorShip\StoreEventRequest;
+use App\Http\Requests\V1\Uic\TutorShip\UpdateEventRequest;
+use App\Http\Controllers\Controller;
+use App\Models\Uic\TutorShip;
+use Illuminate\Http\Request;
+
+//Resources
+use App\Http\Resources\V1\Uic\TutorShipCollection;
+use App\Http\Resources\V1\Uic\TutorShipResource;
+
 class TutorShipController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  IndexTutorShipRequest $request
+     * @return TutorShipCollection
+     */
     public function index(IndexTutorShipRequest $request)
     {
         $sorts = explode(',', $request->sort);
@@ -29,6 +48,12 @@ class TutorShipController extends Controller
             ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  TutorShip $tutorship
+     * @return TutorShipResource
+     */
     public function show(TutorShip $tutorship)
     {
         return (new TutorShipResource($tutorship))
@@ -41,6 +66,12 @@ class TutorShipController extends Controller
             ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request $request
+     * @return TutorShipResource
+     */
     public function store(Request $request)
     {
         $tutor = Tutor::find($request->input('tutor.id'));
@@ -69,6 +100,13 @@ class TutorShipController extends Controller
             ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request $request
+     * @param  Tutorship $tutorship
+     * @return TutorShipResource
+     */
     public function update(Request $request,  Tutorship $tutorship)
     {
         
@@ -96,6 +134,12 @@ class TutorShipController extends Controller
             ]);  
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  TutorShip $tutorShip
+     * @return TutorShipResource
+     */
     public function destroy(TutorShip $tutorShip)
     {
         $tutorShip->delete();
@@ -109,6 +153,12 @@ class TutorShipController extends Controller
             ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param DestroysTutorShipRequest $tutorShip
+     * @return TutorShipCollection
+     */
     public function destroys(DestroysTutorShipRequest $tutorShip)
     {
         $tutorShip = TutorShip::whereIn('id', $request->input('ids'))->get();
