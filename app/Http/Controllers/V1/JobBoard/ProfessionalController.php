@@ -190,6 +190,8 @@ class ProfessionalController extends Controller
 
     function getCertificate(Professional $professional)
     {
-
+        $data = User::find(1);
+        $pdf = \PDF::loadView('reports.professional.registration-certificate',['data' => $data]);
+        return $pdf->stream('invoice.pdf');
     }
 }
