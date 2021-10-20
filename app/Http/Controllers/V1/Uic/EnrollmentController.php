@@ -35,7 +35,7 @@ class EnrollmentController extends Controller
         $sorts = explode(',', $request->sort);
 
         $enrollments = Enrollment::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielExample($request->input('fieldEnrollment'))
+            ->code($request->input('code'))
             ->paginate($request->input('per_page'));
 
         return (new EnrollmentCollection($enrollments))
