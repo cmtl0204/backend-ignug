@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Custom\Example;
+namespace App\Http\Requests\V1\Uic\TutorShips;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCustomRequest extends FormRequest
+class UpdateTutorShipRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,18 +25,56 @@ class UpdateCustomRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'field_example' => ['required'],
+            'tutor.id' => [
+                'required'
+            ],
+
+            'enrollment.id' => [
+                'required'
+            ],
+
+            'topics' => [
+                'required'
+            ],
+
+            'startedAt' => [
+                'required'
+            ],
+
+            'timeStartedAt' => [
+                'required'
+            ],
+
+            'timeEndedAt' => [
+                'required'
+            ],
+
+            'duration' => [
+                'required'
+            ],
+
+            'percentageAdvance' => [
+                'required'
+            ],
+
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes(): array
     {
         $attributes = [
-            'field_example' => 'campo de ejemplo',
+            'tutor.id' => 'Tutor',
+            'enrollment.id' => 'Inscripción',
+            'topics' => 'Temas tratados',
+            'startedAt' => 'Fecha de la tutoría',
+            'timeStartedAt' => 'Hora de inicio de la tutorían',
+            'timeEndedAt' => 'Hora en que terminó latutoría',
+            'duration' => 'Duración de la tutoría',
+            'percentageAdvance' => 'Porcentaje de avance',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

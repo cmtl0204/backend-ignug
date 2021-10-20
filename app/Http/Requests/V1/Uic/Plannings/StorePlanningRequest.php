@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\V1\Uic\Plannings;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePlanningRequest extends FormRequest
@@ -46,7 +46,7 @@ class StorePlanningRequest extends FormRequest
             ],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes()
@@ -59,6 +59,6 @@ class StorePlanningRequest extends FormRequest
             'endedAt' => 'Fecha de fin',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

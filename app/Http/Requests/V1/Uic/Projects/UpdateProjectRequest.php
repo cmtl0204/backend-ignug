@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\V1\Uic\Projects;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProjectRequest extends FormRequest
@@ -62,7 +62,7 @@ class UpdateProjectRequest extends FormRequest
             ],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes(): array
@@ -79,6 +79,6 @@ class UpdateProjectRequest extends FormRequest
             'observations' => 'Observaciones',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

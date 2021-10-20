@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\V1\Uic\ProjectPlans;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProjectPlanRequest extends FormRequest
@@ -50,7 +50,7 @@ class StoreProjectPlanRequest extends FormRequest
             ],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes()
@@ -60,10 +60,10 @@ class StoreProjectPlanRequest extends FormRequest
             'description' => 'Descripción',
             'actCode' => 'Código del Acta',
             'approvedAt' => 'Fecha de aprobación',
-            'approved' => 'Estado',
+            'approved' => '¿Esta aprobado?',
             'observations' => 'Observaciones',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

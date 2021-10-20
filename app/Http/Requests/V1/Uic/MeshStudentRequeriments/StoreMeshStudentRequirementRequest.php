@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\V1\Custom\Example;
+namespace App\Http\Requests\V1\Uic\MeshStudentRequeriments;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCustomRequest extends FormRequest
@@ -42,7 +42,7 @@ class StoreCustomRequest extends FormRequest
             ],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes()
@@ -50,10 +50,10 @@ class StoreCustomRequest extends FormRequest
         $attributes = [
             'meshStudent.id' => 'Malla Estudiantil',
             'requirement.id' => 'Requerimiento',
-            'approved' => 'Estado',
+            'approved' => '¿Usted ha aprobado?',
             'observations' => 'Observaciones',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

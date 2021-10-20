@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\V1\Uic\Plannings;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexPlanningRequest extends FormRequest
@@ -18,7 +18,7 @@ class IndexPlanningRequest extends FormRequest
             'field_example' => ['required'],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes(): array
@@ -27,6 +27,6 @@ class IndexPlanningRequest extends FormRequest
             'field_example' => 'campo de ejemplo',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

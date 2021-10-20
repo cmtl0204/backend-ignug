@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\V1\Uic\Modalities;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateModalityRequest extends FormRequest
@@ -29,7 +29,7 @@ class UpdateModalityRequest extends FormRequest
                 'required'
             ],
 
-            'status.id' => [
+            'state.id' => [
                 'required'
             ],
 
@@ -46,19 +46,19 @@ class UpdateModalityRequest extends FormRequest
             ],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes(): array
     {
         $attributes = [
             'parent.id' => 'Modalidad Padre',
-            'status.id' => 'Estado',
+            'state.id' => '¿Esta vigente?',
             'career.id' => 'Carrera',
             'name' => 'Nombre de la Modalidad',
             'description' => 'Descripción',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

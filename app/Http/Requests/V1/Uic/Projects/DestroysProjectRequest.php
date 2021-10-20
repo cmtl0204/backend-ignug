@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\V1\Uic\Projects;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DestroysProjectRequest extends FormRequest
@@ -18,7 +18,7 @@ class DestroysProjectRequest extends FormRequest
             'ids' => ['required'],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes(): array
@@ -27,6 +27,6 @@ class DestroysProjectRequest extends FormRequest
             'ids' => 'IDs',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

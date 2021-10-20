@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\V1\Uic\Enrollments;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateEnrollmentRequest extends FormRequest
@@ -37,7 +37,7 @@ class UpdateEnrollmentRequest extends FormRequest
                 'required'
             ],
 
-            'status.id' => [
+            'state.id' => [
                 'required'
             ],
 
@@ -66,9 +66,9 @@ class UpdateEnrollmentRequest extends FormRequest
         $attributes = [
             'modality.id' => 'Modalidad padre',
             'schoolPeriod.id' => 'Periodo Académico',
-            'meshStudent' => 'Malla Estudiantil',
-            'status' => 'Estado',
-            'planning' => 'Planificación',
+            'meshStudent.id' => 'Malla Estudiantil',
+            'state.id' => 'Estado de la modalidad',
+            'planning.id' => 'Planificación',
             'registeredAt' => 'Fecha de registro',
             'code' => 'Código',
             'observations' => 'Observaciones',

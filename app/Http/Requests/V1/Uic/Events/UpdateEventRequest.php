@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\V1\Uic\Events;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateEventRequest extends FormRequest
@@ -42,7 +42,7 @@ class UpdateEventRequest extends FormRequest
             ],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes(): array
@@ -54,6 +54,6 @@ class UpdateEventRequest extends FormRequest
             'endedAt' => 'Fecha de Fin',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

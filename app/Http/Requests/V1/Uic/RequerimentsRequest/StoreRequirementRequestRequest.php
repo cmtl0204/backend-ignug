@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Uic\Projects;
+namespace App\Http\Requests\V1\Uic\RequerimentsRequest;
 
 use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProjectRequest extends FormRequest
+class StoreRequerimentRequestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,31 +25,15 @@ class StoreProjectRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'enrollment.id' => [
+            'requirement.id' => [
                 'required'
             ],
 
-            'projectPlan.id' => [
+            'meshStudent.id' => [
                 'required'
             ],
 
-            'title' => [
-                'required'
-            ],
-
-            'description' => [
-                'required'
-            ],
-
-            'tutorAsigned' => [
-                'required'
-            ],
-
-            'totalAdvance' => [
-                'required'
-            ],
-
-            'score' => [
+            'registeredAt' => [
                 'required'
             ],
 
@@ -68,13 +52,9 @@ class StoreProjectRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'enrollment.id' => 'Inscripción',
-            'projectPlan.id' => 'Plan de Proyecto',
-            'title' => 'Titulo del Proyecto',
-            'description' => 'Descripción',
-            'tutorAsigned' => 'Tutor Asignado',
-            'totalAdvance' => 'Avance Total',
-            'score' => 'Puntaje',
+            'requirement.id' => '¿Es requerido?',
+            'meshStudent.id' => 'Malla Estudiantil',
+            'registeredAt' => 'Fecha de Registro',
             'approved' => '¿Esta aprobado?',
             'observations' => 'Observaciones',
         ];

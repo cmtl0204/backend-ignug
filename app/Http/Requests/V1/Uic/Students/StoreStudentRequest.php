@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Custom\Example;
+namespace App\Http\Requests\V1\Uic\Students;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCustomRequest extends FormRequest
+class StoreStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,18 +25,30 @@ class StoreCustomRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'field_example' => ['required']
+            'projectPlan.id' => [
+                'required'
+            ],
+
+            'meshStudent.id' => [
+                'required'
+            ],
+
+            'observations' => [
+                'required'
+            ],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes()
     {
         $attributes = [
-            'field_example' => 'campo de ejemplo',
+            'projectPlan.id' => 'Plan del Proyecto',
+            'meshStudent.id' => 'Malla Curricular',
+            'observations' => 'Observaciones',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Custom\Example;
+namespace App\Http\Requests\V1\Uic\RequerimentsRequest;
 
-use App\Http\Requests\V1\Custom\CustomFormRequest;
+use App\Http\Requests\V1\Uic\UicFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysCustomRequest extends FormRequest
+class DestroysRequerimentRequestRequest extends FormRequest
 {
     public function authorize()
     {
@@ -18,7 +18,7 @@ class DestroysCustomRequest extends FormRequest
             'ids' => ['required'],
         ];
 
-        return CustomFormRequest::rules($rules);
+        return UicFormRequest::rules($rules);
     }
 
     public function attributes(): array
@@ -27,6 +27,6 @@ class DestroysCustomRequest extends FormRequest
             'ids' => 'IDs',
         ];
 
-        return CustomFormRequest::attributes($attributes);
+        return UicFormRequest::attributes($attributes);
     }
 }
