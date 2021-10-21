@@ -3,8 +3,8 @@
 namespace Database\Factories\Uic;
 
 use App\Models\Uic\Modality;
-use App\Models\Uic\State;
-use App\Models\Uic\Career;
+use App\Models\Core\State;
+use App\Models\App\Career;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModalityFactory extends Factory

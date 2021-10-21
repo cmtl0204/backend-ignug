@@ -31,11 +31,11 @@ class ProjectFactory extends Factory
             'project_plan_id' => $projectPlans[rand(0, sizeof($projectPlans) - 1)],
             'title' => $this->faker->word(),
             'description' => $this->faker->text(30),
-            'tutor_asigned' => $this->faker->words(3),
-            'total_advance' => $this->faker->words(3),
+            'tutor_asigned' => $this->faker->word(),
+            'total_advance' => $this->faker->word(),
             'score' => $this->faker->randomDigit(),
             'approved' => $this->faker->boolean(),
-            'observations' => $this->faker->text(30),
+            'observations' => $this->faker->words(3),
         ];
     }
 }

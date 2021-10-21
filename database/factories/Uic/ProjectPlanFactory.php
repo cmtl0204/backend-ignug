@@ -25,10 +25,10 @@ class ProjectPlanFactory extends Factory
         return [
             'title' => $this->faker->word(),
             'description' => $this->faker->text(30),
-            'act_code' => $this->faker->word(),
+            'act_code' => $this->faker->uuid(),
             'approved_at' => $this->faker->date(),
             'approved' => $this->faker->boolean(),
-            'observations' => $this->faker->text(30),
+            'observations' => $this->faker->words(3),
         ];
     }
 }

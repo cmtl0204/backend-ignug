@@ -3,7 +3,7 @@
 namespace Database\Factories\Uic;
 
 use App\Models\Uic\Planning;
-use App\Models\Uic\Career;
+use App\Models\App\Career;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PlanningFactory extends Factory
