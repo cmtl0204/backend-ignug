@@ -31,7 +31,7 @@ class CreateUicModalitiesTable extends Migration
             $table->string('name')
                 ->comment('nombre modalidad PT EC');
 
-            $table->text('description')
+            $table->text('name')
                 ->nullable()
                 ->comment('nombre modalidad');            
         });
