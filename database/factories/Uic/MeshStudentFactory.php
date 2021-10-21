@@ -1,18 +1,18 @@
 <?php
 
-namespace Database\Factories\Custom;
+namespace Database\Factories\Uic;
 
-use App\Models\Uic\Example;
+use App\Models\Uic\Meshes;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ExampleFactory extends Factory
+class MeshStudentFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Example::class;
+    protected $model = MeshStudent::class;
 
     /**
      * Define the model's default state.
@@ -21,8 +21,13 @@ class ExampleFactory extends Factory
      */
     public function definition()
     {
+        $mesh = Meshes::get();
+        
         return [
-            //
+            'mesh_id' => $mesh[rand(0, sizeof($mesh) - 1)],
+            'cohort_started_at' => $this->faker->date(),
+            'cohort_ended_at' => $this->faker->date(),
+            'graduated' => $this->faker->boolean(3)
         ];
     }
 }
