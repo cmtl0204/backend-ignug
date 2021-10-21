@@ -21,6 +21,8 @@ class CreateLicenseStatesTable extends Migration
             $table->string('name')
                 ->comment('nombre del estado (aprobado-no aprobado-pendiente)');
 
+            $table->string('code')
+                ->comment('codigo (aprobado-no aprobado-pendiente)');
         });
     }
 

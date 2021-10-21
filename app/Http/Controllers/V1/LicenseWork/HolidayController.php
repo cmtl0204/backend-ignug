@@ -140,7 +140,5 @@ class HolidayController extends Controller
                     'code' => '201'
                 ]
             ]);
-
     }
-
 }

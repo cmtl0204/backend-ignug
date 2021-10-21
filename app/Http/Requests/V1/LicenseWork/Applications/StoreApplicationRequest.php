@@ -25,7 +25,6 @@ class StoreApplicationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'id'=>['required'],
             'employee'=>['required'],
             'reason'=>['required'],
             'location'=>['required'],
@@ -42,7 +41,6 @@ class StoreApplicationRequest extends FormRequest
     public function attributes()
     {
         $attributes = [
-            'id'=>'id de la solicitud',
             'employee'=>'empleado',
             'reason'=>'razones',
             'form'=>'formulario',

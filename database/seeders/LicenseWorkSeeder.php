@@ -23,16 +23,16 @@ class LicenseWorkSeeder extends Seeder
 
         State::factory(3)->create()->state(new Sequence([
             'name'=>'SAVED',
-            'code'=>'001'
+            'code'=>'SAVED'
         ],[
             'name'=>'PRE-APPROVED',
-            'code'=>'002'
+            'code'=>'PRE-APPROVED'
         ],[
             'name'=>'APPROVED',
-            'code'=>'003'
+            'code'=>'APPROVED'
         ],[
             'name'=>'NO-APPROVED',
-            'code'=>'004'
+            'code'=>'NO-APPROVED'
         ],));
 
         User::factory(10)->create();

@@ -160,7 +160,7 @@ class DependenceController extends Controller
     }
     //rechazar formularios solicitados
     public function refuseApplication(RefuseApplicationRequest $request, Application $application){
-        $state = State::firstWhere('code', '001');
+        $state = State::firstWhere('code', 'SAVED');
         $application->states()->attach($state);
         $dependence= Dependence::find($request->input('dependence.id'));
 
