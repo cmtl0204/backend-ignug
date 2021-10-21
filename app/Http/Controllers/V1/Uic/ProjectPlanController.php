@@ -15,6 +15,7 @@ use App\Http\Controllers\App\FileController;
 use App\Http\Requests\V1\Uic\ProjectPlans\IndexProjectPlanRequest;
 use App\Http\Requests\V1\Uic\ProjectPlans\StoreProjectPlanRequest;
 use App\Http\Requests\V1\Uic\ProjectPlans\UpdateProjectPlanRequest;
+use App\Http\Requests\V1\Uic\ProjectPlans\DestroysProjectPlanRequest;
 use App\Http\Requests\App\File\IndexFileRequest;
 use App\Http\Requests\App\File\UpdateFileRequest;
 use App\Http\Requests\App\File\UploadFileRequest;
@@ -37,7 +38,9 @@ class ProjectPlanController extends Controller
         $sorts = explode(',', $request->sort);
 
         $projectPlans = ProjectPlan::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielExample($request->input('fieldExample'))
+            ->title($request->input('title'))
+            ->description($request->input('description'))
+            ->actCode($request->input('act_code'))
             ->paginate($request->input('per_page'));
 
         return (new ProjectPlanCollection($projectPlans))

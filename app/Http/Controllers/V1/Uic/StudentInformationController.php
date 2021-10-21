@@ -32,7 +32,7 @@ class StudentInformationController extends Controller
         $sorts = explode(',', $request->sort);
 
         $studentInformations = StudentInformation::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielExample($request->input('fieldExample'))
+            ->companyWork($request->input('company_work'))
             ->paginate($request->input('per_page'));
 
         return (new StudentInformationCollection($studentInformations))

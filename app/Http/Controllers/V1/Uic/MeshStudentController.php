@@ -23,28 +23,24 @@ class MeshStudentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexMeshStudenRequest $request
+     * @param  IndexMeshStudentRequest $request
      * @return MeshStudenCollection
      */
     public function index(IndexMeshStudentRequest $request)
     {
-        if ($request->has('per_page')) {
-            $student = MeshStudent::with('meshStudentRequirements')->paginate($request->input('per_page'));
-        } else {
-            $student = MeshStudent::with('meshStudentRequirements')->get();
-        }
+        $sorts = explode(',', $request->sort);
 
-        if ($student->count() === 0) {
-            return response()->json([
-                'data' => null,
+        $meshStudent = MeshStudent::customSelect($request->fields)->customOrderBy($sorts)
+            ->paginate($request->input('per_page'));
+
+        return (new MeshStudentCollection($meshStudent))
+            ->additional([
                 'msg' => [
-                    'summary' => 'No se encontraron estudiantes',
-                    'detail' => 'Intentelo de nuevo',
-                    'code' => '404'
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-        return response()->json($student, 200);
+            ]);
     }
     
     /**

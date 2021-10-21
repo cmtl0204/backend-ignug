@@ -35,7 +35,6 @@ class EventController extends Controller
         $sorts = explode(',', $request->sort);
 
         $events = Event::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielEvent($request->input('fieldEvent'))
             ->paginate($request->input('per_page'));
 
         return (new EventCollection($events))

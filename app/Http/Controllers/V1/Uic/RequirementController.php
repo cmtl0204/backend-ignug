@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Uic\Requirements\IndexRequirementRequest;
 use App\Http\Requests\V1\Uic\Requirements\StoreRequirementRequest;
 use App\Http\Requests\V1\Uic\Requirements\UpdateRequirementRequest;
+use App\Http\Requests\V1\Uic\Requirements\DestroysRequirementRequest;
 
 //Resources
 
@@ -31,7 +32,7 @@ class RequirementController extends Controller
         $sorts = explode(',', $request->sort);
 
         $requirements = Requirement::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielExample($request->input('fieldRequirement'))
+            ->name($request->input('name'))
             ->paginate($request->input('per_page'));
 
         return (new RequirementCollection($requirements))

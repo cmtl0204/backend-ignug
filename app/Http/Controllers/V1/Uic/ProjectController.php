@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Uic;
 
 //Models
-use App\Models\Uic\Requirement;
+use App\Models\Uic\Tutor;
 use App\Models\Uic\Enrollment;
 use App\Models\Uic\ProjectPlan;
 
@@ -11,7 +11,7 @@ use App\Models\Uic\ProjectPlan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Uic\Projects\IndexProjectRequest;
 use App\Http\Requests\V1\Uic\Projects\StoreProjectRequest;
-use App\Http\Requests\V1\Uic\Projects\UpdateProjectRequest;
+use App\Http\Requests\V1\Uic\Projects\DestroysProjectRequest;
 use App\Models\Uic\Project;
 use Illuminate\Http\Request;
 
@@ -32,7 +32,10 @@ class ProjectController extends Controller
         $sorts = explode(',', $request->sort);
 
         $projects = Project::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielExample($request->input('fieldExample'))
+            ->title($request->input('title'))
+            ->description($request->input('description'))
+            ->tutorAsigned($request->input('tutor_asigned'))
+            ->totalAdvance($request->input('total_advance'))
             ->paginate($request->input('per_page'));
 
         return (new ProjectCollection($projects))

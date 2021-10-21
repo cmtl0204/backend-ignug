@@ -11,8 +11,6 @@ use App\Models\Authentication\User;
 //Controllers
 use App\Http\Requests\V1\Uic\TutorShip\DestroysTutorShipRequest;
 use App\Http\Requests\V1\Uic\TutorShip\IndexTutorShipRequest;
-use App\Http\Requests\V1\Uic\TutorShip\StoreEventRequest;
-use App\Http\Requests\V1\Uic\TutorShip\UpdateEventRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Uic\TutorShip;
 use Illuminate\Http\Request;
@@ -35,7 +33,6 @@ class TutorShipController extends Controller
         $sorts = explode(',', $request->sort);
 
         $tutorShips = TutorShip::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielExample($request->input('fieldExample'))
             ->paginate($request->input('per_page'));
 
         return (new TutorShipCollection($tutorShips))
@@ -161,8 +158,8 @@ class TutorShipController extends Controller
      */
     public function destroys(DestroysTutorShipRequest $tutorShip)
     {
-        $tutorShip = TutorShip::whereIn('id', $request->input('ids'))->get();
-        TutorShip::destroy($request->input('ids'));
+        $tutorShip = TutorShip::whereIn('id', $tutorShip->input('ids'))->get();
+        TutorShip::destroy($tutorShip->input('ids'));
 
         return (new TutorShipCollection($tutorShip))
             ->additional([

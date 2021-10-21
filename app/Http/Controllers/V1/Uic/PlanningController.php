@@ -8,7 +8,7 @@ use App\Models\Uic\Career;
 
 //Controllers
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Uic\Plannings\DeletePlanningRequest;
+use App\Http\Requests\V1\Uic\Plannings\DestroysPlanningRequest;
 use App\Http\Requests\V1\Uic\Plannings\IndexPlanningRequest;
 use App\Http\Requests\V1\Uic\Plannings\StorePlanningRequest;
 use App\Http\Requests\V1\Uic\Plannings\UpdatePlanningRequest;
@@ -31,7 +31,8 @@ class PlanningController extends Controller
         $sorts = explode(',', $request->sort);
 
         $plannings = Planning::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielExample($request->input('fieldExample'))
+            ->name($request->input('name'))
+            ->description($request->input('description'))
             ->paginate($request->input('per_page'));
 
         return (new PlanningCollection($plannings))

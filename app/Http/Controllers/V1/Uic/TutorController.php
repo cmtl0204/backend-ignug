@@ -33,7 +33,6 @@ class TutorController extends Controller
         $sorts = explode(',', $request->sort);
 
         $tutors = Tutor::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielExample($request->input('fieldExample'))
             ->paginate($request->input('per_page'));
 
         return (new TutorCollection($tutors))

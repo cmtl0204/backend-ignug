@@ -9,10 +9,10 @@ use App\Models\Uic\Status;
 
 //Controllers
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Uic\Modalitys\IndexModalityRequest;
-use App\Http\Requests\V1\Uic\Modalitys\StoreModalityRequest;
-use App\Http\Requests\V1\Uic\Modalitys\UpdateModalityRequest;
-use App\Http\Requests\V1\Uic\Modalitys\DestroysModalityRequest;
+use App\Http\Requests\V1\Uic\Modalities\IndexModalityRequest;
+use App\Http\Requests\V1\Uic\Modalities\StoreModalityRequest;
+use App\Http\Requests\V1\Uic\Modalities\UpdateModalityRequest;
+use App\Http\Requests\V1\Uic\Modalities\DestroysModalityRequest;
 
 //Resources
 use App\Http\Resources\V1\Uic\ModalityCollection;
@@ -32,7 +32,8 @@ class ModalityController extends Controller
         $sorts = explode(',', $request->sort);
 
         $modalitys = Modality::customSelect($request->fields)->customOrderBy($sorts)
-            ->fielExample($request->input('fieldExample'))
+            ->name($request->input('name'))
+            ->description($request->input('description'))
             ->paginate($request->input('per_page'));
 
         return (new ModalityCollection($modalitys))

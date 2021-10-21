@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Uic;
 
 //Models
 use App\Models\Uic\RequirementRequest;
+use App\Models\Uic\Requirement;
 use App\Models\Uic\meshStudent;
 
 //Controllers
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Uic\RequirementRequests\IndexRequirementRequestRequest;
-use App\Http\Requests\V1\Uic\RequirementRequests\StoreRequirementRequestRequest;
-use App\Http\Requests\V1\Uic\RequirementRequests\UpdateRequirementRequestRequest;
-use App\Http\Requests\V1\Uic\RequirementRequests\DestroysRequirementRequestRequest;
+use App\Http\Requests\V1\Uic\RequirementsRequest\IndexRequirementRequestRequest;
+use App\Http\Requests\V1\Uic\RequirementsRequest\StoreRequirementRequestRequest;
+use App\Http\Requests\V1\Uic\RequirementsRequest\UpdateRequirementRequestRequest;
+use App\Http\Requests\V1\Uic\RequirementsRequest\DestroysRequirementRequestRequest;
 
 //Resources
 use App\Http\Resources\V1\Uic\RequirementRequestCollection;
@@ -30,7 +31,6 @@ class RequirementRequestRequestController extends Controller
         $sorts = explode(',', $request->sort);
         
         $requirements = RequirementRequest::customSelect($request->fields)->customOrderBy($sorts)
-        ->fielExample($request->input('fieldExample'))
         ->paginate($request->input('per_page'));
         
         return (new RequirementRequestCollection($requirements))
