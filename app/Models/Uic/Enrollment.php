@@ -4,6 +4,7 @@ namespace App\Models\Uic;
 
 use App\Models\Core\Catalogue;
 use App\Models\Core\File;
+use App\Models\Core\State;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -25,7 +26,7 @@ class Enrollment extends Model implements Auditable
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'uic.enrollment';
+    protected $table = 'uic.enrollments';
 
     protected $fillable = [
         'registered_at',
@@ -61,9 +62,9 @@ class Enrollment extends Model implements Auditable
         return $this->belongsTo(MeshStudent::class);
     }
 
-    public function status()
+    public function state()
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(State::class);
     }
     
     public function planning()

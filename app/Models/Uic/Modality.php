@@ -4,6 +4,7 @@ namespace App\Models\Uic;
 
 use App\Models\Core\Catalogue;
 use App\Models\Core\File;
+use App\Models\Core\State;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -44,9 +45,14 @@ class Modality extends Model implements Auditable
         return $this->belongsTo(Modality::class);
     }
 
-    public function status()
+    public function child()
     {
-        return $this->belongsTo(Status::class);
+        return $this->hasOne(Modality::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
     }
 
     public function career()

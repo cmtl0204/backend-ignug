@@ -7,8 +7,8 @@ use App\Models\Uic\Enrollment;
 use App\Models\Uic\Modality;
 use App\Models\Uic\SchoolPeriod;
 use App\Models\Uic\MeshStudent;
-use App\Models\Uic\Status;
 use App\Models\Uic\Planning;
+use App\Models\Core\State;
 
 // Controllers
 use App\Http\Controllers\Controller;
@@ -59,7 +59,7 @@ class EnrollmentController extends Controller
         $modality = Modality::find($request->input('modality.id'));
         $schoolPeriod = SchoolPeriod::find($request->input('schoolPeriod.id'));
         $meshStudent = MeshStudent::find($request->input('meshStudent.id'));
-        $status = Status::find($request->input('status.id'));
+        $state = State::find($request->input('state.id'));
         $planning = Planning::find($request->input('planning.id'));
 
         $enrollment = new Enrollment;
@@ -67,7 +67,7 @@ class EnrollmentController extends Controller
         $enrollment->modality()->associate($modality);
         $enrollment->schoolPeriod()->associate($schoolPeriod);
         $enrollment->meshStudent()->associate($meshStudent);
-        $enrollment->status()->associate($status);
+        $enrollment->state()->associate($state);
         $enrollment->planning()->associate($planning);
 
         $enrollment->registered_at = $request->input('registeredAt');
@@ -114,13 +114,13 @@ class EnrollmentController extends Controller
         $modality = Modality::find($request->input('modality.id'));
         $schoolPeriod = SchoolPeriod::find($request->input('schoolPeriod.id'));
         $meshStudent = MeshStudent::find($request->input('meshStudent.id'));
-        $status = Status::find($request->input('status.id'));
+        $state = State::find($request->input('state.id'));
         $planning = Planning::find($request->input('planning.id'));
 
         $enrollment->modality()->associate($modality);
         $enrollment->schoolPeriod()->associate($schoolPeriod);
         $enrollment->meshStudent()->associate($meshStudent);
-        $enrollment->status()->associate($status);
+        $enrollment->state()->associate($state);
         $enrollment->planning()->associate($planning);
 
         $enrollment->registered_at = $request->input('registeredAt');
