@@ -16,7 +16,7 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
  * @property array observations
  * @property boolean approved
  */
-class Example extends Model implements Auditable
+class MeshStudentRequirement extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;

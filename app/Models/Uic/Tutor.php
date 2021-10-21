@@ -16,7 +16,7 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
  * @property BigInteger id
  * @property array observations
  */
-class Example extends Model implements Auditable
+class Tutor extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
