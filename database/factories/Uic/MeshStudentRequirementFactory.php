@@ -23,12 +23,12 @@ class MeshStudentRequirementFactory extends Factory
      */
     public function definition()
     {
-        $meshStudent = MeshStudent::get();
-        $requirement = Requirement::get();
+        $meshStudents = MeshStudent::get();
+        $requirements = Requirement::get();
         
         return [
-            'mesh_student_id' => $meshStudent[rand(0, sizeof($meshStudent) - 1)],
-            'requirement_id' => $requirement[rand(0, sizeof($requirement) - 1)],
+            'mesh_student_id' => $meshStudents[rand(0, sizeof($meshStudents) - 1)],
+            'requirement_id' => $requirements[rand(0, sizeof($requirements) - 1)],
             'approved' => $this->faker->boolean(3),
             'observations' => $this->faker->words()
         ];

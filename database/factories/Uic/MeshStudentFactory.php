@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Uic;
 
-use App\Models\Uic\Meshes;
+use App\Models\App\Mesh;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MeshStudentFactory extends Factory
@@ -21,10 +21,10 @@ class MeshStudentFactory extends Factory
      */
     public function definition()
     {
-        $mesh = Meshes::get();
+        $meshes = Mesh::get();
         
         return [
-            'mesh_id' => $mesh[rand(0, sizeof($mesh) - 1)],
+            'mesh_id' => $meshes[rand(0, sizeof($meshes) - 1)],
             'cohort_started_at' => $this->faker->date(),
             'cohort_ended_at' => $this->faker->date(),
             'graduated' => $this->faker->boolean(3)

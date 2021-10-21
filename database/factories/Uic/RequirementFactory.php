@@ -3,7 +3,7 @@
 namespace Database\Factories\Uic;
 
 use App\Models\Uic\Requirement;
-use App\Models\Uic\Career;
+use App\Models\App\Career;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RequirementFactory extends Factory
