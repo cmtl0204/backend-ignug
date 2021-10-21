@@ -24,8 +24,8 @@ class CreateUicStudentsTable extends Migration
                 ->nullable();
             
             $table->foreignId('mesh_student_id')
-                ->comment('FK de mesh_student')
-                ->constrained('app.mesh_student');
+                ->comment('FK de mesh_students')
+                ->constrained('uic.mesh_students');
             
             $table->json('observations')
                 ->nullable()

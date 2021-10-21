@@ -16,32 +16,39 @@ class CreateAppTeachersTable extends Migration
             $table->foreignId('user_id')
                 ->unique()
                 ->constrained('authentication.users');
+            
             $table->foreignId('teaching_ladder_id')
                 ->constrained('core.catalogues');
+            
             $table->foreignId('dedication_time_id')
                 ->constrained('core.catalogues');
+            
             $table->foreignId('higher_education_id')
                 ->comment('el docente esta cursando estudios superiores escoger')
                 ->nullable()
                 ->constrained('core.catalogues');
+            
             $table->foreignId('country_higher_education_id')
                 ->comment('pais de los estudios superiores')
                 ->nullable()
                 ->constrained('core.catalogues');
+            
             $table->foreignId('scholarship_id')
                 ->comment('posee beca')
                 ->nullable()
                 ->constrained('core.catalogues');
+            
             $table->foreignId('scholarship_type_id')
                 ->comment('tipo de beca')
                 ->nullable()
                 ->constrained('core.catalogues');
+            
             $table->foreignId('financing_type_id')
                 ->comment('tipo de financiamiento de la beca')
                 ->nullable()
                 ->constrained('core.catalogues');
             
-            $table->integer('tolta_subjects')->nullable();
+            $table->integer('total_subjects')->nullable();
             
             $table->integer('hours_worked')->comment('horas laboradas en la semana')->nullable();
             

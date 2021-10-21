@@ -19,8 +19,8 @@ class CreateUicMeshStudentRequirementsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('mesh_student_id')
-                ->comment('FK de mesh_student ')            
-                ->constrained('app.mesh_student');
+                ->comment('FK de mesh_students ')            
+                ->constrained('uic.mesh_students');
                 
             $table->foreignId('requirement_id')
                 ->comment('FK de requirement ')

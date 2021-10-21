@@ -8,7 +8,7 @@ class CreateAppMeshStudentTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_APP'))->create('mesh_students', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_UIC'))->create('mesh_students', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -32,6 +32,6 @@ class CreateAppMeshStudentTable extends Migration
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_APP'))->dropIfExists('mesh_students');
+        Schema::connection(env('DB_CONNECTION_UIC'))->dropIfExists('mesh_students');
     }
 }
