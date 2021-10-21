@@ -21,19 +21,19 @@ class CreateUicModalitiesTable extends Migration
                 ->onDelete('cascade');
             
             $table->foreignId('state_id')
-                ->comment('FK de state: saber vigencia')
-                ->constrained('app.status');
+                ->comment('FK de states: saber vigencia')
+                ->constrained('core.states');
             
             $table->foreignId('career_id')
-                ->comment('FK de status: nombre carrera')
+                ->comment('FK de careers')
                 ->constrained('app.careers');
 
             $table->string('name')
-                ->comment('FK de status: nombre modalidad PT EC');
+                ->comment('nombre modalidad PT EC');
 
             $table->text('description')
                 ->nullable()
-                ->comment('FK de status: nombre modalidad ');            
+                ->comment('nombre modalidad');            
         });
     }
 

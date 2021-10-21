@@ -23,12 +23,12 @@ class CreateUicEnrollmentsTable extends Migration
                 ->constrained('app.school_periods');
 
             $table->foreignId('mesh_student_id')
-                ->comment('FK de status')
-                ->constrained('app.mesh_student');
+                ->comment('FK de mesh_students')
+                ->constrained('app.mesh_students');
 
-            $table->foreignId('status_id')
-                ->comment('FK de status')
-                ->constrained('app.status');
+            $table->foreignId('state_id')
+                ->comment('FK de states')
+                ->constrained('core.states');
 
             $table->foreignId('planning_id')
                 ->comment('FK de plannings')

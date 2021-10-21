@@ -39,6 +39,11 @@ class Requirement extends Model implements Auditable
         return $this->hasOne(RequirementRequest::class);
     }
     
+    public function meshStudentRequirement()
+    {
+        return $this->hasOne(MeshStudentRequirement::class);
+    }
+    
     public function career()
     {
         return $this->belongsTo(Career::class);

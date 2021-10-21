@@ -2,6 +2,7 @@
 
 namespace App\Models\Uic;
 
+use App\Http\Resources\V1\Uic\MeshStudentRequeriment;
 use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +24,7 @@ class MeshStudent extends Model implements Auditable
     use SoftDeletes;
     use CascadeSoftDeletes;
 
-    protected $table = 'uic.mesh_student_requirements';
+    protected $table = 'uic.mesh_students';
 
     protected $fillable = [
         'approved',
@@ -33,18 +34,19 @@ class MeshStudent extends Model implements Auditable
     protected $cascadeDeletes = ['files'];
 
     // Relationships
-    public function enrollments()
-    {
-        return $this->hasMany(Enrollment::class);
-    }
-
-    public function students()
+    public function student()
     {
         return $this->hasMany(Student::class);
     }
-    public function requirementRequests()
+    
+    public function meshStudentRequirement()
     {
-        return $this->hasMany(RequirementRequests::class);
+        return $this->hasOne(MeshStudentRequeriment::class);
+    }
+
+    public function mesh()
+    {
+        return $this->belongsTo(Mesh::class);
     }
 
     // Scopes

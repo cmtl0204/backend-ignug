@@ -8,23 +8,37 @@ class CreateAppCareersTable extends Migration
 {
     public function up()
     {
-        Schema::connection('pgsql-app')->create('careers', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_APP'))->create('careers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('institution_id')->constrained('app.institutions');
-            $table->foreignId('modality_id')->constrained('app.catalogues');
-            $table->foreignId('type_id')->constrained('core.catalogues');
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreignId('institution_id')
+                ->constrained('app.institutions');
+            
+            $table->foreignId('modality_id')
+                ->constrained('uic.modalities');
+            
+            $table->foreignId('type_id')
+                ->constrained('core.catalogues');
+            
             $table->string('code')->nullable();;
+            
             $table->string('name')->nullable();
             
             $table->text('description')->nullable();
+            
             $table->text('short_name');
+            
             $table->string('resolution_number')->nullable();
+            
             $table->string('title');
+            
             $table->string('acronym');
+            
             $table->string('logo');
+            
             $table->json('learning_results')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
 
             $table->string('codigo_sniese', 50)->nullable();
         });
@@ -32,6 +46,6 @@ class CreateAppCareersTable extends Migration
 
     public function down()
     {
-        Schema::connection('pgsql-app')->dropIfExists('careers');
+        Schema::connection(env('DB_CONNECTION_APP'))->dropIfExists('careers');
     }
 }

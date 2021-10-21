@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Uic;
 //Models
 use App\Models\App\Career;
 use App\Models\Uic\Modality;
-use App\Models\Uic\Status;
+use App\Models\Core\State;
 
 //Controllers
 use App\Http\Controllers\Controller;
@@ -55,13 +55,13 @@ class ModalityController extends Controller
     public function store(StoreModalityRequest $request)
     {
         $parent = Modality::find($request->input('parent.id'));
-        $status = Status::find($request->input('status.id'));
+        $state = State::find($request->input('state.id'));
         $career = Career::find($request->input('career.id'));
 
         $modality = new Modality;
 
         $modality->parent()->associate($parent);
-        $modality->status()->associate($status);
+        $modality->state()->associate($state);
         $modality->career()->associate($career);
 
         $modality->name = $request->input('name');
@@ -106,11 +106,11 @@ class ModalityController extends Controller
     public function update(UpdateModalityRequest $request, Modality $modality)
     {
         $parent = Modality::find($request->input('parent.id'));
-        $status = Status::find($request->input('status.id'));
+        $state = State::find($request->input('state.id'));
         $career = Career::find($request->input('career.id'));
 
         $modality->parent()->associate($parent);
-        $modality->status()->associate($status);
+        $modality->state()->associate($state);
         $modality->career()->associate($career);
 
         $modality->name = $request->input('name');
