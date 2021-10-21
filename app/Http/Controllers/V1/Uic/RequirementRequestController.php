@@ -52,16 +52,16 @@ class RequirementRequestRequestController extends Controller
     public function store(StoreRequirementRequestRequest $request)
         {
     
-        $requirement = Requirement::find($request->input('requirement.id'));
-        $meshStudent = meshStudent::find($request->input('mesh_student.id'));
-
-        $requirement = new RequirementRequest;
-
-        $requirement->requirement()->associate($requirement);
-        $requirement->meshStudent()->associate($meshStudent);
-
-        $requirement->registered_at = $request->input('registeredAt');
-        $requirement->approved = $request->input('approved');
+            $requirement = Requirement::find($request->input('requirement.id'));
+            $meshStudent = meshStudent::find($request->input('mesh_student.id'));
+    
+            $requirement = new RequirementRequest;
+    
+            $requirement->requirement()->associate($requirement);
+            $requirement->meshStudent()->associate($meshStudent);
+    
+            $requirement->registered_at = $request->input('registeredAt');
+            $requirement->approved = $request->input('approved');
             $requirement->observations = $request->input('observations');
             $requirement->save();
             

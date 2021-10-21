@@ -84,7 +84,7 @@ class StudentInformationController extends Controller
         $informationStudent->companyArea()->associate($companyArea);
         $informationStudent->companyPosition()->associate($companyPosition);
 
-        $informationStudent->company_work = $request->input('company_work');
+        $informationStudent->companyWork = $request->input('company_work');
         $informationStudent->save();
         
         return (new StudentInformationResource($informationStudent))
