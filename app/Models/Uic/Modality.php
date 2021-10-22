@@ -24,7 +24,7 @@ class Modality extends Model implements Auditable
     use HasFactory;
     use Auditing;
     use SoftDeletes;
-    use CascadeSoftDeletes;
+     
 
     protected $table = 'uic.modalities';
 
@@ -48,7 +48,7 @@ class Modality extends Model implements Auditable
 
     public function child()
     {
-        return $this->hasOne(Modality::class);
+        return $this->hasMany(Modality::class);
     }
 
     public function state()
@@ -56,9 +56,9 @@ class Modality extends Model implements Auditable
         return $this->belongsTo(State::class);
     }
 
-    public function career()
+    public function careers()
     {
-        return $this->belongsTo(Career::class);
+        return $this->belongsToMany(Career::class);
     }
 
     // Scopes

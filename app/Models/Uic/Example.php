@@ -20,7 +20,7 @@ class Example extends Model implements Auditable
     use HasFactory;
     use Auditing;
     use SoftDeletes;
-    use CascadeSoftDeletes;
+     
 
     protected $table = 'schema.table';
 

@@ -25,7 +25,7 @@ class Enrollment extends Model implements Auditable
     use HasFactory;
     use Auditing;
     use SoftDeletes;
-    use CascadeSoftDeletes;
+     
 
     protected $table = 'uic.enrollments';
 
