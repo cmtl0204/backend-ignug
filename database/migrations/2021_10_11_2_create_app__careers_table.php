@@ -28,7 +28,7 @@ class CreateAppCareersTable extends Migration
             
             $table->text('description')->nullable();
             
-            $table->text('short_name');
+            $table->string('short_name');
             
             $table->string('resolution_number')->nullable();
             

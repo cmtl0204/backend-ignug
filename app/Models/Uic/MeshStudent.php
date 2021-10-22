@@ -3,6 +3,7 @@
 namespace App\Models\Uic;
 
 use App\Http\Resources\V1\Uic\MeshStudentRequeriment;
+use App\Models\App\Mesh;
 use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

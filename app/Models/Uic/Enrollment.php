@@ -2,6 +2,7 @@
 
 namespace App\Models\Uic;
 
+use App\Models\App\SchoolPeriod;
 use App\Models\Core\Catalogue;
 use App\Models\Core\File;
 use App\Models\Core\State;

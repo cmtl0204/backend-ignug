@@ -2,6 +2,7 @@
 
 namespace App\Models\Uic;
 
+use App\Models\App\Career;
 use App\Models\Core\Catalogue;
 use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Model;

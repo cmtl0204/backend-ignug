@@ -13,7 +13,7 @@ class CreateAppMeshesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('careers_id')
+            $table->foreignId('career_id')
             ->constrained('app.careers');
             
             $table->string('name')->nullable();
