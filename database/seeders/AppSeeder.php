@@ -6,7 +6,7 @@ namespace App\Models\Uic;
 use App\Models\Core\Catalogue;
 use Illuminate\Database\Seeder;
 
-class UicSeeder extends Seeder
+class AppSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -34,7 +34,31 @@ class UicSeeder extends Seeder
         $this->createProjects();
         $this->createStudentInformations();
     }
-
+    private function createTeacherCatalogues()
+    {
+        $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
+        Catalogue::factory()->count(10)->create([
+            'type' => $catalogues['catalogue']['teaching_ladder']['type']
+        ]);
+        Catalogue::factory()->count(10)->create([
+            'type' => $catalogues['catalogue']['dedication_time']['type']
+        ]);
+        Catalogue::factory()->count(10)->create([
+            'type' => $catalogues['catalogue']['higher_education']['type']
+        ]);
+        Catalogue::factory()->count(10)->create([
+            'type' => $catalogues['catalogue']['country_higher_education']['type']
+        ]);
+        Catalogue::factory()->count(10)->create([
+            'type' => $catalogues['catalogue']['scholarship']['type']
+        ]);
+        Catalogue::factory()->count(10)->create([
+            'type' => $catalogues['catalogue']['scholarship_type']['type']
+        ]);
+        Catalogue::factory()->count(10)->create([
+            'type' => $catalogues['catalogue']['financing_type']['type']
+        ]);
+    }
     private function createStudentInformationCatalogues()
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
