@@ -1,9 +1,10 @@
 <?php
 
 namespace Database\Seeders;
-namespace App\Models\Uic;
+namespace App\Models\App;
 
 use App\Models\Core\Catalogue;
+use App\Models\Uic\Student;
 use Illuminate\Database\Seeder;
 
 class AppSeeder extends Seeder
@@ -15,24 +16,16 @@ class AppSeeder extends Seeder
      */
     public function run()
     {
-        $this->createStudentInformationCatalogues();
-        $this->createTutorCatalogues();
-        $this->createEventCatalogues();
-        
-        $this->createMeshStudents();
-        $this->createModalities();
-        $this->createPlannings();
-        $this->createProjectPlans();
-        $this->createRequirements();
-        $this->createTutors();
-        $this->createEnrollments();
-        $this->createEvents();
-        $this->createMeshStudentRequirements();
-        $this->createRequirementRequests();
+        $this->createTeacherCatalogues();
+        $this->createCareerCatalogues();
+
+        $this->createInstitutions();
+        $this->createCareers();
+        $this->createSchoolPeriods();
+        $this->createTeachers();
+        $this->createMeshes();
         $this->createStudents();
-        $this->createTutorShips();
-        $this->createProjects();
-        $this->createStudentInformations();
+        $this->createMeshStudent();
     }
     private function createTeacherCatalogues()
     {
@@ -59,21 +52,9 @@ class AppSeeder extends Seeder
             'type' => $catalogues['catalogue']['financing_type']['type']
         ]);
     }
-    private function createStudentInformationCatalogues()
-    {
-        $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
-        Catalogue::factory()->count(10)->create([
-            'type' => $catalogues['catalogue']['relation_laboral_career']['type']
-        ]);
-        Catalogue::factory()->count(10)->create([
-            'type' => $catalogues['catalogue']['company_area']['type']
-        ]);
-        Catalogue::factory()->count(10)->create([
-            'type' => $catalogues['catalogue']['company_position']['type']
-        ]);
-    }
     
-    private function createTutorCatalogues()
+    
+    private function createCareerCatalogues()
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
         Catalogue::factory()->count(10)->create([
@@ -81,106 +62,41 @@ class AppSeeder extends Seeder
         ]);
     }
     
-    private function createEventCatalogues()
+    private function createInstitutions()
     {
-        $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
-        Catalogue::factory()->count(10)->create([
-            'type' => $catalogues['catalogue']['name']['type']
-        ]);
-    }
-    private function createEvents()
-    {
-        Enrollment::factory(10)->create();
+        Institution::factory(10)->create();
     }
     
-    private function createMeshStudents()
+    private function createCareers()
     {
-        MeshStudent::factory(10)->create();
+        Career::factory(10)->create();
     }
     
-    private function createMeshStudentRequirements()
+    private function createSchoolPeriods()
     {
-        MeshStudentRequirement::factory(10)->create();
+        SchoolPeriod::factory(10)->create();
     }
     
-    private function createPlannings()
+    private function createTeachers()
     {
-        Planning::factory(10)->create();
+        Teacher::factory(10)->create();
     }
     
-    private function createProjects()
+    private function createMeshes()
     {
-        Project::factory(10)->create();
-    }
-    
-    private function createProjectPlans()
-    {
-        ProjectPlan::factory(10)->create();
-    }
-    
-    private function createRequirements()
-    {
-        Requirement::factory(10)->create();
+        Mesh::factory(10)->create();
     }
     
     private function createStudents()
     {
         Student::factory(10)->create();
     }
-    
-    private function createStudentInformations()
-    {
-        StudentInformation::factory(10)->create();
-    }
-    
-    private function createTutors()
-    {
-        Tutor::factory(10)->create();
-    }
-    
-    private function createTutorShips()
-    {
-        TutorShip::factory(10)->create();
-    }
 
-    private function createEnrollments()
+    private function createMeshStudent()
     {
-        Enrollment::factory(10)->create();
-    }
-
-    private function createRequirementRequests()
-    {
-        RequimentRequest::factory(10)->create();
-    }
-    
-    private function createModalities()
-    {
-        Modality::factory()
+        Mesh::factory()
         ->count(10)
-        ->hasChildren(5)
+        ->hasStudents(5)
         ->create();
     }
-
-    // private function createProfessionals()
-    // {
-    //     Professional::factory()->create(['user_id' => 1]);
-    //     Professional::factory(10)->create();
-    // }
-
-
-    // private function createCategoryOffers()
-    // {
-    //     Offer::factory()
-    //     ->count(10)
-    //     ->hasCategories(5)
-    //     ->create();
-    // }
-
-    // private function createCompanyProfessionals()
-    // {
-    //     Professional::factory(5)
-    //         ->has(Company::factory()->count(3))
-    //         ->create();
-    // }
-
 }

@@ -28,14 +28,15 @@ class EnrollmentFactory extends Factory
     {
         $modalities = Modality::get();
         $schoolPeriods = SchoolPeriod::get();
-        $meshStudents = MeshStudent::get();
         $states = State::get();
         $plannings = Planning::get();
         
         return [
             'modality_id' => $modalities[rand(0, sizeof($modalities) - 1)],
             'school_period_id' => $schoolPeriods[rand(0, sizeof($schoolPeriods) - 1)],
-            'mesh_student_id' => $meshStudents[rand(0, sizeof($meshStudents) - 1)],
+            'mesh_student_id' => $this->whenPivotLoaded('mesh_student', function () {
+                return $this->pivot->id;
+            }),
             'state_id' => $states[rand(0, sizeof($states) - 1)],
             'planning_id' => $plannings[rand(0, sizeof($plannings) - 1)],
             'registered_at' => $this->faker->date(),

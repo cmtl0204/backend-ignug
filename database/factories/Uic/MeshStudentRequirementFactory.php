@@ -23,11 +23,12 @@ class MeshStudentRequirementFactory extends Factory
      */
     public function definition()
     {
-        $meshStudents = MeshStudent::get();
         $requirements = Requirement::get();
         
         return [
-            'mesh_student_id' => $meshStudents[rand(0, sizeof($meshStudents) - 1)],
+            'mesh_student_id' => $this->whenPivotLoaded('mesh_student', function () {
+                return $this->pivot->expires_atid;
+            }),
             'requirement_id' => $requirements[rand(0, sizeof($requirements) - 1)],
             'approved' => $this->faker->boolean(3),
             'observations' => $this->faker->words()
