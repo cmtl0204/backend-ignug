@@ -24,11 +24,14 @@ Route::get('init', function () {
     DB::select('drop schema if exists public cascade;');
     DB::select('drop schema if exists authentication cascade;');
     DB::select('drop schema if exists core cascade;');
+    DB::select('drop schema if exists uic cascade;');
+    DB::select('drop schema if exists app cascade;');
     DB::select('drop schema if exists custom cascade;');
 
     DB::select('create schema authentication;');
     DB::select('create schema core;');
-    DB::select('create schema custom;');
+    DB::select('create schema uic;');
+    DB::select('create schema app;');
 
     Artisan::call('migrate', ['--seed' => true]);
 

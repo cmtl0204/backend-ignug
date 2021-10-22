@@ -11,7 +11,7 @@ class CreateUicMeshStudentRequirementsTable extends Migration
      *
      * @return void
      */
-    public function up() 
+    public function up()
     {
         Schema::connection(env('DB_CONNECTION_UIC'))->create('mesh_student_requirements', function (Blueprint $table) {
             $table->id();
@@ -19,21 +19,16 @@ class CreateUicMeshStudentRequirementsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('mesh_student_id')
-                ->comment('FK de mesh_students ')            
-                ->constrained('uic.mesh_students');
-                
+                ->constrained('app.mesh_student');
+            
             $table->foreignId('requirement_id')
-                ->comment('FK de requirement ')
                 ->constrained('uic.requirements');
-
+            
             $table->boolean('approved')
-                ->comment('Para saber si es aprovado')
-                ->nullable();
-
-            $table->json('observations')
-                ->comment('Observaciónes')
                 ->nullable();
             
+            $table->text('observations')
+                ->nullable();
         });
     }
 

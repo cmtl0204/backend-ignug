@@ -17,20 +17,21 @@ class CreateUicEventsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-
+            
             $table->foreignId('planning_id')
-                ->comment('FK de plannings')
+                ->comment()
                 ->constrained('uic.plannings');
-
+            
             $table->foreignId('name_id')
-                ->comment('FK de catalogues')
-                ->constrained('core.catalogues');
-
+                ->comment()
+                ->constrained('app.catalogues');
+            
             $table->date('started_at')
-                ->comment('Fecha de inicio del evento');
-
+                ->comment('fecha inicio');
+            
             $table->date('ended_at')
-                ->comment('Fecha del final del evento');
+                ->comment('fecha fin');
+            
         });
     }
 

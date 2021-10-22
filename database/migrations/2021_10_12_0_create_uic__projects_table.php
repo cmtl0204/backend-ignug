@@ -19,36 +19,28 @@ class CreateUicProjectsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('enrollment_id')
-                ->comment('FK de enrollments')
                 ->constrained('uic.enrollments');
-
+            
             $table->foreignId('project_plan_id')
-                ->comment('FK de project_plans')
                 ->constrained('uic.project_plans');
-
+            
             $table->string('title')
-                ->comment('Título');
-
-            $table->string('description')
-                ->comment('Descripcion');
-
-            $table->string('tutor_asigned')
-                ->default(false)
-                ->comment('Tutor asignado');
-
-            $table->string('total_advance')
-                ->default(0)
-                ->comment('Avance');
-
-            $table->integer('score')
-                ->comment('Puntaje');
-
-            $table->boolean('approved')
-                ->comment('Aprobado');
-
+                ->comment('titulo');
+            
+            $table->string('description');
+            
+            $table->integer('score');
+            
+            $table->integer('total_advance')
+                ->default(0);
+            
+            $table->boolean('approved');
+            
+            $table->boolean('tutor_asigned')
+                ->default(false);
+            
             $table->json('observations')
-                ->nullable()
-                ->comment('Observaciones');
+                ->nullable();
         });
     }
 

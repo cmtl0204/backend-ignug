@@ -28,7 +28,7 @@ class CreateAppInstitutionsTable extends Migration
             
             $table->string('acronym')->nullable();
             
-            $table->email('email')->nullable()->comment('correo electronico principal');
+            $table->string('email')->nullable()->comment('correo electronico principal');
             
             $table->text('slogan')->nullable();
             
