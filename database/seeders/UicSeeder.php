@@ -19,7 +19,6 @@ class UicSeeder extends Seeder
         $this->createTutorCatalogues();
         $this->createEventCatalogues();
         
-        $this->createMeshStudents();
         $this->createModalities();
         $this->createPlannings();
         $this->createProjectPlans();
@@ -67,11 +66,6 @@ class UicSeeder extends Seeder
     private function createEvents()
     {
         Enrollment::factory(10)->create();
-    }
-    
-    private function createMeshStudents()
-    {
-        MeshStudent::factory(10)->create();
     }
     
     private function createMeshStudentRequirements()

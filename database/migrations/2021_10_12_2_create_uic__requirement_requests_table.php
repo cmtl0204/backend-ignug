@@ -23,8 +23,8 @@ class CreateUicRequirementRequestsTable extends Migration
                 ->constrained('uic.requirements');
 
             $table->foreignId('mesh_student_id')
-                ->comment('FK de mesh_students, de malla a la que pertenece el estudiante')
-                ->constrained('uic.mesh_students');
+                ->comment('FK de mesh_student, de malla a la que pertenece el estudiante')
+                ->constrained('app.mesh_student');
             
             $table->date('registered_at')
                 ->comment('true si es requerido');

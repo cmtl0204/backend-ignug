@@ -19,7 +19,7 @@ class CreateUicStudentInformationsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('student_id')
-                ->constrained('app.students');
+                ->constrained('uic.students');
             
             $table->foreignId('relation_laboral_career_id')
                 ->constrained('core.catalogues')

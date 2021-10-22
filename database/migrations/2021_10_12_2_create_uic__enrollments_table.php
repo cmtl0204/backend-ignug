@@ -25,7 +25,7 @@ class CreateUicEnrollmentsTable extends Migration
             
             $table->foreignId('state_id')
                 ->comment('FK de states, saber si perdio, anulo')
-                ->constrained('core.state');
+                ->constrained('core.states');
             
             $table->foreignId('planning_id')
                 ->comment('saber el evento al que pertenece')

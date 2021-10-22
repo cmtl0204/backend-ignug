@@ -16,10 +16,6 @@ class CreateAppCareersTable extends Migration
             $table->foreignId('institution_id')
                 ->constrained('app.institutions');
             
-            $table->foreignId('modality_id')
-                ->nullable()
-                ->constrained('uic.modalities');
-            
             $table->foreignId('type_id')
                 ->constrained('core.catalogues');
             

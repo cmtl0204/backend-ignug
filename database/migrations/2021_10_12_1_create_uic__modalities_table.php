@@ -23,15 +23,11 @@ class CreateUicModalitiesTable extends Migration
             $table->foreignId('state_id')
                 ->comment('FK de states: saber vigencia')
                 ->constrained('core.states');
-            
-            $table->foreignId('career_id')
-                ->comment('FK de careers')
-                ->constrained('app.careers');
 
             $table->string('name')
                 ->comment('nombre modalidad PT EC');
 
-            $table->text('name')
+            $table->text('description')
                 ->nullable()
                 ->comment('nombre modalidad');            
         });

@@ -38,9 +38,6 @@ class CreateUicTutorShipsTable extends Migration
             $table->time('time_ended_at')
                 ->comment('Hora en que terminó latutoría');
 
-            $table->time('duration')
-                ->comment('Tiempo de duración de la tutoría');
-
             $table->integer('duration')
                 ->nullable()
                 ->comment('Porcentaje de avance de los temas tratados');

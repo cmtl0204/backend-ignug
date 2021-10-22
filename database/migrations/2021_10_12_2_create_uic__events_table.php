@@ -24,7 +24,7 @@ class CreateUicEventsTable extends Migration
             
             $table->foreignId('name_id')
                 ->comment()
-                ->constrained('app.catalogues');
+                ->constrained('core.catalogues');
             
             $table->date('started_at')
                 ->comment('fecha inicio');
