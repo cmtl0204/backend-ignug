@@ -257,6 +257,45 @@
         },
         "phone_type": {
             "type": "PHONE_TYPE"
+        },
+        "teaching_ladder": {
+            "type": "teaching_ladder"
+        },
+        "dedication_time": {
+            "type": "dedication_time"
+        },
+        "higher_education": {
+            "type": "higher_education"
+        },
+        "country_higher_education": {
+            "type": "country_higher_education"
+        },
+        "scholarship": {
+            "type": "scholarship"
+        },
+        "scholarship_type": {
+            "type": "scholarship_type"
+        },
+        "financing_type": {
+            "type": "financing_type"
+        },
+        "career": {
+            "type": "career"
+        },
+        "relation_laboral_career": {
+            "type": "relation_laboral_career"
+        },
+        "company_area": {
+            "type": "company_area"
+        },
+        "company_position": {
+            "type": "company_position"
+        },
+        "tutor": {
+            "type": "tutor"
+        },
+        "event_name": {
+            "type": "event_name"
         }
     }
 }
