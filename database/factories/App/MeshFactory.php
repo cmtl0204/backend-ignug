@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Uic;
+namespace Database\Factories\App;
 
 use App\Models\App\Career;
 use App\Models\App\Mesh;

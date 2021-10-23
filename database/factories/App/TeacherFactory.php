@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Uic;
+namespace Database\Factories\App;
 
 use App\Models\App\Teacher;
 use App\Models\Authentication\User;
