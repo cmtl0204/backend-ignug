@@ -34,9 +34,7 @@ class EnrollmentFactory extends Factory
         return [
             'modality_id' => $modalities[rand(0, sizeof($modalities) - 1)],
             'school_period_id' => $schoolPeriods[rand(0, sizeof($schoolPeriods) - 1)],
-            'mesh_student_id' => $this->whenPivotLoaded('mesh_student', function () {
-                return $this->pivot->id;
-            }),
+            'mesh_student_id' =>1,
             'state_id' => $states[rand(0, sizeof($states) - 1)],
             'planning_id' => $plannings[rand(0, sizeof($plannings) - 1)],
             'registered_at' => $this->faker->date(),

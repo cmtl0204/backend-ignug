@@ -1,8 +1,8 @@
 <?php
 
 namespace Database\Seeders;
- 
 
+use App\Models\App\Mesh;
 use App\Models\Core\Catalogue;
 use App\Models\Uic\Enrollment;
 use App\Models\Uic\Event;
@@ -35,15 +35,17 @@ class UicSeeder extends Seeder
         $this->createModalities();
         $this->createPlannings();
         $this->createProjectPlans();
+        $this->createStudents();
+        $this->createMeshStudent();
         $this->createRequirements();
         $this->createTutors();
         $this->createEnrollments();
         $this->createEvents();
         $this->createMeshStudentRequirements();
-        $this->createRequirementRequests();
-        $this->createStudents();
-        $this->createTutorShips();
         $this->createProjects();
+        $this->createRequirementRequests();
+        // $this->createStudents();
+        $this->createTutorShips();
         $this->createStudentInformations();
     }
 
@@ -106,10 +108,10 @@ class UicSeeder extends Seeder
         Requirement::factory(10)->create();
     }
     
-    private function createStudents()
-    {
-        Student::factory(10)->create();
-    }
+    // private function createStudents()
+    // {
+    //     Student::factory(10)->create();
+    // }
     
     private function createStudentInformations()
     {
@@ -141,6 +143,19 @@ class UicSeeder extends Seeder
         Modality::factory()
         ->count(10)
         ->hasChildren(5)
+        ->create();
+    }
+
+    private function createStudents()
+    {
+        Student::factory(10)->create();
+    }
+
+    private function createMeshStudent()
+    {
+        Mesh::factory()
+        ->count(10)
+        ->hasStudents(5)
         ->create();
     }
 

@@ -27,9 +27,7 @@ class RequirementRequestFactory extends Factory
 
         return [
             'requirement_id' => $requirements[rand(0, sizeof($requirements) - 1)],
-            'mesh_student_id' => $this->whenPivotLoaded('mesh_student', function () {
-                return $this->pivot->id;
-            }),
+            'mesh_student_id' => 1,
             'registered_at' => $this->faker->date(),
             'approved' => $this->faker->boolean(),
             'observations' => $this->faker->words()

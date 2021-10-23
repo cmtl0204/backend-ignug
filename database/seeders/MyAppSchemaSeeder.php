@@ -30,9 +30,9 @@ class MyAppSchemaSeeder extends Seeder
         $this->createCareers();
         $this->createSchoolPeriods();
         $this->createTeachers();
-        $this->createMeshes();
-        $this->createStudents();
-        $this->createMeshStudent();
+        // $this->createMeshes();
+        // $this->createStudents();
+        // $this->createMeshStudent();
     }
 
     public function createAddresses()

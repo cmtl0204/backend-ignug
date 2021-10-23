@@ -20,12 +20,12 @@ class CreateUicStudentsTable extends Migration
 
             $table->foreignId('project_plan_id')
                 ->comment('FK de project_plans')
-                ->constrained('uic.project_plans')
-                ->nullable();
+                // ->nullable()
+                ->constrained('uic.project_plans');
             
-            $table->foreignId('mesh_student_id')
-                ->comment('FK de mesh_student')
-                ->constrained('app.mesh_student');
+            // $table->foreignId('mesh_student_id')
+            //     ->comment('FK de mesh_student')
+            //     ->constrained('app.mesh_student');
             
             $table->json('observations')
                 ->nullable()

@@ -45,11 +45,6 @@ class Student extends Model implements Auditable
         return $this->belongsTo(ProjectPlan::class);
     }
 
-    public function meshStudent()
-    {
-        return $this->belongsTo(MeshStudent::class);
-    }
-
     // Scopes
     public function scopeCustomOrderBy($query, $sorts)
     {

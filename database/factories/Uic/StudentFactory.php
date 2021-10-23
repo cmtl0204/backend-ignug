@@ -4,6 +4,7 @@ namespace Database\Factories\Uic;
 
 use App\Models\Uic\Student;
 use App\Models\App\Career;
+use App\Models\Uic\ProjectPlan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StudentFactory extends Factory
@@ -22,13 +23,12 @@ class StudentFactory extends Factory
      */
     public function definition()
     {
-        $projectsPlans = Career::get();
+        $projectsPlans = ProjectPlan::get();
         
         return [
-            'project_plan_id' => $projectsPlans[rand(0, sizeof($projectsPlans) - 1)],
-            'mesh_student_id' => $this->whenPivotLoaded('mesh_student', function () {
-                return $this->pivot->id;
-            }),
+            // 'project_plan_id' => $projectsPlans[rand(0, sizeof($projectsPlans) - 1)],
+            'project_plan_id' => 1,
+            // 'mesh_student_id' => 1,
             'observations' => $this->faker->words(3)
         ];
     }

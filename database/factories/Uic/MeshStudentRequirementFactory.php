@@ -26,9 +26,7 @@ class MeshStudentRequirementFactory extends Factory
         $requirements = Requirement::get();
         
         return [
-            'mesh_student_id' => $this->whenPivotLoaded('mesh_student', function () {
-                return $this->pivot->id;
-            }),
+            'mesh_student_id' =>1,
             'requirement_id' => $requirements[rand(0, sizeof($requirements) - 1)],
             'approved' => $this->faker->boolean(3),
             'observations' => $this->faker->words()
