@@ -30,6 +30,10 @@ class RequimentRequest extends Model implements Auditable
         'registered_at'
     ];
 
+    protected $casts = [
+        'observations' => 'array',
+    ];
+
     protected $cascadeDeletes = ['files'];
 
     // Relationships

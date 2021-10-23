@@ -7,7 +7,9 @@ use App\Models\App\Institution;
 use App\Models\App\Mesh;
 use App\Models\App\SchoolPeriod;
 use App\Models\App\Teacher;
+use App\Models\Core\Address;
 use App\Models\Core\Catalogue;
+use App\Models\Core\Location;
 use App\Models\Uic\Student;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +25,7 @@ class MyAppSchemaSeeder extends Seeder
         $this->createTeacherCatalogues();
         $this->createCareerCatalogues();
 
+        $this->createAddresses();
         $this->createInstitutions();
         $this->createCareers();
         $this->createSchoolPeriods();
@@ -30,6 +33,20 @@ class MyAppSchemaSeeder extends Seeder
         $this->createMeshes();
         $this->createStudents();
         $this->createMeshStudent();
+    }
+
+    public function createAddresses()
+    {
+        $locations = Location::get();
+        $sectors = Catalogue::where('type', 'SECTOR')->get();
+        Address::factory(1)->sequence(
+            [
+                'location_id' => $locations[rand(0, sizeof($locations) - 1)],
+                'sector_id' => $sectors[rand(0, sizeof($sectors) - 1)],
+                'main_street' => 'Juan Ante',
+                'secondary_street' => 'José Barrera',
+            ],
+        )->create();
     }
     private function createTeacherCatalogues()
     {
@@ -62,7 +79,7 @@ class MyAppSchemaSeeder extends Seeder
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
         Catalogue::factory()->count(10)->create([
-            'type' => $catalogues['catalogue']['career']['type']
+            'type' => $catalogues['catalogue']['career_type']['type']
         ]);
     }
     

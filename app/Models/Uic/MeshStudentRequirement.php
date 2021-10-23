@@ -30,6 +30,10 @@ class MeshStudentRequirement extends Model implements Auditable
         'approved',
     ];
 
+    protected $casts = [
+        'observations' => 'array',
+    ];
+
     protected $cascadeDeletes = ['files'];
 
     // Relationships

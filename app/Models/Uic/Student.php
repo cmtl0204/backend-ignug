@@ -28,6 +28,10 @@ class Student extends Model implements Auditable
         'observations',
     ];
 
+    protected $casts = [
+        'observations' => 'array',
+    ];
+
     protected $cascadeDeletes = ['files'];
 
     // Relationships

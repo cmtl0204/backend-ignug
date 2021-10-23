@@ -33,6 +33,10 @@ class Career extends Model implements Auditable
         'codigo_sniese',
     ];
 
+    protected $casts = [
+        'learning_results' => 'array',
+    ];
+
     // Instance
     public static function getInstance($id)
     {

@@ -22,9 +22,11 @@ class CreateAppInstitutionsTable extends Migration
             
             $table->string('denomination')->nullable();
             
-            $table->string('name')->unique();
+            // $table->string('name')->unique();
+            $table->string('name');
             
-            $table->string('short_name')->unique();
+            // $table->string('short_name')->unique();
+            $table->string('short_name');
             
             $table->string('acronym')->nullable();
             

@@ -24,13 +24,13 @@ class TeacherFactory extends Factory
     public function definition()
     {
         $users = User::get();
-        $teachingLadders = Catalogue::where('type', 'EVENT_NAME')->get();
-        $dedicationTimes = Catalogue::where('type', 'EVENT_NAME')->get();
-        $higherEducations = Catalogue::where('type', 'EVENT_NAME')->get();
-        $countryHigherEducations = Catalogue::where('type', 'EVENT_NAME')->get();
-        $scholarships = Catalogue::where('type', 'EVENT_NAME')->get();
-        $scholarshipTypes = Catalogue::where('type', 'EVENT_NAME')->get();
-        $financingTypes = Catalogue::where('type', 'EVENT_NAME')->get();
+        $teachingLadders = Catalogue::where('type', 'teaching_ladder')->get();
+        $dedicationTimes = Catalogue::where('type', 'dedication_time')->get();
+        $higherEducations = Catalogue::where('type', 'higher_education')->get();
+        $countryHigherEducations = Catalogue::where('type', 'country_higher_education')->get();
+        $scholarships = Catalogue::where('type', 'scholarship')->get();
+        $scholarshipTypes = Catalogue::where('type', 'scholarship_type')->get();
+        $financingTypes = Catalogue::where('type', 'financing_type')->get();
         
         return [
             'user_id' => $users[rand(0, sizeof($users) - 1)],

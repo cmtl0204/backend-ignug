@@ -4,6 +4,8 @@ namespace Database\Factories\Uic;
 
 use App\Models\Uic\TutorShip;
 use App\Models\App\Career;
+use App\Models\Uic\Enrollment;
+use App\Models\Uic\Tutor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TutorShipFactory extends Factory
@@ -22,13 +24,17 @@ class TutorShipFactory extends Factory
      */
     public function definition()
     {
-        $careers = Career::get();
+        $tutors = Tutor::get();
+        $enrollments = Enrollment::get();
 
         return [
-            'career_id' => $careers[rand(0, sizeof($careers) - 1)],
-            'name' => $this->faker->word(),
-            'required' => $this->faker->boolean(),
-            'solicited' => $this->faker->boolean()
+            'tutor_id' => $tutors[rand(0, sizeof($tutors) - 1)],
+            'enrollment_id' => $enrollments[rand(0, sizeof($enrollments) - 1)],
+            'topics' => $this->faker->words(),
+            'started_at' => $this->faker->date(),
+            'time_started_at' => $this->faker->date(),
+            'time_ended_at' => $this->faker->date(),
+            'duration' => $this->faker->randomDigit(),
         ];
     }
 }

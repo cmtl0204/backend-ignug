@@ -31,7 +31,7 @@ class SchoolPeriodFactory extends Factory
             'state_id' => $states[rand(0, sizeof($states) - 1)],
             'code' => $this->faker->uuid(),
             'name' => $this->faker->word(),
-            'started_at' => $this->faker->dat|e(),
+            'started_at' => $this->faker->date(),
             'ended_at' => $this->faker->date(),
             'ordinary_started_at' => $this->faker->date(),
             'ordinary_ended_at' => $this->faker->date(),

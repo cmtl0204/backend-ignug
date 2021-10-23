@@ -279,9 +279,6 @@
         "financing_type": {
             "type": "financing_type"
         },
-        "career": {
-            "type": "career"
-        },
         "relation_laboral_career": {
             "type": "relation_laboral_career"
         },

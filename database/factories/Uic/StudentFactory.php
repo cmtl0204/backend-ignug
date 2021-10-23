@@ -22,13 +22,14 @@ class StudentFactory extends Factory
      */
     public function definition()
     {
-        $careers = Career::get();
-
+        $projectsPlans = Career::get();
+        
         return [
-            'career_id' => $careers[rand(0, sizeof($careers) - 1)],
-            'name' => $this->faker->word(),
-            'required' => $this->faker->boolean(),
-            'solicited' => $this->faker->boolean()
+            'project_plan_id' => $projectsPlans[rand(0, sizeof($projectsPlans) - 1)],
+            'mesh_student_id' => $this->whenPivotLoaded('mesh_student', function () {
+                return $this->pivot->id;
+            }),
+            'observations' => $this->faker->words(3)
         ];
     }
 }

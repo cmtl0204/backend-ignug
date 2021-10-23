@@ -38,6 +38,10 @@ class TutorShip extends Model implements Auditable
         'percentage_advance',
     ];
 
+    protected $casts = [
+        'topics' => 'array',
+    ];
+
     protected $cascadeDeletes = ['files'];
 
     // Relationships

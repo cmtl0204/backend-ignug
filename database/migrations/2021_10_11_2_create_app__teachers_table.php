@@ -14,7 +14,7 @@ class CreateAppTeachersTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('user_id')
-                ->unique()
+                // ->unique()
                 ->constrained('authentication.users');
             
             $table->foreignId('teaching_ladder_id')
