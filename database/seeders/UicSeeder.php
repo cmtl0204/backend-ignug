@@ -1,9 +1,22 @@
 <?php
 
 namespace Database\Seeders;
-namespace App\Models\Uic;
+ 
 
 use App\Models\Core\Catalogue;
+use App\Models\Uic\Enrollment;
+use App\Models\Uic\Event;
+use App\Models\Uic\MeshStudentRequirement;
+use App\Models\Uic\Modality;
+use App\Models\Uic\Planning;
+use App\Models\Uic\Project;
+use App\Models\Uic\ProjectPlan;
+use App\Models\Uic\Requirement;
+use App\Models\Uic\RequirementRequest;
+use App\Models\Uic\Student;
+use App\Models\Uic\StudentInformation;
+use App\Models\Uic\Tutor;
+use App\Models\Uic\TutorShip;
 use Illuminate\Database\Seeder;
 
 class UicSeeder extends Seeder
@@ -52,7 +65,7 @@ class UicSeeder extends Seeder
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
         Catalogue::factory()->count(10)->create([
-            'type' => $catalogues['catalogue']['type']['type']
+            'type' => $catalogues['catalogue']['tutor']['type']
         ]);
     }
     
@@ -60,12 +73,12 @@ class UicSeeder extends Seeder
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
         Catalogue::factory()->count(10)->create([
-            'type' => $catalogues['catalogue']['name']['type']
+            'type' => $catalogues['catalogue']['event_name']['type']
         ]);
     }
     private function createEvents()
     {
-        Enrollment::factory(10)->create();
+        Event::factory(10)->create();
     }
     
     private function createMeshStudentRequirements()
@@ -120,7 +133,7 @@ class UicSeeder extends Seeder
 
     private function createRequirementRequests()
     {
-        RequimentRequest::factory(10)->create();
+        RequirementRequest::factory(10)->create();
     }
     
     private function createModalities()

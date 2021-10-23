@@ -1,13 +1,17 @@
 <?php
 
 namespace Database\Seeders;
-namespace App\Models\App;
 
+use App\Models\App\Career;
+use App\Models\App\Institution;
+use App\Models\App\Mesh;
+use App\Models\App\SchoolPeriod;
+use App\Models\App\Teacher;
 use App\Models\Core\Catalogue;
 use App\Models\Uic\Student;
 use Illuminate\Database\Seeder;
 
-class AppSeeder extends Seeder
+class MyAppSchemaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -58,7 +62,7 @@ class AppSeeder extends Seeder
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
         Catalogue::factory()->count(10)->create([
-            'type' => $catalogues['catalogue']['type']['type']
+            'type' => $catalogues['catalogue']['career']['type']
         ]);
     }
     

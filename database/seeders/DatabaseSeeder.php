@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AuthenticationSeeder::class,
-            AppSeeder::class,
+            MyAppSchemaSeeder::class,
             UicSeeder::class,
         ]);
     }
