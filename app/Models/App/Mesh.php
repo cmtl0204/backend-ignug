@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 // Models
 use App\Models\Authentication\User;
 use App\Models\Attendance\Attendance;
+use App\Models\Uic\Student;
 
 class Mesh extends Model implements Auditable
 {
@@ -48,5 +49,10 @@ class Mesh extends Model implements Auditable
     public function career()
     {
         return $this->belongsTo(Career::class);
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class);
     }
 }

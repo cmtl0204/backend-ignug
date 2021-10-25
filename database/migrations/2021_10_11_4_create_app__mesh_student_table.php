@@ -20,6 +20,9 @@ class CreateAppMeshStudentTable extends Migration
             
             $table->foreignId('mesh_id')
                 ->constrained('app.meshes');
+
+            $table->foreignId('student_id')
+                ->constrained('uic.students');
             
             $table->date('started_cohort')
                 ->nullable()

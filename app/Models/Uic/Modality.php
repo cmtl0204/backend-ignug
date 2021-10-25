@@ -41,14 +41,14 @@ class Modality extends Model implements Auditable
         return $this->hasMany(Enrollment::class);
     } 
 
-    public function parent()
-    {
-        return $this->belongsTo(Modality::class);
-    }
-
     public function children()
     {
-        return $this->hasMany(Modality::class);
+        return $this->hasMany(Modality::class, 'parent_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Modality::class, 'parent_id');
     }
 
     public function state()

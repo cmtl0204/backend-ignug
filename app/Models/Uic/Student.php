@@ -2,6 +2,7 @@
 
 namespace App\Models\Uic;
 
+use App\Models\App\Mesh;
 use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,6 +44,11 @@ class Student extends Model implements Auditable
     public function projectPlan()
     {
         return $this->belongsTo(ProjectPlan::class);
+    }
+    
+    public function meshes()
+    {
+        return $this->belongsToMany(Mesh::class);
     }
 
     // Scopes

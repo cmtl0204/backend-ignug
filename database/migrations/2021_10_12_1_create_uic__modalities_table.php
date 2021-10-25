@@ -15,6 +15,7 @@ class CreateUicModalitiesTable extends Migration
             $table->timestamps();
             
             $table->foreignId('parent_id')
+                ->nullable()
                 ->comment('FK de modalities')
                 ->constrained('uic.modalities')
                 ->onUpdate('cascade')

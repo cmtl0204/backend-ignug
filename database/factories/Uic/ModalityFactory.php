@@ -29,9 +29,9 @@ class ModalityFactory extends Factory
         $careers = Career::get();
         
         return [
-            'parent_id' => $modalities[rand(0, sizeof($modalities) - 1)],
+            // 'parent_id' => $modalities[rand(0, sizeof($modalities) - 1)],
             'state_id' => $states[rand(0, sizeof($states) - 1)],
-            'career_id' => $careers[rand(0, sizeof($careers) - 1)],
+            // 'career_id' => $careers[rand(0, sizeof($careers) - 1)],
             'name' => $this->faker->word(),
             'description' => $this->faker->text(30),
         ];
