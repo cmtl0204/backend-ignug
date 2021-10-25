@@ -26,7 +26,6 @@ Route::get('init', function () {
     DB::select('drop schema if exists core cascade;');
     DB::select('drop schema if exists uic cascade;');
     DB::select('drop schema if exists app cascade;');
-    DB::select('drop schema if exists custom cascade;');
 
     DB::select('create schema authentication;');
     DB::select('create schema core;');
