@@ -23,7 +23,7 @@ class CreateUicTutorsTable extends Migration
                 ->constrained('uic.project_plans')
                 ->nullable();
 
-            $table->foreignId('teacher_id')
+            $table->foreignId('project_plan_id')
                 ->comment('FK de teacher: id de la tabla')
                 ->constrained('app.teachers');
 
