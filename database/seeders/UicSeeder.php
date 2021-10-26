@@ -157,6 +157,10 @@ class UicSeeder extends Seeder
         ->count(10)
         ->hasStudents(5)
         ->create();
+
+        // Mesh::factory(5)
+        //     ->has(Student::factory()->count(3))
+        //     ->create();
     }
 
     // private function createProfessionals()

@@ -24,10 +24,10 @@ class MeshStudentFactory extends Factory
         $meshes = Mesh::get();
         
         return [
-            'mesh_id' => $meshes[rand(0, sizeof($meshes) - 1)],
-            'cohort_started_at' => $this->faker->date(),
-            'cohort_ended_at' => $this->faker->date(),
-            'graduated' => $this->faker->boolean(3)
+            // 'mesh_id' => $meshes[rand(0, sizeof($meshes) - 1)],
+            // 'cohort_started_at' => $this->faker->date(),
+            // 'cohort_ended_at' => $this->faker->date(),
+            // 'graduated' => $this->faker->boolean(3)
         ];
     }
 }
