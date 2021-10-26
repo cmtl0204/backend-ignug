@@ -16,8 +16,7 @@ class Career extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
 
-    protected static $instance;
-
+    
     protected $table = 'app.careers';
 
     protected $fillable = [
@@ -37,15 +36,7 @@ class Career extends Model implements Auditable
         'learning_results' => 'array',
     ];
 
-    // Instance
-    public static function getInstance($id)
-    {
-        if (is_null(static::$instance)) {
-            static::$instance = new static;
-        }
-        static::$instance->id = $id;
-        return static::$instance;
-    }
+   
 
     // Relationships
     public function institution()

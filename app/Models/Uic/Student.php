@@ -23,7 +23,7 @@ class Student extends Model implements Auditable
     use SoftDeletes;
      
 
-    protected $table = 'uic.students';
+    protected $table = 'app.students';
 
     protected $fillable = [
         'observations',

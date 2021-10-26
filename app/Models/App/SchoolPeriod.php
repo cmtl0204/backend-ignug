@@ -23,7 +23,7 @@ class SchoolPeriod extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
 
-    protected static $instance;
+   
 
     protected $table = 'app.school_periods';
 
@@ -40,15 +40,7 @@ class SchoolPeriod extends Model implements Auditable
         'especial_ended_at',
     ];
 
-    // Instance
-    public static function getInstance($id)
-    {
-        if (is_null(static::$instance)) {
-            static::$instance = new static;
-        }
-        static::$instance->id = $id;
-        return static::$instance;
-    }
+    
 
     // Relationsships
     public function state()

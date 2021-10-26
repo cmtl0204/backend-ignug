@@ -23,8 +23,6 @@ class Mesh extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
 
-    protected static $instance;
-
     protected $table = 'app.meshes';
 
     protected $fillable = [
@@ -34,16 +32,6 @@ class Mesh extends Model implements Auditable
         'resolution_number',
         'number_weeks',
     ];
-
-    // Instance
-    public static function getInstance($id)
-    {
-        if (is_null(static::$instance)) {
-            static::$instance = new static;
-        }
-        static::$instance->id = $id;
-        return static::$instance;
-    }
 
     // Relationsships
     public function career()

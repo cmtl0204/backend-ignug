@@ -23,7 +23,7 @@ class Teacher extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
 
-    protected static $instance;
+  
 
     protected $table = 'app.teachers';
 
@@ -47,17 +47,9 @@ class Teacher extends Model implements Auditable
         'start_sabbatical',
     ];
 
-    // Instance
-    public static function getInstance($id)
-    {
-        if (is_null(static::$instance)) {
-            static::$instance = new static;
-        }
-        static::$instance->id = $id;
-        return static::$instance;
-    }
+    
 
-    // Relationsships
+    // Relationships
     public function user()
     {
         return $this->belongsTo(User::class);
