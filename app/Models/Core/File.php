@@ -31,6 +31,8 @@ class File extends Model implements Auditable
         'directory',
     ];
 
+    protected $appends = ['full_name', 'full_path', 'partial_path'];
+
     // Relationships
     public function fileable()
     {
@@ -41,14 +43,14 @@ class File extends Model implements Auditable
     public function scopeDescription($query, $description)
     {
         if ($description) {
-            return $query->orWhere('description', 'ILIKE', "%$description%");
+            return $query->orWhere('descriptions', 'ILIKE', "%$description%");
         }
     }
 
     public function scopeName($query, $name)
     {
         if ($name) {
-            return $query->orWhere('name', 'ILIKE', "%$name%");
+            return $query->orWhere('names', 'ILIKE', "%$name%");
         }
     }
 

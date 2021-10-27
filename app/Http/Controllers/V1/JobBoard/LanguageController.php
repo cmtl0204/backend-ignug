@@ -6,7 +6,12 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 
 // Models
+use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
+use App\Http\Requests\V1\Core\Files\IndexFileRequest;
+use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
+use App\Http\Requests\V1\Core\Files\UploadFileRequest;
 use App\Models\Core\Catalogue;
+use App\Models\Core\File;
 use App\Models\JobBoard\Professional;
 use App\Models\JobBoard\Language;
 
@@ -15,17 +20,11 @@ use App\Http\Resources\V1\JobBoard\LanguageCollection;
 use App\Http\Resources\V1\JobBoard\LanguageResource;
 
 // FormRequest
-
 use App\Http\Requests\V1\JobBoard\Language\IndexLanguageRequest;
 use App\Http\Requests\V1\JobBoard\Language\UpdateLanguageRequest;
-use App\Http\Requests\V1\JobBoard\Language\CreateLanguageRequest;
 use App\Http\Requests\V1\JobBoard\Language\StoreLanguageRequest;
-use App\Http\Requests\V1\JobBoard\Language\DeleteLanguageRequest;
 use App\Http\Requests\V1\JobBoard\Language\DestroysLanguageRequest;
-use App\Http\Controllers\App\FileController;
-use App\Http\Requests\App\File\UpdateFileRequest;
-use App\Http\Requests\App\File\UploadFileRequest;
-use App\Http\Requests\App\File\IndexFileRequest;
+
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -136,62 +135,44 @@ class LanguageController extends Controller
                 ]
             ]);
     }
-    // function uploadFiles(UploadFileRequest $request)
-    // {
-    //     return (new FileController())->upload($request, Language::getInstance($request->input('id')));
-    // }
 
-    // function deleteFile($fileId)
-    // {
-    //     return (new FileController())->delete($fileId);
-    // }
-
-    // function indexFile(IndexFileRequest $request)
-    // {
-    //     return (new FileController())->index($request, Language::getInstance($request->input('id')));
-    // }
-
-    // function ShowFile($fileId)
-    // {
-    //     return (new FileController())->show($fileId);
-    // }
     /*******************************************************************************************************************
      * FILES
      *******************************************************************************************************************/
-    // public function indexFiles(IndexFileRequest $request, Language $language)
-    // {
-    //     return $language->indexFiles($request);
-    // }
+    public function indexFiles(IndexFileRequest $request, Language $language)
+    {
+        return $language->indexFiles($request);
+    }
 
-    // public function uploadFile(UploadFileRequest $request, Language $languaje)
-    // {
-    //     return $languaje->uploadFile($request);
-    // }
+    public function uploadFile(UploadFileRequest $request, Language $language)
+    {
+        return $language->uploadFile($request);
+    }
 
-    // public function downloadFile(Language $language, File $file)
-    // {
-    //     return $language->downloadFile($file);
-    // }
+    public function downloadFile(Language $language, File $file)
+    {
+        return $language->downloadFile($file);
+    }
 
-    // public function showFile(Language $language, File $file)
-    // {
-    //     return $language->showFile($file);
-    // }
+    public function showFile(Language $language, File $file)
+    {
+        return $language->showFile($file);
+    }
 
-    // public function updateFile(UpdateFileRequest $request, Language $language, File $file)
-    // {
-    //     return $language->updateFile($request, $file);
-    // }
+    public function updateFile(UpdateFileRequest $request, Language $language, File $file)
+    {
+        return $language->updateFile($request, $file);
+    }
 
-    // public function destroyFile(Language $language, File $file)
-    // {
-    //     return $language->destroyFile($file);
-    // }
+    public function destroyFile(Language $language, File $file)
+    {
+        return $language->destroyFile($file);
+    }
 
-    // public function destroyFiles(Language $language, DestroysFileRequest $request)
-    // {
-    //     return $language->destroyFiles($request);
-    // }
+    public function destroyFiles(Language $language, DestroysFileRequest $request)
+    {
+        return $language->destroyFiles($request);
+    }
 
 }
 

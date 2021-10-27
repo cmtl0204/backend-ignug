@@ -56,5 +56,6 @@ Route::prefix('registration')->group(function () {
 });
 
 Route::prefix('professional')->group(function () {
-    Route::get('certificate', [ProfessionalController::class, 'getCertificate']);
+    Route::get('certificate/{username}', [ProfessionalController::class, 'generateCertificate']);
+    Route::get('validate-certificate/{username}', [ProfessionalController::class, 'getCertificate']);
 });

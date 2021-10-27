@@ -16,8 +16,10 @@ use App\Models\JobBoard\Professional;
 use App\Models\Core\Location;
 
 // FormRequest
+use Dyrynda\Database\Support\CascadeSoftDeleteException;
 use Illuminate\Http\Request;
 use App\Http\Requests\V1\JobBoard\Professional\UpdateProfessionalRequest;
+use Intervention\Image\Facades\Image as InterventionImage;
 
 class ProfessionalController extends Controller
 {
@@ -188,10 +190,31 @@ class ProfessionalController extends Controller
             ]);
     }
 
-    function getCertificate(Professional $professional)
+    function generateCertificate($username)
     {
-        $data = User::find(1);
-        $pdf = \PDF::loadView('reports.professional.registration-certificate',['data' => $data]);
-        return $pdf->stream('invoice.pdf');
+        $data = User::firstWhere('username', $username);
+
+        if (!$data) {
+            return view('reports.professional.no-registration');
+        }
+//        $message = 'https://bolsa-empleo.yavirac.edu.ec/professional/validate-certificate/' . $data->username;
+        $message = 'http://backend-ignug.test/professional/validate-certificate/' . $data->username;
+        \QrCode::format('png')
+            ->gradient(93, 222, 244, 0, 124, 145, 'diagonal')
+            ->size(150)
+            ->generate($message, '../public/qr/' . $data->id . '.png');
+
+        $pdf = \PDF::loadView('reports.professional.registration-certificate', ['data' => $data]);
+        return $pdf->stream('certificate-' . $data->username . '.pdf');
+    }
+
+    function getCertificate($username)
+    {
+        $data = User::firstWhere('username', $username);
+        if (!$data) {
+            return view('reports.professional.no-registration');
+        }
+
+        return view('reports.professional.validate-certificate', ['data' => $data]);
     }
 }

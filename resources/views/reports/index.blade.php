@@ -15,31 +15,42 @@
 <body>
 <div class="content">
     <div class="row">
-        <div class="col-12 border">
-            <h1 class="text-center bg-info text-white">CERTIFICADO DE REGISTRO EN LA BOLSA DE EMPLEO</h1>
-            <p class="text-muted">
-                Fecha: <b>{{\Carbon\Carbon::now()->toDateString()}}</b>
-                <b class="ml-2">{{\Carbon\Carbon::now()->toTimeString()}}</b>
-            </p>
-            <p class="text-muted">
-                Estimado/a:
-                <b>{{$data->name}} {{$data->lastname}}</b>
-            </p>
-            <br>
-            @yield('content')
-            <div class="row">
-                <div class="col-12">
-                    <footer class="text-muted">
-                        <hr size="3">
-                        <small><b>Nota de descargo:</b></small>
-                        <small>La información contenida en este documento es responsabilidad única del titular.</small>
-                        <small>Cualquier alteración de dicha información puede ocasionar sanciones.
-                        </small>
-                    </footer>
-                </div>
-            </div>
+        <div class="col-12 text-center">
+            <img src="{!! asset('logo.png') !!}" alt="Imagen PNG alternativa">
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center bg-info text-white">CERTIFICADO DE REGISTRO EN LA BOLSA DE EMPLEO</h1>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <br>
+            <h2 class="text-muted">
+                {{$data->name}} {{$data->lastname}}
+            </h2>
+            <h2 class="text-muted">
+                C.I. {{$data->username}}
+            </h2>
+            <br>
+        </div>
+        <div class="col-6">
+
+        </div>
+    </div>
+    <br>
+    @yield('content')
+    <footer class="text-center text-muted">
+        <hr size="3">
+        <small><b>Nota de descargo:</b></small>
+        <small>La información contenida en este documento es responsabilidad única del titular.</small>
+        <small>Cualquier alteración de dicha información puede ocasionar sanciones.
+        </small>
+    </footer>
+    <br>
 </div>
 </body>
 </html>

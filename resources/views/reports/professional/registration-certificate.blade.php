@@ -2,11 +2,12 @@
 @section('content')
     <div class="row">
         <div class="col-12 text-muted ">
-            <h4 class="text-center">Usted se encuentre registrado en el sistema de Bolsa de Empleo del
+            <h4 class="text-center">Usted se encuentra registrado en el sistema de Bolsa de Empleo
             </h4>
-            <h2 class="text-info text-center">
-                Instituto Superior Tecnológico de Turimos y Patrimonio Yavirac
-            </h2>
+            <br>
+            <div class="text-center">
+                <img src="{!! asset('qr/'.$data->id.'.png') !!}" alt="Imagen PNG alternativa">
+            </div>
         </div>
     </div>
 @endsection

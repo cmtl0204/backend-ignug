@@ -35,7 +35,6 @@ trait FileTrait
             $this->saveFile($request, $request->file('file'));
         }
         if ($request->hasFile('files')) {
-
             foreach ($request->file('files') as $file) {
                 $this->saveFile($request, $file);
             }
@@ -53,15 +52,11 @@ trait FileTrait
 
     public function indexFiles(IndexFileRequest $request)
     {
-        if ($request->has('page') && $request->has('per_page')) {
-            $files = $this->files()->paginate($request->input('per_page'));
+        $files = $this->files()
+            ->description($request->input('description'))
+            ->name($request->input('name'))
+            ->paginate($request->input('per_page'));
 
-        } else {
-            $files = $this->files()
-                ->description($request->input('description'))
-                ->name($request->input('name'))
-                ->paginate($request->input('per_page'));
-        }
 
         return (new FileCollection($files))->additional(
             [
