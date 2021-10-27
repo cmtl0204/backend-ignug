@@ -27,7 +27,7 @@ class CreateUicMeshStudentRequirementsTable extends Migration
             $table->boolean('approved')
                 ->nullable();
             
-            $table->text('observations')
+            $table->json('observations')
                 ->nullable();
         });
     }
