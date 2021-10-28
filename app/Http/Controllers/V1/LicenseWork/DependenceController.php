@@ -43,6 +43,7 @@ class DependenceController extends Controller
                     'code' => '200'
                 ]
             ]);
+
     }
 
     /**
@@ -56,7 +57,7 @@ class DependenceController extends Controller
         $dependence = new Dependence();
 
         $dependence->name = $request->input('name');
-        $dependence->code = $request->input('code');
+        $dependence->level = $request->input('level');
         $dependence->save();
 
         return (new DependenceResource($dependence))
@@ -77,7 +78,7 @@ class DependenceController extends Controller
      */
     public function show(Dependence $dependence)
     {
-        return (new dependenceResource($dependence))
+        return (new DependenceResource($dependence))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -98,7 +99,7 @@ class DependenceController extends Controller
     {
 
         $dependence->name = $request->input('name');
-        $dependence->code = $request->input('code');
+        $dependence->level = $request->input('level');
         $dependence->save();
 
         return (new DependenceResource($dependence))

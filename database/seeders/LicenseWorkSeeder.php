@@ -33,7 +33,7 @@ class LicenseWorkSeeder extends Seeder
         ],[
             'name'=>'NO-APPROVED',
             'code'=>'NO-APPROVED'
-        ],);
+        ],)->create();
 
         User::factory(10)->create();
 
@@ -47,8 +47,8 @@ class LicenseWorkSeeder extends Seeder
             'level'=>2,
             ],[
             'name'=>'RECTORATE',
-            'code'=>'003'
+            'level'=>'003'
         ],
-        );
+        )->create();
     }
 }

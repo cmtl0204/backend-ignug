@@ -2,6 +2,7 @@
 
 namespace Database\Factories\LicenseWork;
 
+use App\Models\LicenseWork\Dependence;
 use App\Models\LicenseWork\State;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -12,7 +13,7 @@ class DependenceFactory extends Factory
      *
      * @var string
      */
-    protected $model = State::class;
+    protected $model = Dependence::class;
 
     /**
      * Define the model's default state.
