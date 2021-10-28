@@ -30,7 +30,7 @@ class EmployerController extends Controller
             ->unit($request->input('unit'))
             ->paginate($request->per_page);
 
-
+        $employers = Employer :: get();
         return (new EmployerCollection($employers))
             ->additional([
                 'msg' => [
