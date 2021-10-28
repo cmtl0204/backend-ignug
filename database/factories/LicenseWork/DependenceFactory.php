@@ -5,7 +5,7 @@ namespace Database\Factories\LicenseWork;
 use App\Models\LicenseWork\State;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class StateFactory extends Factory
+class DependenceFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
@@ -22,8 +22,7 @@ class StateFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->randomElement(['NO-APPROVED','APPROVED','PRE-APPROVED','SAVED']),
-            'code'=>$this->faker->randomElement(['NO-APPROVED','APPROVED','PRE-APPROVED','SAVED'])
+            
         ];
     }
 }

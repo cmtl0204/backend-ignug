@@ -21,7 +21,7 @@ class LicenseWorkSeeder extends Seeder
     {
         Employer::factory(10)->create();
 
-        State::factory(3)->create()->state(new Sequence([
+        State::factory(3)->sequence([
             'name'=>'SAVED',
             'code'=>'SAVED'
         ],[
@@ -33,13 +33,13 @@ class LicenseWorkSeeder extends Seeder
         ],[
             'name'=>'NO-APPROVED',
             'code'=>'NO-APPROVED'
-        ],));
+        ],);
 
         User::factory(10)->create();
 
         Reason::factory(10)->create();
 
-        Dependence::factory(3)->create()->state(new Sequence([
+        Dependence::factory(3)->sequence([
             'name'=>'COORDINATION',
             'level'=>1,
             ],[
@@ -49,6 +49,6 @@ class LicenseWorkSeeder extends Seeder
             'name'=>'RECTORATE',
             'code'=>'003'
         ],
-        ));
+        );
     }
 }
