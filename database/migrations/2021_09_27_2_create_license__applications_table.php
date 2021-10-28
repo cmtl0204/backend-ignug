@@ -34,9 +34,9 @@ class CreateLicenseApplicationsTable extends Migration
                 ->comment('Id de la localización')
                 ->constrained('core.locations');
 
-            $table->foreignId('type_id')
-                ->comment('catalogues, para saber si es por fechas o por horas el permiso')
-                ->constrained('core.catalogues');
+            $table->boolean('type')
+                ->default(false)
+                ->comment('para saber si es por fechas o por horas el permiso');
 
                 $table->date('date_started_at')
                     ->comment('Fecha de inicio de la Licencia o Permiso');

@@ -13,8 +13,7 @@ use App\Http\Controllers\V1\LicenseWork\DependenceController;
 
 
 /***********************************************************************************************************************
- * Route license Work REASON
-<<<<<<< HEAD
+ * Route REASON
  **********************************************************************************************************************/
 
 Route::apiResource('reasons', ReasonController::class);
@@ -22,6 +21,7 @@ Route::apiResource('reasons', ReasonController::class);
 Route::prefix('reason')->group(function () {
     Route::patch('destroys', [ReasonController::class, 'destroys']);
     Route::get('index-reason', [ReasonController::class, 'indexReason']);
+    Route::get('catalogue', [ReasonController::class, 'catalogue']);
 });
 
 Route::prefix('reason/{reason}')->group(function () {
@@ -45,9 +45,10 @@ Route::prefix('form')->group(function () {
     Route::patch('destroys', [FormController::class, 'destroys']);
     Route::patch('active-form', [FormController::class, 'activeForm']);
     Route::patch('inactive-form', [FormController::class, 'inactiveForm']);
+    Route::get('catalogue', [FormController::class, 'catalogue']);
 });
 
-Route::prefix('academic-formation/{academic_formation}')->group(function () {
+Route::prefix('form/{form}')->group(function () {
     Route::prefix('file')->group(function () {
         Route::get('{file}/download', [FormController::class, 'downloadFile']);
         Route::get('', [FormController::class, 'indexFiles']);
@@ -67,7 +68,7 @@ Route::prefix('holiday')->group(function () {
     Route::patch('destroys', [HolidayController::class, 'destroys']);
 });
 
-Route::prefix('academic-formation/{academic_formation}')->group(function () {
+Route::prefix('holiday/{holiday}')->group(function () {
     Route::prefix('file')->group(function () {
         Route::get('{file}/download', [HolidayController::class, 'downloadFile']);
         Route::get('', [HolidayController::class, 'indexFiles']);
@@ -87,7 +88,7 @@ Route::prefix('employer')->group(function () {
     Route::patch('destroys', [EmployerController::class, 'destroys']);
 });
 
-Route::prefix('academic-formation/{academic_formation}')->group(function () {
+Route::prefix('employer/{employer}')->group(function () {
     Route::prefix('file')->group(function () {
         Route::get('{file}/download', [EmployerController::class, 'downloadFile']);
         Route::get('', [EmployerController::class, 'indexFiles']);
@@ -105,7 +106,8 @@ Route::prefix('academic-formation/{academic_formation}')->group(function () {
 Route::apiResource('employees', EmployeeController::class);
 
 Route::prefix('employee')->group(function () {
-    Route::patch('destroys', [ReasonController::class, 'destroys']);
+    Route::patch('destroys', [EmployeeController::class, 'destroys']);
+    Route::get('catalogue', [EmployeeController::class, 'catalogue']);
 });
 
 Route::prefix('employee/{employee}')->group(function () {

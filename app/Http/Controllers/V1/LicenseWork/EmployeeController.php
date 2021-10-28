@@ -9,6 +9,7 @@ use App\Http\Requests\V1\LicenseWork\Employees\StoreEmployeeRequest;
 use App\Http\Requests\V1\LicenseWork\Employees\UpdateEmployeeRequest;
 use App\Http\Resources\V1\LicenseWork\EmployeeCollection;
 use App\Http\Resources\V1\LicenseWork\EmployeeResource;
+use App\Http\Resources\V1\LicenseWork\ReasonCollection;
 use App\Models\Authentication\User;
 use App\Models\LicenseWork\Employee;
 
@@ -132,6 +133,20 @@ class EmployeeController extends Controller
                     'summary' => 'Registros Eliminados',
                     'detail' => '',
                     'code' => '201'
+                ]
+            ]);
+    }
+
+    public function catalogue(IndexEmployeeRequest $request)
+    {
+        $employees= Employee::get();
+
+        return (new ReasonCollection($employees))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
                 ]
             ]);
     }

@@ -45,7 +45,7 @@ class StoreApplicationRequest extends FormRequest
             'reason'=>'razones',
             'form'=>'formulario',
             'location'=>'localización',
-            'type'=>'catalogues',
+            'type'=>'tipo de solicitud Licencia o Permiso',
             'dateStartedAt'=>'Fecha de inicio de la Licencia o Permiso',
             'dateEndedAt'=>'Fecha final de la Licencia o Permiso',
             'timeStartedAt'=>'Hora de inicio de la Licencia o Permiso',

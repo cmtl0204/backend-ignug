@@ -174,4 +174,19 @@ class FormController extends Controller
             ]);
     }
 
+    public function catalogue(IndexFormRequest $request)
+    {
+
+        $forms = Form::get();
+
+        return (new FormCollection($forms))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
 }

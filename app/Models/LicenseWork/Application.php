@@ -17,6 +17,7 @@ class Application extends Model
         'date_ended_at',
         'time_started_at',
         'time_ended_at',
+        'type',
         'observations',
     ];
     // procesos de calculo
@@ -50,9 +51,6 @@ class Application extends Model
         return $this->belongsTo(Location::class);
     }
 
-    function type(){
-        return $this->belongsTo(Catalogue::class);
-    }
     function form(){
         return $this->belongsTo(Form::class);
     }

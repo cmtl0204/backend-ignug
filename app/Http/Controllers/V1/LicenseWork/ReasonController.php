@@ -167,4 +167,19 @@ class ReasonController extends Controller
                 ]
             ]);
     }
+
+    public function catalogue(IndexReasonRequest $request)
+    {
+        $reasons= Reason::get();
+
+        return (new ReasonCollection($reasons))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
 }

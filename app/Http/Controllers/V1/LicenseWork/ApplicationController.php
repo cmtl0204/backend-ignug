@@ -57,12 +57,11 @@ class ApplicationController extends Controller
         $application->location()
             ->associate(Location::find($request->input('location.id')));
 
-        $application->type()
-            ->associate(Catalogue::find($request->input('type.id')));
 
         $application->form()
             ->associate(Form::find($request->input('form.id')));
 
+        $application->type = $request->input('type');
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
         $application->time_started_at = $request->input('timeStartedAt');
@@ -116,12 +115,10 @@ class ApplicationController extends Controller
         $application->location()
             ->associate(Location::find($request->input('location.id')));
 
-        $application->type()
-            ->associate(Catalogue::find($request->input('type.id')));
-
         $application->form()
             ->associate(Form::find($request->input('form.id')));
 
+        $application->type = $request->input('type');
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
         $application->time_started_at = $request->input('timeStartedAt');
@@ -193,12 +190,11 @@ class ApplicationController extends Controller
         $application->location()
             ->associate(Location::find($request->input('location.id')));
 
-        $application->type()
-            ->associate(Catalogue::find($request->input('type.id')));
 
         $application->form()
             ->associate(Form::find($request->input('form.id')));
 
+        $application->type = $request->input('type');
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
         $application->time_started_at = $request->input('timeStartedAt');
@@ -235,12 +231,10 @@ class ApplicationController extends Controller
         $application->location()
             ->associate(Location::find($request->input('location.id')));
 
-        $application->type()
-            ->associate(Catalogue::find($request->input('type.id')));
-
         $application->form()
             ->associate(Form::find($request->input('form.id')));
 
+        $application->type = $request->input('type');
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
         $application->time_started_at = $request->input('timeStartedAt');
