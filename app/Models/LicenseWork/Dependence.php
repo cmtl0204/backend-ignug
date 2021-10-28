@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dependence extends Model
 {
     use HasFactory;
-    protected $table= 'license_work.dependence';
+    protected $table= 'license_work.dependences';
     protected $fillable=[
         'name',
         'level',
