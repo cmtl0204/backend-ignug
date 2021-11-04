@@ -64,8 +64,6 @@ class ApplicationController extends Controller
         $application->type = $request->input('type');
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
-        $application->time_started_at = $request->input('timeStartedAt');
-        $application->time_ended_at = $request->input('timeEndedAt');
         $application->observations = $request->input('observations');
         $application->save();
 
@@ -121,8 +119,6 @@ class ApplicationController extends Controller
         $application->type = $request->input('type');
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
-        $application->time_started_at = $request->input('timeStartedAt');
-        $application->time_ended_at = $request->input('timeEndedAt');
         $application->observations = $request->input('observations');
 
         $application->save();
@@ -197,8 +193,6 @@ class ApplicationController extends Controller
         $application->type = $request->input('type');
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
-        $application->time_started_at = $request->input('timeStartedAt');
-        $application->time_ended_at = $request->input('timeEndedAt');
         $application->observations = $request->input('observations');
         $application->save();
         // hacer el borrador o enviar la solicitud
@@ -237,8 +231,6 @@ class ApplicationController extends Controller
         $application->type = $request->input('type');
         $application->date_started_at = $request->input('dateStartedAt');
         $application->date_ended_at = $request->input('dateEndedAt');
-        $application->time_started_at = $request->input('timeStartedAt');
-        $application->time_ended_at = $request->input('timeEndedAt');
         $application->observations = $request->input('observations');
         $application->save();
         $state = State::find($request->input('state.id'));

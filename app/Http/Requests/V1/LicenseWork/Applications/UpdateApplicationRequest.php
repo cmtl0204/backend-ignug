@@ -32,8 +32,6 @@ class UpdateApplicationRequest extends FormRequest
             'form.id'=>['required'],
             'dateStartedAt'=>['required'],
             'dateEndedAt'=>['required'],
-            'timeStartedAt'=>['required'],
-            'timeEndedAt'=>['required'],
         ];
             return LicenseWorkFormRequest::rules($rules);
     }
@@ -47,8 +45,6 @@ class UpdateApplicationRequest extends FormRequest
             'form.id'=>'formulario',
             'dateStartedAt'=>'Fecha de inicio de la Licencia o Permiso',
             'dateEndedAt'=>'Fecha final de la Licencia o Permiso',
-            'timeStartedAt'=>'Hora de inicio de la Licencia o Permiso',
-            'timeEndedAt'=>'Hora final de la Licencia o Permiso',
             'observations'=>'Listado de observaciones',
         ];
         return LicenseWorkFormRequest::attributes($attributes);

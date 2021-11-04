@@ -15,12 +15,9 @@ class Application extends Model
     protected $fillable=[
         'date_started_at',
         'date_ended_at',
-        'time_started_at',
-        'time_ended_at',
         'type',
         'observations',
     ];
-    // procesos de calculo
 
     // calcular el tiempo de la licencia o permiso
     public function calculteDate(){
