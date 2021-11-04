@@ -11,16 +11,8 @@ class CreateJobboardCompaniesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_JOB_BOARD'))->create('companies', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
-
-            $table->foreignId('user_id')
-                ->constrained('authentication.users')
-                ->comment('FK desde users');
-
-            $table->foreignId('type_id')
-                ->comment('PUBLICA, PRIVADA, MIXTA')
-                ->constrained('core.catalogues');
+            $table->softDeletes();
 
             $table->foreignId('activity_type_id')
                 ->constrained('core.catalogues');
@@ -29,17 +21,24 @@ class CreateJobboardCompaniesTable extends Migration
                 ->comment('NATURAL O JURIDICA')
                 ->constrained('core.catalogues');
 
-            $table->text('trade_name')
-                ->comment('Nombre comercial de la compañia');
+            $table->foreignId('type_id')
+                ->comment('PUBLICA, PRIVADA, MIXTA')
+                ->constrained('core.catalogues');
+
+            $table->foreignId('user_id')
+                ->comment('FK desde users')
+                ->constrained('authentication.users');
 
             $table->json('commercial_activities')
                 ->comment('Array de actividades comerciales')
                 ->nullable();
 
+            $table->text('trade_name')
+                ->comment('Nombre comercial de la compañia');
+
             $table->string('web')
                 ->nullable()
                 ->comment('Nombre o direccion de la web de la compañia');
-
         });
     }
 

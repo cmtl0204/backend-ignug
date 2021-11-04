@@ -10,12 +10,20 @@ class CreateCoreAddressTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('address', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->foreignId('location_id')
                 ->constrained('core.locations');
 
             $table->foreignId('sector_id')
                 ->constrained('core.catalogues');
+
+            $table->double('latitude')
+                ->nullable();
+
+            $table->double('longitude')
+                ->nullable();
 
             $table->string('main_street');
 
@@ -31,15 +39,6 @@ class CreateCoreAddressTable extends Migration
 
             $table->text('reference')
                 ->nullable();
-
-            $table->double('latitude')
-                ->nullable();
-
-            $table->double('longitude')
-                ->nullable();
-
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 

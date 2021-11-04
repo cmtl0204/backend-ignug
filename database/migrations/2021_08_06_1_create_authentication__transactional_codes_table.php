@@ -10,8 +10,7 @@ class CreateAuthenticationTransactionalCodesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION'))->create('transactional_codes', function (Blueprint $table) {
             $table->id();
-
-            $table->string('username');
+            $table->timestamps();
 
             $table->string('token')
                 ->index();
@@ -19,7 +18,7 @@ class CreateAuthenticationTransactionalCodesTable extends Migration
             $table->boolean('used')
                 ->default(false);
 
-            $table->timestamps();
+            $table->string('username');
         });
     }
 

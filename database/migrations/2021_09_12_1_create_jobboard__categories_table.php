@@ -11,23 +11,24 @@ class CreateJobboardCategoriesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_JOB_BOARD'))->create('categories', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('job_board.categories')
-                ->comment('FK desde categories');
+                ->comment('FK desde categories')
+                ->constrained('job_board.categories');
 
             $table->string('code')
                 ->nullable()
                 ->comment('Codigo de la categoria');
 
-            $table->text('name')->comment('Nombre de la categoria');
-
             $table->string('icon')
                 ->nullable()
                 ->comment('Icono de la categoria');
+
+            $table->text('name')
+                ->comment('Nombre de la categoria');
         });
     }
 

@@ -10,12 +10,13 @@ class CreateJobboardSkillsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_JOB_BOARD'))->create('skills', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
+
 
             $table->foreignId('professional_id')
-                ->constrained('job_board.professionals')
-                ->comment('FK desde professionals');
+                ->comment('FK desde professionals')
+                ->constrained('job_board.professionals');
 
             $table->foreignId('type_id')
                 ->comment('soft or hard')

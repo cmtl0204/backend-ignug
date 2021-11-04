@@ -12,15 +12,33 @@ class CreateAuthenticationSystemsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            $table->string('code')->comment('No debe ser modificado una vez creado');
-            $table->string('name');
+
             $table->string('acronym');
-            $table->text('description')->nullable();
-            $table->string('icon')->nullable()->comment('De la libreria que se usa en el frontend');
-            $table->string('version')->comment('XX.XX.XX');
-            $table->string('redirect')->comment('pagina wen de redireccion del cliente');
-            $table->date('date')->comment('Fecha del sistema');
-            $table->boolean('state')->default(true)->comment('true activo false inactivo');
+
+            $table->string('code')
+                ->comment('No debe ser modificado una vez creado');
+
+            $table->text('description')
+                ->nullable();
+
+            $table->date('date')
+                ->comment('Fecha del sistema');
+
+            $table->string('icon')
+                ->nullable()
+                ->comment('De la libreria que se usa en el frontend');
+
+            $table->string('name');
+
+            $table->string('redirect')
+                ->comment('pagina wen de redireccion del cliente');
+
+            $table->boolean('state')
+                ->default(true)
+                ->comment('true activo false inactivo');
+
+            $table->string('version')
+                ->comment('XX.XX.XX');
         });
     }
 

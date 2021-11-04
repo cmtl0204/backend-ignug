@@ -11,23 +11,23 @@ class CreateJobboardLanguagesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_JOB_BOARD'))->create('languages', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
-
-            $table->foreignId('professional_id')
-                ->constrained('job_board.professionals')
-                ->comment('FK desde professionals');
+            $table->softDeletes();
 
             $table->foreignId('idiom_id')
                 ->constrained('core.catalogues');
 
-            $table->foreignId('written_level_id')
+            $table->foreignId('professional_id')
+                ->comment('FK desde professionals')
+                ->constrained('job_board.professionals');
+
+            $table->foreignId('read_level_id')
                 ->constrained('core.catalogues');
 
             $table->foreignId('spoken_level_id')
                 ->constrained('core.catalogues');
 
-            $table->foreignId('read_level_id')
+            $table->foreignId('written_level_id')
                 ->constrained('core.catalogues');
         });
     }

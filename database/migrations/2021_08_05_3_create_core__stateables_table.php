@@ -13,12 +13,12 @@ class CreateCoreStateablesTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('state_id')
-                ->constrained('core.states');
+            $table->unique(['state_id','stateable_id','stateable_type']);
 
             $table->morphs('stateable');
 
-            $table->unique(['state_id','stateable_id','stateable_type']);
+            $table->foreignId('state_id')
+                ->constrained('core.states');
         });
     }
 

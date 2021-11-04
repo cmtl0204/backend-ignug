@@ -12,18 +12,18 @@ class CreateJobboardOfferProfessionalTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('professional_id')
-                ->constrained('job_board.professionals')
-                ->comment('FK desde professionals');
-
             $table->foreignId('offer_id')
-                ->constrained('job_board.offers')
-                ->comment('FK desde offers');
+                ->comment('FK desde offers')
+                ->constrained('job_board.offers');
+
+            $table->foreignId('professional_id')
+                ->comment('FK desde professionals')
+                ->constrained('job_board.professionals');
 
             $table->foreignId('state_id')
                 ->nullable()
-                ->constrained('core.states')
-                ->comment('FK desde states');
+                ->comment('FK desde states')
+                ->constrained('core.states');
         });
     }
 

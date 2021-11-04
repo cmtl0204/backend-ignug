@@ -10,16 +10,20 @@ class CreateJobboardAcademicFormationsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_JOB_BOARD'))->create('academic_formations', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreignId('professional_id')
-                ->constrained('job_board.professionals')
-                ->comment('FK desde professionals');
+                ->comment('FK desde professionals')
+                ->constrained('job_board.professionals');
 
             $table->foreignId('professional_degree_id')
-                ->constrained('job_board.categories')
-                ->comment('FK desde categories');
+                ->comment('FK desde categories')
+                ->constrained('job_board.categories');
+
+            $table->boolean('certificated')
+                ->default(false)
+                ->comment('Para saber si posee certificado;True=tiene false=no tiene');
 
             $table->date('registered_at')
                 ->nullable()
@@ -28,10 +32,6 @@ class CreateJobboardAcademicFormationsTable extends Migration
             $table->string('senescyt_code')
                 ->nullable()
                 ->comment('Codigo de senescyt');
-
-            $table->boolean('certificated')
-                ->default(false)
-                ->comment('Para saber si posee certificado;True=tiene false=no tiene');
         });
     }
 

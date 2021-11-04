@@ -11,45 +11,41 @@ class CreateJobboardCoursesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_JOB_BOARD'))->create('courses', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreignId('professional_id')
-                ->constrained('job_board.professionals')
-                ->comment('Numero de profesional');
-
-
-            $table->foreignId('type_id')
-                ->comment('tipo de evento')
+            $table->foreignId('area_id')
                 ->constrained('core.catalogues');
 
             $table->foreignId('certification_type_id')
                 ->constrained('core.catalogues');
 
-            $table->foreignId('area_id')
+            $table->foreignId('professional_id')
+                ->comment('Numero de profesional')
+                ->constrained('job_board.professionals');
+
+            $table->foreignId('type_id')
+                ->comment('tipo de evento')
                 ->constrained('core.catalogues');
 
             $table->text('description')
                 ->nullable()
                 ->comment('Descripcion');
 
-
-            $table->date('started_at')
-            ->comment('13 de septiembre del 2021');
-
+            $table->integer('hours')
+                ->comment('Horas');
 
             $table->date('ended_at')
-            ->comment('Fecha final');
-
-
-            $table->integer('hours')
-            ->comment('Horas');
+                ->comment('Fecha final');
 
             $table->string('institution')
-            ->comment('Institucion en la que se llevo o lleva el curso');
+                ->comment('Institucion en la que se llevo o lleva el curso');
 
             $table->text('name')
-            ->comment('Nombre del curso');
+                ->comment('Nombre del curso');
+
+            $table->date('started_at')
+                ->comment('13 de septiembre del 2021');
         });
     }
 

@@ -10,20 +10,28 @@ class CreateJobboardProfessionalsTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_JOB_BOARD'))->create('professionals', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreignId('user_id')
-                ->constrained('authentication.users')
-                ->comment('FK desde users');
+                ->comment('FK desde users')
+                ->constrained('authentication.users');
 
-            $table->boolean('traveled')
+            $table->text('about_me')
+                ->nullable()
+                ->comment('escribir una breve presentación');
+
+            $table->boolean('catastrophic_diseased')
                 ->default(false)
-                ->comment('Para saber si puede viajar o no el profesional, true=>puede false=no puede');
+                ->comment('Para saber si el profesional tiene una enfermedad catastrofica, true=>tiene false=no tiene');
 
             $table->boolean('disabled')
                 ->default(false)
                 ->comment('Para saber si el profesional tiene una discapacidad, true=>tiene false=no tiene');
+
+            $table->boolean('familiar_catastrophic_diseased')
+                ->default(false)
+                ->comment('Para saber si el profesional tieneun familiar con una enfermedad catastrofica, true=>tiene false=no tiene');
 
             $table->boolean('familiar_disabled')
                 ->default(false)
@@ -33,17 +41,9 @@ class CreateJobboardProfessionalsTable extends Migration
                 ->nullable()
                 ->comment('escriba número de identificación');
 
-            $table->boolean('catastrophic_diseased')
+            $table->boolean('traveled')
                 ->default(false)
-                ->comment('Para saber si el profesional tiene una enfermedad catastrofica, true=>tiene false=no tiene');
-
-            $table->boolean('familiar_catastrophic_diseased')
-            ->default(false)
-            ->comment('Para saber si el profesional tieneun familiar con una enfermedad catastrofica, true=>tiene false=no tiene');
-
-            $table->text('about_me')
-                ->nullable()
-                ->comment('escribir una breve presentación');
+                ->comment('Para saber si puede viajar o no el profesional, true=>puede false=no puede');
         });
     }
 

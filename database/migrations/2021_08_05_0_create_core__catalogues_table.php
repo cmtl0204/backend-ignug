@@ -10,26 +10,32 @@ class CreateCoreCataloguesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('catalogues', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('core.catalogues')
-                ->comment('Un catalogo puede tener catalogos hijos');
+                ->comment('Un catalogo puede tener catalogos hijos')
+                ->constrained('core.catalogues');
 
-            $table->string('code')->comment('No debe ser modificado una vez que se lo crea');
+            $table->string('code')
+                ->comment('No debe ser modificado una vez que se lo crea');
+
+            $table->text('color')
+                ->comment('color en hexadecimal')
+                ->default('#9c9c9c');
+
+            $table->text('description')
+                ->nullable();
+
+            $table->string('icon')
+                ->nullable()
+                ->comment('Icono de la libreria que se usa en el frontend');
 
             $table->text('name');
 
-            $table->text('description')->nullable();
-
-            $table->text('color')->comment('color en hexadecimal')->default('#9c9c9c');
-
-            $table->string('type')->comment('Para categorizar los catalogos');
-
-            $table->string('icon')->nullable()->comment('Icono de la libreria que se usa en el frontend');
-
-            $table->softDeletes();
-            $table->timestamps();
+            $table->string('type')
+                ->comment('Para categorizar los catalogos');
         });
     }
 

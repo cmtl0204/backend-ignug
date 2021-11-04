@@ -10,13 +10,20 @@ class CreateCoreFilesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CORE'))->create('files', function (Blueprint $table) {
             $table->id();
-            $table->morphs('fileable');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('extension');
-            $table->text('directory')->nullable();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->morphs('fileable');
+
+            $table->text('description')
+                ->nullable();
+
+            $table->text('directory')
+                ->nullable();
+
+            $table->string('extension');
+
+            $table->string('name');
         });
     }
 

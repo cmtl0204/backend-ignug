@@ -47,7 +47,8 @@ class CatalogueController extends Controller
     {
         $catalogues = Catalogue::orderBy('name')
             ->type($request->input('type'))
-            ->get();
+//            ->paginate();
+            ->paginate($request->input('per_page'));
 
         return (new CatalogueCollection($catalogues))
             ->additional([

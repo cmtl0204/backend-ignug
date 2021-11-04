@@ -10,27 +10,27 @@ class CreateJobboardReferencesTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_JOB_BOARD'))->create('references', function (Blueprint $table) {
             $table->id();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreignId('professional_id')
-                ->constrained('job_board.professionals')
-                ->comment('FK desde professionals');
-
-            $table->string('position')
-            ->comment('posicion');
-
-            $table->string('contact_name')
-            ->comment('nombre del contacto');
-
-            $table->string('contact_phone')
-            ->comment('celular del contacto');
+                ->comment('FK desde professionals')
+                ->constrained('job_board.professionals');
 
             $table->string('contact_email')
-            ->comment('email del contacto');
+                ->comment('email del contacto');
+
+            $table->string('contact_name')
+                ->comment('nombre del contacto');
+
+            $table->string('contact_phone')
+                ->comment('celular del contacto');
 
             $table->string('institution')
-            ->comment('institución');
+                ->comment('institución');
+
+            $table->string('position')
+                ->comment('posicion');
         });
 
     }
