@@ -31,7 +31,7 @@ class Application extends Model
     }
     // casts
     protected $casts=[
-        'observations'=>'array',
+       'observations'=>'array',
     ];
 
     function states(){
