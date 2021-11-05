@@ -47,9 +47,8 @@ class FormController extends Controller
     public function store(StoreFormRequest $request)
     {
         $form = new Form();
-        $form->employer()
-            ->associate(Employer::find($request->input('employer.id')));
-
+    
+        $form->employer= $request->input('empleador');
         $form->code= $request->input('code');
         $form->description= $request->input('description');
         $form->regime= $request->input('regime');
