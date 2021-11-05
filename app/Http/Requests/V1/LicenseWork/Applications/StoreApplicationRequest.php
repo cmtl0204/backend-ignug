@@ -32,6 +32,9 @@ class StoreApplicationRequest extends FormRequest
             'form'=>['required'],
             'dateStartedAt'=>['required'],
             'dateEndedAt'=>['required'],
+            'timeStartedAt'=>['required'],
+            'timeEndedAt'=>['required'],
+            'observations'=>['required'],
         ];
         return LicenseWorkFormRequest::rules($rules);
     }
@@ -45,6 +48,8 @@ class StoreApplicationRequest extends FormRequest
             'type'=>'tipo de solicitud Licencia o Permiso',
             'dateStartedAt'=>'Fecha de inicio de la Licencia o Permiso',
             'dateEndedAt'=>'Fecha final de la Licencia o Permiso',
+            'timeStartedAt'=>'Hora de inicio de la Licencia o Permiso',
+            'timeEndedAt'=>'Hora final de la Licencia o Permiso',
             'observations'=>'Listado de observaciones',
         ];
         return LicenseWorkFormRequest::attributes($attributes);

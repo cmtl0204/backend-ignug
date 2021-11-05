@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use App\Models\Authentication\User;
 use App\Models\LicenseWork\Dependence;
 use App\Models\LicenseWork\Employer;
@@ -36,7 +37,7 @@ class LicenseWorkSeeder extends Seeder
 
         User::factory(10)->create();
 
-        Reason::factory(10) ->create();
+        Reason::factory(10)->create();
 
         Dependence::factory(3)->sequence([
             'name'=>'COORDINATION',

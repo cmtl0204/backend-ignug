@@ -48,8 +48,8 @@ class FormController extends Controller
     {
         $form = new Form();
         $form->employer()
-           ->associate(Employer::find($request->input('employer.id')));
-           
+            ->associate(Employer::find($request->input('employer.id')));
+
         $form->code= $request->input('code');
         $form->description= $request->input('description');
         $form->regime= $request->input('regime');

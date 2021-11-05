@@ -86,7 +86,6 @@ Route::apiResource('employers', EmployerController::class);
 
 Route::prefix('employer')->group(function () {
     Route::patch('destroys', [EmployerController::class, 'destroys']);
-    Route::get('catalogue', [EmployerController::class, 'catalogue']);
 });
 
 Route::prefix('employer/{employer}')->group(function () {

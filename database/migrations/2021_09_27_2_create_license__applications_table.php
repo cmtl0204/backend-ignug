@@ -44,6 +44,12 @@ class CreateLicenseApplicationsTable extends Migration
                 $table->date('date_ended_at')
                     ->comment('Fecha final de la Licencia o Permiso');
 
+                $table->time('time_started_at')
+                    ->comment('Hora de inicio de la Licencia o Permiso');
+
+                $table->time('time_ended_at')
+                    ->comment('Hora final de la Licencia o Permiso');
+
                 $table->json('observations')
                     ->comment('Listado de observaciones');
 

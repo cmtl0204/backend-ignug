@@ -16,12 +16,14 @@ class ApplicationResource extends JsonResource
     {
         return [
                 'id'=>$this->id,
-                'employee'=>EmployeeResource::make($this->employee),
+                'employee'=>$this->employee,
                 'reason'=>$this->reason,
                 'location'=>$this->location,
                 'type'=>$this->type,
                 'dateStartedAt'=>$this->date_started_at,
                 'dateEndedAt'=>$this->date_ended_at,
+                'timeStartedAt'=>$this->time_started_at,
+                'timeEndedAt' =>$this->time_ended_at,
                 'observations'=>$this->observations,
         ];
     }
