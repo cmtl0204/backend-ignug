@@ -504,7 +504,7 @@ class JobBoardSeeder extends Seeder
     private function createProfessionals()
     {
         Professional::factory()->create(['user_id' => 1]);
-        Professional::factory(10)->create();
+//        Professional::factory(10)->create();
     }
 
     private function createAcademicFormations()

@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\V1\JobBoard;
 
-use App\Http\Resources\V1\Core\Catalogues\CatalogueResource;
+use App\Http\Resources\V1\Core\CareerResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class   AcademicFormationResource extends JsonResource
@@ -18,6 +18,8 @@ class   AcademicFormationResource extends JsonResource
         return [
             'id' => $this->id,
             'professionalDegree' => CategoryResource::make($this->professionalDegree),
+            'career' => CareerResource::make($this->career),
+            'institution' => CareerResource::make($this->career)->institution,
             'registeredAt' => $this->registered_at,
             'senescytCode' => $this->senescyt_code,
             'certificated' => $this->certificated,

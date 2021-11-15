@@ -14,7 +14,7 @@ Route::prefix('auth')->group(function () {
     Route::post('reset-password', [AuthController::class, 'resetPassword']);
     Route::post('unlock-user', [AuthController::class, 'unlockUser']);
     Route::post('change-password', [AuthController::class, 'changePassword']);
-    Route::post('verify-email', [AuthController::class, 'verifyEmail']);
+    Route::post('mark-email-verified', [AuthController::class, 'markEmailAsVerified']);
     Route::post('generate-transactional-code', [AuthController::class, 'generateTransactionalCode']);
     Route::post('verify-transactional-code', [AuthController::class, 'verifyTransactionalCode']);
 });

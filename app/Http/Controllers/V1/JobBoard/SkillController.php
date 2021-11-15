@@ -8,9 +8,9 @@ use App\Http\Controllers\App\ImageController;
 use App\Http\Requests\JobBoard\Skill\DeleteSkillRequest;
 use App\Models\Core\Catalogue;
 use App\Models\JobBoard\Skill;
-use App\Http\Requests\V1\JobBoard\Skill\StoreSkillRequest;
-use App\Http\Requests\V1\JobBoard\Skill\IndexSkillRequest;
-use App\Http\Requests\V1\JobBoard\Skill\UpdateSkillRequest;
+use App\Http\Requests\V1\JobBoard\Skill\StoreInstitutionRequest;
+use App\Http\Requests\V1\JobBoard\Skill\IndexInstitutionRequest;
+use App\Http\Requests\V1\JobBoard\Skill\UpdateInstitutionRequest;
 use App\Http\Requests\V1\JobBoard\Skill\DestroysSkillRequest;
 use App\Http\Requests\App\Image\UpdateImageRequest;
 use App\Http\Requests\App\Image\UploadImageRequest;
@@ -27,7 +27,7 @@ use App\Http\Resources\V1\JobBoard\SkillResource;
 
 class SkillController extends Controller
 {
-    function index(IndexSkillRequest $request,Professional $professional)
+    function index(IndexInstitutionRequest $request, Professional $professional)
     {
         $sorts = explode(',', $request->sort);
 
@@ -58,7 +58,7 @@ class SkillController extends Controller
             ]);
     }
 
-    function store(StoreSkillRequest $request, Professional $professional)
+    function store(StoreInstitutionRequest $request, Professional $professional)
     {
         $type = Catalogue::find($request->input('type.id'));
         $skill = new Skill();
@@ -77,7 +77,7 @@ class SkillController extends Controller
             ]);
     }
 
-    function update(UpdateSkillRequest $request, Professional $professional, Skill $skill)
+    function update(UpdateInstitutionRequest $request, Professional $professional, Skill $skill)
     {
         $type = Catalogue::find($request->input('type.id'));
         $skill->type()->associate($type);

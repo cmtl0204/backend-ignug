@@ -13,6 +13,10 @@ class CreateJobboardAcademicFormationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreignId('career_id')
+                ->comment('FK desde core.careers')
+                ->constrained('core.careers');
+
             $table->foreignId('professional_id')
                 ->comment('FK desde professionals')
                 ->constrained('job_board.professionals');

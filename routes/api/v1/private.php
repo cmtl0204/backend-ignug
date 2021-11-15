@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\Core\InstitutionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Core\UserController;
 use App\Http\Controllers\V1\JobBoard\ProfessionalController;
@@ -14,6 +15,29 @@ use App\Http\Controllers\V1\JobBoard\SkillController;
 use App\Http\Controllers\V1\JobBoard\CategoryController;
 use App\Http\Controllers\V1\JobBoard\CompanyController;
 use App\Http\Controllers\V1\JobBoard\OfferController;
+use App\Http\Controllers\V1\Core\CareerController;
+
+/***********************************************************************************************************************
+ * INSTITUTIONS
+ **********************************************************************************************************************/
+Route::apiResource('institutions', InstitutionController::class);
+
+Route::prefix('institution')->group(function () {
+    Route::get('catalogue', [InstitutionController::class, 'catalogue']);
+});
+
+Route::prefix('institution/{institution}')->group(function () {
+    Route::get('careers', [InstitutionController::class, 'careers']);
+});
+
+/***********************************************************************************************************************
+ * CAREERS
+ **********************************************************************************************************************/
+Route::apiResource('careers', CareerController::class);
+
+Route::prefix('career')->group(function () {
+    Route::get('catalogue', [CareerController::class, 'catalogue']);
+});
 
 /***********************************************************************************************************************
  * USERS

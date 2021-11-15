@@ -13,7 +13,6 @@ class Phone extends Model
 
     protected $fillable = [
         'number',
-        'main',
     ];
 
     public function phoneable()

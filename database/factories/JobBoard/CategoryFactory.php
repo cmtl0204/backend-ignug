@@ -23,7 +23,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'code' => $this->faker->uuid(),
+            'code' => $this->faker->ean8(),
             'name' => $this->faker->word(),
             'icon' => PrimeIcons::$icons[rand(0, sizeof(PrimeIcons::$icons)-1)],
         ];

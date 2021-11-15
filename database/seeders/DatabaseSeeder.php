@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AuthenticationSeeder::class,
+            CoreSeeder::class,
             JobBoardSeeder::class
         ]);
     }

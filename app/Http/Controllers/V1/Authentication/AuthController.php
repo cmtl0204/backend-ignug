@@ -13,6 +13,7 @@ use App\Http\Requests\V1\Core\Authentications\UserUnlockAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\LoginAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\VerifyTransactionalCodeAuthRequest;
 use App\Http\Resources\V1\Core\Authentications\AuthResource;
+use App\Http\Resources\V1\Core\Users\UserResource;
 use App\Mail\Authentication\RequestPasswordResetMailable;
 use App\Models\Authentication\TransactionalCode;
 use App\Models\Authentication\PasswordReset;
@@ -436,7 +437,7 @@ class AuthController extends Controller
             ]], 201);
     }
 
-    public function verifyEmail(User $user)
+    public function markEmailAsVerified(User $user)
     {
         $user->markEmailAsVerified();
 
@@ -530,5 +531,54 @@ class AuthController extends Controller
                 'detail' => '',
                 'code' => '201'
             ]], 201);
+    }
+
+    public function verifyUser($username)
+    {
+        $user = User::firstWhere('username', $username);
+
+        if ($user) {
+            return (new UserResource($user))
+                ->additional([
+                    'msg' => [
+                        'summary' => 'success',
+                        'detail' => '',
+                        'code' => '200'
+                    ]
+                ]);
+        }
+
+        return response()->json([
+            'data' => null,
+            'msg' => [
+                'summary' => 'Usuario no encontrando',
+                'detail' => 'Intente de nuevo',
+                'code' => '404'
+            ]], 404);
+
+    }
+    public function verifyEmails($username)
+    {
+        $user = User::firstWhere('username', $username);
+
+        if ($user) {
+            return (new UserResource($user))
+                ->additional([
+                    'msg' => [
+                        'summary' => 'success',
+                        'detail' => '',
+                        'code' => '200'
+                    ]
+                ]);
+        }
+
+        return response()->json([
+            'data' => null,
+            'msg' => [
+                'summary' => 'Usuario no encontrando',
+                'detail' => 'Intente de nuevo',
+                'code' => '404'
+            ]], 404);
+
     }
 }

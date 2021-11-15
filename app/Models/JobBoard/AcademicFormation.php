@@ -2,6 +2,7 @@
 
 namespace App\Models\JobBoard;
 
+use App\Models\Core\Career;
 use App\Traits\FileTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,11 @@ class AcademicFormation extends Model implements Auditable
         'senescyt_code',
         'certificated'
     ];
+
+    public function career()
+    {
+        return $this->belongsTo(Career::class);
+    }
 
     public function professional()
     {
@@ -65,7 +71,7 @@ class AcademicFormation extends Model implements Auditable
             return $query->orWhere('senescyt_code', 'ILIKE', $senescytCode);
         }
     }
-    
+
     // Mutators
 
     public function setSenescytCodeAttribute($value)

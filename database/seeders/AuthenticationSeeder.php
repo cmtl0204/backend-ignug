@@ -100,20 +100,20 @@ class AuthenticationSeeder extends Seeder
                 ]
             );
         Email::factory(2)->for($userFactory, 'emailable')->create();
-        for ($i = 1; $i <= 10; $i++) {
-            $userFactory = User::factory()
-                ->create([
-                    'identification_type_id' => $identificationTypes[rand(0, $identificationTypes->count() - 1)],
-                    'sex_id' => $sexes[rand(0, $sexes->count() - 1)],
-                    'gender_id' => $genders[rand(0, $genders->count() - 1)],
-                    'ethnic_origin_id' => $ethnicOrigin[rand(0, $ethnicOrigin->count() - 1)],
-                    'blood_type_id' => $bloodType[rand(0, $bloodType->count() - 1)],
-                    'civil_status_id' => $civilStatus[rand(0, $civilStatus->count() - 1)],
-                ]);
-            Phone::factory(2)->for($userFactory, 'phoneable')
-                ->create(['operator_id' => $operators[rand(0, $operators->count() - 1)]]);
-            Email::factory(2)->for($userFactory, 'emailable')->create();
-        }
+//        for ($i = 1; $i <= 10; $i++) {
+//            $userFactory = User::factory()
+//                ->create([
+//                    'identification_type_id' => $identificationTypes[rand(0, $identificationTypes->count() - 1)],
+//                    'sex_id' => $sexes[rand(0, $sexes->count() - 1)],
+//                    'gender_id' => $genders[rand(0, $genders->count() - 1)],
+//                    'ethnic_origin_id' => $ethnicOrigin[rand(0, $ethnicOrigin->count() - 1)],
+//                    'blood_type_id' => $bloodType[rand(0, $bloodType->count() - 1)],
+//                    'civil_status_id' => $civilStatus[rand(0, $civilStatus->count() - 1)],
+//                ]);
+//            Phone::factory(2)->for($userFactory, 'phoneable')
+//                ->create(['operator_id' => $operators[rand(0, $operators->count() - 1)]]);
+//            Email::factory(2)->for($userFactory, 'emailable')->create();
+//        }
     }
 
     private function createRoles()
@@ -857,7 +857,7 @@ class AuthenticationSeeder extends Seeder
     private function createCivilStatusCatalogues()
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
-        Catalogue::factory(8)->sequence(
+        Catalogue::factory(5)->sequence(
             [
                 'code' => $catalogues['catalogue']['civil_status']['married'],
                 'name' => 'CASADO/A',

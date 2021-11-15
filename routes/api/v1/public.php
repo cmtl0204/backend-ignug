@@ -23,6 +23,7 @@ Route::prefix('auth')->group(function () {
     Route::post('request-user-unlock', [AuthController::class, 'requestUserUnlock']);
     Route::post('user-unlock', [AuthController::class, 'userUnlock']);
     Route::post('email-verified', [AuthController::class, 'emailVerified']);
+    Route::get('verify-user/{username}', [AuthController::class, 'verifyUser']);
 });
 
 Route::apiResource('locations', LocationController::class);

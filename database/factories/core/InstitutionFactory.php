@@ -2,17 +2,17 @@
 
 namespace Database\Factories\Core;
 
-use App\Models\Core\Phone;
+use App\Models\Core\Institution;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PhoneFactory extends Factory
+class InstitutionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Phone::class;
+    protected $model = Institution::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,11 @@ class PhoneFactory extends Factory
     public function definition()
     {
         return [
-           'number'=>$this->faker->phoneNumber(),
+           'code'=>$this->faker->ean8(),
+           'denomination'=>$this->faker->ean8(),
+           'email'=>$this->faker->companyEmail(),
+           'phone'=>$this->faker->phoneNumber(),
+           'web'=>$this->faker->url(),
         ];
     }
 }

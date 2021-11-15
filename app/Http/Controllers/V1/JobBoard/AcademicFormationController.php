@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\JobBoard;
 use App\Http\Controllers\Controller;
 
 // Models
+use App\Models\Core\Career;
 use App\Models\Core\File;
 use App\Models\JobBoard\AcademicFormation;
 use App\Models\JobBoard\Category;
@@ -51,7 +52,7 @@ class AcademicFormationController extends Controller
         $academicFormation = new AcademicFormation();
         $academicFormation->professional()->associate($professional);
         $academicFormation->professionalDegree()->associate(Category::find($request->input('professionalDegree.id')));
-
+        $academicFormation->career()->associate(Career::find($request->input('career.id')));
         $academicFormation->certificated = $request->input('certificated');
 
         if ($request->input('certificated')) {
@@ -86,6 +87,7 @@ class AcademicFormationController extends Controller
     public function update(UpdateAcademicFormationRequest $request, Professional $professional, AcademicFormation $academicFormation)
     {
         $academicFormation->professionalDegree()->associate(Category::find($request->input('professionalDegree.id')));
+        $academicFormation->career()->associate(Career::find($request->input('career.id')));
         $academicFormation->certificated = $request->input('certificated');
 
         if ($request->input('certificated')) {

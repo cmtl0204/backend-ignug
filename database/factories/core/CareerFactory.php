@@ -2,17 +2,18 @@
 
 namespace Database\Factories\Core;
 
-use App\Models\Core\Phone;
+use App\Models\Core\Career;
+use App\Models\Core\Institution;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PhoneFactory extends Factory
+class CareerFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Phone::class;
+    protected $model = Career::class;
 
     /**
      * Define the model's default state.
@@ -21,8 +22,10 @@ class PhoneFactory extends Factory
      */
     public function definition()
     {
+        $institutions = Institution::get();
         return [
-           'number'=>$this->faker->phoneNumber(),
+            'institution_id' => $institutions[rand(0, sizeof($institutions) - 1)],
+            'name' => $this->faker->word(),
         ];
     }
 }
